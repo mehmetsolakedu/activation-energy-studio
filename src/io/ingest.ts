@@ -8,6 +8,13 @@ import {
 } from './normalize';
 import { projectWideSeriesTable } from './wide';
 import { hashSourceFile } from '../sourceFileIdentity';
+import {
+  diagnosticFromGuardError,
+  fileSizeLimitForExtension,
+  INGESTION_LIMITS,
+  IngestionGuardError,
+  inspectXlsxSecurity,
+} from './fileSecurity';
 import type {
   BatchIngestionOptions,
   BatchIngestionResult,
@@ -618,6 +625,219 @@ function detectStructuralDelimiter(
   return winner;
 }
 
+interface WhitespaceRow {
+  fields: string[];
+  error?: string;
+}
+
+function parseWhitespaceRow(line: string): WhitespaceRow {
+  const fields: string[] = [];
+  let index = 0;
+  while (index < line.length) {
+    while (index < line.length && /[\t ]/.test(line[index])) index += 1;
+    if (index >= line.length) break;
+
+    if (line[index] === '"') {
+      index += 1;
+      let value = '';
+      let closed = false;
+      while (index < line.length) {
+        if (line[index] !== '"') {
+          value += line[index];
+          index += 1;
+          continue;
+        }
+        if (line[index + 1] === '"') {
+          value += '"';
+          index += 2;
+          continue;
+        }
+        index += 1;
+        closed = true;
+        break;
+      }
+      if (!closed) return { fields, error: 'unterminated quoted field' };
+      if (index < line.length && !/[\t ]/.test(line[index])) {
+        return { fields, error: 'characters follow a quoted field without whitespace' };
+      }
+      fields.push(value);
+      continue;
+    }
+
+    const start = index;
+    while (index < line.length && !/[\t ]/.test(line[index])) {
+      if (line[index] === '"') {
+        return { fields, error: 'a quote occurs inside an unquoted field' };
+      }
+      index += 1;
+    }
+    fields.push(line.slice(start, index));
+  }
+  return { fields };
+}
+
+function looksNumericToken(value: string): boolean {
+  return /^[+-]?(?:(?:\d+(?:[.,]\d*)?)|(?:[.,]\d+))(?:[eEdD][+-]?\d+)?$/.test(value);
+}
+
+function detectUnambiguousWhitespaceTable(text: string): boolean {
+  const sampled = text
+    .split(/\r\n|\n|\r/)
+    .filter((line) => line.trim() !== '')
+    .slice(0, 500)
+    .map(parseWhitespaceRow);
+  if (sampled.length < 2 || sampled.some(({ error }) => error)) return false;
+  const columnCount = sampled[0].fields.length;
+  if (
+    columnCount < 2
+    || sampled.some(({ fields }) => fields.length !== columnCount)
+  ) return false;
+  const headerEvidence = sampled[0].fields.filter((field) => /[A-Za-zÀ-žΑ-ωµ°]/u.test(field)).length >= 2;
+  const numericRowEvidence = sampled
+    .slice(1)
+    .some(({ fields }) => fields.filter(looksNumericToken).length >= 2);
+  return headerEvidence && numericRowEvidence;
+}
+
+function delimiterHasHeaderEvidence(text: string, delimiter: string): boolean {
+  const firstLine = text
+    .split(/\r\n|\n|\r/)
+    .find((line) => line.trim() !== '');
+  if (!firstLine || unquotedDelimiterCount(firstLine, delimiter) < 1) return false;
+  return firstLine
+    .split(delimiter)
+    .filter((cell) => /[A-Za-zÀ-žΑ-ωµ°]/u.test(cell))
+    .length >= 2;
+}
+
+function decodedTextLimitDiagnostic(
+  text: string,
+  fileName: string,
+): IngestionDiagnostic | undefined {
+  let rows = 1;
+  let currentLineCharacters = 0;
+  for (let index = 0; index < text.length; index += 1) {
+    const character = text[index];
+    if (character === '\r' || character === '\n') {
+      if (character === '\r' && text[index + 1] === '\n') index += 1;
+      rows += 1;
+      currentLineCharacters = 0;
+      if (rows > INGESTION_LIMITS.tableRows) {
+        return {
+          severity: 'error',
+          code: 'delimited_row_limit_exceeded',
+          message: `The text file contains more than ${INGESTION_LIMITS.tableRows} physical rows.`,
+          sourceFile: fileName,
+          suggestion: 'Split the source into smaller, scientifically coherent files before importing.',
+        };
+      }
+    } else {
+      currentLineCharacters += 1;
+      if (currentLineCharacters > INGESTION_LIMITS.physicalLineCharacters) {
+        return {
+          severity: 'error',
+          code: 'delimited_line_size_limit_exceeded',
+          message: `A physical text row exceeds ${INGESTION_LIMITS.physicalLineCharacters} characters.`,
+          sourceFile: fileName,
+          suggestion: 'Remove unusually long metadata or split the table before importing.',
+        };
+      }
+    }
+  }
+  return undefined;
+}
+
+function parseWhitespaceTable(
+  text: string,
+  fileName: string,
+): DelimitedParseResult {
+  const table: RawCell[][] = [];
+  const lines = text.split(/\r\n|\n|\r/);
+  let expectedColumns: number | undefined;
+  let totalCells = 0;
+  for (let rowIndex = 0; rowIndex < lines.length; rowIndex += 1) {
+    if (lines[rowIndex].trim() === '') {
+      table.push([]);
+      continue;
+    }
+    const parsed = parseWhitespaceRow(lines[rowIndex]);
+    if (parsed.error) {
+      return {
+        table: [],
+        delimiter: 'whitespace',
+        diagnostics: [{
+          severity: 'error',
+          code: 'whitespace_structure_invalid',
+          message: `Whitespace-delimited row ${rowIndex + 1} is ambiguous: ${parsed.error}.`,
+          sourceFile: fileName,
+          row: rowIndex + 1,
+          suggestion: 'Quote headings that contain spaces or choose a character delimiter.',
+        }],
+      };
+    }
+    if (parsed.fields.length > INGESTION_LIMITS.tableColumns) {
+      return {
+        table: [],
+        delimiter: 'whitespace',
+        diagnostics: [{
+          severity: 'error',
+          code: 'delimited_column_limit_exceeded',
+          message: `Row ${rowIndex + 1} contains ${parsed.fields.length} columns; the fixed limit is ${INGESTION_LIMITS.tableColumns}.`,
+          sourceFile: fileName,
+          row: rowIndex + 1,
+        }],
+      };
+    }
+    expectedColumns ??= parsed.fields.length;
+    if (parsed.fields.length !== expectedColumns) {
+      return {
+        table: [],
+        delimiter: 'whitespace',
+        diagnostics: [{
+          severity: 'error',
+          code: 'whitespace_inconsistent_columns',
+          message: `Whitespace-delimited row ${rowIndex + 1} has ${parsed.fields.length} columns; ${expectedColumns} were expected.`,
+          sourceFile: fileName,
+          row: rowIndex + 1,
+          suggestion: 'Quote fields containing spaces and represent missing values explicitly.',
+        }],
+      };
+    }
+    const oversizedColumn = parsed.fields.findIndex(
+      (field) => field.length > INGESTION_LIMITS.cellCharacters,
+    );
+    if (oversizedColumn >= 0) {
+      return {
+        table: [],
+        delimiter: 'whitespace',
+        diagnostics: [{
+          severity: 'error',
+          code: 'delimited_cell_size_limit_exceeded',
+          message: `Cell ${oversizedColumn + 1} on row ${rowIndex + 1} exceeds ${INGESTION_LIMITS.cellCharacters} characters.`,
+          sourceFile: fileName,
+          row: rowIndex + 1,
+          column: oversizedColumn + 1,
+        }],
+      };
+    }
+    totalCells += parsed.fields.length;
+    if (totalCells > INGESTION_LIMITS.tableCells) {
+      return {
+        table: [],
+        delimiter: 'whitespace',
+        diagnostics: [{
+          severity: 'error',
+          code: 'delimited_cell_limit_exceeded',
+          message: `The text table contains more than ${INGESTION_LIMITS.tableCells} cells.`,
+          sourceFile: fileName,
+        }],
+      };
+    }
+    table.push(parsed.fields);
+  }
+  return { table, delimiter: 'whitespace', diagnostics: [] };
+}
+
 async function parseDelimitedFile(
   file: File,
   options: IngestionOptions,
@@ -646,10 +866,44 @@ async function parseDelimitedFile(
       ],
     };
   }
-  const delimiter =
-    requestedDelimiter
-    ?? detectStructuralDelimiter(decoded.text, extension);
+  const physicalLimitDiagnostic = decodedTextLimitDiagnostic(decoded.text, file.name);
+  if (physicalLimitDiagnostic) {
+    return {
+      table: [],
+      delimiter: requestedDelimiter,
+      textEncoding: decoded.encoding,
+      diagnostics: [physicalLimitDiagnostic],
+    };
+  }
+
+  const detectedDelimiter = detectStructuralDelimiter(decoded.text, extension);
+  const useWhitespace = requestedDelimiter === undefined
+    && extension === 'txt'
+    && detectUnambiguousWhitespaceTable(decoded.text)
+    && (
+      detectedDelimiter === undefined
+      || !delimiterHasHeaderEvidence(decoded.text, detectedDelimiter)
+    );
+  if (useWhitespace) {
+    const parsed = parseWhitespaceTable(decoded.text, file.name);
+    if (decoded.encoding !== 'utf-8') {
+      parsed.diagnostics.unshift({
+        severity: 'info',
+        code: 'text_encoding_detected',
+        message: `Delimited text was decoded as ${decoded.encoding}.`,
+        sourceFile: file.name,
+      });
+    }
+    return { ...parsed, textEncoding: decoded.encoding };
+  }
+
+  const delimiter = requestedDelimiter ?? detectedDelimiter;
   return new Promise((resolve) => {
+    const table: RawCell[][] = [];
+    const diagnostics: IngestionDiagnostic[] = [];
+    let totalCells = 0;
+    let terminalDiagnostic: IngestionDiagnostic | undefined;
+    let parsedDelimiter: string | undefined = delimiter;
     Papa.parse<string[]>(decoded.text, {
       delimiter,
       delimitersToGuess: [',', '\t', ';', '|'],
@@ -657,18 +911,59 @@ async function parseDelimitedFile(
       // Physical rows are evidence. Normalizers ignore blank observations but
       // retain their positions so source-row provenance remains exact.
       skipEmptyLines: false,
-      complete: (parsed) => {
-        const diagnostics: IngestionDiagnostic[] = parsed.errors.map((error) => ({
-          severity: error.code === 'UndetectableDelimiter' ? 'error' : 'error',
+      step: (parsed, parser) => {
+        parsedDelimiter = parsed.meta.delimiter || parsedDelimiter;
+        diagnostics.push(...parsed.errors.map((error) => ({
+          severity: 'error' as const,
           code: `csv_${error.code.toLowerCase()}`,
           message: error.message,
           sourceFile: file.name,
           row: error.row === undefined ? undefined : error.row + 1,
-          suggestion:
-            error.code === 'UndetectableDelimiter'
-              ? 'Choose comma, semicolon, tab, or pipe explicitly.'
-              : 'Correct the delimited-text structure before importing.',
-        }));
+          suggestion: error.code === 'UndetectableDelimiter'
+            ? 'Choose comma, semicolon, tab, or pipe explicitly.'
+            : 'Correct the delimited-text structure before importing.',
+        })));
+        const row = parsed.data as unknown as string[];
+        const rowNumber = table.length + 1;
+        if (row.length > INGESTION_LIMITS.tableColumns) {
+          terminalDiagnostic = {
+            severity: 'error',
+            code: 'delimited_column_limit_exceeded',
+            message: `Row ${rowNumber} contains ${row.length} columns; the fixed limit is ${INGESTION_LIMITS.tableColumns}.`,
+            sourceFile: file.name,
+            row: rowNumber,
+          };
+        }
+        const oversizedColumn = row.findIndex(
+          (field) => field.length > INGESTION_LIMITS.cellCharacters,
+        );
+        if (!terminalDiagnostic && oversizedColumn >= 0) {
+          terminalDiagnostic = {
+            severity: 'error',
+            code: 'delimited_cell_size_limit_exceeded',
+            message: `Cell ${oversizedColumn + 1} on row ${rowNumber} exceeds ${INGESTION_LIMITS.cellCharacters} characters.`,
+            sourceFile: file.name,
+            row: rowNumber,
+            column: oversizedColumn + 1,
+          };
+        }
+        totalCells += row.length;
+        if (!terminalDiagnostic && totalCells > INGESTION_LIMITS.tableCells) {
+          terminalDiagnostic = {
+            severity: 'error',
+            code: 'delimited_cell_limit_exceeded',
+            message: `The text table contains more than ${INGESTION_LIMITS.tableCells} cells.`,
+            sourceFile: file.name,
+          };
+        }
+        if (terminalDiagnostic) {
+          parser.abort();
+          return;
+        }
+        table.push(row);
+      },
+      complete: (parsed) => {
+        if (terminalDiagnostic) diagnostics.push(terminalDiagnostic);
         if (decoded.encoding !== 'utf-8') {
           diagnostics.unshift({
             severity: 'info',
@@ -677,7 +972,6 @@ async function parseDelimitedFile(
             sourceFile: file.name,
           });
         }
-        const table = parsed.data.map((row) => row as RawCell[]);
         if (table.length > 0 && table.every((row) => row.length <= 1)) {
           diagnostics.push({
             severity: 'error',
@@ -688,8 +982,8 @@ async function parseDelimitedFile(
           });
         }
         resolve({
-          table,
-          delimiter: parsed.meta.delimiter,
+          table: terminalDiagnostic ? [] : table,
+          delimiter: parsed.meta.delimiter || parsedDelimiter,
           textEncoding: decoded.encoding,
           diagnostics,
         });
@@ -750,25 +1044,30 @@ async function ingestWorkbook(
   sourceFileId: string,
 ): Promise<IngestionResult> {
   let sheets: Awaited<ReturnType<typeof readXlsxFile>>;
+  let securityInspection: Awaited<ReturnType<typeof inspectXlsxSecurity>>;
   try {
-    sheets = await readXlsxFile(file);
+    securityInspection = await inspectXlsxSecurity(file);
+    sheets = await readXlsxFile(securityInspection.arrayBuffer);
   } catch (error) {
     return emptyResult(
       { sourceFileId, fileName: file.name, fileType: 'xlsx' },
       'error',
       [
-        {
-          severity: 'error',
-          code: 'xlsx_read_failed',
-          message: error instanceof Error ? error.message : 'The workbook could not be decoded.',
-          sourceFile: file.name,
-          suggestion: 'Confirm that the file is a valid, unencrypted .xlsx workbook.',
-        },
+        error instanceof IngestionGuardError
+          ? diagnosticFromGuardError(error, file.name)
+          : {
+              severity: 'error',
+              code: 'xlsx_read_failed',
+              message: error instanceof Error ? error.message : 'The workbook could not be decoded.',
+              sourceFile: file.name,
+              suggestion: 'Confirm that the file is a valid, unencrypted .xlsx workbook.',
+            },
       ],
     );
   }
 
   const sheetNames = sheets.map(({ sheet }) => sheet);
+  const securityDiagnostics = securityInspection.diagnostics;
   const sourceBase: IngestionSource = {
     sourceFileId,
     fileName: file.name,
@@ -776,7 +1075,7 @@ async function ingestWorkbook(
     availableSheets: sheetNames,
   };
   if (sheets.length === 0) {
-    return emptyResult(sourceBase, 'error', [
+    return emptyResult(sourceBase, 'error', [...securityDiagnostics,
       {
         severity: 'error',
         code: 'xlsx_no_sheets',
@@ -787,10 +1086,23 @@ async function ingestWorkbook(
   }
 
   if (sheets.length > 1 && options.sheet === undefined) {
-    return emptyResult(sourceBase, 'needs_mapping', [], [
+    return emptyResult(sourceBase, 'needs_mapping', securityDiagnostics, [
       {
         kind: 'sheet',
         message: 'The workbook contains multiple worksheets; select the sheet to import.',
+        allowedValues: sheetNames,
+      },
+    ]);
+  }
+
+  const soleSheetRequiresHiddenConfirmation = sheets.length === 1
+    && options.sheet === undefined
+    && securityInspection.hiddenSheetNames.has(sheets[0].sheet);
+  if (soleSheetRequiresHiddenConfirmation) {
+    return emptyResult(sourceBase, 'needs_mapping', securityDiagnostics, [
+      {
+        kind: 'sheet',
+        message: 'The only worksheet is hidden; select it explicitly to confirm that it is the intended source.',
         allowedValues: sheetNames,
       },
     ]);
@@ -804,7 +1116,7 @@ async function ingestWorkbook(
         : sheets.find(({ sheet }) => sheet === options.sheet);
 
   if (!selected) {
-    return emptyResult(sourceBase, 'error', [
+    return emptyResult(sourceBase, 'error', [...securityDiagnostics,
       {
         severity: 'error',
         code: 'xlsx_sheet_not_found',
@@ -817,9 +1129,15 @@ async function ingestWorkbook(
 
   const source = { ...sourceBase, sheetName: selected.sheet };
   if (options.layout === 'wide-series') {
-    return ingestWideSeriesTable(selected.data as RawTable, source, options);
+    return mergeParseDiagnostics(
+      ingestWideSeriesTable(selected.data as RawTable, source, options),
+      securityDiagnostics,
+    );
   }
-  return normalizeThermalTable(selected.data as RawTable, source, options);
+  return mergeParseDiagnostics(
+    normalizeThermalTable(selected.data as RawTable, source, options),
+    securityDiagnostics,
+  );
 }
 
 /** Decodes and normalizes one browser File without accessing the network. */
@@ -828,6 +1146,23 @@ export async function ingestThermalFile(
   options: IngestionOptions = {},
 ): Promise<IngestionResult> {
   const extension = fileExtension(file.name);
+  const fileSizeLimit = fileSizeLimitForExtension(extension);
+  if (fileSizeLimit !== undefined && file.size > fileSizeLimit) {
+    return emptyResult(
+      {
+        fileName: file.name,
+        fileType: extension === 'xlsx' ? 'xlsx' : extension as 'csv' | 'tsv' | 'txt',
+      },
+      'error',
+      [{
+        severity: 'error',
+        code: 'file_size_limit_exceeded',
+        message: `The file contains ${file.size} bytes; the fixed ${extension.toUpperCase()} limit is ${fileSizeLimit} bytes.`,
+        sourceFile: file.name,
+        suggestion: 'Split the source into smaller, scientifically coherent files before importing.',
+      }],
+    );
+  }
   let sourceFileId: string | undefined;
   try {
     ({ sourceFileId } = await hashSourceFile(file));
