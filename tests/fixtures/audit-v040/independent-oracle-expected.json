@@ -1,0 +1,935 @@
+{
+  "constants": {
+    "fwoNaturalLogSlopeCoefficient": "1.052",
+    "gasConstantJPerMolK": "8.31446261815324",
+    "minimumRelativeReciprocalTemperatureSpan": 1.4901161193847656e-08,
+    "starinkSlopeCoefficient": "1.0008",
+    "starinkTemperatureExponent": "1.92"
+  },
+  "handWorkedFixture": {
+    "friedmanDerivativesPerMinute": [
+      "0.013",
+      "0.027",
+      "0.053",
+      "0.101"
+    ],
+    "heatingRatesKPerMinute": [
+      "5",
+      "10",
+      "20",
+      "40"
+    ],
+    "methods": {
+      "FRIEDMAN": {
+        "activationEnergyKJPerMol": "78.0248154487231722376649655375",
+        "method": "FRIEDMAN",
+        "physicallyAdmissible": true,
+        "regression": {
+          "intercept": "12.7132384184151952333900164893",
+          "n": 4,
+          "r2": "0.999894222362285350591595134599",
+          "slope": "-9384.22830579200916579133245108",
+          "sse": "0.000246556802824449351529048011026",
+          "sxx": "2.64654970394788232904747769845e-8",
+          "syy": "2.33089723075091027530111061369"
+        },
+        "xReciprocalKelvin": [
+          "0.00181818181818181818181818181818",
+          "0.00173913043478260869565217391304",
+          "0.00166666666666666666666666666667",
+          "0.0016"
+        ],
+        "yNaturalLog": [
+          "-4.34280592152060031600048692249",
+          "-3.61191841297780797786823865329",
+          "-2.93746336543001521790950522502",
+          "-2.29263476214087760116977609714"
+        ]
+      },
+      "FWO": {
+        "activationEnergyKJPerMol": "75.2443294256901979608112838149",
+        "method": "FWO",
+        "physicallyAdmissible": true,
+        "regression": {
+          "intercept": "18.8909159668447321092230857452",
+          "n": 4,
+          "r2": "0.998549940411654785072020894291",
+          "slope": "-9520.40296422764934301797658139",
+          "sse": "0.00348342749790722488075453952082",
+          "sxx": "2.64654970394788232904747769845e-8",
+          "syy": "2.40226506959100712333551263163"
+        },
+        "xReciprocalKelvin": [
+          "0.00181818181818181818181818181818",
+          "0.00173913043478260869565217391304",
+          "0.00166666666666666666666666666667",
+          "0.0016"
+        ],
+        "yNaturalLog": [
+          "1.60943791243410037460075933323",
+          "2.30258509299404568401799145468",
+          "2.99573227355399099343522357614",
+          "3.68887945411393630285245569760"
+        ]
+      },
+      "KAS": {
+        "activationEnergyKJPerMol": "69.4188110487791914041798306387",
+        "method": "KAS",
+        "physicallyAdmissible": true,
+        "regression": {
+          "intercept": "4.14330346523127948092593211916",
+          "n": 4,
+          "r2": "0.998339592956891569557816973425",
+          "slope": "-8349.16388910268422230504943362",
+          "sse": "0.00306833164209953528051625323303",
+          "sxx": "2.64654970394788232904747769845e-8",
+          "syy": "1.84793942836772367941039358210"
+        },
+        "xReciprocalKelvin": [
+          "0.00181818181818181818181818181818",
+          "0.00173913043478260869565217391304",
+          "0.00166666666666666666666666666667",
+          "0.0016"
+        ],
+        "yNaturalLog": [
+          "-11.0103986440189328307606293985",
+          "-10.4061549886006551959985515418",
+          "-9.79812703687830174426169695936",
+          "-9.18662384535886669395361896821"
+        ]
+      },
+      "KISSINGER": {
+        "activationEnergyKJPerMol": "69.4188110487791914041798306387",
+        "method": "KISSINGER",
+        "physicallyAdmissible": true,
+        "regression": {
+          "intercept": "4.14330346523127948092593211916",
+          "n": 4,
+          "r2": "0.998339592956891569557816973425",
+          "slope": "-8349.16388910268422230504943362",
+          "sse": "0.00306833164209953528051625323303",
+          "sxx": "2.64654970394788232904747769845e-8",
+          "syy": "1.84793942836772367941039358210"
+        },
+        "xReciprocalKelvin": [
+          "0.00181818181818181818181818181818",
+          "0.00173913043478260869565217391304",
+          "0.00166666666666666666666666666667",
+          "0.0016"
+        ],
+        "yNaturalLog": [
+          "-11.0103986440189328307606293985",
+          "-10.4061549886006551959985515418",
+          "-9.79812703687830174426169695936",
+          "-9.18662384535886669395361896821"
+        ]
+      },
+      "STARINK": {
+        "activationEnergyKJPerMol": "69.7525379586941119886126860873",
+        "method": "STARINK",
+        "physicallyAdmissible": true,
+        "regression": {
+          "intercept": "4.73320796529581758605781826420",
+          "n": 4,
+          "r2": "0.998349440485731471306075791095",
+          "slope": "-8396.01345210768282713356651954",
+          "sse": "0.00308442997954467631123029939514",
+          "sxx": "2.64654970394788232904747769845e-8",
+          "syy": "1.86871782136955526666640364381"
+        },
+        "xReciprocalKelvin": [
+          "0.00181818181818181818181818181818",
+          "0.00173913043478260869565217391304",
+          "0.00166666666666666666666666666667",
+          "0.0016"
+        ],
+        "yNaturalLog": [
+          "-10.5056051817608115025461738493",
+          "-9.89780538533686716079788982198",
+          "-9.28637266446101003475382013794",
+          "-8.67160371337995457408137598158"
+        ]
+      }
+    },
+    "temperaturesK": [
+      "550",
+      "575",
+      "600",
+      "625"
+    ]
+  },
+  "illConditionedReciprocalTemperatureFixture": {
+    "expectedDisposition": "refused-no-numeric-result",
+    "heatingRatesKPerMinute": [
+      5.0,
+      10.0,
+      20.0,
+      40.0
+    ],
+    "methods": {
+      "FWO": {
+        "activationEnergyKJPerMol": 1972179340.386516,
+        "confidence95KJPerMol": [
+          1972179133.180889,
+          1972179547.5921433
+        ],
+        "method": "FWO",
+        "physicallyAdmissible": true,
+        "regression": {
+          "intercept": 415888307.99995613,
+          "minimumRelativeXSpan": 1.4901161193847656e-08,
+          "n": 4,
+          "numericConditioningAcceptable": false,
+          "r2": 0.9999999999999988,
+          "relativeXSpan": 5.000000023389073e-09,
+          "residualDegreesOfFreedom": 2,
+          "residualStandardError": 3.78468124977092e-08,
+          "slope": -249532983834.31094,
+          "slopeConfidence95": [
+            -249533010051.31735,
+            -249532957617.30453
+          ],
+          "slopeStandardError": 6093.219245809826,
+          "sse": 2.864762432473515e-15,
+          "studentTCritical95": 4.302652729749456,
+          "sxx": 3.858024727452278e-23,
+          "syy": 2.4022650695910066
+        }
+      },
+      "KAS": {
+        "activationEnergyKJPerMol": 2074732656.109262,
+        "confidence95KJPerMol": [
+          2074732530.679375,
+          2074732781.5391486
+        ],
+        "method": "KAS",
+        "physicallyAdmissible": true,
+        "regression": {
+          "intercept": 415888293.20609725,
+          "minimumRelativeXSpan": 1.4901161193847656e-08,
+          "n": 4,
+          "numericConditioningAcceptable": false,
+          "r2": 0.9999999999999996,
+          "relativeXSpan": 5.000000023389073e-09,
+          "residualDegreesOfFreedom": 2,
+          "residualStandardError": 2.1777752319673598e-08,
+          "slope": -249532982634.3112,
+          "slopeConfidence95": [
+            -249532997720.05908,
+            -249532967548.5633
+          ],
+          "slopeStandardError": 3506.150473642837,
+          "sse": 9.485409921940975e-16,
+          "studentTCritical95": 4.302652729749456,
+          "sxx": 3.858024727452278e-23,
+          "syy": 2.4022650464861046
+        }
+      },
+      "KISSINGER": {
+        "activationEnergyKJPerMol": 2074732656.109262,
+        "confidence95KJPerMol": [
+          2074732530.679375,
+          2074732781.5391486
+        ],
+        "method": "KISSINGER",
+        "physicallyAdmissible": true,
+        "regression": {
+          "intercept": 415888293.20609725,
+          "minimumRelativeXSpan": 1.4901161193847656e-08,
+          "n": 4,
+          "numericConditioningAcceptable": false,
+          "r2": 0.9999999999999996,
+          "relativeXSpan": 5.000000023389073e-09,
+          "residualDegreesOfFreedom": 2,
+          "residualStandardError": 2.1777752319673598e-08,
+          "slope": -249532982634.3112,
+          "slopeConfidence95": [
+            -249532997720.05908,
+            -249532967548.5633
+          ],
+          "slopeStandardError": 3506.150473642837,
+          "sse": 9.485409921940975e-16,
+          "studentTCritical95": 4.302652729749456,
+          "sxx": 3.858024727452278e-23,
+          "syy": 2.4022650464861046
+        }
+      },
+      "STARINK": {
+        "activationEnergyKJPerMol": 2073074197.1506336,
+        "confidence95KJPerMol": [
+          2073073764.2233398,
+          2073074630.077927
+        ],
+        "method": "STARINK",
+        "physicallyAdmissible": true,
+        "regression": {
+          "intercept": 415888293.79785115,
+          "minimumRelativeXSpan": 1.4901161193847656e-08,
+          "n": 4,
+          "numericConditioningAcceptable": false,
+          "r2": 0.9999999999999953,
+          "relativeXSpan": 5.000000023389073e-09,
+          "residualDegreesOfFreedom": 2,
+          "residualStandardError": 7.522709415821445e-08,
+          "slope": -249532982682.3109,
+          "slopeConfidence95": [
+            -249533034793.15143,
+            -249532930571.4704
+          ],
+          "slopeStandardError": 12111.328476048673,
+          "sse": 1.1318231390977727e-14,
+          "studentTCritical95": 4.302652729749456,
+          "sxx": 3.858024727452278e-23,
+          "syy": 2.402265047410296
+        }
+      }
+    },
+    "temperaturesK": [
+      600.0,
+      600.000001,
+      600.000002,
+      600.000003
+    ]
+  },
+  "irregularGridDerivativeFixture": {
+    "alpha": [
+      0.36,
+      0.4,
+      0.54
+    ],
+    "endpointSecantAtZeroPerMinute": 0.06000000000000002,
+    "exactDerivativeAtZeroPerMinute": 0.05,
+    "threePointNonuniformDerivativeAtZeroPerMinute": 0.05000000000000003,
+    "timeMinutes": [
+      -1.0,
+      0.0,
+      2.0
+    ],
+    "underlyingPolynomial": "alpha(t)=0.40+0.05t+0.01t^2"
+  },
+  "nonpositiveEaFixture": {
+    "expectedDisposition": "refused-no-numeric-result",
+    "heatingRatesKPerMinute": [
+      "5",
+      "10",
+      "20",
+      "40"
+    ],
+    "methods": {
+      "FRIEDMAN": {
+        "activationEnergyKJPerMol": "-96.6077371492194765424066565360",
+        "method": "FRIEDMAN",
+        "physicallyAdmissible": false,
+        "regression": {
+          "intercept": "-23.5331603511202283226022670723",
+          "n": 4,
+          "r2": "0.999048130068764210250542294614",
+          "slope": "11619.2400622852790358485751961",
+          "sse": "0.00228664388660173162759974366157",
+          "sxx": "1.77767304978285443717694790002e-8",
+          "syy": "2.40226506959100712333551263163"
+        },
+        "xReciprocalKelvin": [
+          "0.00163934426229508196721311475410",
+          "0.00169491525423728813559322033898",
+          "0.00175438596491228070175438596491",
+          "0.00181818181818181818181818181818"
+        ],
+        "yNaturalLog": [
+          "-4.50986000618376650799203078609",
+          "-3.81671282562382119857479866463",
+          "-3.12356564506387588915756654317",
+          "-2.43041846450393057974033442171"
+        ]
+      },
+      "FWO": {
+        "activationEnergyKJPerMol": "-91.8324497616154719984854149582",
+        "method": "FWO",
+        "physicallyAdmissible": false,
+        "regression": {
+          "intercept": "-17.4138624325023614400094769530",
+          "n": 4,
+          "r2": "0.999048130068764210250542294614",
+          "slope": "11619.2400622852790358485751961",
+          "sse": "0.00228664388660173162759974366157",
+          "sxx": "1.77767304978285443717694790002e-8",
+          "syy": "2.40226506959100712333551263163"
+        },
+        "xReciprocalKelvin": [
+          "0.00163934426229508196721311475410",
+          "0.00169491525423728813559322033898",
+          "0.00175438596491228070175438596491",
+          "0.00181818181818181818181818181818"
+        ],
+        "yNaturalLog": [
+          "1.60943791243410037460075933323",
+          "2.30258509299404568401799145468",
+          "2.99573227355399099343522357614",
+          "3.68887945411393630285245569760"
+        ]
+      },
+      "KAS": {
+        "activationEnergyKJPerMol": "-106.232245964859534151319533460",
+        "method": "KAS",
+        "physicallyAdmissible": false,
+        "regression": {
+          "intercept": "-32.1372012941904451829835252393",
+          "n": 4,
+          "r2": "0.999132377746235917564369588680",
+          "slope": "12776.8024036717867592415061427",
+          "sse": "0.00252001946311875979388404339204",
+          "sxx": "1.77767304978285443717694790002e-8",
+          "syy": "2.90451224848825194982726817318"
+        },
+        "xReciprocalKelvin": [
+          "0.00163934426229508196721311475410",
+          "0.00169491525423728813559322033898",
+          "0.00175438596491228070175438596491",
+          "0.00181818181818181818181818181818"
+        ],
+        "yNaturalLog": [
+          "-11.2174800019006134909380017830",
+          "-10.4576599808054845852500922021",
+          "-9.69554044810320067740930467085",
+          "-8.93095710233909690250893303415"
+        ]
+      },
+      "KISSINGER": {
+        "activationEnergyKJPerMol": "-106.232245964859534151319533460",
+        "method": "KISSINGER",
+        "physicallyAdmissible": false,
+        "regression": {
+          "intercept": "-32.1372012941904451829835252393",
+          "n": 4,
+          "r2": "0.999132377746235917564369588680",
+          "slope": "12776.8024036717867592415061427",
+          "sse": "0.00252001946311875979388404339204",
+          "sxx": "1.77767304978285443717694790002e-8",
+          "syy": "2.90451224848825194982726817318"
+        },
+        "xReciprocalKelvin": [
+          "0.00163934426229508196721311475410",
+          "0.00169491525423728813559322033898",
+          "0.00175438596491228070175438596491",
+          "0.00181818181818181818181818181818"
+        ],
+        "yNaturalLog": [
+          "-11.2174800019006134909380017830",
+          "-10.4576599808054845852500922021",
+          "-9.69554044810320067740930467085",
+          "-8.93095710233909690250893303415"
+        ]
+      },
+      "STARINK": {
+        "activationEnergyKJPerMol": "-105.762655487843656921425877681",
+        "method": "STARINK",
+        "physicallyAdmissible": false,
+        "regression": {
+          "intercept": "-31.5482677397229218332645633078",
+          "n": 4,
+          "r2": "0.999129370469341539350474183357",
+          "slope": "12730.4999100163264503057889048",
+          "sse": "0.00251046674474943697919215800383",
+          "sxx": "1.77767304978285443717694790002e-8",
+          "syy": "2.88350745793191828162521742381"
+        },
+        "xReciprocalKelvin": [
+          "0.00163934426229508196721311475410",
+          "0.00169491525423728813559322033898",
+          "0.00175438596491228070175438596491",
+          "0.00181818181818181818181818181818"
+        ],
+        "yNaturalLog": [
+          "-10.7044032853272249363164513383",
+          "-9.94725017785350337447936885585",
+          "-9.18788953923691301057552354097",
+          "-8.42616364008097557429447748488"
+        ]
+      }
+    },
+    "temperaturesK": [
+      "610",
+      "590",
+      "570",
+      "550"
+    ]
+  },
+  "oracleIdentity": {
+    "implementation": "stdlib Decimal + stdlib float + independent RK4 + incomplete-beta Student-t",
+    "name": "Activation Energy Studio independent audit oracle",
+    "productionImports": [],
+    "python": "3.12.14"
+  },
+  "schemaVersion": 1,
+  "studentTCriticalTwoSided95": {
+    "1": 12.706204736174659,
+    "10": 2.228138851986274,
+    "100": 1.9839715185235494,
+    "2": 4.302652729749456,
+    "3": 3.1824463052837046,
+    "30": 2.042272456301233,
+    "31": 2.0395134463964064,
+    "4": 2.7764451051977908,
+    "5": 2.570581835636312
+  },
+  "syntheticFirstOrderOde": {
+    "alphaResults": {
+      "0.2": {
+        "derivativesPerMinute": [
+          0.019003217335463084,
+          0.04462194991651691,
+          0.0850053090757867,
+          0.16175331741375076,
+          0.3074309031164494
+        ],
+        "methods": {
+          "FRIEDMAN": {
+            "activationEnergyKJPerMol": 120.00000000000003,
+            "confidence95KJPerMol": [
+              119.99999999999953,
+              120.00000000000053
+            ],
+            "method": "FRIEDMAN",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 22.802707378626252,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 1.0,
+              "relativeXSpan": 0.10399974613315896,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 2.80280927781858e-15,
+              "slope": -14432.68260512713,
+              "slopeConfidence95": [
+                -14432.68260512719,
+                -14432.68260512707
+              ],
+              "slopeStandardError": 1.862535817621207e-11,
+              "sse": 2.3567219543477728e-29,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.264528685390823e-08,
+              "syy": 4.717065951335428
+            }
+          },
+          "FWO": {
+            "activationEnergyKJPerMol": 122.75715838316769,
+            "confidence95KJPerMol": [
+              122.49748728677734,
+              123.01682947955806
+            ],
+            "method": "FWO",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 29.496372360903493,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 0.9999986745843962,
+              "relativeXSpan": 0.10399974613315896,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 0.0015535777569276885,
+              "slope": -15532.03574902552,
+              "slopeConfidence95": [
+                -15564.891028548484,
+                -15499.180469502555
+              ],
+              "slopeStandardError": 10.323906948065732,
+              "sse": 7.240811540461403e-06,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.264528685390823e-08,
+              "syy": 5.4630498685908195
+            }
+          },
+          "KAS": {
+            "activationEnergyKJPerMol": 119.67520991453529,
+            "confidence95KJPerMol": [
+              119.6564187896643,
+              119.69400103940627
+            ],
+            "method": "KAS",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 14.806407243791226,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 0.9999999926970851,
+              "relativeXSpan": 0.10399974613315896,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 0.00010686768994218412,
+              "slope": -14393.619336653755,
+              "slopeConfidence95": [
+                -14395.87938949589,
+                -14391.35928381162
+              ],
+              "slopeStandardError": 0.7101621285436579,
+              "sse": 3.42621094607364e-08,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.264528685390823e-08,
+              "syy": 4.691566270031355
+            }
+          },
+          "STARINK": {
+            "activationEnergyKJPerMol": 119.95785645755156,
+            "confidence95KJPerMol": [
+              119.95074878734717,
+              119.96496412775593
+            ],
+            "method": "STARINK",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 15.394005848475723,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 0.9999999989600888,
+              "relativeXSpan": 0.10399974613315896,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 4.0454627653637054e-05,
+              "slope": -14439.155993148628,
+              "slopeConfidence95": [
+                -14440.011533267963,
+                -14438.300453029293
+              ],
+              "slopeStandardError": 0.26883096752152796,
+              "sse": 4.909730695783248e-09,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.264528685390823e-08,
+              "syy": 4.721298328974972
+            }
+          }
+        },
+        "temperaturesK": [
+          539.2199483479304,
+          556.9832791263863,
+          571.1898846819738,
+          586.1132998282186,
+          601.8078075545574
+        ]
+      },
+      "0.5": {
+        "derivativesPerMinute": [
+          0.03413195384490046,
+          0.07995779487139214,
+          0.15203546317963926,
+          0.288736141004996,
+          0.5476517998682803
+        ],
+        "methods": {
+          "FRIEDMAN": {
+            "activationEnergyKJPerMol": 119.99999999999996,
+            "confidence95KJPerMol": [
+              119.9999999999995,
+              120.00000000000041
+            ],
+            "method": "FRIEDMAN",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 22.332703749380503,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 1.0,
+              "relativeXSpan": 0.10794948985166064,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 2.587081703915538e-15,
+              "slope": -14432.68260512712,
+              "slopeConfidence95": [
+                -14432.682605127175,
+                -14432.682605127065
+              ],
+              "slopeStandardError": 1.724278271212294e-11,
+              "sse": 2.0078975228203566e-29,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.2511559312973448e-08,
+              "syy": 4.6892101933506
+            }
+          },
+          "FWO": {
+            "activationEnergyKJPerMol": 123.12121798906287,
+            "confidence95KJPerMol": [
+              122.84008724440355,
+              123.40234873372222
+            ],
+            "method": "FWO",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 28.44227936081524,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 0.9999984556373356,
+              "relativeXSpan": 0.10794948985166064,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 0.0016769943600294852,
+              "slope": -15578.09894312366,
+              "slopeConfidence95": [
+                -15613.669437208979,
+                -15542.52844903834
+              ],
+              "slopeStandardError": 11.177091668840514,
+              "sse": 8.436930250712107e-06,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.2511559312973448e-08,
+              "syy": 5.4630498685908195
+            }
+          },
+          "KAS": {
+            "activationEnergyKJPerMol": 119.64835604753527,
+            "confidence95KJPerMol": [
+              119.62724483794852,
+              119.66946725712202
+            ],
+            "method": "KAS",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 13.667416719955103,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 0.9999999907782818,
+              "relativeXSpan": 0.10794948985166064,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 0.00011970730032435506,
+              "slope": -14390.389558827661,
+              "slopeConfidence95": [
+                -14392.92865372246,
+                -14387.850463932862
+              ],
+              "slopeStandardError": 0.7978437501311655,
+              "sse": 4.2989513252836016e-08,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.2511559312973448e-08,
+              "syy": 4.661768296033872
+            }
+          },
+          "STARINK": {
+            "activationEnergyKJPerMol": 119.94740473482577,
+            "confidence95KJPerMol": [
+              119.93897377740467,
+              119.95583569224688
+            ],
+            "method": "STARINK",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 14.258411225589509,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 0.9999999985365726,
+              "relativeXSpan": 0.10794948985166064,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 4.7844466021774594e-05,
+              "slope": -14437.8979341995,
+              "slopeConfidence95": [
+                -14438.912756512686,
+                -14436.883111886315
+              ],
+              "slopeStandardError": 0.31888120515962715,
+              "sse": 6.867278786726231e-09,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.2511559312973448e-08,
+              "syy": 4.69259975620428
+            }
+          }
+        },
+        "temperaturesK": [
+          561.35963780684,
+          580.5827174107999,
+          595.9892986090546,
+          612.204276077074,
+          629.2913141358905
+        ]
+      },
+      "0.8": {
+        "derivativesPerMinute": [
+          0.029863380772457343,
+          0.06982806367035099,
+          0.1325773590916222,
+          0.25139130297780576,
+          0.4760422097756053
+        ],
+        "methods": {
+          "FRIEDMAN": {
+            "activationEnergyKJPerMol": 120.00000000000001,
+            "confidence95KJPerMol": [
+              119.99999999999893,
+              120.0000000000011
+            ],
+            "method": "FRIEDMAN",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 21.416413017506354,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 1.0,
+              "relativeXSpan": 0.11107690702690944,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 6.037885086074064e-15,
+              "slope": -14432.682605127127,
+              "slopeConfidence95": [
+                -14432.682605127256,
+                -14432.682605126998
+              ],
+              "slopeStandardError": 4.033710674705915e-11,
+              "sse": 1.0936816893790684e-28,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.2405786717190754e-08,
+              "syy": 4.6671775154971655
+            }
+          },
+          "FWO": {
+            "activationEnergyKJPerMol": 123.41147751923624,
+            "confidence95KJPerMol": [
+              123.11266902610629,
+              123.71028601236621
+            ],
+            "method": "FWO",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 27.660812499412717,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 0.9999982635067404,
+              "relativeXSpan": 0.11107690702690944,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 0.0017782528198220476,
+              "slope": -15614.824470649119,
+              "slopeConfidence95": [
+                -15652.631668685754,
+                -15577.017272612484
+              ],
+              "slopeStandardError": 11.879917022909202,
+              "sse": 9.486549273615192e-06,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.2405786717190754e-08,
+              "syy": 5.4630498685908195
+            }
+          },
+          "KAS": {
+            "activationEnergyKJPerMol": 119.6262339077381,
+            "confidence95KJPerMol": [
+              119.60314818280926,
+              119.64931963266694
+            ],
+            "method": "KAS",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 12.820603456814052,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 0.9999999889685335,
+              "relativeXSpan": 0.11107690702690944,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 0.00013059553998911942,
+              "slope": -14387.72887697567,
+              "slopeConfidence95": [
+                -14390.50545148073,
+                -14384.95230247061
+              ],
+              "slopeStandardError": 0.8724654679799786,
+              "sse": 5.1165585195149065e-08,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.2405786717190754e-08,
+              "syy": 4.638148966756347
+            }
+          },
+          "STARINK": {
+            "activationEnergyKJPerMol": 119.93838881438658,
+            "confidence95KJPerMol": [
+              119.92880704359725,
+              119.94797058517594
+            ],
+            "method": "STARINK",
+            "physicallyAdmissible": true,
+            "regression": {
+              "intercept": 13.414211818518007,
+              "minimumRelativeXSpan": 1.4901161193847656e-08,
+              "n": 5,
+              "numericConditioningAcceptable": true,
+              "r2": 0.9999999981095107,
+              "relativeXSpan": 0.11107690702690944,
+              "residualDegreesOfFreedom": 3,
+              "residualStandardError": 5.424727199904142e-05,
+              "slope": -14436.812700722614,
+              "slopeConfidence95": [
+                -14437.966044798639,
+                -14435.659356646589
+              ],
+              "slopeStandardError": 0.36240802369839026,
+              "sse": 8.82829955801395e-09,
+              "studentTCritical95": 3.1824463052837046,
+              "sxx": 2.2405786717190754e-08,
+              "syy": 4.669849050866709
+            }
+          }
+        },
+        "temperaturesK": [
+          578.9855449893839,
+          599.410386976189,
+          615.8075430431302,
+          633.0913204770882,
+          651.3336750572087
+        ]
+      }
+    },
+    "kissinger": {
+      "activationEnergyKJPerMol": 120.00000000000024,
+      "confidence95KJPerMol": [
+        119.99999999999946,
+        120.00000000000105
+      ],
+      "method": "KISSINGER",
+      "physicallyAdmissible": true,
+      "regression": {
+        "intercept": 13.448600390729517,
+        "minimumRelativeXSpan": 1.4901161193847656e-08,
+        "n": 5,
+        "numericConditioningAcceptable": true,
+        "r2": 1.0,
+        "relativeXSpan": 0.10871904046307795,
+        "residualDegreesOfFreedom": 3,
+        "residualStandardError": 4.470400011810908e-15,
+        "slope": -14432.682605127156,
+        "slopeConfidence95": [
+          -14432.682605127251,
+          -14432.682605127062
+        ],
+        "slopeStandardError": 2.9901226746187745e-11,
+        "sse": 5.99534287967969e-29,
+        "studentTCritical95": 3.1824463052837046,
+        "sxx": 2.235191609525115e-08,
+        "syy": 4.655956139580512
+      }
+    },
+    "parameters": {
+      "activationEnergyJPerMol": 120000.0,
+      "alphaTargets": [
+        0.2,
+        0.5,
+        0.8
+      ],
+      "heatingRatesKPerMinute": [
+        2.0,
+        5.0,
+        10.0,
+        20.0,
+        40.0
+      ],
+      "model": "dalpha/dt = A exp(-E/(RT)) (1-alpha); dT/dt=beta",
+      "preExponentialPerMinute": 10000000000.0,
+      "rk4TemperatureStepK": 0.02
+    },
+    "peakTemperaturesK": [
+      567.3780750666895,
+      586.955436381927,
+      602.6502113995587,
+      619.172383399178,
+      636.5872276251464
+    ]
+  }
+}
