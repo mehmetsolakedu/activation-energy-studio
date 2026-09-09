@@ -247,24 +247,76 @@ function isRemoteModuleSpecifier(specifier) {
   return /^(?:https?:|wss?:|\/\/)/i.test(specifier);
 }
 
-function scanSourceTokens(sourceText) {
+const EXPRESSION_END_TOKENS = new Set([
+  SyntaxKind.Identifier,
+  SyntaxKind.PrivateIdentifier,
+  SyntaxKind.NumericLiteral,
+  SyntaxKind.BigIntLiteral,
+  SyntaxKind.StringLiteral,
+  SyntaxKind.RegularExpressionLiteral,
+  SyntaxKind.NoSubstitutionTemplateLiteral,
+  SyntaxKind.TemplateTail,
+  SyntaxKind.ThisKeyword,
+  SyntaxKind.SuperKeyword,
+  SyntaxKind.TrueKeyword,
+  SyntaxKind.FalseKeyword,
+  SyntaxKind.NullKeyword,
+  SyntaxKind.CloseParenToken,
+  SyntaxKind.CloseBracketToken,
+  SyntaxKind.CloseBraceToken,
+  SyntaxKind.PlusPlusToken,
+  SyntaxKind.MinusMinusToken,
+]);
+
+function slashStartsRegularExpression(previousKind) {
+  if (previousKind === undefined) return true;
+  // In TSX, a slash immediately following "<" starts a closing element.
+  if (previousKind === SyntaxKind.LessThanToken) return false;
+  return !EXPRESSION_END_TOKENS.has(previousKind);
+}
+
+function scanSourceTokens(sourceText, filePath) {
   const scanner = createScanner(true, LanguageVariant.JSX, sourceText);
   const tokens = [];
   const templateStack = [];
+  const maximumTokenCount = Math.max(1_000, sourceText.length * 4);
 
   const pushCurrentToken = (kind) => {
-    tokens.push({
+    const token = {
       kind,
       text: scanner.getTokenText(),
       value: scanner.getTokenValue(),
       start: scanner.getTokenStart(),
       end: scanner.getTokenEnd(),
-    });
+    };
+    if (token.end <= token.start) {
+      const tail = tokens.slice(-8).map((previous) => (
+        `${SyntaxKind[previous.kind]}@${previous.start}-${previous.end}:${JSON.stringify(previous.text)}`
+      )).join(', ');
+      throw new Error(
+        `Source-token scan made no progress for ${filePath} at ${token.start} (${SyntaxKind[kind]}); prior tokens: ${tail}`,
+      );
+    }
+    tokens.push(token);
   };
 
   while (true) {
-    const kind = scanner.scan();
+    if (tokens.length > maximumTokenCount) {
+      const tail = tokens.slice(-8).map((token) => (
+        `${SyntaxKind[token.kind]}@${token.start}-${token.end}:${JSON.stringify(token.text)}`
+      )).join(', ');
+      throw new Error(
+        `Source-token scan did not converge for ${filePath} after ${tokens.length} tokens; tail: ${tail}`,
+      );
+    }
+    let kind = scanner.scan();
     if (kind === SyntaxKind.EndOfFile) break;
+    if (
+      (kind === SyntaxKind.SlashToken || kind === SyntaxKind.SlashEqualsToken)
+      && slashStartsRegularExpression(tokens.at(-1)?.kind)
+    ) {
+      kind = scanner.reScanSlashToken();
+    }
     pushCurrentToken(kind);
 
     if (kind === SyntaxKind.TemplateHead) {
@@ -322,7 +374,7 @@ function dottedPathEndingAt(tokens, index) {
 
 function inspectSourceFile(filePath, projectRoot) {
   const sourceText = readFileSync(filePath, 'utf8');
-  const tokens = scanSourceTokens(sourceText);
+  const tokens = scanSourceTokens(sourceText, toPortableRelative(projectRoot, filePath));
   const violations = new Set();
 
   const addViolation = (token, reason) => {

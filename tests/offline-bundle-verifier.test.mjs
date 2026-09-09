@@ -47,6 +47,17 @@ test('accepts a one-file build with inline resources and local-only source', () 
   assert.match(result.stdout, /PASS STATIC_OFFLINE_BUNDLE/);
 });
 
+test('tokenizes regular expressions with hash characters without stalling or false positives', () => {
+  const result = runVerifier(createProject({
+    source: String.raw`const pattern = /&(?:#(\d+)|fetch)/g;
+export const quotient = 8 / 2;
+export const decoded = "&amp;".replace(pattern, "safe");
+`,
+  }));
+  assert.equal(result.status, 0, result.stdout + result.stderr);
+  assert.match(result.stdout, /PASS STATIC_OFFLINE_BUNDLE/);
+});
+
 test('rejects an external HTML resource', () => {
   const projectRoot = createProject({
     html: '<!doctype html><html><body><script src="https://cdn.example.invalid/app.js"></script></body></html>',
@@ -60,6 +71,16 @@ test('rejects an external HTML resource', () => {
 test('rejects a recognized first-party network API call', () => {
   const projectRoot = createProject({
     source: 'export async function load() { return fetch("/api/data"); }\n',
+  });
+  const result = runVerifier(projectRoot);
+  assert.equal(result.status, 1, result.stdout + result.stderr);
+  assert.match(result.stdout, /FAIL FIRST_PARTY_SOURCE_NO_NETWORK_APIS/);
+  assert.match(result.stdout, /network API call fetch\(\)/);
+});
+
+test('rejects a network call inside a template interpolation', () => {
+  const projectRoot = createProject({
+    source: 'export const value = `local-${fetch("/api/data")}`;\n',
   });
   const result = runVerifier(projectRoot);
   assert.equal(result.status, 1, result.stdout + result.stderr);
