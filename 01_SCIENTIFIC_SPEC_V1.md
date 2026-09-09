@@ -1,8 +1,13 @@
 # Bilimsel Hesaplama Şartnamesi v1
 
-**Durum:** Normatif MVP sözleşmesi  
-**Tarih:** 2026-07-18  
-**Misyon:** [`00_MISSION_LOCK.md`](00_MISSION_LOCK.md)  
+**Durum:** Normatif bilimsel sözleşme; v0.4.0 adayı için revize edilmiş sürüm
+
+**Tarih:** 2026-09-09
+
+**Revizyon:** v1.1; bu aday kopyasındaki Friedman ve pozitif `Ea` kuralları, v0.3.2 davranışını değil v0.4.0 adayını normatif olarak tanımlar.
+
+**Misyon:** [`00_MISSION_LOCK.md`](00_MISSION_LOCK.md)
+
 **Kabul kapıları:** [`02_ACCEPTANCE_CRITERIA.md`](02_ACCEPTANCE_CRITERIA.md)
 
 ## 1. Amaç ve normatif dil
@@ -194,7 +199,7 @@ Sağlanmış türev sütunu ya her noktada sonlu olmalı ya da tamamen kaldırı
 eksik, `NaN` veya sonsuz değer içeren sağlanmış seri `INVALID_PROVIDED_DERIVATIVE`
 ile hard refusal üretir; kusurlu kullanıcı girdisi sessizce sayısal türeve çevrilmez.
 
-V1 smoothing yapmaz. Sayısal türev kullanıldıysa `NUMERICAL_DERIVATIVE` uyarısı zorunludur. Her `α` için non-finite veya `dα/dt≤0` gözlem logaritmaya sokulmaz; geriye üçten az kullanılabilir bağımsız hız kalırsa o `α` Friedman sonucu reddedilir.
+V1 smoothing yapmaz. Sayısal türev kullanıldıysa `NUMERICAL_DERIVATIVE` uyarısı zorunludur. Her hedef `α` için analiz grubundaki her gerekli run tam bir gözlemdir. Bu run'lardan herhangi birinde `Tα` veya `dα/dt` eksik, non-finite ya da `dα/dt≤0` ise ilgili `α`, `FRIEDMAN_DERIVATIVE_UNAVAILABLE` ile tamamen reddedilir ve sayısal sonuç üretilmez. Geçersiz run'ı sessizce atıp kalan run'larla regresyon yapmak yasaktır.
 
 ## 6. Yöntem denklemleri
 
@@ -429,9 +434,10 @@ Ingestion status’ü `ready|needs_mapping|error` olabilir. Çözülmemiş `need
 ### 8.3 Yöntem-özel hard refusal
 
 - FWO/KAS/Starink: hedef `α` için en az üç farklı hızdan finite `Tα` yoksa yalnız o yöntem–`α` sonucu reddedilir.
-- Friedman: hedef `α` için en az üç farklı hızda finite, pozitif `dα/dt` yoksa yalnız o `α` sonucu reddedilir.
+- Friedman: hedef `α` için gerekli run'lardan herhangi birinde `Tα` veya finite ve pozitif `dα/dt` yoksa yalnız o `α` sonucu bütünüyle reddedilir; geçersiz run sessizce dışlanamaz. Tüm run'lar geçerli olsa bile üçten az farklı pozitif hız varsa sonuç reddedilir.
 - Kissinger: aynı aşamaya ait en az üç farklı hızda tekil `Tp` yoksa, peak overlap/assignment belirsizse veya cooling/nonlinear heating varsa reddedilir.
 - OLS: `Sxx=0`, `Syy=0`, `df<1` veya non-finite fit varsa sonuç reddedilir.
+- Tüm yöntemler: fit eğimi negatif değilse veya dönüştürülen görünür `Ea` finite ve kesin pozitif değilse `NONPOSITIVE_APPARENT_EA` hard refusal üretilir. İlgili yöntem–`α` sonucu (Kissinger için peak sonucu) hiçbir sayısal `Ea`, standart hata veya güven aralığı yayımlamadan reddedilir.
 
 ### 8.4 Zorunlu uyarılar
 
@@ -443,7 +449,6 @@ Ingestion status’ü `ready|needs_mapping|error` olabilir. Çözülmemiş `need
 | `KISSINGER_COMPLEXITY_UNDERPOWERED` | Kissinger’da `<5` hız veya `βmax/βmin<5` | tek-aşama çıkarımını yasakla | [K+M] |
 | `NUMERICAL_DERIVATIVE` | Friedman türevi sonlu farktan | türev kaynağı/örnekleme sınırını raporla | [K+M] |
 | `LOW_R2` | `R²<0.98` varsayılanı | sonucu silme; residual/CI incelemesini iste | [M] |
-| `NONPOSITIVE_APPARENT_EA` | `E≤0` | sonucu koru; kimyasal TGA bağlamında açıklama iste | [K+M] |
 | `MULTISTEP_EA_VARIATION` | `(Emax−Emin)/Emean>0.20` ana `α=0.1–0.9` aralığında | tek ortalamaya indirgeme; çok-adımlılık uyarısı | [K+M] |
 | `POSSIBLE_MULTISTEP_EA_VARIATION` | oran `%10–20` | sınırda değişim uyarısı | [K] |
 | `OVERLAPPING_PEAKS` | birden çok/omuzlu DTG peak | Kissinger’ı reddet veya manual stage doğrulaması iste | [K] |

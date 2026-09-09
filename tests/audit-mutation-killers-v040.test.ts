@@ -189,13 +189,17 @@ describe('mutation killers: uncertainty and replicate weighting', () => {
     const base = preparedRuns(2, 1, 150, 18);
     const first = base[0]!;
     const target = first.points[1]!.temperatureK;
+    const lowReplicateShiftK = 5;
+    const highReplicateShiftK = 15;
+    const physicalScaleMeanShiftK =
+      (lowReplicateShiftK + highReplicateShiftK) / 2;
     const replicated: PreparedRun[] = [
       {
         ...first,
         id: 'replicate-low',
         points: first.points.map((point) => ({
           ...point,
-          temperatureK: point.temperatureK - 2,
+          temperatureK: point.temperatureK + lowReplicateShiftK,
         })),
       },
       {
@@ -203,7 +207,7 @@ describe('mutation killers: uncertainty and replicate weighting', () => {
         id: 'replicate-high',
         points: first.points.map((point) => ({
           ...point,
-          temperatureK: point.temperatureK + 2,
+          temperatureK: point.temperatureK + highReplicateShiftK,
         })),
       },
       ...base.slice(1),
@@ -214,7 +218,8 @@ describe('mutation killers: uncertainty and replicate weighting', () => {
         id: 'replicate-mean',
         points: first.points.map((point, index) => ({
           ...point,
-          temperatureK: index === 1 ? target : point.temperatureK,
+          temperatureK:
+            index === 1 ? target + physicalScaleMeanShiftK : point.temperatureK,
         })),
       },
       ...base.slice(1),

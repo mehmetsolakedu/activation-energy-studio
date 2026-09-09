@@ -46,6 +46,14 @@ const mutations = [
     replacement: 'const converted = unit === "K" ? value : value + 270.15;',
   },
   {
+    id: 'reciprocal-temperature-scaled-by-1000',
+    target: 'src/core/methods.ts',
+    description:
+      'Use x=1000/T in the regression while leaving the declared Ea slope conversion unchanged.',
+    search: '    const x = 1 / temperatureK;',
+    replacement: '    const x = 1000 / temperatureK;',
+  },
+  {
     id: 'kj-conversion-isoconversional',
     target: 'src/core/methods.ts',
     description: 'Replace the J-to-kJ divisor 1000 with 100 in isoconversional E.',
@@ -108,6 +116,16 @@ const mutations = [
     replacement: 'const residualDegreesOfFreedom = n - 1;',
   },
   {
+    id: 'student-t-replaced-by-normal-z',
+    target: 'src/core/regression.ts',
+    description:
+      'Replace the finite-sample Student-t critical value with the asymptotic normal z=1.959963984540054 value.',
+    search:
+      'const margin = studentTCritical95(residualDegreesOfFreedom) * slopeStandardError;',
+    replacement:
+      'const margin = 1.959963984540054 * slopeStandardError;',
+  },
+  {
     id: 'replicate-first-row-weighting',
     target: 'src/core/methods.ts',
     description: 'Use only the first replicate temperature instead of its physical-scale mean.',
@@ -117,6 +135,25 @@ const mutations = [
       + '    );',
     replacement:
       'const temperatureK = contributions[0]!.temperatureK;',
+  },
+  {
+    id: 'replicate-group-inflated-raw-row-weighting',
+    target: 'src/core/methods.ts',
+    description:
+      'Inflate each grouped beta point by its raw replicate count, reproducing raw-row rather than equal-beta OLS weighting.',
+    search:
+      '  const inputGroups = buildRegressionInputGroups(method, observations);',
+    replacement:
+      '  const inputGroups = buildRegressionInputGroups(method, observations).flatMap(\n'
+      + '    (group) =>\n'
+      + '      Array.from({ length: group.replicateCount }, (_unused, index) => ({\n'
+      + '        ...group,\n'
+      + '        groupId: `${group.groupId}:raw-row-${index + 1}`,\n'
+      + '        sourceRunIds: [group.sourceRunIds[index] ?? group.sourceRunIds[0]!],\n'
+      + '        replicateCount: 1,\n'
+      + '        aggregation: "single-run" as const,\n'
+      + '      })),\n'
+      + '  );',
   },
   {
     id: 'kj-conversion-kissinger',
