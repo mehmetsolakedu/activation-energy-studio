@@ -1,7 +1,7 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://activation-energy-studio.local/schema/project-report-v6.json",
-  "title": "Activation Energy Studio reproducible project report v6",
+  "$id": "https://activation-energy-studio.local/schema/project-report-v7.json",
+  "title": "Activation Energy Studio reproducible project report v7",
   "type": "object",
   "additionalProperties": false,
   "required": [
@@ -17,7 +17,7 @@
   ],
   "properties": {
     "schemaVersion": {
-      "const": "activation-energy-studio/project-report/v6"
+      "const": "activation-energy-studio/project-report/v7"
     },
     "application": {
       "type": "object",
@@ -240,7 +240,7 @@
         "formulas"
       ],
       "properties": {
-        "coreMathVersion": { "const": "activation-energy-core/v2" },
+        "coreMathVersion": { "const": "activation-energy-core/v3" },
         "formulaSetVersion": { "const": "activation-energy-formulas/v1" },
         "volatileFields": {
           "const": ["generatedAt"]
@@ -810,7 +810,12 @@
             "run",
             "sample",
             "atmosphere",
-            "stage"
+            "stage",
+            "peakResolved",
+            "peakQuality",
+            "peakSourceSignal",
+            "peakAnalystConfirmed",
+            "peakAmbiguous"
           ]
         },
         "sourceColumnIndex": { "type": "integer", "minimum": 0 },
@@ -1150,6 +1155,7 @@
         "y",
         "predictedY",
         "residual",
+        "peakEvidence",
         "sourceResolution",
         "sourceRows"
       ],
@@ -1166,6 +1172,33 @@
         "y": { "type": "number" },
         "predictedY": { "type": "number" },
         "residual": { "type": "number" },
+        "peakEvidence": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "peakResolved",
+                "peakQuality",
+                "peakSourceSignal",
+                "peakAnalystConfirmed",
+                "peakAmbiguous"
+              ],
+              "properties": {
+                "peakResolved": { "type": ["boolean", "null"] },
+                "peakQuality": {
+                  "enum": [null, "clear-interior", "boundary", "shoulder", "multiple-overlapping", "unknown"]
+                },
+                "peakSourceSignal": {
+                  "enum": [null, "positive-mass-loss-rate", "positive-dalpha-dt", "external-beta-tp-table"]
+                },
+                "peakAnalystConfirmed": { "type": ["boolean", "null"] },
+                "peakAmbiguous": { "type": ["boolean", "null"] }
+              }
+            }
+          ]
+        },
         "sourceResolution": { "enum": ["exact", "interpolated", "unresolved"] },
         "sourceRows": {
           "type": "array",
@@ -1275,6 +1308,14 @@
         "derivativeSource": { "enum": ["provided", "time", "temperature", "unavailable"] },
         "peakTemperatureK": { "type": "number", "exclusiveMinimum": 0 },
         "peakAmbiguous": { "type": "boolean" },
+        "peakResolved": { "type": "boolean" },
+        "peakQuality": {
+          "enum": ["clear-interior", "boundary", "shoulder", "multiple-overlapping", "unknown"]
+        },
+        "peakSourceSignal": {
+          "enum": ["positive-mass-loss-rate", "positive-dalpha-dt", "external-beta-tp-table"]
+        },
+        "peakAnalystConfirmed": { "type": "boolean" },
         "sampleId": { "type": "string" },
         "atmosphere": { "type": "string" },
         "stage": { "type": "string" }

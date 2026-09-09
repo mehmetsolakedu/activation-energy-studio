@@ -59,4 +59,14 @@ describe('actionable English scientific diagnostics', () => {
   it('preserves unknown technical diagnostics instead of inventing copy', () => {
     expect(diagnosticMessage('FUTURE_CODE', 'Source detail')).toBe('Source detail');
   });
+
+  it.each([
+    'FRIEDMAN_DERIVATIVE_UNAVAILABLE',
+    'FRIEDMAN_NON_POSITIVE_RATE',
+  ])('%s explains strict all-run refusal without an exclusion narrative', (code) => {
+    const message = diagnosticMessage(code, 'fallback');
+    expect(message).toContain('every required run');
+    expect(message).toContain('Friedman is refused');
+    expect(message).not.toMatch(/observations? (?:were )?excluded|retain exclusions/i);
+  });
 });

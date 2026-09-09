@@ -28,6 +28,11 @@ const ROLE_LABELS: Record<ColumnRole, string> = {
   sample: 'Sample (optional)',
   atmosphere: 'Atmosphere (optional)',
   stage: 'Reaction stage (recommended)',
+  peakResolved: 'Peak identity resolved',
+  peakQuality: 'Peak quality classification',
+  peakSourceSignal: 'Peak source signal',
+  peakAnalystConfirmed: 'Peak confirmed by analyst',
+  peakAmbiguous: 'Legacy peak ambiguity flag',
 };
 
 const ROLE_UNITS: Partial<Record<ColumnRole, readonly ColumnUnit[]>> = {
@@ -52,6 +57,11 @@ const ROLE_ORDER: readonly ColumnRole[] = [
   'sample',
   'atmosphere',
   'stage',
+  'peakResolved',
+  'peakQuality',
+  'peakSourceSignal',
+  'peakAnalystConfirmed',
+  'peakAmbiguous',
 ];
 
 const TABLE_KIND_LABELS: Record<TableKind, string> = {

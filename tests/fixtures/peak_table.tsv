@@ -1,4 +1,4 @@
-beta [K/min]	Tp [K]	run	sample	atmosphere
-5	621.2	run-5	biomass	N2
-10	634.8	run-10	biomass	N2
-20	649.1	run-20	biomass	N2
+beta [K/min]	Tp [K]	run	sample	atmosphere	Peak resolved	Peak quality	Peak source signal	Analyst confirmed	Ambiguous
+5	621.2	run-5	biomass	N2	true	clear-interior	external-beta-tp-table	true	false
+10	634.8	run-10	biomass	N2	true	clear-interior	external-beta-tp-table	true	false
+20	649.1	run-20	biomass	N2	true	clear-interior	external-beta-tp-table	true	false

@@ -18,6 +18,7 @@ import {
   type RegressionResult,
   type ThermalRun,
 } from '../src/core';
+import { VERIFIED_EXTERNAL_PEAK_EVIDENCE } from './helpers/peak-evidence';
 import fixture from './fixtures/hand/activation_energy_hand_worksheet.json';
 
 type ExpectedMethod = (typeof fixture.methodsN4)[keyof typeof fixture.methodsN4];
@@ -175,6 +176,7 @@ describe('independent hand worksheet', () => {
         runId: `hand-${beta}`,
         heatingRateKPerMinute: beta,
         peakTemperatureK: fixture.inputs.temperaturesK[index] as number,
+        ...VERIFIED_EXTERNAL_PEAK_EVIDENCE,
         stage: 'main',
       })),
     );

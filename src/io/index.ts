@@ -18,6 +18,8 @@ export type {
   BatchIngestionOptions,
   BatchIngestionResult,
   BetaTpRow,
+  BetaTpPeakQuality,
+  BetaTpSourceSignal,
   ColumnCandidate,
   ColumnDetectionResult,
   ColumnMapping,

@@ -5,15 +5,15 @@ import { dirname, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 
 import { createPdfReport } from '../src/report';
-import { makeSchemaV6QaReport } from './helpers/report-fixture';
+import { makeSchemaV7QaReport } from './helpers/report-fixture';
 
 const historicalV5Path = resolve(
   process.cwd(),
   'output/pdf/activation-energy-report-schema-v5-qa.pdf',
 );
-const currentV6Path = resolve(
+const currentV7Path = resolve(
   process.cwd(),
-  'output/pdf/activation-energy-report-schema-v6-qa.pdf',
+  'output/pdf/activation-energy-report-schema-v7-qa.pdf',
 );
 
 describe('report PDF QA artifacts', () => {
@@ -25,8 +25,8 @@ describe('report PDF QA artifacts', () => {
     );
   });
 
-  it('renders the schema-v6 scientific report and keeps its checked-in artifact byte-current', async () => {
-    const report = await makeSchemaV6QaReport();
+  it('renders the schema-v7 scientific report and keeps its checked-in artifact byte-current', async () => {
+    const report = await makeSchemaV7QaReport();
     const pdf = createPdfReport(report);
     const bytes = new Uint8Array(await pdf.arrayBuffer());
     expect(report.results.filter((result) => result.resultType === 'isoconversional').length).toBe(
@@ -35,10 +35,10 @@ describe('report PDF QA artifacts', () => {
     expect(report.results.some((result) => result.resultType === 'peak')).toBe(true);
     expect(bytes.byteLength).toBeGreaterThan(100_000);
     if (process.env.WRITE_REPORT_QA_PDF === '1') {
-      await mkdir(dirname(currentV6Path), { recursive: true });
-      await writeFile(currentV6Path, bytes);
+      await mkdir(dirname(currentV7Path), { recursive: true });
+      await writeFile(currentV7Path, bytes);
     }
-    const checkedIn = await readFile(currentV6Path);
+    const checkedIn = await readFile(currentV7Path);
     expect(Buffer.compare(checkedIn, bytes)).toBe(0);
   });
 });

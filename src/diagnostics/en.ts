@@ -80,6 +80,11 @@ const COPY: Readonly<Record<string, DiagnosticCopy>> = {
     risk: 'Regressing an incomplete set of runs compromises cross-method comparisons.',
     action: 'Limit interpretation to the reported common range or provide data with broader overlap.',
   },
+  INSUFFICIENT_RECIPROCAL_TEMPERATURE_SPREAD: {
+    problem: 'The reciprocal-temperature values are too close to define a numerically reliable slope.',
+    risk: 'A nearly singular regression can show a high R² while producing an arbitrarily large apparent activation energy.',
+    action: 'Use heating-rate runs with resolvable temperature separation and report instrument temperature uncertainty when available.',
+  },
   LOW_R2: {
     problem: 'The regression R² is below the quality threshold.',
     risk: 'A single-slope kinetic relationship may not explain the data adequately.',
@@ -119,6 +124,31 @@ const COPY: Readonly<Record<string, DiagnosticCopy>> = {
     problem: 'No beta–Tp peak-temperature data are available for Kissinger analysis.',
     risk: 'Conversion temperatures on a curve cannot substitute for peak temperature.',
     action: 'Load a separate beta–Tp table or do not report a Kissinger result.',
+  },
+  KISSINGER_PEAK_UNRESOLVED: {
+    problem: 'One or more beta–Tp rows lack an explicit resolved peak identity.',
+    risk: 'An unresolved shoulder or event switch can make different heating rates refer to different physical processes.',
+    action: 'Resolve one common physical peak at every heating rate or omit the Kissinger result.',
+  },
+  KISSINGER_PEAK_BOUNDARY: {
+    problem: 'One or more selected peaks lie at a temperature-window boundary.',
+    risk: 'A boundary value does not establish an interior local rate maximum.',
+    action: 'Extend or correct the measured stage window and verify an interior peak with observations on both sides.',
+  },
+  KISSINGER_PEAK_QUALITY_UNVERIFIED: {
+    problem: 'Peak quality is missing, unknown, shoulder-like, or otherwise not clear-interior.',
+    risk: 'A high-R² Kissinger line can still combine unresolved or multistep peak shifts.',
+    action: 'Classify every peak as clear-interior using the source curve, or do not calculate Kissinger Ea.',
+  },
+  KISSINGER_PEAK_SIGNAL_UNVERIFIED: {
+    problem: 'The signal used to select the peak is not recorded.',
+    risk: 'A temperature maximum from the wrong signal is not a defensible reaction-rate peak.',
+    action: 'Record whether Tp came from positive mass-loss rate, positive dAlpha/dt, or a documented external beta–Tp table.',
+  },
+  KISSINGER_PEAK_UNCONFIRMED: {
+    problem: 'The analyst has not explicitly confirmed the peak evidence.',
+    risk: 'Imported labels alone cannot establish that the same physical event was selected at every heating rate.',
+    action: 'Inspect the source evidence and explicitly confirm all beta–Tp rows before calculation.',
   },
   TOO_FEW_KISSINGER_PEAKS: {
     problem: 'Fewer than three independent beta–Tp pairs are available.',
@@ -261,14 +291,14 @@ const COPY: Readonly<Record<string, DiagnosticCopy>> = {
     action: 'Verify units, temperature direction, stage selection, and regression without changing the sign artificially.',
   },
   FRIEDMAN_DERIVATIVE_UNAVAILABLE: {
-    problem: 'Fewer than three usable derivative observations remain at the requested alpha.',
-    risk: 'The Friedman logarithm and slope require positive finite dAlpha/dt values.',
-    action: 'Provide verified derivative data at three or more distinct beta values or do not report Friedman.',
+    problem: 'At least one required heating-rate run lacks a finite positive derivative at the requested alpha, so Friedman is refused there.',
+    risk: 'The Friedman logarithm and same-alpha cross-rate comparison require every included run to contribute a finite positive dAlpha/dt value.',
+    action: 'Provide verified finite positive derivative data at this alpha for every required run, with at least three distinct beta values overall.',
   },
   FRIEDMAN_NON_POSITIVE_RATE: {
-    problem: 'One or more non-positive derivative observations were excluded from Friedman analysis.',
-    risk: 'ln(dAlpha/dt) is undefined, and exclusions reduce the independent-rate count.',
-    action: 'Verify alpha monotonicity, time and beta units, and derivative noise; retain exclusions in the report.',
+    problem: 'At least one required heating-rate run has a non-positive derivative at the requested alpha, so Friedman is refused there.',
+    risk: 'ln(dAlpha/dt) is undefined, and silently dropping a required run would change the cross-rate comparison.',
+    action: 'Verify alpha monotonicity, time and beta units, and derivative noise; provide a positive value for every required run or do not report Friedman.',
   },
   KISSINGER_PEAK_OUTSIDE_RUN_RANGE: {
     problem: 'A Kissinger peak temperature lies outside the measured temperature range.',

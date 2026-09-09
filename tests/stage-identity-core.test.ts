@@ -7,6 +7,7 @@ import {
   type KissingerPeak,
   type ThermalRun,
 } from "../src/core";
+import { VERIFIED_EXTERNAL_PEAK_EVIDENCE } from "./helpers/peak-evidence";
 
 const RATES = [5, 10, 20] as const;
 
@@ -39,6 +40,7 @@ function peaks(stages: readonly (string | undefined)[]): KissingerPeak[] {
     runId: `peak-${heatingRateKPerMinute}`,
     heatingRateKPerMinute,
     peakTemperatureK: 580 + index * 25,
+    ...VERIFIED_EXTERNAL_PEAK_EVIDENCE,
     ...(stages[index] === undefined ? {} : { stage: stages[index] }),
   }));
 }

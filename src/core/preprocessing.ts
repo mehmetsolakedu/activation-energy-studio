@@ -10,8 +10,9 @@ import type {
   ThermalRun,
   TimeUnit,
 } from "./types";
+import { ALPHA_EQUIVALENCE_TOLERANCE } from "./constants";
 
-const ALPHA_TOLERANCE = 1e-10;
+const ALPHA_TOLERANCE = ALPHA_EQUIVALENCE_TOLERANCE;
 const MASS_DENOMINATOR_TOLERANCE = 1e-12;
 
 function refusal(
@@ -143,14 +144,24 @@ export function interpolateDerivativeAtAlpha(
   for (let index = 0; index < points.length; index += 1) {
     const point = points[index] as PreparedPoint;
     if (Math.abs(point.alpha - targetAlpha) <= ALPHA_TOLERANCE) {
-      return point.dAlphaDtPerMinute;
+      const derivative = point.dAlphaDtPerMinute;
+      return derivative !== undefined && Number.isFinite(derivative) && derivative > 0
+        ? derivative
+        : undefined;
     }
     if (index === 0) continue;
     const previous = points[index - 1] as PreparedPoint;
     if (previous.alpha < targetAlpha && targetAlpha < point.alpha) {
       const left = previous.dAlphaDtPerMinute;
       const right = point.dAlphaDtPerMinute;
-      if (left === undefined || right === undefined) return undefined;
+      if (
+        left === undefined
+        || right === undefined
+        || !Number.isFinite(left)
+        || !Number.isFinite(right)
+        || !(left > 0)
+        || !(right > 0)
+      ) return undefined;
       const fraction = (targetAlpha - previous.alpha) / (point.alpha - previous.alpha);
       return left + fraction * (right - left);
     }
@@ -158,18 +169,71 @@ export function interpolateDerivativeAtAlpha(
   return undefined;
 }
 
-function finiteDifference(
+export function estimateFiniteDifference(
   alpha: readonly number[],
   axis: readonly number[],
 ): Array<number | undefined> {
-  return alpha.map((_, index) => {
-    const leftIndex = index === 0 ? 0 : index - 1;
-    const rightIndex = index === alpha.length - 1 ? alpha.length - 1 : index + 1;
-    if (leftIndex === rightIndex) return undefined;
-    const deltaAxis = (axis[rightIndex] as number) - (axis[leftIndex] as number);
-    if (!(deltaAxis > 0)) return undefined;
-    return ((alpha[rightIndex] as number) - (alpha[leftIndex] as number)) / deltaAxis;
+  if (alpha.length !== axis.length || !alpha.every(Number.isFinite) || !axis.every(Number.isFinite)) {
+    throw new RangeError("Finite-difference values and axis must be finite and equally sized.");
+  }
+  if (alpha.length < 2) return alpha.map(() => undefined);
+  const axisScale = Math.max(1, ...axis.map((value) => Math.abs(value)));
+  const minimumSpacing = 16 * Number.EPSILON * axisScale;
+  const spacings = axis.slice(1).map(
+    (value, index) => value - (axis[index] as number),
+  );
+  if (spacings.some((spacing) => !(spacing > minimumSpacing))) {
+    throw new RangeError(
+      "Finite-difference axis must be strictly increasing with numerically distinguishable points.",
+    );
+  }
+  if (alpha.length === 2) {
+    const derivative =
+      ((alpha[1] as number) - (alpha[0] as number)) / (spacings[0] as number);
+    if (!Number.isFinite(derivative)) {
+      throw new RangeError("Finite-difference calculation produced a non-finite derivative.");
+    }
+    return [derivative, derivative];
+  }
+
+  const derivatives = alpha.map((_, index) => {
+    const leftIndex = index === 0 ? 0 : index === alpha.length - 1 ? index - 2 : index - 1;
+    const centerIndex = leftIndex + 1;
+    const rightIndex = leftIndex + 2;
+    const leftSpacing =
+      (axis[centerIndex] as number) - (axis[leftIndex] as number);
+    const rightSpacing =
+      (axis[rightIndex] as number) - (axis[centerIndex] as number);
+    const leftValue = alpha[leftIndex] as number;
+    const centerValue = alpha[centerIndex] as number;
+    const rightValue = alpha[rightIndex] as number;
+
+    if (index === leftIndex) {
+      return (
+        -((2 * leftSpacing + rightSpacing) / (leftSpacing * (leftSpacing + rightSpacing)))
+          * leftValue
+        + ((leftSpacing + rightSpacing) / (leftSpacing * rightSpacing)) * centerValue
+        - (leftSpacing / (rightSpacing * (leftSpacing + rightSpacing))) * rightValue
+      );
+    }
+    if (index === rightIndex) {
+      return (
+        (rightSpacing / (leftSpacing * (leftSpacing + rightSpacing))) * leftValue
+        - ((leftSpacing + rightSpacing) / (leftSpacing * rightSpacing)) * centerValue
+        + ((leftSpacing + 2 * rightSpacing) / (rightSpacing * (leftSpacing + rightSpacing)))
+          * rightValue
+      );
+    }
+    return (
+      -(rightSpacing / (leftSpacing * (leftSpacing + rightSpacing))) * leftValue
+      + ((rightSpacing - leftSpacing) / (leftSpacing * rightSpacing)) * centerValue
+      + (leftSpacing / (rightSpacing * (leftSpacing + rightSpacing))) * rightValue
+    );
   });
+  if (!derivatives.every(Number.isFinite)) {
+    throw new RangeError("Finite-difference calculation produced a non-finite derivative.");
+  }
+  return derivatives;
 }
 
 /**
@@ -195,12 +259,12 @@ export function estimateAlphaDerivative(
     );
   }
   if (completeTime) {
-    return finiteDifference(
+    return estimateFiniteDifference(
       alpha,
       points.map((point) => point.timeMinutes as number),
     );
   }
-  return finiteDifference(
+  return estimateFiniteDifference(
     alpha,
     points.map((point) => point.temperatureK),
   ).map((value) => (value === undefined ? undefined : value * heatingRateKPerMinute));
@@ -407,14 +471,14 @@ export function prepareThermalRun(run: ThermalRun): RunPreparationResult {
       );
       usableTime = isStrictlyIncreasing(timeMinutes as number[]);
       if (!usableTime) {
-        warnings.push(
-          warning(
+        refusals.push(
+          refusal(
             "TIME_NOT_INCREASING",
-            `Run ${run.id} time is not strictly increasing; temperature-based derivative is used.`,
+            `Run ${run.id} time is not strictly increasing; mapped time cannot be discarded in favor of a silent temperature-based fallback.`,
             run.id,
           ),
         );
-        timeMinutes = run.points.map(() => undefined);
+        return { refusals, warnings };
       }
     }
   }
@@ -502,9 +566,21 @@ export function prepareThermalRun(run: ThermalRun): RunPreparationResult {
     alpha: alpha[index] as number,
     timeMinutes: timeMinutes[index],
   }));
-  const derivatives = completePrecomputedDerivative
-    ? run.points.map((point) => point.dAlphaDtPerMinute as number)
-    : estimateAlphaDerivative(basePoints, heatingRateKPerMinute);
+  let derivatives: Array<number | undefined>;
+  try {
+    derivatives = completePrecomputedDerivative
+      ? run.points.map((point) => point.dAlphaDtPerMinute as number)
+      : estimateAlphaDerivative(basePoints, heatingRateKPerMinute);
+  } catch (error) {
+    refusals.push(
+      refusal(
+        usableTime ? "INVALID_TIME_SERIES" : "TEMPERATURE_NOT_INCREASING",
+        `Run ${run.id}: ${(error as Error).message}`,
+        run.id,
+      ),
+    );
+    return { refusals, warnings };
+  }
 
   const points: PreparedPoint[] = basePoints.map((point, index) => ({
     temperatureK: point.temperatureK,
@@ -522,18 +598,60 @@ export function prepareThermalRun(run: ThermalRun): RunPreparationResult {
         run.peakTemperature,
         run.temperatureUnit as Exclude<TemperatureUnit, "unknown">,
       );
+      const lowerTemperatureK = temperaturesK[0] as number;
+      const upperTemperatureK = temperaturesK[temperaturesK.length - 1] as number;
+      const boundaryTolerance =
+        16
+        * Number.EPSILON
+        * Math.max(1, Math.abs(lowerTemperatureK), Math.abs(upperTemperatureK));
       if (
-        peakTemperatureK < (temperaturesK[0] as number) ||
-        peakTemperatureK > (temperaturesK[temperaturesK.length - 1] as number)
+        !(peakTemperatureK > lowerTemperatureK + boundaryTolerance)
+        || !(peakTemperatureK < upperTemperatureK - boundaryTolerance)
       ) {
         refusals.push(
           refusal(
             "KISSINGER_PEAK_OUTSIDE_RUN_RANGE",
-            `Run ${run.id} peak temperature lies outside the measured range.`,
+            `Run ${run.id} peak temperature must lie strictly inside the measured range with observations on both sides.`,
             run.id,
           ),
         );
         return { refusals, warnings };
+      }
+      if (
+        run.peakSourceSignal === "positive-dalpha-dt"
+        || run.peakSourceSignal === "positive-mass-loss-rate"
+      ) {
+        const peakIndex = points.findIndex(
+          (point) => Math.abs(point.temperatureK - peakTemperatureK!) <= boundaryTolerance,
+        );
+        const peakRate = peakIndex >= 0
+          ? points[peakIndex]?.dAlphaDtPerMinute
+          : undefined;
+        const previousRate = peakIndex > 0
+          ? points[peakIndex - 1]?.dAlphaDtPerMinute
+          : undefined;
+        const nextRate = peakIndex >= 0 && peakIndex < points.length - 1
+          ? points[peakIndex + 1]?.dAlphaDtPerMinute
+          : undefined;
+        if (
+          peakIndex <= 0
+          || peakIndex >= points.length - 1
+          || !Number.isFinite(peakRate)
+          || !Number.isFinite(previousRate)
+          || !Number.isFinite(nextRate)
+          || !((peakRate as number) > 0)
+          || !((peakRate as number) > (previousRate as number))
+          || !((peakRate as number) > (nextRate as number))
+        ) {
+          refusals.push(
+            refusal(
+              "KISSINGER_PEAK_SIGNAL_UNVERIFIED",
+              `Run ${run.id} peak temperature is not an observed strict interior maximum of the declared positive rate signal. Use external-beta-tp-table only for independently curated peak tables.`,
+              run.id,
+            ),
+          );
+          return { refusals, warnings };
+        }
       }
     } catch (error) {
       refusals.push(
@@ -550,6 +668,14 @@ export function prepareThermalRun(run: ThermalRun): RunPreparationResult {
     derivativeSource,
     ...(peakTemperatureK === undefined ? {} : { peakTemperatureK }),
     ...(run.peakAmbiguous === undefined ? {} : { peakAmbiguous: run.peakAmbiguous }),
+    ...(run.peakResolved === undefined ? {} : { peakResolved: run.peakResolved }),
+    ...(run.peakQuality === undefined ? {} : { peakQuality: run.peakQuality }),
+    ...(run.peakSourceSignal === undefined
+      ? {}
+      : { peakSourceSignal: run.peakSourceSignal }),
+    ...(run.peakAnalystConfirmed === undefined
+      ? {}
+      : { peakAnalystConfirmed: run.peakAnalystConfirmed }),
     ...(run.sampleId === undefined ? {} : { sampleId: run.sampleId }),
     ...(run.atmosphere === undefined ? {} : { atmosphere: run.atmosphere }),
     ...(run.stage === undefined ? {} : { stage: run.stage }),

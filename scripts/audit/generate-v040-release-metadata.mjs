@@ -193,15 +193,28 @@ const inventory = productionLockEntries.map(([lockPath, lockEntry]) => {
     safeCoordinate(name, version),
   );
   const copiedLicenses = [];
+  const installedLicenseFiles = licenseFilesFor(installedDirectory, license);
+  const curatedLicenseDirectory = path.join(
+    projectRoot,
+    'third_party_license_fallbacks',
+    safeCoordinate(name, version),
+  );
+  const licenseSourceDirectory = installedLicenseFiles.length
+    ? installedDirectory
+    : curatedLicenseDirectory;
+  const licenseSourceFiles = installedLicenseFiles.length
+    ? installedLicenseFiles
+    : licenseFilesFor(curatedLicenseDirectory, license);
 
-  for (const licenseFile of licenseFilesFor(installedDirectory, license)) {
+  for (const licenseFile of licenseSourceFiles) {
     fs.mkdirSync(coordinateDirectory, { recursive: true });
-    const source = path.join(installedDirectory, licenseFile);
+    const source = path.join(licenseSourceDirectory, licenseFile);
     const target = path.join(coordinateDirectory, licenseFile);
     const bytes = fs.readFileSync(source);
     fs.writeFileSync(target, bytes);
     copiedLicenses.push({
       source: path.relative(projectRoot, source).split(path.sep).join('/'),
+      source_kind: installedLicenseFiles.length ? 'upstream-package' : 'curated-fallback',
       release_path: path.relative(releaseDirectory, target).split(path.sep).join('/'),
       sha256: sha256(bytes),
     });

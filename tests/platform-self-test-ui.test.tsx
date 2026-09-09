@@ -77,11 +77,11 @@ describe('platform self-test application surface', () => {
     );
 
     expect(panel?.textContent).toContain('11/11 checks passed');
-    expect(panel?.textContent).toContain('2b53c8311cf5b4fda612a455d92e00a6e3b9eaa6ad24e293430af05ee4eae2ba');
+    expect(panel?.textContent).toContain('c3084a1762e4b3c6d7587df0068351edf755e0234b8fd24ab768439e1e24ef96');
     expect(networkAttempts).toEqual([]);
 
     await act(async () => buttonContaining(host, 'Platform evidence JSON').click());
-    expect(downloads).toEqual(['activation-energy-platform-self-test-v0.3.2-pass.json']);
+    expect(downloads).toEqual(['activation-energy-platform-self-test-v0.4.0-pass.json']);
     expect(networkAttempts).toEqual([]);
   });
 });

@@ -336,6 +336,11 @@ const EXAMPLE_SOURCES = [
         heatingRate: { column: 1, unit: 'K/min' },
         temperature: { column: 2, unit: 'K', temperatureKind: 'peak' },
         stage: 3,
+        peakResolved: 4,
+        peakQuality: 5,
+        peakSourceSignal: 6,
+        peakAnalystConfirmed: 7,
+        peakAmbiguous: 8,
       },
       defaults: {
         sample: 'Extruded polystyrene (XPS)',

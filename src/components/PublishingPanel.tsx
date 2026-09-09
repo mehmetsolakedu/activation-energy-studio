@@ -1,5 +1,5 @@
 export const ACTIVATION_ENERGY_STUDIO_CITATION =
-  'Activation Energy Studio contributors. (2026). Activation Energy Studio (Version 0.3.2) [Computer software].';
+  'Solak, M. (2026). Activation Energy Studio (Version 0.4.0) [Computer software].';
 
 interface TemplateLink {
   href: string;
@@ -38,13 +38,13 @@ export function PublishingPanel() {
             {'Publication and download'}
           </p>
           <h2 id="publishing-panel-title">
-            {'Activation Energy Studio v0.3.2 research preview'}
+            {'Activation Energy Studio v0.4.0 research preview'}
           </h2>
           <p>
             {'Move from an example to a scientifically bounded report in five minutes, or retain the offline package locally.'}
           </p>
         </div>
-        <span className="status-pill ok">v0.3.2 · Research Preview</span>
+        <span className="status-pill ok">v0.4.0 · Audit candidate</span>
       </div>
 
       <div className="publishing-panel-body">
@@ -102,11 +102,11 @@ export function PublishingPanel() {
               className="primary-button"
               data-testid="download-offline-html"
               download
-              href="./Activation-Energy-Studio-v0.3.2.html"
+              href="./Activation-Energy-Studio-v0.4.0.html"
             >
               {'Download offline HTML'}
             </a>
-            <code>Activation-Energy-Studio-v0.3.2.html</code>
+            <code>Activation-Energy-Studio-v0.4.0.html</code>
           </div>
           <p className="publishing-build-note">
             {'To reproduce it from the source package, run'}{' '}
@@ -160,11 +160,11 @@ export function PublishingPanel() {
           </section>
 
           <section aria-labelledby="release-notes-title" className="publishing-section">
-            <h3 id="release-notes-title">{'v0.3.2 release notes'}</h3>
+            <h3 id="release-notes-title">{'v0.4.0 release notes'}</h3>
             <p>
               {'Fail-closed time-series validation, grid-stable raw-series Friedman derivatives, revision-bound ingestion and export state, hash-bound source identities in reproducible JSON and PDF, and licensed-source citation and license fields in JSON, CSV, and PDF.'}
             </p>
-            <a href="./RELEASE_NOTES_v0.3.2.md">{'Full release notes'}</a>
+            <a href="./RELEASE_NOTES_v0.4.0.md">{'Full release notes'}</a>
           </section>
 
           <section aria-labelledby="support-title" className="publishing-section publishing-support">
@@ -186,7 +186,7 @@ export function PublishingPanel() {
         </div>
 
         <p className="publishing-boundary">
-          {'v0.3.2 is a research preview; it is not certified instrument software, does not determine mechanism, and does not present apparent Ea as an immutable material constant.'}
+          {'v0.4.0 is an audit candidate; it is not certified instrument software, does not determine mechanism, and does not present apparent Ea as an immutable material constant.'}
         </p>
       </div>
     </section>

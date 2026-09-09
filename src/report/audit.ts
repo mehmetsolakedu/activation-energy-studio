@@ -32,8 +32,8 @@ import {
   type ScientificDisposition,
 } from '../product/disposition';
 
-export const REPORT_SCHEMA_VERSION = 'activation-energy-studio/project-report/v6' as const;
-export const CORE_MATH_VERSION = 'activation-energy-core/v2' as const;
+export const REPORT_SCHEMA_VERSION = 'activation-energy-studio/project-report/v7' as const;
+export const CORE_MATH_VERSION = 'activation-energy-core/v3' as const;
 export const FORMULA_SET_VERSION = 'activation-energy-formulas/v1' as const;
 export const REPORT_VOLATILE_FIELDS = ['generatedAt'] as const;
 
@@ -197,6 +197,13 @@ export interface ObservationTrace {
   y: number;
   predictedY: number;
   residual: number;
+  peakEvidence: {
+    peakResolved: boolean | null;
+    peakQuality: BetaTpRow['peakQuality'] | null;
+    peakSourceSignal: BetaTpRow['peakSourceSignal'] | null;
+    peakAnalystConfirmed: boolean | null;
+    peakAmbiguous: boolean | null;
+  } | null;
   sourceResolution: 'exact' | 'interpolated' | 'unresolved';
   sourceRows: SourceRowReference[];
 }
@@ -371,6 +378,7 @@ interface SourceCandidate {
   kind: 'curve' | 't-alpha-beta' | 'beta-tp';
   provenance: RecordProvenance;
   sourceFileId: string | null;
+  peakEvidence?: NonNullable<ObservationTrace['peakEvidence']>;
 }
 
 const FORMULAS: Readonly<Record<MethodName, Omit<ReportFormulaDefinition, 'method' | 'formulaId'>>> = {
@@ -1004,6 +1012,13 @@ function sourceCandidates(
       kind: 'beta-tp' as const,
       provenance: row.provenance,
       sourceFileId: boundSourceFileId(row.provenance, sourceFiles, orderedIdentity),
+      peakEvidence: {
+        peakResolved: row.peakResolved ?? null,
+        peakQuality: row.peakQuality ?? null,
+        peakSourceSignal: row.peakSourceSignal ?? null,
+        peakAnalystConfirmed: row.peakAnalystConfirmed ?? null,
+        peakAmbiguous: row.peakAmbiguous ?? null,
+      },
     });
     seenRows.add(row);
   };
@@ -1046,6 +1061,11 @@ function sourceCandidates(
       candidate.provenance.sourceRow,
       (candidate.provenance.sourceRows ?? []).join(','),
       (candidate.provenance.derivativeSourceRows ?? []).join(','),
+      candidate.peakEvidence?.peakResolved ?? '',
+      candidate.peakEvidence?.peakQuality ?? '',
+      candidate.peakEvidence?.peakSourceSignal ?? '',
+      candidate.peakEvidence?.peakAnalystConfirmed ?? '',
+      candidate.peakEvidence?.peakAmbiguous ?? '',
     ].join('|');
     if (!unique.has(key)) unique.set(key, candidate);
   }
@@ -1123,7 +1143,7 @@ function resolveSourceRows(
   resultType: ScientificResultRow['resultType'],
   method: MethodName,
   candidates: readonly SourceCandidate[],
-): Pick<ObservationTrace, 'sourceResolution' | 'sourceRows'> {
+): Pick<ObservationTrace, 'peakEvidence' | 'sourceResolution' | 'sourceRows'> {
   const kindCandidates = candidates
     .filter(
       (candidate) =>
@@ -1141,6 +1161,7 @@ function resolveSourceRows(
         ? exact.provenance.sourceRows
         : [exact.provenance.sourceRow];
     return {
+      peakEvidence: exact.peakEvidence ?? null,
       sourceResolution: primaryRows.length === 1 ? 'exact' : 'interpolated',
       sourceRows: candidateReferences(exact, method === 'FRIEDMAN'),
     };
@@ -1151,6 +1172,7 @@ function resolveSourceRows(
   const upper = kindCandidates.find((candidate) => candidate.temperatureK > observation.temperatureK);
   if (lower && upper) {
     return {
+      peakEvidence: null,
       sourceResolution: 'interpolated',
       sourceRows: [
         ...candidateReferences(
@@ -1166,7 +1188,7 @@ function resolveSourceRows(
       ],
     };
   }
-  return { sourceResolution: 'unresolved', sourceRows: [] };
+  return { peakEvidence: null, sourceResolution: 'unresolved', sourceRows: [] };
 }
 
 function diagnosticsForResult(

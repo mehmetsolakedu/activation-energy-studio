@@ -51,6 +51,7 @@ export type DiagnosticCode =
   | "NO_COMMON_ALPHA_RANGE"
   | "INVALID_ALPHA_GRID"
   | "TARGET_ALPHA_OUTSIDE_COMMON_RANGE"
+  | "INSUFFICIENT_RECIPROCAL_TEMPERATURE_SPREAD"
   | "REGRESSION_FAILED"
   | "LOW_R2"
   | "NON_POSITIVE_ACTIVATION_ENERGY"
@@ -60,6 +61,11 @@ export type DiagnosticCode =
   | "INVALID_PROVIDED_DERIVATIVE"
   | "NUMERICAL_DERIVATIVE"
   | "KISSINGER_PEAK_MISSING"
+  | "KISSINGER_PEAK_UNRESOLVED"
+  | "KISSINGER_PEAK_BOUNDARY"
+  | "KISSINGER_PEAK_QUALITY_UNVERIFIED"
+  | "KISSINGER_PEAK_SIGNAL_UNVERIFIED"
+  | "KISSINGER_PEAK_UNCONFIRMED"
   | "KISSINGER_PEAK_OUTSIDE_RUN_RANGE"
   | "TOO_FEW_KISSINGER_PEAKS"
   | "KISSINGER_COMPLEXITY_UNDERPOWERED"
@@ -115,6 +121,11 @@ export interface ThermalRun {
   readonly peakTemperature?: number;
   /** True when peak identity/overlap has not been resolved by the user. */
   readonly peakAmbiguous?: boolean;
+  /** Explicit analyst assertion that one peak identity has been resolved. */
+  readonly peakResolved?: boolean;
+  readonly peakQuality?: KissingerPeakQuality;
+  readonly peakSourceSignal?: KissingerPeakSourceSignal;
+  readonly peakAnalystConfirmed?: boolean;
   readonly sampleId?: string;
   readonly atmosphere?: string;
   readonly stage?: string;
@@ -136,6 +147,10 @@ export interface PreparedRun {
   readonly derivativeSource: DerivativeSource;
   readonly peakTemperatureK?: number;
   readonly peakAmbiguous?: boolean;
+  readonly peakResolved?: boolean;
+  readonly peakQuality?: KissingerPeakQuality;
+  readonly peakSourceSignal?: KissingerPeakSourceSignal;
+  readonly peakAnalystConfirmed?: boolean;
   readonly sampleId?: string;
   readonly atmosphere?: string;
   readonly stage?: string;
@@ -225,11 +240,27 @@ export interface AlphaMethodResult {
   readonly warnings: readonly Diagnostic[];
 }
 
+export type KissingerPeakQuality =
+  | "clear-interior"
+  | "boundary"
+  | "shoulder"
+  | "multiple-overlapping"
+  | "unknown";
+
+export type KissingerPeakSourceSignal =
+  | "positive-mass-loss-rate"
+  | "positive-dalpha-dt"
+  | "external-beta-tp-table";
+
 export interface KissingerPeak {
   readonly runId: string;
   readonly heatingRateKPerMinute: number;
   readonly peakTemperatureK: number;
   readonly ambiguous?: boolean;
+  readonly peakResolved?: boolean;
+  readonly peakQuality?: KissingerPeakQuality;
+  readonly sourceSignal?: KissingerPeakSourceSignal;
+  readonly analystConfirmed?: boolean;
   readonly stage?: string;
 }
 
@@ -255,6 +286,7 @@ export interface EligibilityResult {
 }
 
 export interface MethodCalculationOptions {
+  /** Finite inclusive threshold in [0, 1]; invalid direct-core values throw. */
   readonly minR2Warning?: number;
 }
 

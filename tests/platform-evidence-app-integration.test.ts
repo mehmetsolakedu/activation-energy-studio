@@ -255,7 +255,7 @@ describe('platform evidence record with an application-generated report', () => 
       writeFileSync(manifestPath, `${JSON.stringify(manifest, null, 2)}\n`);
 
       expect(() => createPlatformEvidenceRecord(manifestPath))
-        .toThrow('selfTestJson application identity does not match the release under test');
+        .toThrow('selfTestJson schema or contract does not match the platform self-test');
     } finally {
       rmSync(directory, { recursive: true, force: true });
     }

@@ -137,6 +137,14 @@ export function analyzeActivationEnergy(
           heatingRateKPerMinute: run.heatingRateKPerMinute,
           peakTemperatureK: run.peakTemperatureK as number,
           ...(run.peakAmbiguous === undefined ? {} : { ambiguous: run.peakAmbiguous }),
+          ...(run.peakResolved === undefined ? {} : { peakResolved: run.peakResolved }),
+          ...(run.peakQuality === undefined ? {} : { peakQuality: run.peakQuality }),
+          ...(run.peakSourceSignal === undefined
+            ? {}
+            : { sourceSignal: run.peakSourceSignal }),
+          ...(run.peakAnalystConfirmed === undefined
+            ? {}
+            : { analystConfirmed: run.peakAnalystConfirmed }),
           ...(run.stage === undefined ? {} : { stage: run.stage }),
         }));
         kissinger = calculateKissinger(peaks, { minR2Warning: options.minR2Warning });

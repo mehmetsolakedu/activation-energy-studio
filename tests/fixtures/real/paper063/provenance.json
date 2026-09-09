@@ -1,6 +1,6 @@
 {
-  "schema": "activation-energy-studio/publication-derived-peak-fixture/v1",
-  "fixtureId": "paper063-xps-kissinger-publication-peak-v1",
+  "schema": "activation-energy-studio/publication-derived-peak-fixture/v2",
+  "fixtureId": "paper063-xps-kissinger-publication-peak-v2",
   "classification": "publication-derived-peak-table",
   "isRawCurveData": false,
   "validationScope": "standalone Kissinger implementation validation only",
@@ -31,6 +31,13 @@
     "peakTemperatureUnit": "K",
     "printedTemperatureResolutionK": 1,
     "transcriptionRule": "Pair the five heating rates listed for the experiment with the five peak temperatures reported in the same order."
+  },
+  "peakEvidenceContract": {
+    "peakResolved": true,
+    "peakQuality": "clear-interior",
+    "peakSourceSignal": "external-beta-tp-table",
+    "peakAnalystConfirmed": true,
+    "basis": "The article describes and labels one XPS DTG peak at each rate; the curated fixture records an analyst-confirmed transcription, not an independent raw-curve peak re-evaluation."
   },
   "scientificBoundaries": [
     "The rows are a transcription of values printed in the article, not instrument-exported TGA or DTG curves.",

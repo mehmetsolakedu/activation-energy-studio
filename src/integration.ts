@@ -357,6 +357,15 @@ export function buildThermalRuns(
         runId,
         heatingRateKPerMinute: row.heatingRateKPerMin,
         peakTemperatureK: row.peakTemperatureK,
+        ...(row.peakAmbiguous === undefined ? {} : { ambiguous: row.peakAmbiguous }),
+        ...(row.peakResolved === undefined ? {} : { peakResolved: row.peakResolved }),
+        ...(row.peakQuality === undefined ? {} : { peakQuality: row.peakQuality }),
+        ...(row.peakSourceSignal === undefined
+          ? {}
+          : { sourceSignal: row.peakSourceSignal }),
+        ...(row.peakAnalystConfirmed === undefined
+          ? {}
+          : { analystConfirmed: row.peakAnalystConfirmed }),
         stage: peakStage,
       });
     }
@@ -557,7 +566,7 @@ export function buildThermalRuns(
 
     const peakCandidates = peakRowsByRun.get(runId) ?? [];
     const peak = peakCandidates.length === 1 ? peakCandidates[0] : undefined;
-    const peakAmbiguous = peakCandidates.length > 1;
+    const peakAmbiguous = peakCandidates.length > 1 || peak?.peakAmbiguous === true;
     if (
       peakAmbiguous
       && !diagnostics.some(
@@ -600,6 +609,14 @@ export function buildThermalRuns(
       ...(massReference ? { massReference } : {}),
       ...(peak ? { peakTemperature: peak.peakTemperatureK } : {}),
       ...(peakAmbiguous ? { peakAmbiguous: true } : {}),
+      ...(peak?.peakResolved === undefined ? {} : { peakResolved: peak.peakResolved }),
+      ...(peak?.peakQuality === undefined ? {} : { peakQuality: peak.peakQuality }),
+      ...(peak?.peakSourceSignal === undefined
+        ? {}
+        : { peakSourceSignal: peak.peakSourceSignal }),
+      ...(peak?.peakAnalystConfirmed === undefined
+        ? {}
+        : { peakAnalystConfirmed: peak.peakAnalystConfirmed }),
       ...(first.sample ? { sampleId: first.sample } : {}),
       ...(first.atmosphere ? { atmosphere: first.atmosphere } : {}),
       ...(assignedStage ? { stage: assignedStage } : {}),

@@ -12,7 +12,10 @@ import {
   interpolateTemperatureAtAlpha,
   isAmbiguousAlphaCrossing,
 } from "./preprocessing";
-import { ordinaryLeastSquares } from "./regression";
+import {
+  InsufficientRegressionSpreadError,
+  ordinaryLeastSquares,
+} from "./regression";
 import type {
   AlphaActivationEnergyEstimate,
   AlphaMethodResult,
@@ -28,6 +31,14 @@ import type {
 } from "./types";
 
 const DEFAULT_MIN_R2_WARNING = 0.98;
+
+function resolveMinR2Warning(options: MethodCalculationOptions): number {
+  const value = options.minR2Warning ?? DEFAULT_MIN_R2_WARNING;
+  if (!Number.isFinite(value) || value < 0 || value > 1) {
+    throw new RangeError("minR2Warning must be a finite number from 0 to 1.");
+  }
+  return value;
+}
 
 function formulaId(method: IsoConversionalMethod): string {
   switch (method) {
@@ -49,6 +60,51 @@ function diagnostic(
   extra: Partial<Diagnostic> = {},
 ): Diagnostic {
   return { severity, code, message, ...extra };
+}
+
+function regressionFailureDiagnostic(
+  method: MethodName,
+  error: unknown,
+  alpha?: number,
+): Diagnostic {
+  if (error instanceof InsufficientRegressionSpreadError) {
+    return diagnostic(
+      "refusal",
+      "INSUFFICIENT_RECIPROCAL_TEMPERATURE_SPREAD",
+      `${method} cannot calculate a reliable slope because reciprocal-temperature spread is numerically insufficient${alpha === undefined ? "." : ` at alpha ${alpha}.`}`,
+      {
+        method,
+        ...(alpha === undefined ? {} : { alpha }),
+        details: {
+          relativeRmsSpread: error.relativeRmsSpread,
+          minimumRelativeRmsSpread: error.minimumRelativeRmsSpread,
+        },
+      },
+    );
+  }
+  return diagnostic(
+    "refusal",
+    "REGRESSION_FAILED",
+    `${method} regression failed${alpha === undefined ? "" : ` at alpha ${alpha}`}: ${(error as Error).message}`,
+    { method, ...(alpha === undefined ? {} : { alpha }) },
+  );
+}
+
+function nonpositiveActivationEnergyDiagnostic(
+  method: MethodName,
+  slope: number,
+  alpha?: number,
+): Diagnostic {
+  return diagnostic(
+    "refusal",
+    "NONPOSITIVE_APPARENT_EA",
+    `${method} cannot report a conventional apparent activation energy because the fitted slope is not negative${alpha === undefined ? "." : ` at alpha ${alpha}.`}`,
+    {
+      method,
+      ...(alpha === undefined ? {} : { alpha }),
+      details: { fittedSlope: slope },
+    },
+  );
 }
 
 function activationEnergyFromSlope(
@@ -241,6 +297,7 @@ function calculateIntegralMethod(
   alphaValues: readonly number[],
   options: MethodCalculationOptions,
 ): AlphaMethodResult {
+  const minR2Warning = resolveMinR2Warning(options);
   const eligibility = evaluateAnalysisEligibility(runs, alphaValues);
   const refusals: Diagnostic[] = [...eligibility.refusals];
   const warnings: Diagnostic[] = [...eligibility.warnings];
@@ -258,7 +315,6 @@ function calculateIntegralMethod(
   }
 
   const [commonLower, commonUpper] = eligibility.commonAlphaRange as readonly [number, number];
-  const minR2Warning = options.minR2Warning ?? DEFAULT_MIN_R2_WARNING;
   for (const alpha of alphaValues) {
     if (alpha < commonLower || alpha > commonUpper) {
       refusals.push(
@@ -315,6 +371,16 @@ function calculateIntegralMethod(
     try {
       const regression = regressByHeatingRate(method, observations);
       const activationEnergyKJPerMol = activationEnergyFromSlope(method, regression.slope);
+      if (!(regression.slope < 0) || !(activationEnergyKJPerMol > 0)) {
+        refusals.push(
+          nonpositiveActivationEnergyDiagnostic(
+            method,
+            regression.slope,
+            alpha,
+          ),
+        );
+        continue;
+      }
       estimates.push({ alpha, activationEnergyKJPerMol, regression, observations });
       if (regression.r2 < minR2Warning) {
         warnings.push(
@@ -326,25 +392,8 @@ function calculateIntegralMethod(
           ),
         );
       }
-      if (!(activationEnergyKJPerMol > 0)) {
-        warnings.push(
-          diagnostic(
-            "warning",
-            "NONPOSITIVE_APPARENT_EA",
-            `${method} produced a non-positive apparent activation energy at alpha ${alpha}.`,
-            { method, alpha, details: { activationEnergyKJPerMol } },
-          ),
-        );
-      }
     } catch (error) {
-      refusals.push(
-        diagnostic(
-          "refusal",
-          "REGRESSION_FAILED",
-          `${method} regression failed at alpha ${alpha}: ${(error as Error).message}`,
-          { method, alpha },
-        ),
-      );
+      refusals.push(regressionFailureDiagnostic(method, error, alpha));
     }
   }
 
@@ -396,6 +445,7 @@ export function calculateFriedman(
   options: MethodCalculationOptions = {},
 ): AlphaMethodResult {
   const method = "FRIEDMAN" as const;
+  const minR2Warning = resolveMinR2Warning(options);
   const eligibility = evaluateAnalysisEligibility(runs, alphaValues);
   const refusals: Diagnostic[] = [...eligibility.refusals];
   const warnings: Diagnostic[] = [...eligibility.warnings];
@@ -427,7 +477,6 @@ export function calculateFriedman(
   }
 
   const [commonLower, commonUpper] = eligibility.commonAlphaRange as readonly [number, number];
-  const minR2Warning = options.minR2Warning ?? DEFAULT_MIN_R2_WARNING;
   for (const alpha of alphaValues) {
     if (alpha < commonLower || alpha > commonUpper) {
       refusals.push(
@@ -469,14 +518,15 @@ export function calculateFriedman(
       });
     }
     if (badRunIds.length > 0) {
-      warnings.push(
+      refusals.push(
         diagnostic(
-          "warning",
-          "FRIEDMAN_NON_POSITIVE_RATE",
-          `Friedman excluded non-positive or unavailable dα/dt observations at alpha ${alpha}.`,
+          "refusal",
+          "FRIEDMAN_DERIVATIVE_UNAVAILABLE",
+          `Friedman cannot calculate alpha ${alpha} because every included run must provide one finite positive dα/dt value.`,
           { method, alpha, runIds: badRunIds },
         ),
       );
+      continue;
     }
     const usableDistinctRates = new Set(
       observations.map((observation) => heatingRateKey(observation.heatingRateKPerMinute)),
@@ -496,6 +546,16 @@ export function calculateFriedman(
     try {
       const regression = regressByHeatingRate(method, observations);
       const activationEnergyKJPerMol = activationEnergyFromSlope(method, regression.slope);
+      if (!(regression.slope < 0) || !(activationEnergyKJPerMol > 0)) {
+        refusals.push(
+          nonpositiveActivationEnergyDiagnostic(
+            method,
+            regression.slope,
+            alpha,
+          ),
+        );
+        continue;
+      }
       estimates.push({ alpha, activationEnergyKJPerMol, regression, observations });
       if (regression.r2 < minR2Warning) {
         warnings.push(
@@ -507,25 +567,8 @@ export function calculateFriedman(
           ),
         );
       }
-      if (!(activationEnergyKJPerMol > 0)) {
-        warnings.push(
-          diagnostic(
-            "warning",
-            "NONPOSITIVE_APPARENT_EA",
-            `Friedman produced a non-positive apparent activation energy at alpha ${alpha}.`,
-            { method, alpha, details: { activationEnergyKJPerMol } },
-          ),
-        );
-      }
     } catch (error) {
-      refusals.push(
-        diagnostic(
-          "refusal",
-          "REGRESSION_FAILED",
-          `Friedman regression failed at alpha ${alpha}: ${(error as Error).message}`,
-          { method, alpha },
-        ),
-      );
+      refusals.push(regressionFailureDiagnostic(method, error, alpha));
     }
   }
 
@@ -552,6 +595,7 @@ export function calculateKissinger(
   options: MethodCalculationOptions = {},
 ): KissingerResult {
   const method = "KISSINGER" as const;
+  const minR2Warning = resolveMinR2Warning(options);
   const refusals: Diagnostic[] = [];
   const warnings: Diagnostic[] = [];
   const observations: MethodObservation[] = [];
@@ -561,7 +605,9 @@ export function calculateKissinger(
     alpha: null,
     formulaId: "kissinger_peak_ln_v1" as const,
   };
-  const ambiguousPeaks = peaks.filter((peak) => peak.ambiguous);
+  const ambiguousPeaks = peaks.filter(
+    (peak) => peak.ambiguous || peak.peakQuality === "multiple-overlapping",
+  );
   if (ambiguousPeaks.length > 0) {
     refusals.push(
       diagnostic(
@@ -571,6 +617,75 @@ export function calculateKissinger(
         { method, runIds: ambiguousPeaks.map((peak) => peak.runId) },
       ),
     );
+  }
+  const unresolvedPeaks = peaks.filter((peak) => peak.peakResolved !== true);
+  if (unresolvedPeaks.length > 0) {
+    refusals.push(
+      diagnostic(
+        "refusal",
+        "KISSINGER_PEAK_UNRESOLVED",
+        "Kissinger requires an explicit resolved peak identity for every beta–Tp observation.",
+        { method, runIds: unresolvedPeaks.map((peak) => peak.runId) },
+      ),
+    );
+  }
+  const boundaryPeaks = peaks.filter((peak) => peak.peakQuality === "boundary");
+  if (boundaryPeaks.length > 0) {
+    refusals.push(
+      diagnostic(
+        "refusal",
+        "KISSINGER_PEAK_BOUNDARY",
+        "Kissinger cannot use a peak at a selected or measured temperature boundary.",
+        { method, runIds: boundaryPeaks.map((peak) => peak.runId) },
+      ),
+    );
+  }
+  const qualityUnverifiedPeaks = peaks.filter(
+    (peak) =>
+      peak.peakQuality !== "clear-interior"
+      && peak.peakQuality !== "boundary"
+      && peak.peakQuality !== "multiple-overlapping",
+  );
+  if (qualityUnverifiedPeaks.length > 0) {
+    refusals.push(
+      diagnostic(
+        "refusal",
+        "KISSINGER_PEAK_QUALITY_UNVERIFIED",
+        "Kissinger requires every peak to be classified as one clear interior peak.",
+        { method, runIds: qualityUnverifiedPeaks.map((peak) => peak.runId) },
+      ),
+    );
+  }
+  const allowedSignals = new Set([
+    "positive-mass-loss-rate",
+    "positive-dalpha-dt",
+    "external-beta-tp-table",
+  ]);
+  const signalUnverifiedPeaks = peaks.filter(
+    (peak) => !peak.sourceSignal || !allowedSignals.has(peak.sourceSignal),
+  );
+  if (signalUnverifiedPeaks.length > 0) {
+    refusals.push(
+      diagnostic(
+        "refusal",
+        "KISSINGER_PEAK_SIGNAL_UNVERIFIED",
+        "Kissinger requires the peak-source signal to be recorded for every observation.",
+        { method, runIds: signalUnverifiedPeaks.map((peak) => peak.runId) },
+      ),
+    );
+  }
+  const unconfirmedPeaks = peaks.filter((peak) => peak.analystConfirmed !== true);
+  if (unconfirmedPeaks.length > 0) {
+    refusals.push(
+      diagnostic(
+        "refusal",
+        "KISSINGER_PEAK_UNCONFIRMED",
+        "Kissinger requires an explicit analyst confirmation for every peak observation.",
+        { method, runIds: unconfirmedPeaks.map((peak) => peak.runId) },
+      ),
+    );
+  }
+  if (refusals.length > 0) {
     return { ...resultIdentity, status: "refused", observations, refusals, warnings };
   }
   const peaksWithoutStage = peaks.filter((peak) => !peak.stage?.trim());
@@ -702,7 +817,6 @@ export function calculateKissinger(
     const regression = regressByHeatingRate(method, observations);
     const activationEnergyKJPerMol =
       (-regression.slope * GAS_CONSTANT_J_PER_MOL_K) / 1000;
-    const minR2Warning = options.minR2Warning ?? DEFAULT_MIN_R2_WARNING;
     if (regression.r2 < minR2Warning) {
       warnings.push(
         diagnostic(
@@ -713,15 +827,20 @@ export function calculateKissinger(
         ),
       );
     }
-    if (!(activationEnergyKJPerMol > 0)) {
-      warnings.push(
-        diagnostic(
-          "warning",
-          "NONPOSITIVE_APPARENT_EA",
-          "Kissinger produced a non-positive apparent activation energy.",
-          { method, details: { activationEnergyKJPerMol } },
+    if (!(regression.slope < 0) || !(activationEnergyKJPerMol > 0)) {
+      refusals.push(
+        nonpositiveActivationEnergyDiagnostic(
+          method,
+          regression.slope,
         ),
       );
+      return {
+        ...resultIdentity,
+        status: "refused",
+        observations,
+        refusals,
+        warnings,
+      };
     }
     return {
       ...resultIdentity,
@@ -733,14 +852,7 @@ export function calculateKissinger(
       warnings,
     };
   } catch (error) {
-    refusals.push(
-      diagnostic(
-        "refusal",
-        "REGRESSION_FAILED",
-        `Kissinger regression failed: ${(error as Error).message}`,
-        { method },
-      ),
-    );
+    refusals.push(regressionFailureDiagnostic(method, error));
     return { ...resultIdentity, status: "refused", observations, refusals, warnings };
   }
 }

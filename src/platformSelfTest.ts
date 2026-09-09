@@ -12,7 +12,7 @@ import syntheticKasExample from '../examples/synthetic_kas_150.csv?raw';
 
 export const PLATFORM_SELF_TEST_SCHEMA =
   'activation-energy-studio/runtime-self-test/v1' as const;
-export const PLATFORM_SELF_TEST_CONTRACT = 'platform-scientific-self-test/1' as const;
+export const PLATFORM_SELF_TEST_CONTRACT = 'platform-scientific-self-test/2' as const;
 export const GOLDEN_INPUT_SHA256 =
   'eeafd2d8a1dc11c385bc2906800b9b1d5647451a64cd400eafd50a83579f8b19' as const;
 
@@ -79,7 +79,7 @@ export const PLATFORM_SELF_TEST_PAYLOAD_CANONICALIZATION = {
 // A mismatch is a FAIL even when all broad numeric ranges still pass. The full-precision
 // raw payload remains in the retained record for diagnosis.
 export const EXPECTED_SCIENTIFIC_PAYLOAD_SHA256 =
-  '2b53c8311cf5b4fda612a455d92e00a6e3b9eaa6ad24e293430af05ee4eae2ba' as const;
+  'c3084a1762e4b3c6d7587df0068351edf755e0234b8fd24ab768439e1e24ef96' as const;
 
 export interface PlatformSelfTestRuntime {
   readonly userAgent: string;

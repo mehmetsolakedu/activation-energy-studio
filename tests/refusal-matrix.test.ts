@@ -11,6 +11,7 @@ import {
   type ThermalPoint,
   type ThermalRun,
 } from "../src/core";
+import { VERIFIED_EXTERNAL_PEAK_EVIDENCE } from "./helpers/peak-evidence";
 
 const DEFAULT_POINTS: readonly ThermalPoint[] = [
   { temperature: 500, alpha: 0.1, dAlphaDtPerMinute: 0.01 },
@@ -202,7 +203,7 @@ describe("AC-EL / AC-RF refusal and warning matrix", () => {
     expect(analysis.methods).toEqual([]);
   });
 
-  it("retains a finite positive-slope fit but marks the nonpositive apparent Ea", () => {
+  it("refuses a finite positive-slope fit without exposing a nonpositive apparent Ea", () => {
     const temperatures = [700, 650, 600, 550];
     const runs = [5, 10, 20, 40].map((rate, index): PreparedRun => {
       const temperatureK = temperatures[index] as number;
@@ -218,24 +219,27 @@ describe("AC-EL / AC-RF refusal and warning matrix", () => {
 
     const result = calculateFWO(runs, [0.5]);
 
-    expect(result.estimates).toHaveLength(1);
-    expect(result.estimates[0]?.regression.slope).toBeGreaterThan(0);
-    expect(result.estimates[0]?.activationEnergyKJPerMol).toBeLessThanOrEqual(0);
-    expect(diagnosticCodes(result.warnings)).toContain("NONPOSITIVE_APPARENT_EA");
-    expect(result.refusals).toEqual([]);
+    expect(result.status).toBe("refused");
+    expect(result.estimates).toHaveLength(0);
+    expect(diagnosticCodes(result.warnings)).not.toContain("NONPOSITIVE_APPARENT_EA");
+    expect(result.refusals).toContainEqual(expect.objectContaining({
+      code: "NONPOSITIVE_APPARENT_EA",
+      details: expect.objectContaining({ fittedSlope: expect.any(Number) }),
+    }));
   });
 
   it("hard-refuses an explicitly ambiguous or overlapping Kissinger peak identity", () => {
     const peaks: KissingerPeak[] = [
-      { runId: "peak-5", heatingRateKPerMinute: 5, peakTemperatureK: 580, stage: "main" },
+      { runId: "peak-5", heatingRateKPerMinute: 5, peakTemperatureK: 580, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
       {
         runId: "peak-10",
         heatingRateKPerMinute: 10,
         peakTemperatureK: 600,
+        ...VERIFIED_EXTERNAL_PEAK_EVIDENCE,
         stage: "main",
         ambiguous: true,
       },
-      { runId: "peak-20", heatingRateKPerMinute: 20, peakTemperatureK: 620, stage: "main" },
+      { runId: "peak-20", heatingRateKPerMinute: 20, peakTemperatureK: 620, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
     ];
 
     const result = calculateKissinger(peaks);
@@ -249,9 +253,9 @@ describe("AC-EL / AC-RF refusal and warning matrix", () => {
 
   it("does not count duplicate Kissinger peaks as independent heating rates", () => {
     const result = calculateKissinger([
-      { runId: "peak-5-a", heatingRateKPerMinute: 5, peakTemperatureK: 580, stage: "main" },
-      { runId: "peak-5-b", heatingRateKPerMinute: 5, peakTemperatureK: 581, stage: "main" },
-      { runId: "peak-10", heatingRateKPerMinute: 10, peakTemperatureK: 600, stage: "main" },
+      { runId: "peak-5-a", heatingRateKPerMinute: 5, peakTemperatureK: 580, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
+      { runId: "peak-5-b", heatingRateKPerMinute: 5, peakTemperatureK: 581, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
+      { runId: "peak-10", heatingRateKPerMinute: 10, peakTemperatureK: 600, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
     ]);
 
     expect(result.status).toBe("refused");
@@ -262,12 +266,13 @@ describe("AC-EL / AC-RF refusal and warning matrix", () => {
 
   it("hard-refuses Kissinger peaks assigned to different physical stages", () => {
     const result = calculateKissinger([
-      { runId: "peak-5", heatingRateKPerMinute: 5, peakTemperatureK: 580, stage: "main" },
-      { runId: "peak-10", heatingRateKPerMinute: 10, peakTemperatureK: 600, stage: "main" },
+      { runId: "peak-5", heatingRateKPerMinute: 5, peakTemperatureK: 580, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
+      { runId: "peak-10", heatingRateKPerMinute: 10, peakTemperatureK: 600, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
       {
         runId: "peak-20",
         heatingRateKPerMinute: 20,
         peakTemperatureK: 620,
+        ...VERIFIED_EXTERNAL_PEAK_EVIDENCE,
         stage: "shoulder",
       },
     ]);

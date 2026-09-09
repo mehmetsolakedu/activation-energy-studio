@@ -219,6 +219,47 @@ const scenarios: readonly Scenario[] = [
 ];
 
 describe('scientific disposition product policy', () => {
+  it.each([
+    'FRIEDMAN_NON_POSITIVE_RATE',
+    'FRIEDMAN_DERIVATIVE_UNAVAILABLE',
+  ] as const)('describes %s as strict all-run refusal, never row exclusion', (code) => {
+    const assessment = assessScientificDisposition(analysisFixture({
+      method: 'FRIEDMAN',
+      status: 'refused',
+      estimates: [],
+      refusals: [diagnostic(code, 'refusal', 'FRIEDMAN', 0.5)],
+    }), { alphaGrid: [0.5] });
+    const method = assessment.methods[0]!;
+    const reason = method.reasons.find((candidate) => candidate.code === code);
+
+    expect(method.disposition).toBe('CALCULATION_REJECTED');
+    expect(reason?.message).toContain('every required heating-rate run');
+    expect(reason?.message).toContain('refused for this alpha');
+    expect(reason?.message).not.toContain('excluded');
+    expect(method.nextExperimentHints.join(' '))
+      .toContain('every required heating-rate run');
+  });
+
+  it('excludes a result whose 95% slope interval reaches a nonnegative slope', () => {
+    const uncertain = estimate(0.5, 54.26, 0.99046);
+    const assessment = assessScientificDisposition(analysisFixture({
+      status: 'success',
+      estimates: [{
+        ...uncertain,
+        regression: {
+          ...uncertain.regression,
+          slopeConfidence95: [-15_427.15, 1_696.48],
+        },
+      }],
+    }), { alphaGrid: [0.5], minimumReportableR2: 0.98 });
+
+    expect(assessment.methods[0]?.disposition).toBe('CALCULATED_UNRELIABLE');
+    expect(assessment.methods[0]?.reportableAlphaSegments).toEqual([]);
+    expect(assessment.methods[0]?.results[0]?.reasons).toContainEqual(
+      expect.objectContaining({ code: 'ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE' }),
+    );
+  });
+
   it('uses the exact human-facing labels in publication-preview notes', () => {
     expect(scientificDispositionLabel('REPORTABLE')).toBe('REPORTABLE');
     expect(scientificDispositionLabel('REPORTABLE_WITH_CAUTION'))

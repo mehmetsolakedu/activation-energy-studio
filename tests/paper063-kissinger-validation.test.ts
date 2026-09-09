@@ -14,12 +14,16 @@ interface PeakRow {
   readonly heatingRateKPerMinute: number;
   readonly peakTemperatureK: number;
   readonly stage: string;
+  readonly peakResolved: true;
+  readonly peakQuality: 'clear-interior';
+  readonly sourceSignal: 'external-beta-tp-table';
+  readonly analystConfirmed: true;
   readonly ambiguous: boolean;
 }
 
 const FILE_HASHES = {
-  fixture: '937acf48dea0d75b113c0d5b8aac0d5e3fc9d2880b370668458a80fcc2d612c6',
-  provenance: 'ac50313014cfc2f6a40e652638e64cc6bab8945cc79b70b5c29c954b0c30732e',
+  fixture: 'ab52fa64e40a18a522f96d711d75d6c3994624b4beea033f505bda1e1edcccee',
+  provenance: '9b4ebd48fd295ab70de9a412509ca5eb7ef0d4b8cea7112d53e35d4747ed1e36',
   expectedOutput: 'e7cb2664953b4080008a760eb3d604b81d6f474a27c01cb32dbb21c8994defb7',
 } as const;
 
@@ -40,15 +44,29 @@ function sha256(filePath: string): string {
 function parsePeakRows(csv: string): readonly PeakRow[] {
   const [header, ...lines] = csv.trim().split(/\r?\n/u);
   expect(header).toBe(
-    'runId,heatingRateKPerMinute,peakTemperatureK,stage,ambiguous',
+    'runId,heatingRateKPerMinute,peakTemperatureK,stage,peakResolved,peakQuality,peakSourceSignal,peakAnalystConfirmed,ambiguous',
   );
   return lines.map((line) => {
-    const [runId, beta, temperature, stage, ambiguous] = line.split(',');
+    const [
+      runId,
+      beta,
+      temperature,
+      stage,
+      peakResolved,
+      peakQuality,
+      sourceSignal,
+      analystConfirmed,
+      ambiguous,
+    ] = line.split(',');
     if (
       !runId
       || !beta
       || !temperature
       || !stage
+      || peakResolved !== 'true'
+      || peakQuality !== 'clear-interior'
+      || sourceSignal !== 'external-beta-tp-table'
+      || analystConfirmed !== 'true'
       || !['true', 'false'].includes(ambiguous ?? '')
     ) {
       throw new Error(`Invalid Paper 063 fixture row: ${line}`);
@@ -58,6 +76,10 @@ function parsePeakRows(csv: string): readonly PeakRow[] {
       heatingRateKPerMinute: Number(beta),
       peakTemperatureK: Number(temperature),
       stage,
+      peakResolved: true,
+      peakQuality: 'clear-interior',
+      sourceSignal: 'external-beta-tp-table',
+      analystConfirmed: true,
       ambiguous: ambiguous === 'true',
     };
   });

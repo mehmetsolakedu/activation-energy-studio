@@ -56,7 +56,7 @@ export type {
   SourceRowReference,
 } from './audit';
 
-export const APP_VERSION = '0.3.2';
+export const APP_VERSION = '0.4.0';
 
 export type LicensedSourceType =
   | 'deposited-raw-instrument-data'
@@ -250,6 +250,11 @@ export function createResultsCsv(
     'separateDatasetLicenseIdentifier',
     'separateDatasetLicenseScope',
     'sourceClaimLimits',
+    'sourceFilesJson',
+    'inputTablesJson',
+    'preprocessingJson',
+    'analysisWarningCodesJson',
+    'analysisRefusalCodesJson',
     'resultId',
     'quantity',
     'claimBoundary',
@@ -274,10 +279,22 @@ export function createResultsCsv(
     'slopeStandardError',
     'status',
     'disposition',
+    'includedObservationIdsJson',
+    'regressionInputGroupIdsJson',
+    'exclusionsJson',
+    'observationTraceJson',
+    'traceabilityGapsJson',
   ] as const;
   const lines = [headers.join(',')];
   const provenance = report.context.licensedSourceProvenance;
   for (const row of report.results) {
+    const resultTrace = report.traceability.resultLinks.find(
+      (candidate) => candidate.resultId === row.resultId,
+    );
+    const observationTrace = resultTrace
+      ? report.traceability.observationLinks.filter((observation) =>
+          resultTrace.includedObservationIds.includes(observation.observationId))
+      : [];
     const csvRow: Record<(typeof headers)[number], string | number | boolean | null> = {
       schemaVersion: report.schemaVersion,
       applicationVersion: report.application.version,
@@ -300,7 +317,25 @@ export function createResultsCsv(
         provenance?.separateDatasetLicense.identifier ?? null,
       separateDatasetLicenseScope: provenance?.separateDatasetLicense.scope ?? null,
       sourceClaimLimits: provenance?.claimLimits.join(' | ') ?? null,
+      sourceFilesJson: JSON.stringify(report.context.sourceFiles),
+      inputTablesJson: JSON.stringify(report.reproducibility.inputTables),
+      preprocessingJson: JSON.stringify(report.reproducibility.preprocessing),
+      analysisWarningCodesJson: JSON.stringify(
+        report.analysis.warnings.map(({ code }) => code),
+      ),
+      analysisRefusalCodesJson: JSON.stringify(
+        report.analysis.refusals.map(({ code }) => code),
+      ),
       ...row,
+      includedObservationIdsJson: JSON.stringify(
+        resultTrace?.includedObservationIds ?? [],
+      ),
+      regressionInputGroupIdsJson: JSON.stringify(
+        resultTrace?.regressionInputGroupIds ?? [],
+      ),
+      exclusionsJson: JSON.stringify(resultTrace?.exclusions ?? []),
+      observationTraceJson: JSON.stringify(observationTrace),
+      traceabilityGapsJson: JSON.stringify(report.traceability.gaps),
     };
     lines.push(headers.map((header) => csvCell(csvRow[header])).join(','));
   }
@@ -1066,6 +1101,21 @@ function drawInputAndPreprocessing(
     continuationLabel: 'Input units and preprocessing - continued',
     gapAfter: 2,
   });
+  const peakEvidenceSummary = report.analysis.preparedRuns
+    .filter((run) => run.peakTemperatureK !== undefined)
+    .map(
+      (run) =>
+        `${run.id}:Tp=${run.peakTemperatureK} K, resolved=${run.peakResolved ?? 'not recorded'}, quality=${run.peakQuality ?? 'not recorded'}, signal=${run.peakSourceSignal ?? 'not recorded'}, analystConfirmed=${run.peakAnalystConfirmed ?? 'not recorded'}, ambiguous=${run.peakAmbiguous ?? false}`,
+    )
+    .join('; ');
+  writeWrappedText(
+    layout,
+    `Curve-backed peak evidence: ${peakEvidenceSummary || 'none; see result-observation lineage for external beta-Tp rows'}.`,
+    {
+      continuationLabel: 'Input units and preprocessing - continued',
+      gapAfter: 2,
+    },
+  );
   const normalizationSummary = report.reproducibility.preprocessing.massNormalization
     .map(
       (entry) =>
@@ -1410,6 +1460,95 @@ function drawSourceFile(layout: PdfLayout, file: SourceFileTrace, index: number)
   layout.y += height + 3;
 }
 
+function drawResultObservationLineage(
+  layout: PdfLayout,
+  report: ReproducibleProjectReport,
+): void {
+  writeWrappedText(layout, 'Result and observation lineage:', {
+    fontSize: 8.2,
+    fontStyle: 'bold',
+    continuationLabel: 'Traceability - result lineage',
+    gapAfter: 1.2,
+  });
+  if (report.traceability.resultLinks.length === 0) {
+    writeWrappedText(layout, 'No numeric result lineage was retained.', {
+      x: PDF_LAYOUT.marginLeft + 4,
+      width: 178,
+      color: PDF_COLORS.muted,
+      continuationLabel: 'Traceability - result lineage',
+      gapAfter: 2,
+    });
+  }
+  for (const result of report.traceability.resultLinks) {
+    writeWrappedText(
+      layout,
+      `${result.resultId}: method=${result.method}; resultType=${result.resultType}; alpha=${result.alpha ?? 'null'}; formula=${result.formulaId}; included=${result.includedObservationIds.length}; groups=${result.regressionInputGroupIds.join(', ') || 'none'}; exclusions=${result.exclusions.length}.`,
+      {
+        x: PDF_LAYOUT.marginLeft + 2,
+        width: 180,
+        fontSize: 7.2,
+        continuationLabel: 'Traceability - result lineage',
+        gapAfter: 0.7,
+      },
+    );
+    const observations = report.traceability.observationLinks.filter(
+      ({ observationId }) => result.includedObservationIds.includes(observationId),
+    );
+    for (const observation of observations) {
+      const sources = observation.sourceRows
+        .map((source) => {
+          const sheet = source.sheetName ? `/${source.sheetName}` : '';
+          const mappings = source.columnMappings
+            .map((mapping) => `${mapping.role}@${mapping.sourceColumnIndex + 1}`)
+            .join('+');
+          return `${source.fileName}${sheet}:row${source.sourceRow}:${source.contribution}${mappings ? `:[${mappings}]` : ''}`;
+        })
+        .join(' | ');
+      const peak = observation.peakEvidence
+        ? `; peakEvidence=resolved:${observation.peakEvidence.peakResolved},quality:${observation.peakEvidence.peakQuality},signal:${observation.peakEvidence.peakSourceSignal},confirmed:${observation.peakEvidence.peakAnalystConfirmed},ambiguous:${observation.peakEvidence.peakAmbiguous}`
+        : '';
+      writeWrappedText(
+        layout,
+        `- ${observation.observationId}: run=${observation.runId}; beta=${observation.heatingRateKPerMinute} K/min; T=${observation.temperatureK} K; x=${observation.x}; y=${observation.y}; fitted=${observation.predictedY}; residual=${observation.residual}; source=${observation.sourceResolution}; rows=${sources || 'unresolved'}${peak}.`,
+        {
+          x: PDF_LAYOUT.marginLeft + 6,
+          width: 176,
+          fontSize: 6.5,
+          color: PDF_COLORS.muted,
+          continuationLabel: 'Traceability - result lineage',
+          gapAfter: 0.5,
+        },
+      );
+    }
+    for (const exclusion of result.exclusions) {
+      writeWrappedText(
+        layout,
+        `- excluded run=${exclusion.runId}; code=${exclusion.reasonCode}; severity=${exclusion.severity}; reason=${exclusion.reason}`,
+        {
+          x: PDF_LAYOUT.marginLeft + 6,
+          width: 176,
+          fontSize: 6.5,
+          color: PDF_COLORS.red,
+          continuationLabel: 'Traceability - result lineage',
+          gapAfter: 0.5,
+        },
+      );
+    }
+  }
+  writeWrappedText(
+    layout,
+    `Traceability gaps: ${report.traceability.gaps.length === 0 ? 'none' : report.traceability.gaps.map((gap) => `${gap.code}${gap.observationId ? `@${gap.observationId}` : ''}`).join(', ')}.`,
+    {
+      x: PDF_LAYOUT.marginLeft + 2,
+      width: 180,
+      fontSize: 7.2,
+      color: report.traceability.gaps.length === 0 ? PDF_COLORS.muted : PDF_COLORS.red,
+      continuationLabel: 'Traceability - result lineage',
+      gapAfter: 2,
+    },
+  );
+}
+
 function drawLicensedSourceProvenance(
   layout: PdfLayout,
   provenance: LicensedSourceProvenance,
@@ -1521,7 +1660,7 @@ export function createPdfReport(report: ReproducibleProjectReport): Blob {
   doc.setProperties({
     title: `${report.context.projectName} - Activation Energy Report`,
     subject: 'Evidence-grounded apparent activation-energy analysis',
-    author: 'Activation Energy Studio',
+    author: 'Mehmet Solak',
     creator: `Activation Energy Studio ${report.application.version}`,
   });
   doc.setCreationDate(new Date(report.generatedAt));
@@ -1541,7 +1680,7 @@ export function createPdfReport(report: ReproducibleProjectReport): Blob {
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(7.2);
   setTextColor(doc, PDF_COLORS.white);
-  doc.text('LOCAL / OFFLINE', 179.5, 16.3, { align: 'center' });
+  doc.text('LOCAL BROWSER', 179.5, 16.3, { align: 'center' });
 
   const layout: PdfLayout = { doc, y: 39 };
   const statusColor =
@@ -1581,7 +1720,7 @@ export function createPdfReport(report: ReproducibleProjectReport): Blob {
       label: 'Software',
       value: `${report.application.name} ${report.application.version}`,
     },
-    { label: 'Computation', value: 'Offline in the local browser' },
+    { label: 'Computation', value: 'Local browser; no data upload' },
   ]);
 
   drawEligibilitySummary(layout, report);
@@ -1676,6 +1815,8 @@ export function createPdfReport(report: ReproducibleProjectReport): Blob {
     );
     layout.y += 2;
   }
+
+  drawResultObservationLineage(layout, report);
 
   writeWrappedText(layout, `Source files (${report.context.sourceFiles.length}):`, {
     fontSize: 8.2,

@@ -87,8 +87,8 @@ const EXPECTED_SESSIONS = [
       {
         name: 'paper063_kissinger_peaks.csv',
         sourcePath: 'tests/fixtures/real/paper063/paper063_kissinger_peaks.csv',
-        bytes: 314,
-        sha256: '937acf48dea0d75b113c0d5b8aac0d5e3fc9d2880b370668458a80fcc2d612c6',
+        bytes: 617,
+        sha256: 'ab52fa64e40a18a522f96d711d75d6c3994624b4beea033f505bda1e1edcccee',
         bom: false,
         newline: 'LF',
         lineBreaks: 6,

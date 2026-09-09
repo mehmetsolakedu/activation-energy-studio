@@ -14,8 +14,26 @@ import {
   type PreparedRun,
   type ThermalRun,
 } from "../src/core";
+import {
+  VERIFIED_CURVE_PEAK_EVIDENCE,
+  VERIFIED_EXTERNAL_PEAK_EVIDENCE,
+} from "./helpers/peak-evidence";
 
 const BETAS = [5, 10, 20, 40] as const;
+
+describe("direct-core option validation", () => {
+  it.each([
+    ["FWO", (value: number) => calculateFWO([], [], { minR2Warning: value })],
+    ["KAS", (value: number) => calculateKAS([], [], { minR2Warning: value })],
+    ["Starink", (value: number) => calculateStarink([], [], { minR2Warning: value })],
+    ["Friedman", (value: number) => calculateFriedman([], [], { minR2Warning: value })],
+    ["Kissinger", (value: number) => calculateKissinger([], { minR2Warning: value })],
+  ])("%s rejects an invalid R2 warning threshold", (_method, calculate) => {
+    for (const value of [Number.NaN, Number.POSITIVE_INFINITY, -0.01, 1.01]) {
+      expect(() => calculate(value)).toThrow(/finite number from 0 to 1/i);
+    }
+  });
+});
 
 /** Solve ln(beta/T^p)=intercept-cE/(RT) by bisection. */
 function exactTemperature(
@@ -162,7 +180,7 @@ describe("differential and peak methods", () => {
     expect(result.estimates[0]?.regression.r2).toBeCloseTo(1, 12);
   });
 
-  it("excludes a non-positive Friedman derivative when three distinct rates remain", () => {
+  it("refuses a non-positive Friedman derivative even when three distinct rates remain", () => {
     const runs = integralRuns(0, FWO_SLOPE_COEFFICIENT, 150, 32);
     const broken = runs.map((run, index) =>
       ({
@@ -185,10 +203,13 @@ describe("differential and peak methods", () => {
       }),
     );
     const result = calculateFriedman(broken, [0.5]);
-    expect(result.status).toBe("success");
-    expect(result.estimates).toHaveLength(1);
-    expect(result.warnings.map((item) => item.code)).toContain(
-      "FRIEDMAN_NON_POSITIVE_RATE",
+    expect(result.status).toBe("refused");
+    expect(result.estimates).toHaveLength(0);
+    expect(result.refusals).toContainEqual(
+      expect.objectContaining({
+        code: "FRIEDMAN_DERIVATIVE_UNAVAILABLE",
+        runIds: [broken[0]?.id],
+      }),
     );
   });
 
@@ -215,6 +236,7 @@ describe("differential and peak methods", () => {
       runId: `peak-${beta}`,
       heatingRateKPerMinute: beta,
       peakTemperatureK: exactTemperature(beta, 2, 1, 160_000, 20),
+      ...VERIFIED_EXTERNAL_PEAK_EVIDENCE,
       stage: "synthetic peak stage",
     }));
     const result = calculateKissinger(peaks);
@@ -241,6 +263,7 @@ describe("end-to-end core orchestration", () => {
         atmosphere: run.atmosphere,
         stage: run.stage,
         peakTemperature: run.points[1]?.temperatureK,
+        ...VERIFIED_CURVE_PEAK_EVIDENCE,
         points: run.points.map((point) => ({
           temperature: point.temperatureK,
           alpha: point.alpha,

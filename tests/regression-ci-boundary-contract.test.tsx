@@ -10,7 +10,7 @@ import {
   createResultsCsv,
   serializeProjectReport,
 } from '../src/report';
-import { makeSchemaV6QaReport } from './helpers/report-fixture';
+import { makeSchemaV7QaReport } from './helpers/report-fixture';
 
 const actEnvironment = globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean };
 
@@ -40,7 +40,7 @@ describe('AC-REG-03 regression-only confidence boundary', () => {
   });
 
   it('serializes the exact boundary in JSON and keeps the tidy CSV aligned', async () => {
-    const report = await makeSchemaV6QaReport();
+    const report = await makeSchemaV7QaReport();
     const parsedJson = JSON.parse(serializeProjectReport(report)) as typeof report;
     expect(parsedJson.scientificBoundary.regressionConfidenceInterval).toBe(
       REGRESSION_CI_CLAIM_BOUNDARY,
@@ -66,7 +66,7 @@ describe('AC-REG-03 regression-only confidence boundary', () => {
   });
 
   it('embeds the same scope and all four explicit exclusions in the PDF', async () => {
-    const report = await makeSchemaV6QaReport();
+    const report = await makeSchemaV7QaReport();
     const pdf = createPdfReport(report);
     const binary = new TextDecoder('latin1').decode(await pdf.arrayBuffer());
     const unescapedPdfLiterals = binary.replace(/\\([()\\])/g, '$1');

@@ -731,7 +731,7 @@ describe('Paper 010 official raw XLSX wide-series regression', () => {
     expect(analysis.methods[0].estimates).toEqual([]);
     expect(
       analysis.methods[0].warnings.map(({ code }) => code),
-    ).toContain('FRIEDMAN_NON_POSITIVE_RATE');
+    ).not.toContain('FRIEDMAN_NON_POSITIVE_RATE');
     expect(
       analysis.methods[0].refusals.map(({ code }) => code),
     ).toContain('FRIEDMAN_DERIVATIVE_UNAVAILABLE');

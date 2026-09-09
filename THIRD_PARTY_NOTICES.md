@@ -56,9 +56,9 @@ and the application license does not transfer to them.
 ## Production JavaScript dependencies
 
 The following table is generated from the production closure in
-`package-lock.json`. It covers 32 locked production package
+`package-lock.json`. It covers 33 locked production package
 installations (6 direct and
-26 transitive). Development-only
+27 transitive). Development-only
 packages are intentionally excluded. The accompanying CycloneDX record is
 [SBOM.production.cdx.json](release/v0.4.0/SBOM.production.cdx.json).
 
@@ -70,7 +70,7 @@ packages are intentionally excluded. The accompanying CycloneDX record is
 | @types/trusted-types | 2.0.7 | transitive, optional | MIT | <https://github.com/DefinitelyTyped/DefinitelyTyped> | [LICENSE](release/v0.4.0/licenses/types__trusted-types@2.0.7/LICENSE) |
 | base64-arraybuffer | 1.0.2 | transitive, optional | MIT | <https://github.com/niklasvh/base64-arraybuffer> | [LICENSE](release/v0.4.0/licenses/base64-arraybuffer@1.0.2/LICENSE) |
 | canvg | 3.0.11 | transitive, optional | MIT | <https://github.com/canvg/canvg> | [LICENSE](release/v0.4.0/licenses/canvg@3.0.11/LICENSE) |
-| core-js | 3.49.0 | transitive, optional | MIT | <https://github.com/zloirock/core-js> | [LICENSE](release/v0.4.0/licenses/core-js@3.49.0/LICENSE) |
+| core-js | 3.50.0 | transitive, optional | MIT | <https://github.com/zloirock/core-js> | [LICENSE](release/v0.4.0/licenses/core-js@3.50.0/LICENSE) |
 | css-line-break | 2.1.0 | transitive, optional | MIT | <https://github.com/niklasvh/css-line-break> | [LICENSE](release/v0.4.0/licenses/css-line-break@2.1.0/LICENSE) |
 | dompurify | 3.4.15 | transitive, optional, npm override 3.4.15 | (MPL-2.0 OR Apache-2.0) | <https://github.com/cure53/DOMPurify> | [LICENSE](release/v0.4.0/licenses/dompurify@3.4.15/LICENSE)<br>[LICENSE-MPL](release/v0.4.0/licenses/dompurify@3.4.15/LICENSE-MPL) |
 | fast-png | 6.4.0 | transitive | MIT | <https://github.com/image-js/fast-png> | [LICENSE](release/v0.4.0/licenses/fast-png@6.4.0/LICENSE) |
@@ -86,16 +86,17 @@ packages are intentionally excluded. The accompanying CycloneDX record is
 | raf | 3.4.1 | transitive, optional | MIT | <https://github.com/chrisdickinson/raf> | [LICENSE](release/v0.4.0/licenses/raf@3.4.1/LICENSE) |
 | react | 19.2.7 | direct | MIT | <https://github.com/facebook/react> | [LICENSE](release/v0.4.0/licenses/react@19.2.7/LICENSE) |
 | react-dom | 19.2.7 | direct | MIT | <https://github.com/facebook/react> | [LICENSE](release/v0.4.0/licenses/react-dom@19.2.7/LICENSE) |
-| read-excel-file | 9.3.2 | direct | MIT | <https://gitlab.com/catamphetamine/read-excel-file> | [LICENSE](release/v0.4.0/licenses/read-excel-file@9.3.2/LICENSE) |
+| read-excel-file | 9.3.10 | direct | MIT | <https://gitlab.com/catamphetamine/read-excel-file> | [LICENSE](release/v0.4.0/licenses/read-excel-file@9.3.10/LICENSE) |
 | regenerator-runtime | 0.13.11 | transitive, optional | MIT | <https://github.com/facebook/regenerator/tree/main/packages/runtime> | [LICENSE](release/v0.4.0/licenses/regenerator-runtime@0.13.11/LICENSE) |
 | rgbcolor | 1.0.1 | transitive, optional | MIT OR SEE LICENSE IN FEEL-FREE.md | <https://github.com/yetzt/node-rgbcolor> | [FEEL-FREE.md](release/v0.4.0/licenses/rgbcolor@1.0.1/FEEL-FREE.md)<br>[LICENSE.md](release/v0.4.0/licenses/rgbcolor@1.0.1/LICENSE.md) |
-| saxen | 11.1.0 | transitive | MIT | <https://github.com/nikku/saxen> | [LICENSE](release/v0.4.0/licenses/saxen@11.1.0/LICENSE) |
+| saxen | 11.1.1 | transitive | MIT | <https://github.com/nikku/saxen> | [LICENSE](release/v0.4.0/licenses/saxen@11.1.1/LICENSE) |
 | scheduler | 0.27.0 | transitive | MIT | <https://github.com/facebook/react> | [LICENSE](release/v0.4.0/licenses/scheduler@0.27.0/LICENSE) |
 | stackblur-canvas | 2.7.0 | transitive, optional | MIT | <https://github.com/flozz/StackBlur> | [LICENSE-MIT.txt](release/v0.4.0/licenses/stackblur-canvas@2.7.0/LICENSE-MIT.txt) |
 | svg-pathdata | 6.0.3 | transitive, optional | MIT | <https://github.com/nfroidure/svg-pathdata> | [LICENSE](release/v0.4.0/licenses/svg-pathdata@6.0.3/LICENSE) |
 | text-segmentation | 1.0.3 | transitive, optional | MIT | <https://github.com/niklasvh/text-segmentation> | [LICENSE](release/v0.4.0/licenses/text-segmentation@1.0.3/LICENSE) |
-| unzipper-esm | 0.13.2 | transitive | MIT | <https://github.com/catamphetamine/node-unzipper> | [LICENSE](release/v0.4.0/licenses/unzipper-esm@0.13.2/LICENSE) |
+| unzipper-esm | 0.13.3 | transitive | MIT | <https://github.com/catamphetamine/node-unzipper> | [LICENSE](release/v0.4.0/licenses/unzipper-esm@0.13.3/LICENSE) |
 | utrie | 1.0.2 | transitive, optional | MIT | <https://github.com/niklasvh/utrie> | [LICENSE](release/v0.4.0/licenses/utrie@1.0.2/LICENSE) |
+| worker-f | 0.1.20 | transitive | MIT | <https://gitlab.com/catamphetamine/worker-f> | [LICENSE](release/v0.4.0/licenses/worker-f@0.1.20/LICENSE) |
 
 ### Unresolved dependency metadata
 

@@ -13,7 +13,12 @@ export type ColumnRole =
   | 'run'
   | 'sample'
   | 'atmosphere'
-  | 'stage';
+  | 'stage'
+  | 'peakResolved'
+  | 'peakQuality'
+  | 'peakSourceSignal'
+  | 'peakAnalystConfirmed'
+  | 'peakAmbiguous';
 
 export type TemperatureUnit = 'K' | 'C';
 export type TimeUnit = 's' | 'min';
@@ -46,6 +51,16 @@ export type ColumnUnit =
 export type TemperatureKind = 'sample' | 'peak';
 export type TableKind = 'auto' | 'curve' | 't-alpha-beta' | 'beta-tp';
 export type TableLayout = 'long' | 'wide-series';
+export type BetaTpPeakQuality =
+  | 'clear-interior'
+  | 'boundary'
+  | 'shoulder'
+  | 'multiple-overlapping'
+  | 'unknown';
+export type BetaTpSourceSignal =
+  | 'positive-mass-loss-rate'
+  | 'positive-dalpha-dt'
+  | 'external-beta-tp-table';
 
 export interface WideSeriesTemperatureColumn {
   /** Zero-based source column index. */
@@ -460,6 +475,11 @@ export interface NormalizedThermalRecord {
   sample?: string;
   atmosphere?: string;
   stage?: string;
+  peakResolved?: boolean;
+  peakQuality?: BetaTpPeakQuality;
+  peakSourceSignal?: BetaTpSourceSignal;
+  peakAnalystConfirmed?: boolean;
+  peakAmbiguous?: boolean;
   provenance: RecordProvenance;
 }
 
@@ -481,6 +501,11 @@ export interface BetaTpRow {
   sample?: string;
   atmosphere?: string;
   stage?: string;
+  peakResolved?: boolean;
+  peakQuality?: BetaTpPeakQuality;
+  peakSourceSignal?: BetaTpSourceSignal;
+  peakAnalystConfirmed?: boolean;
+  peakAmbiguous?: boolean;
   provenance: RecordProvenance;
 }
 

@@ -21,8 +21,15 @@ describe('XLSX ingestion', () => {
       {
         sheet: 'Peaks',
         data: [
-          ['Tp [K]', 'beta [K/min]'],
-          [621, 5],
+          [
+            'Tp [K]',
+            'beta [K/min]',
+            'Peak resolved',
+            'Peak quality',
+            'Peak source signal',
+            'Analyst confirmed',
+          ],
+          [621, 5, true, 'clear-interior', 'external-beta-tp-table', true],
         ],
       },
     ]);

@@ -21,6 +21,10 @@ import {
 } from '../src/report';
 import projectReportSchema from '../src/report/project-report.schema.json';
 import syntheticCsv from '../examples/synthetic_kas_150.csv?raw';
+import {
+  VERIFIED_BETA_TP_ROW_EVIDENCE,
+  VERIFIED_CURVE_PEAK_EVIDENCE,
+} from './helpers/peak-evidence';
 
 const numericCsvFields = [
   'alpha',
@@ -59,6 +63,7 @@ async function makeReport() {
       peakTemperatureK: peakPoint.temperature,
       sample: run.sampleId,
       atmosphere: run.atmosphere,
+      ...VERIFIED_BETA_TP_ROW_EVIDENCE,
       provenance: source.provenance,
     };
   });
@@ -69,6 +74,7 @@ async function makeReport() {
   const runsWithPeaks: ThermalRun[] = adapted.runs.map((run, index) => ({
     ...run,
     peakTemperature: peakRows[index].peakTemperatureK,
+    ...VERIFIED_CURVE_PEAK_EVIDENCE,
   }));
   const alphaGrid = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9];
   const analysis = analyzeActivationEnergy(runsWithPeaks, {
@@ -163,10 +169,10 @@ function withoutVolatileFields<T extends { generatedAt: string }>(value: T): Omi
 describe('authoritative report contract', () => {
   it('pins schema v6 to scientific disposition, stage identity, and exact boundary-anchor provenance', () => {
     expect(projectReportSchema.$id).toBe(
-      'https://activation-energy-studio.local/schema/project-report-v6.json',
+      'https://activation-energy-studio.local/schema/project-report-v7.json',
     );
     expect(projectReportSchema.properties.schemaVersion.const).toBe(
-      'activation-energy-studio/project-report/v6',
+      'activation-energy-studio/project-report/v7',
     );
     expect(projectReportSchema.$defs.result.required).toEqual(
       expect.arrayContaining(['status', 'disposition']),
@@ -270,6 +276,24 @@ describe('authoritative report contract', () => {
         const expected = jsonRow[field];
         expect(csvRow[field] === '' ? null : Number(csvRow[field]), field).toBe(expected);
       }
+      const resultTrace = report.traceability.resultLinks.find(
+        ({ resultId }) => resultId === jsonRow.resultId,
+      );
+      expect(JSON.parse(csvRow.sourceFilesJson)).toEqual(report.context.sourceFiles);
+      expect(JSON.parse(csvRow.inputTablesJson)).toEqual(report.reproducibility.inputTables);
+      expect(JSON.parse(csvRow.preprocessingJson)).toEqual(report.reproducibility.preprocessing);
+      expect(JSON.parse(csvRow.includedObservationIdsJson)).toEqual(
+        resultTrace?.includedObservationIds ?? [],
+      );
+      expect(JSON.parse(csvRow.regressionInputGroupIdsJson)).toEqual(
+        resultTrace?.regressionInputGroupIds ?? [],
+      );
+      expect(JSON.parse(csvRow.exclusionsJson)).toEqual(resultTrace?.exclusions ?? []);
+      expect(JSON.parse(csvRow.observationTraceJson)).toEqual(
+        report.traceability.observationLinks.filter(({ observationId }) =>
+          resultTrace?.includedObservationIds.includes(observationId)),
+      );
+      expect(JSON.parse(csvRow.traceabilityGapsJson)).toEqual(report.traceability.gaps);
     });
 
     const peak = report.results.find((result) => result.resultType === 'peak');
@@ -324,6 +348,11 @@ describe('authoritative report contract', () => {
         expect(observation?.resultId).toBe(link.resultId);
         expect(observation?.decision).toBe('included');
         expect(observation?.sourceResolution).not.toBe('unresolved');
+        if (link.resultType === 'peak') {
+          expect(observation?.peakEvidence).toEqual(VERIFIED_BETA_TP_ROW_EVIDENCE);
+        } else {
+          expect(observation?.peakEvidence).toBeNull();
+        }
         expect(observation?.sourceRows.length).toBeGreaterThan(0);
         for (const source of observation?.sourceRows ?? []) {
           expect(source.fileName).toBe('synthetic_kas_150.csv');

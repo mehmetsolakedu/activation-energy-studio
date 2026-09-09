@@ -2,6 +2,10 @@ import { describe, expect, it } from 'vitest';
 
 import type { BatchIngestionResult } from '../src/io';
 import { buildThermalRuns } from '../src/integration';
+import {
+  VERIFIED_BETA_TP_ROW_EVIDENCE,
+  VERIFIED_EXTERNAL_PEAK_EVIDENCE,
+} from './helpers/peak-evidence';
 
 function readyBatch(): BatchIngestionResult {
   const base = {
@@ -51,6 +55,7 @@ describe('I/O to scientific core adapter', () => {
           runId: `peak-${heatingRateKPerMin}`,
           sample: 'sample-a',
           atmosphere: 'N2',
+          ...VERIFIED_BETA_TP_ROW_EVIDENCE,
           provenance: { fileName: 'peaks.tsv', sourceRow: index + 2 },
         })),
       },
@@ -61,10 +66,10 @@ describe('I/O to scientific core adapter', () => {
     expect(result.diagnostics).toEqual([]);
     expect(result.runs).toEqual([]);
     expect(result.kissingerPeaks).toEqual([
-      { runId: 'peak-5', heatingRateKPerMinute: 5, peakTemperatureK: 580, stage: 'main peak stage' },
-      { runId: 'peak-10', heatingRateKPerMinute: 10, peakTemperatureK: 600, stage: 'main peak stage' },
-      { runId: 'peak-20', heatingRateKPerMinute: 20, peakTemperatureK: 620, stage: 'main peak stage' },
-      { runId: 'peak-40', heatingRateKPerMinute: 40, peakTemperatureK: 640, stage: 'main peak stage' },
+      { runId: 'peak-5', heatingRateKPerMinute: 5, peakTemperatureK: 580, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, ambiguous: false, stage: 'main peak stage' },
+      { runId: 'peak-10', heatingRateKPerMinute: 10, peakTemperatureK: 600, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, ambiguous: false, stage: 'main peak stage' },
+      { runId: 'peak-20', heatingRateKPerMinute: 20, peakTemperatureK: 620, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, ambiguous: false, stage: 'main peak stage' },
+      { runId: 'peak-40', heatingRateKPerMinute: 40, peakTemperatureK: 640, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, ambiguous: false, stage: 'main peak stage' },
     ]);
   });
 

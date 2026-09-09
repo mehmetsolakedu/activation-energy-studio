@@ -12,6 +12,10 @@ import {
   type PreparedRun,
   type ThermalRun,
 } from "../src/core";
+import {
+  VERIFIED_CURVE_PEAK_EVIDENCE,
+  VERIFIED_EXTERNAL_PEAK_EVIDENCE,
+} from "./helpers/peak-evidence";
 
 function codes(diagnostics: readonly Diagnostic[]): string[] {
   return diagnostics.map((diagnostic) => diagnostic.code);
@@ -19,7 +23,9 @@ function codes(diagnostics: readonly Diagnostic[]): string[] {
 
 function rawRuns(rates: readonly number[]): ThermalRun[] {
   return rates.map((heatingRate, index) => {
-    const targetTemperature = 560 + index * 30;
+    // Keep beta-T ordering physically admissible for every tested rate set;
+    // eligibility warnings must not be tested with a positive kinetic slope.
+    const targetTemperature = 560 + index * 5;
     const derivative = 0.01 * 2 ** index;
     return {
       id: `beta-${heatingRate}`,
@@ -30,6 +36,7 @@ function rawRuns(rates: readonly number[]): ThermalRun[] {
       atmosphere: "N2",
       stage: "main",
       peakTemperature: targetTemperature,
+      ...VERIFIED_CURVE_PEAK_EVIDENCE,
       points: [
         { temperature: targetTemperature - 20, alpha: 0.1, dAlphaDtPerMinute: derivative / 2 },
         { temperature: targetTemperature, alpha: 0.5, dAlphaDtPerMinute: derivative },
@@ -44,6 +51,7 @@ function kissingerPeaks(rates: readonly number[]): KissingerPeak[] {
     runId: `peak-${index + 1}`,
     heatingRateKPerMinute,
     peakTemperatureK: 570 + index * 18,
+    ...VERIFIED_EXTERNAL_PEAK_EVIDENCE,
     stage: "main",
   }));
 }
@@ -255,7 +263,7 @@ describe("direct eligibility and refusal acceptance gaps", () => {
 
       expect(result.status).toBe("refused");
       expect(result.estimates).toEqual([]);
-      expect(codes(result.warnings)).toContain("FRIEDMAN_NON_POSITIVE_RATE");
+      expect(codes(result.warnings)).not.toContain("FRIEDMAN_NON_POSITIVE_RATE");
       expect(result.refusals).toEqual(
         expect.arrayContaining([
           expect.objectContaining({ code: "FRIEDMAN_DERIVATIVE_UNAVAILABLE", alpha: 0.5 }),

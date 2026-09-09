@@ -6,6 +6,7 @@ import {
   type ThermalPoint,
   type ThermalRun,
 } from '../src/core';
+import { VERIFIED_EXTERNAL_PEAK_EVIDENCE } from './helpers/peak-evidence';
 
 const POINTS: readonly ThermalPoint[] = [
   { temperature: 500, alpha: 0.1 },
@@ -74,9 +75,9 @@ describe('AC-EL-04 global refusal table snapshot', () => {
       ]),
     ]);
     const ambiguousStage = calculateKissinger([
-      { runId: 'peak-5', heatingRateKPerMinute: 5, peakTemperatureK: 580, stage: 'main' },
-      { runId: 'peak-10', heatingRateKPerMinute: 10, peakTemperatureK: 600, stage: 'main' },
-      { runId: 'peak-20', heatingRateKPerMinute: 20, peakTemperatureK: 620, stage: 'shoulder' },
+      { runId: 'peak-5', heatingRateKPerMinute: 5, peakTemperatureK: 580, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: 'main' },
+      { runId: 'peak-10', heatingRateKPerMinute: 10, peakTemperatureK: 600, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: 'main' },
+      { runId: 'peak-20', heatingRateKPerMinute: 20, peakTemperatureK: 620, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: 'shoulder' },
     ]);
 
     expect({

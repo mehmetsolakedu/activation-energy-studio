@@ -254,14 +254,10 @@ describe('direct dAlpha/dt CSV/XLSX ingestion', () => {
     expect(analysis.preparedRuns.every(({ derivativeSource }) => derivativeSource === 'provided'))
       .toBe(true);
     expect(analysis.methods[0]?.status).toBe('refused');
-    expect(analysis.methods[0]?.warnings).toContainEqual(expect.objectContaining({
-      code: 'FRIEDMAN_NON_POSITIVE_RATE',
-      alpha: 0.5,
-      runIds: ['run-20', 'run-40'],
-    }));
     expect(analysis.methods[0]?.refusals).toContainEqual(expect.objectContaining({
       code: 'FRIEDMAN_DERIVATIVE_UNAVAILABLE',
       alpha: 0.5,
+      runIds: ['run-20', 'run-40'],
     }));
   });
 });

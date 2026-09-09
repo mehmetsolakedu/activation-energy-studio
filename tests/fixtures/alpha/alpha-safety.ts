@@ -165,6 +165,11 @@ export function adapterBatch(options: AdapterBatchOptions = {}): BatchIngestionR
       betaTp.push({
         heatingRateKPerMin: heatingRate,
         peakTemperatureK: 570 + offset,
+        peakResolved: true,
+        peakQuality: 'clear-interior',
+        peakSourceSignal: 'external-beta-tp-table',
+        peakAnalystConfirmed: true,
+        peakAmbiguous: false,
         runId,
         sample: context.sampleId,
         atmosphere: context.atmosphere,
@@ -174,6 +179,11 @@ export function adapterBatch(options: AdapterBatchOptions = {}): BatchIngestionR
         betaTp.push({
           heatingRateKPerMin: heatingRate,
           peakTemperatureK: 576 + offset,
+          peakResolved: true,
+          peakQuality: 'multiple-overlapping',
+          peakSourceSignal: 'external-beta-tp-table',
+          peakAnalystConfirmed: true,
+          peakAmbiguous: true,
           runId,
           sample: context.sampleId,
           atmosphere: context.atmosphere,

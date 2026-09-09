@@ -251,7 +251,7 @@ describe('v0.3.2 scientific blocker regressions', () => {
       dAlphaDtSource: 'temperature',
       provenance: {
         sourceRows: [42],
-        derivativeSourceRows: [41, 43],
+        derivativeSourceRows: [41, 42, 43],
       },
     });
     expect(coarse.analysis.preparedRuns.every(

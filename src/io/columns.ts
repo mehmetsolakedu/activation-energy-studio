@@ -327,6 +327,24 @@ function candidatesForHeader(header: string, columnIndex: number): ColumnCandida
   ) {
     result.push(candidate('stage', columnIndex, header, 0.95, 'reaction-stage alias'));
   }
+  if (hasPhrase(value, ['peak resolved', 'resolved peak']) || value === 'resolved') {
+    result.push(candidate('peakResolved', columnIndex, header, 1, 'peak-resolution evidence'));
+  }
+  if (hasPhrase(value, ['peak quality']) || value === 'quality') {
+    result.push(candidate('peakQuality', columnIndex, header, 1, 'peak-quality evidence'));
+  }
+  if (
+    hasPhrase(value, ['peak source signal', 'source signal', 'signal kind'])
+    || value === 'signal'
+  ) {
+    result.push(candidate('peakSourceSignal', columnIndex, header, 1, 'peak-source evidence'));
+  }
+  if (hasPhrase(value, ['analyst confirmed', 'analyst confirmation'])) {
+    result.push(candidate('peakAnalystConfirmed', columnIndex, header, 1, 'analyst confirmation'));
+  }
+  if (hasPhrase(value, ['peak ambiguous']) || value === 'ambiguous') {
+    result.push(candidate('peakAmbiguous', columnIndex, header, 1, 'legacy peak-ambiguity evidence'));
+  }
 
   // A percent sign alone is not enough to infer what the percentage represents.
   if (raw.trim() === '%' || value.trim() === 'percent') return [];
@@ -426,6 +444,11 @@ export function detectColumnMappings(
     'sample',
     'atmosphere',
     'stage',
+    'peakResolved',
+    'peakQuality',
+    'peakSourceSignal',
+    'peakAnalystConfirmed',
+    'peakAmbiguous',
   ];
   const explicitlyClaimedColumns = new Set(
     mappings
@@ -514,6 +537,23 @@ export function detectColumnMappings(
   const isPeak =
     declaredKind === 'beta-tp' ||
     (declaredKind === 'auto' && temperature?.temperatureKind === 'peak');
+  if (isPeak) {
+    const requiredPeakRoles: readonly ColumnRole[] = [
+      'peakResolved',
+      'peakQuality',
+      'peakSourceSignal',
+      'peakAnalystConfirmed',
+    ];
+    for (const role of requiredPeakRoles) {
+      if (byRole.has(role)) continue;
+      needs.push({
+        kind: 'column',
+        role,
+        message: `Kissinger beta–Tp input requires an explicit ${role} column.`,
+        candidateColumns: headers.map((_, index) => index),
+      });
+    }
+  }
   const hasCurveSignal = byRole.has('alpha') || byRole.has('mass') || byRole.has('massPercent');
   if (!isPeak && !hasCurveSignal) {
     const hasOnlyTemperatureAndRate =

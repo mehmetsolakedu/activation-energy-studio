@@ -44,10 +44,138 @@ const T_CRITICAL_95: readonly number[] = Object.freeze([
   2.042272456,
 ]);
 
+/**
+ * Smallest scale-free RMS predictor spread accepted by the numerical core.
+ *
+ * This is a floating-point conditioning guard, not an experimental-resolution
+ * claim. Instrument uncertainty must be assessed separately when it is known.
+ */
+export const MINIMUM_RELATIVE_X_RMS_SPREAD = Math.sqrt(Number.EPSILON);
+
+export class InsufficientRegressionSpreadError extends RangeError {
+  readonly relativeRmsSpread: number;
+  readonly minimumRelativeRmsSpread: number;
+
+  constructor(relativeRmsSpread: number) {
+    super(
+      "OLS predictor spread is too small relative to its scale for a reliable slope.",
+    );
+    this.name = "InsufficientRegressionSpreadError";
+    this.relativeRmsSpread = relativeRmsSpread;
+    this.minimumRelativeRmsSpread = MINIMUM_RELATIVE_X_RMS_SPREAD;
+  }
+}
+
 function assertFiniteArray(values: readonly number[], label: string): void {
   if (!values.every(Number.isFinite)) {
     throw new RangeError(`${label} must contain only finite numbers.`);
   }
+}
+
+function compensatedSum(values: readonly number[]): number {
+  let sum = 0;
+  let correction = 0;
+  for (const value of values) {
+    const adjusted = value - correction;
+    const next = sum + adjusted;
+    correction = (next - sum) - adjusted;
+    sum = next;
+  }
+  return sum;
+}
+
+// Lanczos log-gamma and a continued fraction for the regularized incomplete
+// beta. They are used only to obtain the fixed two-sided 95% Student-t
+// quantile; the tabulated df=1..30 values remain the primary small-df branch.
+function logGamma(value: number): number {
+  const coefficients = [
+    676.5203681218851,
+    -1259.1392167224028,
+    771.3234287776531,
+    -176.6150291621406,
+    12.507343278686905,
+    -0.13857109526572012,
+    9.984369578019572e-6,
+    1.5056327351493116e-7,
+  ] as const;
+  if (value < 0.5) {
+    return Math.log(Math.PI) - Math.log(Math.sin(Math.PI * value)) - logGamma(1 - value);
+  }
+  const shifted = value - 1;
+  let series = 0.9999999999998099;
+  for (let index = 0; index < coefficients.length; index += 1) {
+    series += (coefficients[index] as number) / (shifted + index + 1);
+  }
+  const t = shifted + coefficients.length - 0.5;
+  return (
+    0.5 * Math.log(2 * Math.PI)
+    + (shifted + 0.5) * Math.log(t)
+    - t
+    + Math.log(series)
+  );
+}
+
+function betaContinuedFraction(a: number, b: number, x: number): number {
+  const maximumIterations = 300;
+  const convergenceTolerance = 3e-14;
+  const minimumMagnitude = 1e-300;
+  const qab = a + b;
+  const qap = a + 1;
+  const qam = a - 1;
+  let c = 1;
+  let d = 1 - (qab * x) / qap;
+  if (Math.abs(d) < minimumMagnitude) d = minimumMagnitude;
+  d = 1 / d;
+  let result = d;
+
+  for (let iteration = 1; iteration <= maximumIterations; iteration += 1) {
+    const evenNumerator =
+      (iteration * (b - iteration) * x)
+      / ((qam + 2 * iteration) * (a + 2 * iteration));
+    d = 1 + evenNumerator * d;
+    if (Math.abs(d) < minimumMagnitude) d = minimumMagnitude;
+    c = 1 + evenNumerator / c;
+    if (Math.abs(c) < minimumMagnitude) c = minimumMagnitude;
+    d = 1 / d;
+    result *= d * c;
+
+    const oddNumerator =
+      -((a + iteration) * (qab + iteration) * x)
+      / ((a + 2 * iteration) * (qap + 2 * iteration));
+    d = 1 + oddNumerator * d;
+    if (Math.abs(d) < minimumMagnitude) d = minimumMagnitude;
+    c = 1 + oddNumerator / c;
+    if (Math.abs(c) < minimumMagnitude) c = minimumMagnitude;
+    d = 1 / d;
+    const delta = d * c;
+    result *= delta;
+    if (Math.abs(delta - 1) <= convergenceTolerance) return result;
+  }
+  throw new RangeError("Student-t quantile calculation did not converge.");
+}
+
+function regularizedIncompleteBeta(x: number, a: number, b: number): number {
+  if (!(x >= 0 && x <= 1) || !(a > 0) || !(b > 0)) {
+    throw new RangeError("Invalid incomplete-beta arguments.");
+  }
+  if (x === 0) return 0;
+  if (x === 1) return 1;
+  const front = Math.exp(
+    logGamma(a + b)
+    - logGamma(a)
+    - logGamma(b)
+    + a * Math.log(x)
+    + b * Math.log1p(-x),
+  );
+  if (x < (a + 1) / (a + b + 2)) {
+    return (front * betaContinuedFraction(a, b, x)) / a;
+  }
+  return 1 - (front * betaContinuedFraction(b, a, 1 - x)) / b;
+}
+
+function studentTTwoSidedTail(value: number, degreesOfFreedom: number): number {
+  const x = degreesOfFreedom / (degreesOfFreedom + value * value);
+  return regularizedIncompleteBeta(x, degreesOfFreedom / 2, 0.5);
 }
 
 /** Two-sided 95% Student-t critical value. */
@@ -59,19 +187,22 @@ export function studentTCritical95(degreesOfFreedom: number): number {
     return T_CRITICAL_95[degreesOfFreedom] as number;
   }
 
-  // Cornish-Fisher expansion around z(0.975), sufficiently accurate above df=30.
-  const z = 1.959963984540054;
-  const v = degreesOfFreedom;
-  const z2 = z * z;
-  const z3 = z2 * z;
-  const z5 = z3 * z2;
-  const z7 = z5 * z2;
-  return (
-    z +
-    (z3 + z) / (4 * v) +
-    (5 * z5 + 16 * z3 + 3 * z) / (96 * v * v) +
-    (3 * z7 + 19 * z5 + 17 * z3 - 15 * z) / (384 * v * v * v)
-  );
+  let lower = 0;
+  let upper = 4;
+  while (studentTTwoSidedTail(upper, degreesOfFreedom) > 0.05) upper *= 2;
+  for (let iteration = 0; iteration < 100; iteration += 1) {
+    const midpoint = (lower + upper) / 2;
+    if (studentTTwoSidedTail(midpoint, degreesOfFreedom) > 0.05) {
+      lower = midpoint;
+    } else {
+      upper = midpoint;
+    }
+  }
+  const critical = (lower + upper) / 2;
+  if (!Number.isFinite(critical)) {
+    throw new RangeError("Student-t quantile calculation produced a non-finite value.");
+  }
+  return critical;
 }
 
 /**
@@ -113,35 +244,78 @@ export function ordinaryLeastSquares(
   if (inputAggregation === "none" && rawObservationCount !== n) {
     throw new RangeError("Unaggregated OLS input cannot have more raw observations than n.");
   }
-  const meanX = x.reduce((sum, value) => sum + value, 0) / n;
-  const meanY = y.reduce((sum, value) => sum + value, 0) / n;
-
-  let sxx = 0;
-  let sxy = 0;
-  let syy = 0;
-  for (let index = 0; index < n; index += 1) {
-    const dx = (x[index] as number) - meanX;
-    const dy = (y[index] as number) - meanY;
-    sxx += dx * dx;
-    sxy += dx * dy;
-    syy += dy * dy;
-  }
-  if (!(sxx > 0)) {
+  const xScale = Math.max(...x.map((value) => Math.abs(value)));
+  const yScale = Math.max(...y.map((value) => Math.abs(value)));
+  if (!(xScale > 0)) {
     throw new RangeError("OLS regression requires variation in x.");
   }
-  if (!(syy > 0)) {
+  if (!(yScale > 0)) {
     throw new RangeError("OLS regression requires variation in y.");
   }
 
-  const slope = sxy / sxx;
-  const intercept = meanY - slope * meanX;
-  const fitted = x.map((value) => intercept + slope * value);
-  const residuals = y.map((value, index) => value - (fitted[index] as number));
-  const sse = residuals.reduce((sum, value) => sum + value * value, 0);
-  const r2 = 1 - sse / syy;
-  const residualStandardError = Math.sqrt(sse / residualDegreesOfFreedom);
-  const slopeStandardError = residualStandardError / Math.sqrt(sxx);
+  const normalizedX = x.map((value) => value / xScale);
+  const normalizedY = y.map((value) => value / yScale);
+  const meanNormalizedX = compensatedSum(normalizedX) / n;
+  const meanNormalizedY = compensatedSum(normalizedY) / n;
+  const dx = normalizedX.map((value) => value - meanNormalizedX);
+  const dy = normalizedY.map((value) => value - meanNormalizedY);
+  const sxxNormalized = compensatedSum(dx.map((value) => value * value));
+  const sxyNormalized = compensatedSum(dx.map((value, index) => value * (dy[index] as number)));
+  const syyNormalized = compensatedSum(dy.map((value) => value * value));
+  if (!(sxxNormalized > 0) || !Number.isFinite(sxxNormalized)) {
+    throw new RangeError("OLS regression requires variation in x.");
+  }
+  if (!(syyNormalized > 0) || !Number.isFinite(syyNormalized)) {
+    throw new RangeError("OLS regression requires variation in y.");
+  }
+  const relativeRmsSpread = Math.sqrt(sxxNormalized / n);
+  if (!(relativeRmsSpread > MINIMUM_RELATIVE_X_RMS_SPREAD)) {
+    throw new InsufficientRegressionSpreadError(relativeRmsSpread);
+  }
+
+  const normalizedSlope = sxyNormalized / sxxNormalized;
+  const slope = (yScale / xScale) * normalizedSlope;
+  const intercept = yScale * (meanNormalizedY - normalizedSlope * meanNormalizedX);
+  const fitted = dx.map(
+    (value) => yScale * (meanNormalizedY + normalizedSlope * value),
+  );
+  const residuals = dy.map(
+    (value, index) => yScale * (value - normalizedSlope * (dx[index] as number)),
+  );
+  const normalizedResiduals = dy.map(
+    (value, index) => value - normalizedSlope * (dx[index] as number),
+  );
+  const sseNormalized = compensatedSum(
+    normalizedResiduals.map((value) => value * value),
+  );
+  const sse = yScale * yScale * sseNormalized;
+  const r2 = 1 - sseNormalized / syyNormalized;
+  const residualStandardError = yScale * Math.sqrt(sseNormalized / residualDegreesOfFreedom);
+  const slopeStandardError =
+    (yScale / xScale)
+    * Math.sqrt(sseNormalized / residualDegreesOfFreedom / sxxNormalized);
   const margin = studentTCritical95(residualDegreesOfFreedom) * slopeStandardError;
+  const slopeConfidence95 = [slope - margin, slope + margin] as const;
+  const sxx = xScale * xScale * sxxNormalized;
+
+  const scalarOutputs = [
+    slope,
+    intercept,
+    sse,
+    r2,
+    residualStandardError,
+    slopeStandardError,
+    slopeConfidence95[0],
+    slopeConfidence95[1],
+    sxx,
+  ];
+  if (
+    !scalarOutputs.every(Number.isFinite)
+    || !fitted.every(Number.isFinite)
+    || !residuals.every(Number.isFinite)
+  ) {
+    throw new RangeError("OLS regression produced a non-finite result.");
+  }
 
   return {
     n,
@@ -162,6 +336,6 @@ export function ordinaryLeastSquares(
     r2,
     residualStandardError,
     slopeStandardError,
-    slopeConfidence95: [slope - margin, slope + margin],
+    slopeConfidence95,
   };
 }

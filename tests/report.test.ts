@@ -76,8 +76,8 @@ describe('reproducible reporting', () => {
     });
 
     const json = JSON.parse(serializeProjectReport(report));
-    expect(json.schemaVersion).toBe('activation-energy-studio/project-report/v6');
-    expect(json.application.version).toBe('0.3.2');
+    expect(json.schemaVersion).toBe('activation-energy-studio/project-report/v7');
+    expect(json.application.version).toBe('0.4.0');
     expect(json.reproducibility.coreMathVersion).toBe(CORE_MATH_VERSION);
     expect(json.analysis.methods[0].method).toBe('KAS');
     expect(json.context.sourceFiles[0].sha256).toBe('a'.repeat(64));

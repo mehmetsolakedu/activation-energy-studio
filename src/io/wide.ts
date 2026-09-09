@@ -17,6 +17,7 @@ import type {
   WideSeriesTableOptions,
   WideSeriesTableProjectionResult,
 } from './types';
+import { estimateFiniteDifference } from '../core/preprocessing';
 
 const CANONICAL_NUMBER = /^[+\-]?(?:\d+(?:\.\d*)?|\.\d+)(?:[eE][+\-]?\d+)?$/;
 const ALPHA_TOLERANCE = 1e-10;
@@ -989,29 +990,37 @@ function numericalTemperatureDerivatives(
 ): WideSeriesSourceObservation[] | null {
   if (observations.length < 2) return null;
 
+  let derivativePerKelvin: Array<number | undefined>;
+  try {
+    derivativePerKelvin = estimateFiniteDifference(
+      observations.map((observation) => observation.alpha),
+      observations.map((observation) => observation.temperatureK),
+    );
+  } catch {
+    return null;
+  }
+
   const derived: WideSeriesSourceObservation[] = [];
   for (let index = 0; index < observations.length; index += 1) {
     const observation = observations[index];
-    const leftIndex = index === 0 ? 0 : index - 1;
-    const rightIndex = index === observations.length - 1
-      ? observations.length - 1
-      : index + 1;
-    if (leftIndex === rightIndex) return null;
-
-    const left = observations[leftIndex];
-    const right = observations[rightIndex];
-    const deltaTemperature = right.temperatureK - left.temperatureK;
-    if (!(deltaTemperature > 0)) return null;
-    const dAlphaDtPerMinute = (
-      (right.alpha - left.alpha)
-      / deltaTemperature
-    ) * observation.heatingRateKPerMin;
+    const derivative = derivativePerKelvin[index];
+    if (derivative === undefined) return null;
+    const dAlphaDtPerMinute = derivative * observation.heatingRateKPerMin;
     if (!Number.isFinite(dAlphaDtPerMinute)) return null;
+    const stencilIndices = observations.length === 2
+      ? [0, 1]
+      : index === 0
+        ? [0, 1, 2]
+        : index === observations.length - 1
+          ? [index - 2, index - 1, index]
+          : [index - 1, index, index + 1];
 
     derived.push({
       ...observation,
       dAlphaDtPerMinute,
-      numericalDerivativeSourceRows: [left.sourceRow, right.sourceRow],
+      numericalDerivativeSourceRows: stencilIndices.map(
+        (sourceIndex) => observations[sourceIndex].sourceRow,
+      ),
     });
   }
   return derived;

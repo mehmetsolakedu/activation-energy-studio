@@ -1,4 +1,4 @@
-import { DEFAULT_ALPHA_VALUES } from "./constants";
+import { ALPHA_EQUIVALENCE_TOLERANCE, DEFAULT_ALPHA_VALUES } from "./constants";
 import { heatingRateKey } from "./heatingRates";
 import type { Diagnostic, EligibilityResult, PreparedRun } from "./types";
 
@@ -31,16 +31,24 @@ export function evaluateAnalysisEligibility(
   const refusals: Diagnostic[] = [];
   const warnings: Diagnostic[] = [];
 
+  const sortedAlphaValues = [...alphaValues].sort((left, right) => left - right);
+  const hasEquivalentTargets = sortedAlphaValues.some(
+    (alpha, index) =>
+      index > 0
+      && Math.abs(alpha - (sortedAlphaValues[index - 1] as number))
+        <= ALPHA_EQUIVALENCE_TOLERANCE
+          * Math.max(1, Math.abs(alpha), Math.abs(sortedAlphaValues[index - 1] as number)),
+  );
   const invalidAlphaGrid =
     alphaValues.length === 0 ||
     alphaValues.some((alpha) => !Number.isFinite(alpha) || alpha <= 0 || alpha >= 1) ||
-    new Set(alphaValues).size !== alphaValues.length;
+    hasEquivalentTargets;
   if (invalidAlphaGrid) {
     refusals.push(
       makeDiagnostic(
         "refusal",
         "INVALID_ALPHA_GRID",
-        "Alpha targets must be unique finite values strictly between 0 and 1.",
+        "Alpha targets must be distinct beyond the interpolation tolerance, finite, and strictly between 0 and 1.",
       ),
     );
   }

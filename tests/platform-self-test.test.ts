@@ -59,7 +59,7 @@ describe('browser platform scientific self-test', () => {
     expect(record.claimBoundary).toContain('does not prove a complete Windows/macOS/Linux platform gate');
   });
 
-  it('canonicalizes the five measured Chrome 150 last-bit differences without changing raw results', async () => {
+  it('canonicalizes sub-resolution cross-runtime differences without changing raw results', async () => {
     const record = await runPlatformSelfTest({
       recordedAt: '2026-07-18T12:00:00.000Z',
       runtime: lockedRuntime,
@@ -67,24 +67,23 @@ describe('browser platform scientific self-test', () => {
     expect(record.scientificPayload).not.toBeNull();
     const nodePayload = record.scientificPayload!;
     const chromeEquivalent = JSON.parse(JSON.stringify(nodePayload));
-    const measuredChromeValues = [
-      [1, 0, 149.99999751114706],
-      [2, 3, 150.28304748224974],
-      [3, 0, 150.28856889338118],
-      [3, 7, 150.32931988768277],
-      [3, 8, 150.35433035829206],
+    const perturbedValues = [
+      [1, 0],
+      [2, 3],
+      [3, 0],
+      [3, 7],
+      [3, 8],
     ] as const;
-    for (const [methodIndex, estimateIndex, value] of measuredChromeValues) {
-      chromeEquivalent.methodsResults[methodIndex].estimates[
-        estimateIndex
-      ].activationEnergyKJPerMol = value;
+    for (const [methodIndex, estimateIndex] of perturbedValues) {
+      chromeEquivalent.methodsResults[methodIndex].estimates[estimateIndex]
+        .activationEnergyKJPerMol += 1e-10;
     }
 
     expect(JSON.stringify(chromeEquivalent)).not.toBe(JSON.stringify(nodePayload));
     expect(canonicalPlatformSelfTestScientificPayloadJson(chromeEquivalent))
       .toBe(canonicalPlatformSelfTestScientificPayloadJson(nodePayload));
     expect(nodePayload.methodsResults[1].estimates[0].activationEnergyKJPerMol)
-      .toBe(149.99999751114692);
+      .toBe(149.99999751114683);
   });
 
   it('is deterministic outside explicitly volatile runtime metadata', async () => {

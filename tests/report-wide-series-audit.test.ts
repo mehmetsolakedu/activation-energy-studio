@@ -13,7 +13,8 @@ import {
   createProjectReport,
 } from '../src/report';
 import projectReportSchema from '../src/report/project-report.schema.json';
-import { makeSchemaV6QaReport } from './helpers/report-fixture';
+import { makeSchemaV7QaReport } from './helpers/report-fixture';
+import { VERIFIED_BETA_TP_ROW_EVIDENCE } from './helpers/peak-evidence';
 
 const columnMappings: ProvenanceColumnMapping[] = [
   {
@@ -40,7 +41,7 @@ const columnMappings: ProvenanceColumnMapping[] = [
 ];
 
 async function makeWideReport() {
-  const base = await makeSchemaV6QaReport();
+  const base = await makeSchemaV7QaReport();
   const records: NormalizedThermalRecord[] = [];
   const betaTp: BetaTpRow[] = [];
   const points: WideSeriesIngestionAudit['points'] = [];
@@ -89,6 +90,7 @@ async function makeWideReport() {
         sample: run.sampleId,
         atmosphere: run.atmosphere,
         stage: run.stage,
+        ...VERIFIED_BETA_TP_ROW_EVIDENCE,
         provenance: {
           fileName: 'wide-source.xlsx',
           sheetName: 'Fig.2.',
@@ -213,7 +215,7 @@ async function makeWideReport() {
 
 describe('schema v6 wide-series audit and source-row traceability', () => {
   it('uses an explicit empty wide-file array for long-table reports', async () => {
-    const report = await makeSchemaV6QaReport();
+    const report = await makeSchemaV7QaReport();
     expect(report.reproducibility.preprocessing.wideSeriesFiles).toEqual([]);
   });
 

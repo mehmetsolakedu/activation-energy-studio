@@ -31,7 +31,7 @@
         },
         {
           "name": "activation-energy-studio:package-lock-sha256",
-          "value": "76357be14dbc33e2fa5c5c6a22fc3a8f21b824287d2223e030e2823d0a3a59bb"
+          "value": "240bbfd04f0bb9330515d5189244783ba6aebe794b361334a552b31c2e94060f"
         },
         {
           "name": "activation-energy-studio:npm-overrides",
@@ -289,10 +289,10 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:npm/core-js@3.49.0",
+      "bom-ref": "pkg:npm/core-js@3.50.0",
       "name": "core-js",
-      "version": "3.49.0",
-      "purl": "pkg:npm/core-js@3.49.0",
+      "version": "3.50.0",
+      "purl": "pkg:npm/core-js@3.50.0",
       "scope": "optional",
       "properties": [
         {
@@ -314,7 +314,7 @@
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "7acd54dbe613b73a7093154bc0015d4a968833241aab43c1826dd80f55b7429b27d4d0263b72928197eefa8192595bba36f2c7a07095fda61cb04e70881ec02e"
+          "content": "0515a038b2a415e0a046e751eb3aecf29f57259704d7882bcca30cb2ca18ae4ea4aedb8467b31328f218e51cce9eab0428847d92cb7bc0dce986db6b693f98ab"
         }
       ],
       "externalReferences": [
@@ -324,7 +324,7 @@
         },
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/core-js/-/core-js-3.49.0.tgz"
+          "url": "https://registry.npmjs.org/core-js/-/core-js-3.50.0.tgz"
         }
       ]
     },
@@ -945,10 +945,10 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:npm/read-excel-file@9.3.2",
+      "bom-ref": "pkg:npm/read-excel-file@9.3.10",
       "name": "read-excel-file",
-      "version": "9.3.2",
-      "purl": "pkg:npm/read-excel-file@9.3.2",
+      "version": "9.3.10",
+      "purl": "pkg:npm/read-excel-file@9.3.10",
       "scope": "required",
       "properties": [
         {
@@ -970,7 +970,7 @@
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "fb382abff7fab2597bda899803992694a7fd5bcc2cecbf84fd97e1629afc8c9085bce639bab19fe009dbc0222bb4850e16c4f82eba6a61e31295e1d044936706"
+          "content": "cc5701773ba72c218198b453e10de62cf26784a3c05d77c6019f377de383944a97d9a4546e017587f9f6a18d1417b23cb55c2724d45ab3a7d3443e6f78352cfa"
         }
       ],
       "externalReferences": [
@@ -980,7 +980,7 @@
         },
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/read-excel-file/-/read-excel-file-9.3.2.tgz"
+          "url": "https://registry.npmjs.org/read-excel-file/-/read-excel-file-9.3.10.tgz"
         }
       ]
     },
@@ -1068,10 +1068,10 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:npm/saxen@11.1.0",
+      "bom-ref": "pkg:npm/saxen@11.1.1",
       "name": "saxen",
-      "version": "11.1.0",
-      "purl": "pkg:npm/saxen@11.1.0",
+      "version": "11.1.1",
+      "purl": "pkg:npm/saxen@11.1.1",
       "scope": "required",
       "properties": [
         {
@@ -1093,7 +1093,7 @@
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "18ec413809a2595032b4e1c1b8c96014c67830093ed8dcb9409a7333d238228cdf3cb5eadc5b037481cdbe24d0199188c7b1b6981900faec928899589925351a"
+          "content": "27806498915a33b56013ba609051ac34472aa8cde1efe333f34bdf2d6161c7bb8d38239722ee8b2e340761635e8ddb2dde97ffdc951a0481bdfa9924d6e9a5a3"
         }
       ],
       "externalReferences": [
@@ -1103,7 +1103,7 @@
         },
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/saxen/-/saxen-11.1.0.tgz"
+          "url": "https://registry.npmjs.org/saxen/-/saxen-11.1.1.tgz"
         }
       ]
     },
@@ -1273,10 +1273,10 @@
     },
     {
       "type": "library",
-      "bom-ref": "pkg:npm/unzipper-esm@0.13.2",
+      "bom-ref": "pkg:npm/unzipper-esm@0.13.3",
       "name": "unzipper-esm",
-      "version": "0.13.2",
-      "purl": "pkg:npm/unzipper-esm@0.13.2",
+      "version": "0.13.3",
+      "purl": "pkg:npm/unzipper-esm@0.13.3",
       "scope": "required",
       "properties": [
         {
@@ -1298,7 +1298,7 @@
       "hashes": [
         {
           "alg": "SHA-512",
-          "content": "96df06b600d857c61c00564d42e2f247642f1c8f02fd3b2da60b1d8d49fd6718962c9827f9ee6e5ba0ec3b77bf1d4255b960f9ed92cb14c67dc64dbab5e3ee1d"
+          "content": "2d43ba559e9f0b39036dd31ebf4fdf3a1a0879518a68e91320ea18c552c4d124237ef9801cafa8cb097b95f865a12648b1d189db9989d7c32d77d0b24c04a3ac"
         }
       ],
       "externalReferences": [
@@ -1308,7 +1308,7 @@
         },
         {
           "type": "distribution",
-          "url": "https://registry.npmjs.org/unzipper-esm/-/unzipper-esm-0.13.2.tgz"
+          "url": "https://registry.npmjs.org/unzipper-esm/-/unzipper-esm-0.13.3.tgz"
         }
       ]
     },
@@ -1352,6 +1352,47 @@
           "url": "https://registry.npmjs.org/utrie/-/utrie-1.0.2.tgz"
         }
       ]
+    },
+    {
+      "type": "library",
+      "bom-ref": "pkg:npm/worker-f@0.1.20",
+      "name": "worker-f",
+      "version": "0.1.20",
+      "purl": "pkg:npm/worker-f@0.1.20",
+      "scope": "required",
+      "properties": [
+        {
+          "name": "activation-energy-studio:lock-path",
+          "value": "node_modules/worker-f"
+        },
+        {
+          "name": "activation-energy-studio:direct-production-dependency",
+          "value": "false"
+        }
+      ],
+      "licenses": [
+        {
+          "license": {
+            "id": "MIT"
+          }
+        }
+      ],
+      "hashes": [
+        {
+          "alg": "SHA-512",
+          "content": "ef3e4ae73e31fbe172921a434dfae24ff74ebbb0a649aa7d041bf7f03545537083dfca1ba29abe0e8147ef9c815776eeb691a6f8e7aa47d04a752bd82529d47d"
+        }
+      ],
+      "externalReferences": [
+        {
+          "type": "vcs",
+          "url": "https://gitlab.com/catamphetamine/worker-f"
+        },
+        {
+          "type": "distribution",
+          "url": "https://registry.npmjs.org/worker-f/-/worker-f-0.1.20.tgz"
+        }
+      ]
     }
   ],
   "dependencies": [
@@ -1363,7 +1404,7 @@
         "pkg:npm/papaparse@5.5.4",
         "pkg:npm/react-dom@19.2.7",
         "pkg:npm/react@19.2.7",
-        "pkg:npm/read-excel-file@9.3.2"
+        "pkg:npm/read-excel-file@9.3.10"
       ]
     },
     {
@@ -1391,7 +1432,7 @@
       "dependsOn": [
         "pkg:npm/%40babel/runtime@7.29.7",
         "pkg:npm/%40types/raf@3.4.3",
-        "pkg:npm/core-js@3.49.0",
+        "pkg:npm/core-js@3.50.0",
         "pkg:npm/raf@3.4.1",
         "pkg:npm/regenerator-runtime@0.13.11",
         "pkg:npm/rgbcolor@1.0.1",
@@ -1400,7 +1441,7 @@
       ]
     },
     {
-      "ref": "pkg:npm/core-js@3.49.0",
+      "ref": "pkg:npm/core-js@3.50.0",
       "dependsOn": []
     },
     {
@@ -1447,7 +1488,7 @@
       "dependsOn": [
         "pkg:npm/%40babel/runtime@7.29.7",
         "pkg:npm/canvg@3.0.11",
-        "pkg:npm/core-js@3.49.0",
+        "pkg:npm/core-js@3.50.0",
         "pkg:npm/dompurify@3.4.15",
         "pkg:npm/fast-png@6.4.0",
         "pkg:npm/fflate@0.8.3",
@@ -1487,11 +1528,12 @@
       ]
     },
     {
-      "ref": "pkg:npm/read-excel-file@9.3.2",
+      "ref": "pkg:npm/read-excel-file@9.3.10",
       "dependsOn": [
         "pkg:npm/fflate@0.8.3",
-        "pkg:npm/saxen@11.1.0",
-        "pkg:npm/unzipper-esm@0.13.2"
+        "pkg:npm/saxen@11.1.1",
+        "pkg:npm/unzipper-esm@0.13.3",
+        "pkg:npm/worker-f@0.1.20"
       ]
     },
     {
@@ -1503,7 +1545,7 @@
       "dependsOn": []
     },
     {
-      "ref": "pkg:npm/saxen@11.1.0",
+      "ref": "pkg:npm/saxen@11.1.1",
       "dependsOn": []
     },
     {
@@ -1525,7 +1567,7 @@
       ]
     },
     {
-      "ref": "pkg:npm/unzipper-esm@0.13.2",
+      "ref": "pkg:npm/unzipper-esm@0.13.3",
       "dependsOn": [
         "pkg:npm/graceful-fs@4.2.11",
         "pkg:npm/node-int64@0.4.0"
@@ -1536,6 +1578,10 @@
       "dependsOn": [
         "pkg:npm/base64-arraybuffer@1.0.2"
       ]
+    },
+    {
+      "ref": "pkg:npm/worker-f@0.1.20",
+      "dependsOn": []
     }
   ]
 }

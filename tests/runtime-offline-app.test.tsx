@@ -417,7 +417,7 @@ describe('App runtime offline guard', () => {
     await waitUntil(() => guard.downloads.length === 1, 'platform self-test JSON download');
 
     expect(guard.downloads).toEqual([{
-      filename: 'activation-energy-platform-self-test-v0.3.2-pass.json',
+      filename: 'activation-energy-platform-self-test-v0.4.0-pass.json',
       href: 'blob:runtime-offline-test/1',
     }]);
     expect(guard.attempts).toEqual([]);

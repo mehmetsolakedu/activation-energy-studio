@@ -12,6 +12,7 @@ import {
   type PreparedRun,
 } from "../src/core";
 import { createProjectReport } from "../src/report";
+import { VERIFIED_EXTERNAL_PEAK_EVIDENCE } from "./helpers/peak-evidence";
 
 interface RunValue {
   id: string;
@@ -163,14 +164,14 @@ describe("replicate-aware distinct-heating-rate regression", () => {
 
   it("applies the same physical-scale grouping contract to Kissinger peaks", () => {
     const replicated: KissingerPeak[] = [
-      { runId: "peak-5-a", heatingRateKPerMinute: 5, peakTemperatureK: 560, stage: "main" },
-      { runId: "peak-5-b", heatingRateKPerMinute: 5, peakTemperatureK: 562, stage: "main" },
-      { runId: "peak-10", heatingRateKPerMinute: 10, peakTemperatureK: 580, stage: "main" },
-      { runId: "peak-20", heatingRateKPerMinute: 20, peakTemperatureK: 600, stage: "main" },
-      { runId: "peak-40", heatingRateKPerMinute: 40, peakTemperatureK: 625, stage: "main" },
+      { runId: "peak-5-a", heatingRateKPerMinute: 5, peakTemperatureK: 560, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
+      { runId: "peak-5-b", heatingRateKPerMinute: 5, peakTemperatureK: 562, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
+      { runId: "peak-10", heatingRateKPerMinute: 10, peakTemperatureK: 580, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
+      { runId: "peak-20", heatingRateKPerMinute: 20, peakTemperatureK: 600, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
+      { runId: "peak-40", heatingRateKPerMinute: 40, peakTemperatureK: 625, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
     ];
     const preaveraged: KissingerPeak[] = [
-      { runId: "peak-5-mean", heatingRateKPerMinute: 5, peakTemperatureK: 561, stage: "main" },
+      { runId: "peak-5-mean", heatingRateKPerMinute: 5, peakTemperatureK: 561, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
       ...replicated.slice(2),
     ];
 
@@ -210,9 +211,9 @@ describe("replicate-aware distinct-heating-rate regression", () => {
 
   it("refuses duplicated Kissinger run identifiers instead of treating copied rows as replicates", () => {
     const result = calculateKissinger([
-      { runId: "same", heatingRateKPerMinute: 5, peakTemperatureK: 560, stage: "main" },
-      { runId: "same", heatingRateKPerMinute: 10, peakTemperatureK: 580, stage: "main" },
-      { runId: "third", heatingRateKPerMinute: 20, peakTemperatureK: 600, stage: "main" },
+      { runId: "same", heatingRateKPerMinute: 5, peakTemperatureK: 560, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
+      { runId: "same", heatingRateKPerMinute: 10, peakTemperatureK: 580, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
+      { runId: "third", heatingRateKPerMinute: 20, peakTemperatureK: 600, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: "main" },
     ]);
 
     expect(result.status).toBe("refused");

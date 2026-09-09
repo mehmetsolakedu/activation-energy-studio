@@ -2,7 +2,9 @@ import { detectColumnMappings } from './columns';
 import type {
   AlphaDerivativeUnit,
   AlphaUnit,
+  BetaTpPeakQuality,
   BetaTpRow,
+  BetaTpSourceSignal,
   ColumnMapping,
   ColumnRole,
   HeatingRateUnit,
@@ -211,6 +213,59 @@ function textCell(row: readonly RawCell[], mapping: ColumnMapping | undefined): 
   return value === '' ? undefined : value;
 }
 
+function booleanCell(
+  row: readonly RawCell[],
+  mapping: ColumnMapping | undefined,
+  source: IngestionSource,
+  sourceRow: number,
+  diagnostics: IngestionDiagnostic[],
+): boolean | undefined {
+  if (!mapping) return undefined;
+  const raw = displayCell(row[mapping.columnIndex]).toLowerCase();
+  if (raw === 'true') return true;
+  if (raw === 'false') return false;
+  diagnostics.push({
+    severity: 'error',
+    code: 'invalid_boolean_value',
+    message: `${mapping.role} must be exactly true or false.`,
+    sourceFile: source.fileName,
+    sheetName: source.sheetName,
+    row: sourceRow,
+    column: mapping.columnIndex + 1,
+    header: mapping.header,
+    role: mapping.role,
+    value: displayCell(row[mapping.columnIndex]),
+  });
+  return undefined;
+}
+
+function enumeratedTextCell<T extends string>(
+  row: readonly RawCell[],
+  mapping: ColumnMapping | undefined,
+  allowed: readonly T[],
+  source: IngestionSource,
+  sourceRow: number,
+  diagnostics: IngestionDiagnostic[],
+): T | undefined {
+  if (!mapping) return undefined;
+  const raw = displayCell(row[mapping.columnIndex]).toLowerCase();
+  const matched = allowed.find((value) => value.toLowerCase() === raw);
+  if (matched) return matched;
+  diagnostics.push({
+    severity: 'error',
+    code: 'invalid_categorical_value',
+    message: `${mapping.role} must be one of: ${allowed.join(', ')}.`,
+    sourceFile: source.fileName,
+    sheetName: source.sheetName,
+    row: sourceRow,
+    column: mapping.columnIndex + 1,
+    header: mapping.header,
+    role: mapping.role,
+    value: displayCell(row[mapping.columnIndex]),
+  });
+  return undefined;
+}
+
 function numericCell(
   row: readonly RawCell[],
   mapping: ColumnMapping,
@@ -332,6 +387,56 @@ function validateRecord(
       value: String(record.heatingRateKPerMin),
     });
   }
+  if (record.temperatureKind === 'peak') {
+    if (record.peakResolved !== true) {
+      diagnostics.push({
+        ...base,
+        severity: 'error',
+        code: 'kissinger_peak_unresolved',
+        message: 'Every beta–Tp peak must be explicitly marked resolved=true.',
+        role: 'peakResolved',
+      });
+    }
+    if (record.peakQuality !== 'clear-interior') {
+      diagnostics.push({
+        ...base,
+        severity: 'error',
+        code: record.peakQuality === 'boundary'
+          ? 'kissinger_peak_boundary'
+          : 'kissinger_peak_quality_unverified',
+        message: 'Every beta–Tp peak must be classified as clear-interior.',
+        role: 'peakQuality',
+        value: record.peakQuality,
+      });
+    }
+    if (record.peakSourceSignal === undefined) {
+      diagnostics.push({
+        ...base,
+        severity: 'error',
+        code: 'kissinger_peak_signal_unverified',
+        message: 'Every beta–Tp peak must record its source signal.',
+        role: 'peakSourceSignal',
+      });
+    }
+    if (record.peakAnalystConfirmed !== true) {
+      diagnostics.push({
+        ...base,
+        severity: 'error',
+        code: 'kissinger_peak_unconfirmed',
+        message: 'Every beta–Tp peak requires analystConfirmed=true after source inspection.',
+        role: 'peakAnalystConfirmed',
+      });
+    }
+    if (record.peakAmbiguous === true) {
+      diagnostics.push({
+        ...base,
+        severity: 'error',
+        code: 'kissinger_peak_ambiguous',
+        message: 'An explicitly ambiguous peak cannot be used for Kissinger analysis.',
+        role: 'peakAmbiguous',
+      });
+    }
+  }
   if (
     record.temperatureKind === 'sample' &&
     record.alpha === undefined &&
@@ -385,6 +490,21 @@ export function buildBetaTpTable(records: readonly NormalizedThermalRecord[]): B
         sample: record.sample,
         atmosphere: record.atmosphere,
         stage: record.stage,
+        ...(record.peakResolved === undefined
+          ? {}
+          : { peakResolved: record.peakResolved }),
+        ...(record.peakQuality === undefined
+          ? {}
+          : { peakQuality: record.peakQuality }),
+        ...(record.peakSourceSignal === undefined
+          ? {}
+          : { peakSourceSignal: record.peakSourceSignal }),
+        ...(record.peakAnalystConfirmed === undefined
+          ? {}
+          : { peakAnalystConfirmed: record.peakAnalystConfirmed }),
+        ...(record.peakAmbiguous === undefined
+          ? {}
+          : { peakAmbiguous: record.peakAmbiguous }),
         provenance: record.provenance,
       },
     ];
@@ -630,6 +750,14 @@ export function normalizeThermalTable(
   const sampleMapping = mappingFor(detection.mappings, 'sample');
   const atmosphereMapping = mappingFor(detection.mappings, 'atmosphere');
   const stageMapping = mappingFor(detection.mappings, 'stage');
+  const peakResolvedMapping = mappingFor(detection.mappings, 'peakResolved');
+  const peakQualityMapping = mappingFor(detection.mappings, 'peakQuality');
+  const peakSourceSignalMapping = mappingFor(detection.mappings, 'peakSourceSignal');
+  const peakAnalystConfirmedMapping = mappingFor(
+    detection.mappings,
+    'peakAnalystConfirmed',
+  );
+  const peakAmbiguousMapping = mappingFor(detection.mappings, 'peakAmbiguous');
   const tableKind = effectiveOptions.tableKind ?? 'auto';
   const temperatureKind: TemperatureKind =
     tableKind === 'beta-tp'
@@ -737,6 +865,43 @@ export function normalizeThermalTable(
       sample: textCell(row, sampleMapping) ?? effectiveOptions.defaults?.sample,
       atmosphere: textCell(row, atmosphereMapping) ?? effectiveOptions.defaults?.atmosphere,
       stage: textCell(row, stageMapping) ?? effectiveOptions.defaults?.stage,
+      peakResolved: booleanCell(
+        row,
+        peakResolvedMapping,
+        normalizedSource,
+        sourceRow,
+        diagnostics,
+      ),
+      peakQuality: enumeratedTextCell<BetaTpPeakQuality>(
+        row,
+        peakQualityMapping,
+        ['clear-interior', 'boundary', 'shoulder', 'multiple-overlapping', 'unknown'],
+        normalizedSource,
+        sourceRow,
+        diagnostics,
+      ),
+      peakSourceSignal: enumeratedTextCell<BetaTpSourceSignal>(
+        row,
+        peakSourceSignalMapping,
+        ['positive-mass-loss-rate', 'positive-dalpha-dt', 'external-beta-tp-table'],
+        normalizedSource,
+        sourceRow,
+        diagnostics,
+      ),
+      peakAnalystConfirmed: booleanCell(
+        row,
+        peakAnalystConfirmedMapping,
+        normalizedSource,
+        sourceRow,
+        diagnostics,
+      ),
+      peakAmbiguous: booleanCell(
+        row,
+        peakAmbiguousMapping,
+        normalizedSource,
+        sourceRow,
+        diagnostics,
+      ),
       provenance: {
         ...(source.sourceFileId ? { sourceFileId: source.sourceFileId } : {}),
         fileName: source.fileName,

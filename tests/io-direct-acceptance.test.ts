@@ -114,10 +114,10 @@ function multiSheetXlsxFixture(): File {
     ),
     'xl/worksheets/sheet2.xml': strToU8(
       worksheetXml([
-        ['Tp [K]', 'beta [K/min]', 'Run ID'],
-        [620, 5, 'peak-5'],
-        [640, 10, 'peak-10'],
-        [660, 20, 'peak-20'],
+        ['Tp [K]', 'beta [K/min]', 'Run ID', 'Peak resolved', 'Peak quality', 'Peak source signal', 'Analyst confirmed'],
+        [620, 5, 'peak-5', true, 'clear-interior', 'external-beta-tp-table', true],
+        [640, 10, 'peak-10', true, 'clear-interior', 'external-beta-tp-table', true],
+        [660, 20, 'peak-20', true, 'clear-interior', 'external-beta-tp-table', true],
       ]),
     ),
   };
@@ -133,6 +133,13 @@ const GENERIC_TEMPERATURE_BETA_TABLE = [
   [620, 5],
   [640, 10],
   [660, 20],
+] as const;
+
+const VERIFIED_BETA_TP_TABLE = [
+  ['Temperature [K]', 'beta [K/min]', 'Peak resolved', 'Peak quality', 'Peak source signal', 'Analyst confirmed'],
+  [620, 5, true, 'clear-interior', 'external-beta-tp-table', true],
+  [640, 10, true, 'clear-interior', 'external-beta-tp-table', true],
+  [660, 20, true, 'clear-interior', 'external-beta-tp-table', true],
 ] as const;
 
 function expectNoDownstreamResult(batch: BatchIngestionResult): void {
@@ -167,7 +174,15 @@ describe('AC-IO-02 real multi-sheet XLSX selection', () => {
     const peaks = await ingestThermalFile(workbook, { sheet: 'Peaks' });
     expect(peaks.status, JSON.stringify(peaks.diagnostics)).toBe('ready');
     expect(peaks.source.sheetName).toBe('Peaks');
-    expect(peaks.headers).toEqual(['Tp [K]', 'beta [K/min]', 'Run ID']);
+    expect(peaks.headers).toEqual([
+      'Tp [K]',
+      'beta [K/min]',
+      'Run ID',
+      'Peak resolved',
+      'Peak quality',
+      'Peak source signal',
+      'Analyst confirmed',
+    ]);
     expect(peaks.records).toHaveLength(3);
     expect(peaks.tables.tAlphaBeta).toEqual([]);
     expect(peaks.tables.betaTp).toHaveLength(3);
@@ -208,10 +223,22 @@ describe('AC-IO-03/04 table-kind and required-signal determinism', () => {
     const peak = normalizeThermalTable(GENERIC_TEMPERATURE_BETA_TABLE, source, {
       tableKind: 'beta-tp',
     });
-    expect(peak.status).toBe('ready');
-    expect(peak.records.every((record) => record.temperatureKind === 'peak')).toBe(true);
-    expect(peak.tables.tAlphaBeta).toEqual([]);
-    expect(peak.tables.betaTp.map((row) => row.peakTemperatureK)).toEqual([620, 640, 660]);
+    expect(peak.status).toBe('needs_mapping');
+    expect(peak.records).toEqual([]);
+    expect(peak.mappingNeeds.map((need) => need.role)).toEqual(expect.arrayContaining([
+      'peakResolved',
+      'peakQuality',
+      'peakSourceSignal',
+      'peakAnalystConfirmed',
+    ]));
+
+    const verifiedPeak = normalizeThermalTable(VERIFIED_BETA_TP_TABLE, source, {
+      tableKind: 'beta-tp',
+    });
+    expect(verifiedPeak.status).toBe('ready');
+    expect(verifiedPeak.records.every((record) => record.temperatureKind === 'peak')).toBe(true);
+    expect(verifiedPeak.tables.tAlphaBeta).toEqual([]);
+    expect(verifiedPeak.tables.betaTp.map((row) => row.peakTemperatureK)).toEqual([620, 640, 660]);
 
     const signalLessCurve = normalizeThermalTable(GENERIC_TEMPERATURE_BETA_TABLE, source, {
       tableKind: 'curve',

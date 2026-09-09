@@ -4,6 +4,7 @@ import sampleCsv from '../examples/synthetic_kas_150.csv?raw';
 import { analyzeActivationEnergy } from '../src/core';
 import { ingestThermalFiles } from '../src/io';
 import { buildThermalRuns } from '../src/integration';
+import { VERIFIED_EXTERNAL_PEAK_EVIDENCE } from './helpers/peak-evidence';
 
 describe('complete scientific data path', () => {
   it('recovers the designed KAS value through real CSV ingestion', async () => {
@@ -38,10 +39,10 @@ describe('complete scientific data path', () => {
       methods: [],
       includeKissinger: true,
       kissingerPeaks: [
-        { runId: 'peak-5', heatingRateKPerMinute: 5, peakTemperatureK: 580, stage: 'main peak' },
-        { runId: 'peak-10', heatingRateKPerMinute: 10, peakTemperatureK: 600, stage: 'main peak' },
-        { runId: 'peak-20', heatingRateKPerMinute: 20, peakTemperatureK: 620, stage: 'main peak' },
-        { runId: 'peak-40', heatingRateKPerMinute: 40, peakTemperatureK: 640, stage: 'main peak' },
+        { runId: 'peak-5', heatingRateKPerMinute: 5, peakTemperatureK: 580, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: 'main peak' },
+        { runId: 'peak-10', heatingRateKPerMinute: 10, peakTemperatureK: 600, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: 'main peak' },
+        { runId: 'peak-20', heatingRateKPerMinute: 20, peakTemperatureK: 620, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: 'main peak' },
+        { runId: 'peak-40', heatingRateKPerMinute: 40, peakTemperatureK: 640, ...VERIFIED_EXTERNAL_PEAK_EVIDENCE, stage: 'main peak' },
       ],
     });
 

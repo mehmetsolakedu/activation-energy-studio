@@ -865,7 +865,7 @@ export default function App() {
           <div className="brand-copy">
             <strong>Activation Energy Studio</strong>
             <span>
-              {'v0.3.2 · research preview'}
+              {'v0.4.0 · audit candidate'}
             </span>
           </div>
         </div>

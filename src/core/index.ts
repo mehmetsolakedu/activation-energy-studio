@@ -1,4 +1,5 @@
 export {
+  ALPHA_EQUIVALENCE_TOLERANCE,
   DEFAULT_ALPHA_VALUES,
   FWO_SLOPE_COEFFICIENT,
   GAS_CONSTANT_J_PER_MOL_K,
@@ -19,6 +20,7 @@ export {
   convertHeatingRateToKPerMinute,
   convertTemperatureToKelvin,
   estimateAlphaDerivative,
+  estimateFiniteDifference,
   interpolateDerivativeAtAlpha,
   interpolateTemperatureAtAlpha,
   isAmbiguousAlphaCrossing,
@@ -26,7 +28,12 @@ export {
   prepareThermalRun,
   prepareThermalRuns,
 } from "./preprocessing";
-export { ordinaryLeastSquares, studentTCritical95 } from "./regression";
+export {
+  InsufficientRegressionSpreadError,
+  MINIMUM_RELATIVE_X_RMS_SPREAD,
+  ordinaryLeastSquares,
+  studentTCritical95,
+} from "./regression";
 export type {
   ActivationEnergyAnalysis,
   AlphaActivationEnergyEstimate,
@@ -41,6 +48,8 @@ export type {
   HeatingRateUnit,
   IsoConversionalMethod,
   KissingerPeak,
+  KissingerPeakQuality,
+  KissingerPeakSourceSignal,
   KissingerResult,
   MassNormalizationOptions,
   MassReference,

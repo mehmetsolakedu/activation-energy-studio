@@ -9,6 +9,7 @@ import type {
   KissingerResult,
   MethodName,
 } from '../core/types';
+import { ALPHA_EQUIVALENCE_TOLERANCE } from '../core/constants';
 
 export const SCIENTIFIC_DISPOSITIONS = Object.freeze([
   'REPORTABLE',
@@ -119,7 +120,7 @@ export interface ScientificDispositionOptions {
 }
 
 const DEFAULT_MINIMUM_REPORTABLE_R2 = 0.98;
-const ALPHA_MATCH_TOLERANCE = 1e-12;
+const ALPHA_MATCH_TOLERANCE = ALPHA_EQUIVALENCE_TOLERANCE;
 
 const UNRELIABLE_WARNING_CODES = new Set<DiagnosticCode>([
   'LOW_R2',
@@ -133,8 +134,8 @@ const REASON_MESSAGES: Partial<Record<DiagnosticCode, string>> = {
   NARROW_HEATING_RATE_SPAN: 'The heating-rate span is narrow, so slope leverage is limited.',
   DUPLICATE_HEATING_RATE: 'Same-rate replicates were aggregated and do not increase regression degrees of freedom.',
   NUMERICAL_DERIVATIVE: 'Friedman uses an unsmoothed numerical derivative.',
-  FRIEDMAN_NON_POSITIVE_RATE: 'One or more derivative observations were excluded before the Friedman fit.',
-  FRIEDMAN_DERIVATIVE_UNAVAILABLE: 'Too few positive finite derivative observations remain for Friedman.',
+  FRIEDMAN_NON_POSITIVE_RATE: 'Friedman is refused for this alpha: every required heating-rate run must contribute a positive derivative, and at least one does not.',
+  FRIEDMAN_DERIVATIVE_UNAVAILABLE: 'Friedman is refused for this alpha: every required heating-rate run must contribute a finite positive derivative, and at least one does not.',
   MULTISTEP_EA_VARIATION: 'Ea(alpha) varies strongly; a single mean would hide likely process complexity.',
   POSSIBLE_MULTISTEP_EA_VARIATION: 'Ea(alpha) variation warrants checking for multiple stages.',
   KISSINGER_COMPLEXITY_UNDERPOWERED: 'The Kissinger design is underpowered for detecting nonlinearity.',
@@ -156,8 +157,8 @@ const NEXT_EXPERIMENT_HINTS: Partial<Record<DiagnosticCode, string>> = {
   LIMITED_HEATING_RATES: 'Add at least one independent heating rate to improve uncertainty estimation.',
   NARROW_HEATING_RATE_SPAN: 'Add heating rates outside the current range to increase regression leverage.',
   NUMERICAL_DERIVATIVE: 'Provide validated instrument DTG/dAlpha/dt or higher-resolution time data and compare integral methods.',
-  FRIEDMAN_NON_POSITIVE_RATE: 'Provide positive finite derivative data at this alpha for every heating rate.',
-  FRIEDMAN_DERIVATIVE_UNAVAILABLE: 'Acquire positive finite derivative observations at three or more distinct heating rates.',
+  FRIEDMAN_NON_POSITIVE_RATE: 'Provide positive finite derivative data at this alpha for every required heating-rate run.',
+  FRIEDMAN_DERIVATIVE_UNAVAILABLE: 'Provide positive finite derivative data at this alpha for every required heating-rate run, with at least three distinct rates overall.',
   MULTISTEP_EA_VARIATION: 'Report Ea(alpha), review stage bounds and do not collapse the profile to one mean.',
   POSSIBLE_MULTISTEP_EA_VARIATION: 'Inspect DTG shoulders and repeat the analysis with defensible stage bounds.',
   KISSINGER_COMPLEXITY_UNDERPOWERED: 'Use at least five distinct heating rates spanning approximately five-fold or more.',
@@ -191,15 +192,22 @@ function validateOptions(options: ScientificDispositionOptions): {
     return { alphaGrid: undefined, minimumReportableR2 };
   }
   const alphaGrid = [...options.alphaGrid];
+  const sortedAlphaGrid = [...alphaGrid].sort((left, right) => left - right);
+  const hasEquivalentTargets = sortedAlphaGrid.some(
+    (alpha, index) =>
+      index > 0
+      && Math.abs(alpha - (sortedAlphaGrid[index - 1] as number))
+        <= ALPHA_MATCH_TOLERANCE
+          * Math.max(1, Math.abs(alpha), Math.abs(sortedAlphaGrid[index - 1] as number)),
+  );
   if (
     alphaGrid.length === 0
     || alphaGrid.some((alpha) => !Number.isFinite(alpha) || alpha <= 0 || alpha >= 1)
-    || new Set(alphaGrid).size !== alphaGrid.length
+    || hasEquivalentTargets
   ) {
     throw new RangeError('alphaGrid must contain unique finite values strictly between 0 and 1.');
   }
-  alphaGrid.sort((left, right) => left - right);
-  return { alphaGrid, minimumReportableR2 };
+  return { alphaGrid: sortedAlphaGrid, minimumReportableR2 };
 }
 
 function sameAlpha(left: number, right: number): boolean {
@@ -292,6 +300,7 @@ interface NumericResultInput {
   readonly computationStatus: CalculationStatus;
   readonly activationEnergyKJPerMol: number | undefined;
   readonly r2: number | undefined;
+  readonly slopeConfidence95: readonly [number, number] | undefined;
   readonly diagnostics: readonly Diagnostic[];
   readonly minimumReportableR2: number;
 }
@@ -331,6 +340,23 @@ function classifyNumericResult(input: NumericResultInput): ScientificResultDispo
         severity: 'unreliable',
       });
     }
+  } else if (
+    input.slopeConfidence95 === undefined
+    || !input.slopeConfidence95.every(Number.isFinite)
+  ) {
+    disposition = 'CALCULATED_UNRELIABLE';
+    reasons.unshift({
+      code: 'ACTIVATION_ENERGY_CI_UNAVAILABLE',
+      message: 'A finite 95% slope confidence interval is unavailable for the calculated value.',
+      severity: 'unreliable',
+    });
+  } else if (input.slopeConfidence95[1] >= 0) {
+    disposition = 'CALCULATED_UNRELIABLE';
+    reasons.unshift({
+      code: 'ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE',
+      message: 'The 95% confidence interval includes a nonnegative slope and therefore a nonpositive apparent activation energy.',
+      severity: 'unreliable',
+    });
   } else if (!Number.isFinite(input.r2)) {
     disposition = 'CALCULATED_UNRELIABLE';
     reasons.unshift({
@@ -536,6 +562,7 @@ function summarizeAlphaMethod(
       computationStatus: method.status,
       activationEnergyKJPerMol: estimate?.activationEnergyKJPerMol,
       r2: estimate?.regression.r2,
+      slopeConfidence95: estimate?.regression.slopeConfidence95,
       diagnostics,
       minimumReportableR2,
     });
@@ -568,6 +595,7 @@ function summarizeKissinger(
     computationStatus: kissinger.status,
     activationEnergyKJPerMol: kissinger.activationEnergyKJPerMol,
     r2: kissinger.regression?.r2,
+    slopeConfidence95: kissinger.regression?.slopeConfidence95,
     diagnostics,
     minimumReportableR2,
   });

@@ -18,3 +18,5 @@ export const FWO_SLOPE_COEFFICIENT = 1.052;
 export const STARINK_SLOPE_COEFFICIENT = 1.0008;
 export const STARINK_TEMPERATURE_EXPONENT = 1.92;
 
+/** Alpha values closer than this are the same target throughout the core. */
+export const ALPHA_EQUIVALENCE_TOLERANCE = 1e-10;
