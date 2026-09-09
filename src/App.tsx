@@ -64,6 +64,18 @@ const METHOD_EXPLANATIONS = [
   { name: 'Kissinger', key: 'KISSINGER', detail: 'Separate peak result only with explicit beta–Tp data' },
 ];
 
+const DEFAULT_PROJECT_NAME = 'New activation-energy analysis';
+const DEFAULT_ALPHA_START = '0.10';
+const DEFAULT_ALPHA_END = '0.90';
+const DEFAULT_ALPHA_STEP = '0.10';
+const DEFAULT_MIN_R2_WARNING = '0.98';
+const DEFAULT_METHODS: readonly IsoConversionalMethod[] = [
+  'FWO',
+  'KAS',
+  'STARINK',
+  'FRIEDMAN',
+];
+
 type ExperienceMode = 'simple' | 'expert';
 
 interface CommittedDatasetRevision {
@@ -185,6 +197,10 @@ export default function App() {
   const fileInput = useRef<HTMLInputElement>(null);
   const asyncOperationRevision = useRef(0);
   const mappingEditRevision = useRef(0);
+  const reportInputRevision = useRef(0);
+  const datasetInputOrigin = useRef<
+    'empty' | 'custom-upload' | 'synthetic-example' | 'licensed-example'
+  >('empty');
   const committedDataset = useRef<CommittedDatasetRevision | null>(null);
   const analysisDatasetRevision = useRef<number | null>(null);
   const [experienceMode, setExperienceMode] = useState<ExperienceMode>('simple');
@@ -199,22 +215,19 @@ export default function App() {
   const [analysisAttempted, setAnalysisAttempted] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isBusy, setIsBusy] = useState(false);
-  const [projectName, setProjectName] = useState('New activation-energy analysis');
+  const [projectName, setProjectName] = useState(DEFAULT_PROJECT_NAME);
   const [processName, setProcessName] = useState('');
   const [stageLabel, setStageLabel] = useState('');
   const [stageStart, setStageStart] = useState('');
   const [stageEnd, setStageEnd] = useState('');
-  const [alphaStart, setAlphaStart] = useState('0.10');
-  const [alphaEnd, setAlphaEnd] = useState('0.90');
-  const [alphaStep, setAlphaStep] = useState('0.10');
+  const [alphaStart, setAlphaStart] = useState(DEFAULT_ALPHA_START);
+  const [alphaEnd, setAlphaEnd] = useState(DEFAULT_ALPHA_END);
+  const [alphaStep, setAlphaStep] = useState(DEFAULT_ALPHA_STEP);
   const [selectedMethods, setSelectedMethods] = useState<IsoConversionalMethod[]>([
-    'FWO',
-    'KAS',
-    'STARINK',
-    'FRIEDMAN',
+    ...DEFAULT_METHODS,
   ]);
   const [includeKissinger, setIncludeKissinger] = useState(true);
-  const [minR2Warning, setMinR2Warning] = useState('0.98');
+  const [minR2Warning, setMinR2Warning] = useState(DEFAULT_MIN_R2_WARNING);
   const [interpretationConfirmed, setInterpretationConfirmed] = useState(false);
   const [adapterIssues, setAdapterIssues] = useState<AdapterDiagnostic[]>([]);
   const [selectionIssues, setSelectionIssues] = useState<DisplayDiagnostic[]>([]);
@@ -362,6 +375,24 @@ export default function App() {
     setCommittedDatasetRevision(null);
   }
 
+  function advanceReportInputRevision(): void {
+    reportInputRevision.current += 1;
+  }
+
+  function resetDatasetSpecificInputs(): void {
+    setProjectName(DEFAULT_PROJECT_NAME);
+    setProcessName('');
+    setStageLabel('');
+    setStageStart('');
+    setStageEnd('');
+    setAlphaStart(DEFAULT_ALPHA_START);
+    setAlphaEnd(DEFAULT_ALPHA_END);
+    setAlphaStep(DEFAULT_ALPHA_STEP);
+    setSelectedMethods([...DEFAULT_METHODS]);
+    setIncludeKissinger(true);
+    setMinR2Warning(DEFAULT_MIN_R2_WARNING);
+  }
+
   function beginAsyncOperation(): number {
     const revision = asyncOperationRevision.current + 1;
     asyncOperationRevision.current = revision;
@@ -393,15 +424,27 @@ export default function App() {
     setCommittedDatasetRevision(revision);
   }
 
-  async function acceptFiles(nextFiles: File[]) {
+  async function acceptFiles(
+    nextFiles: File[],
+    source: 'custom-upload' | 'synthetic-example' = 'custom-upload',
+  ) {
     const operationRevision = asyncOperationRevision.current + 1;
     asyncOperationRevision.current = operationRevision;
     mappingEditRevision.current += 1;
+    advanceReportInputRevision();
     invalidateCommittedDataset();
     analysisDatasetRevision.current = null;
+    if (source === 'custom-upload') {
+      const followsExample =
+        datasetInputOrigin.current === 'synthetic-example'
+        || datasetInputOrigin.current === 'licensed-example';
+      setActiveExampleId(null);
+      if (followsExample) resetDatasetSpecificInputs();
+    }
     const supported = nextFiles.filter((file) => /\.(csv|tsv|txt|xlsx)$/i.test(file.name));
     const unsupported = nextFiles.filter((file) => !/\.(csv|tsv|txt|xlsx)$/i.test(file.name));
     if (unsupported.length > 0) {
+      datasetInputOrigin.current = 'empty';
       setFiles([]);
       setMappingOptions([]);
       setMappingEditorOpen(false);
@@ -421,6 +464,7 @@ export default function App() {
       return;
     }
     setSelectionIssues([]);
+    datasetInputOrigin.current = source;
     setActiveExampleId(null);
     setFiles(supported);
     const emptyOptions = supported.map(() => ({}));
@@ -448,6 +492,8 @@ export default function App() {
   }
 
   function loadSyntheticExample() {
+    advanceReportInputRevision();
+    resetDatasetSpecificInputs();
     setActiveExampleId(null);
     setProjectName('Synthetic KAS 150 kJ/mol example');
     setProcessName('synthetic thermal decomposition');
@@ -459,7 +505,7 @@ export default function App() {
         type: 'text/csv',
         lastModified: 0,
       }),
-    ]);
+    ], 'synthetic-example');
   }
 
   async function loadRealExample(id: RealExampleId) {
@@ -467,8 +513,11 @@ export default function App() {
     const { definition } = session;
     const operationRevision = beginAsyncOperation();
     mappingEditRevision.current += 1;
+    advanceReportInputRevision();
     invalidateCommittedDataset();
     analysisDatasetRevision.current = null;
+    resetDatasetSpecificInputs();
+    datasetInputOrigin.current = 'licensed-example';
     setActiveExampleId(id);
     setProjectName(definition.project);
     setProcessName(definition.process);
@@ -679,6 +728,7 @@ export default function App() {
   }
 
   function invalidateConfiguredAnalysis() {
+    advanceReportInputRevision();
     analysisDatasetRevision.current = null;
     setAnalysis(null);
     setAnalysisStage(null);
@@ -695,9 +745,11 @@ export default function App() {
   function clearFiles() {
     asyncOperationRevision.current += 1;
     mappingEditRevision.current += 1;
+    advanceReportInputRevision();
     invalidateCommittedDataset();
     analysisDatasetRevision.current = null;
     setActiveExampleId(null);
+    datasetInputOrigin.current = 'empty';
     setFiles([]);
     setIngestion(null);
     setMappingOptions([]);
@@ -709,7 +761,7 @@ export default function App() {
     setInterpretationConfirmed(false);
     setAdapterIssues([]);
     setSelectionIssues([]);
-    setStageLabel('');
+    resetDatasetSpecificInputs();
     setIsBusy(false);
     if (fileInput.current) fileInput.current.value = '';
   }
@@ -730,6 +782,19 @@ export default function App() {
     ) return;
     const operationRevision = beginAsyncOperation();
     const exportMappingRevision = mappingEditRevision.current;
+    const exportReportInputRevision = reportInputRevision.current;
+    const exportSnapshot = {
+      analysis,
+      analysisStage,
+      projectName,
+      processName,
+      scientificDisposition,
+      stageWindow: stageWindow ? { ...stageWindow } : undefined,
+      alphaGrid: [...alphaGrid.values],
+      selectedMethods: [...selectedMethods],
+      includeKissinger,
+      minR2Warning: minR2Value,
+    } as const;
     try {
       const traces = await Promise.all(dataset.files.map(hashFile));
       if (
@@ -738,18 +803,30 @@ export default function App() {
         || mappingEditRevision.current !== exportMappingRevision
         || analysisDatasetRevision.current !== dataset.revision
       ) return;
+      if (reportInputRevision.current !== exportReportInputRevision) {
+        setSelectionIssues((current) => [
+          ...current.filter(({ code }) => code !== 'EXPORT_INPUTS_CHANGED'),
+          {
+            code: 'EXPORT_INPUTS_CHANGED',
+            severity: 'warning',
+            message:
+              'The export was cancelled because report metadata or scientific settings changed while source files were being hashed. Review the current values and export again.',
+          },
+        ]);
+        return;
+      }
       const firstRecord = dataset.ingestion.records[0];
       const licensedExample = dataset.exampleId
         ? REAL_EXAMPLES.find(({ id }) => id === dataset.exampleId)
         : undefined;
-      const report = createProjectReport(analysis, {
-        projectName,
-        process: processName || undefined,
+      const report = createProjectReport(exportSnapshot.analysis, {
+        projectName: exportSnapshot.projectName,
+        process: exportSnapshot.processName || undefined,
         sample: firstRecord?.sample,
         atmosphere: firstRecord?.atmosphere,
-        stage: analysisStage,
-        analystNote: scientificDisposition
-          ? publicationDecisionNote(scientificDisposition)
+        stage: exportSnapshot.analysisStage,
+        analystNote: exportSnapshot.scientificDisposition
+          ? publicationDecisionNote(exportSnapshot.scientificDisposition)
           : undefined,
         sourceFiles: traces,
         licensedSourceProvenance: licensedExample
@@ -758,16 +835,16 @@ export default function App() {
       }, {
         ingestion: dataset.ingestion,
         ingestionOptions: dataset.mappingOptions,
-        stageWindow,
+        stageWindow: exportSnapshot.stageWindow,
         analysisConfiguration: {
-          alphaGrid: alphaGrid.values,
-          methods: selectedMethods,
+          alphaGrid: exportSnapshot.alphaGrid,
+          methods: exportSnapshot.selectedMethods,
           includeKissinger:
-            includeKissinger && dataset.ingestion.tables.betaTp.length >= 3,
-          minR2Warning: minR2Value,
+            exportSnapshot.includeKissinger && dataset.ingestion.tables.betaTp.length >= 3,
+          minR2Warning: exportSnapshot.minR2Warning,
         },
       });
-      const stem = projectName.trim().toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'activation-energy';
+      const stem = exportSnapshot.projectName.trim().toLowerCase().replace(/[^a-z0-9]+/gi, '-').replace(/^-|-$/g, '') || 'activation-energy';
       if (kind === 'json') {
         downloadText(serializeProjectReport(report), `${stem}.json`, 'application/json;charset=utf-8');
       } else if (kind === 'csv') {
@@ -861,7 +938,7 @@ export default function App() {
                 </div>
               </div>
               {files.length > 0 && (
-                <button className="ghost-button" onClick={clearFiles}>
+                <button className="ghost-button" data-testid="clear-files" onClick={clearFiles}>
                   {'Clear'}
                 </button>
               )}
@@ -1035,7 +1112,10 @@ export default function App() {
                   <input
                     data-testid="project-name"
                     value={projectName}
-                    onChange={(event) => setProjectName(event.target.value)}
+                    onChange={(event) => {
+                      advanceReportInputRevision();
+                      setProjectName(event.target.value);
+                    }}
                   />
                 </label>
                 <label>
@@ -1044,7 +1124,10 @@ export default function App() {
                     data-testid="process-name"
                     placeholder={'e.g. pyrolysis'}
                     value={processName}
-                    onChange={(event) => setProcessName(event.target.value)}
+                    onChange={(event) => {
+                      advanceReportInputRevision();
+                      setProcessName(event.target.value);
+                    }}
                   />
                 </label>
                 <label>
@@ -1432,6 +1515,7 @@ export default function App() {
                     data-testid="confirm-interpretation"
                     disabled={!interpretationReady}
                     onChange={(event) => {
+                      advanceReportInputRevision();
                       setInterpretationConfirmed(event.target.checked);
                       analysisDatasetRevision.current = null;
                       setAnalysis(null);
@@ -1620,6 +1704,9 @@ export default function App() {
               <button data-testid="export-csv" className="secondary-button" disabled={mappingDirty || committedDatasetRevision === null || !interpretationConfirmed || !analysis || !analysisStage || isBusy} onClick={() => void exportReport('csv')}>{'Results CSV'}</button>
               <button data-testid="export-json" className="secondary-button" disabled={mappingDirty || committedDatasetRevision === null || !interpretationConfirmed || !analysis || !analysisStage || isBusy} onClick={() => void exportReport('json')}>{'Reproducible JSON'}</button>
             </div>
+            <small data-testid="csv-export-scope-note">
+              {'The results CSV contains tidy result, context, and licensed-example citation fields. Keep the reproducible JSON for source-file hashes, import mappings, preprocessing settings, and row-level traceability.'}
+            </small>
             <div className="notice info" data-testid="regression-ci-claim-boundary">
               {REGRESSION_CI_CLAIM_BOUNDARY}
             </div>

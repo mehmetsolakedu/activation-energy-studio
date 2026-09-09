@@ -26,7 +26,14 @@ function sha256(content: string | Buffer): string {
 function fixtureFile(fileName: string): File {
   const content = readFileSync(path.resolve(BUNDLE_DIRECTORY, fileName));
   const type = fileName.endsWith('.tsv') ? 'text/tab-separated-values' : 'text/csv';
-  return new File([content], fileName, { type });
+  if (fileName !== 'C1_peaks.tsv') return new File([content], fileName, { type });
+  // The retained v0.3.1 study artifact is immutable. Add candidate-only,
+  // explicit peak-quality evidence in memory for this current-contract test.
+  const rows = content.toString('utf8').trimEnd().split(/\r?\n/u);
+  const verifiedRows = rows.map((row, index) => index === 0
+    ? `${row}\tPeak resolved\tPeak quality\tPeak source signal\tAnalyst confirmed\tPeak ambiguous`
+    : `${row}\ttrue\tclear-interior\texternal-beta-tp-table\ttrue\tfalse`);
+  return new File([`${verifiedRows.join('\n')}\n`], fileName, { type });
 }
 
 async function scientificCodes(

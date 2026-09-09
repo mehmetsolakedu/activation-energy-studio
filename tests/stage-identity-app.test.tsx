@@ -7,11 +7,11 @@ import { confirmInterpretation, interpretationCheckbox } from './app-test-helper
 import syntheticCsv from '../examples/synthetic_kas_150.csv?raw';
 
 const peakTsv = [
-  'Peak temperature [K]\tHeating rate [K/min]\tRun\tSample\tAtmosphere',
-  '585\t5\tpeak-5\tsample-a\tN2',
-  '600\t10\tpeak-10\tsample-a\tN2',
-  '618\t20\tpeak-20\tsample-a\tN2',
-  '637\t40\tpeak-40\tsample-a\tN2',
+  'Peak temperature [K]\tHeating rate [K/min]\tRun\tSample\tAtmosphere\tPeak resolved\tPeak quality\tPeak source signal\tAnalyst confirmed\tPeak ambiguous',
+  '585\t5\tpeak-5\tsample-a\tN2\ttrue\tclear-interior\texternal-beta-tp-table\ttrue\tfalse',
+  '600\t10\tpeak-10\tsample-a\tN2\ttrue\tclear-interior\texternal-beta-tp-table\ttrue\tfalse',
+  '618\t20\tpeak-20\tsample-a\tN2\ttrue\tclear-interior\texternal-beta-tp-table\ttrue\tfalse',
+  '637\t40\tpeak-40\tsample-a\tN2\ttrue\tclear-interior\texternal-beta-tp-table\ttrue\tfalse',
   '',
 ].join('\n');
 

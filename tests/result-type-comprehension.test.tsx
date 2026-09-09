@@ -21,7 +21,15 @@ const actEnvironment = globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONM
 
 function fixtureFile(fileName: string): File {
   const type = fileName.endsWith('.tsv') ? 'text/tab-separated-values' : 'text/csv';
-  return new File([readFileSync(path.resolve(FIXTURE_DIRECTORY, fileName))], fileName, { type });
+  const source = readFileSync(path.resolve(FIXTURE_DIRECTORY, fileName));
+  if (fileName !== 'C1_peaks.tsv') return new File([source], fileName, { type });
+  // Preserve the historical usability bundle byte-for-byte while adapting its
+  // numeric peak table to the candidate's explicit peak-evidence contract.
+  const rows = source.toString('utf8').trimEnd().split(/\r?\n/u);
+  const verifiedRows = rows.map((row, index) => index === 0
+    ? `${row}\tPeak resolved\tPeak quality\tPeak source signal\tAnalyst confirmed\tPeak ambiguous`
+    : `${row}\ttrue\tclear-interior\texternal-beta-tp-table\ttrue\tfalse`);
+  return new File([`${verifiedRows.join('\n')}\n`], fileName, { type });
 }
 
 async function waitUntil(predicate: () => boolean, label: string): Promise<void> {

@@ -207,7 +207,15 @@ export function serializeProjectReport(report: ReproducibleProjectReport): strin
 
 function csvCell(value: string | number | boolean | null): string {
   if (value === null) return '';
-  const text = String(value);
+  const rawText = String(value);
+  // Spreadsheet applications can execute text cells beginning with these
+  // characters as formulas. Preserve genuine numeric values, but make every
+  // string field inert even when an attacker hides the marker behind leading
+  // whitespace or control characters.
+  const text = typeof value === 'string'
+    && /^[\u0000-\u0020\u007f\u00a0\u1680\u2000-\u200a\u2028\u2029\u202f\u205f\u3000\ufeff]*[=+@-]/u.test(value)
+      ? `'${value}`
+      : rawText;
   return /[",\n\r]/.test(text) ? `"${text.replaceAll('"', '""')}"` : text;
 }
 
@@ -401,10 +409,40 @@ function lineHeightMm(fontSize: number, multiplier = 1.18): number {
   return fontSize * 0.352778 * multiplier;
 }
 
-function splitText(doc: jsPDF, value: string, width: number): string[] {
-  const lines = doc.splitTextToSize(pdfSafe(value), width) as string[];
-  return lines.length > 0 ? lines : [''];
+function hardWrapPdfLine(doc: jsPDF, value: string, width: number): string[] {
+  if (value === '' || doc.getTextWidth(value) <= width) return [value];
+  const remainingCharacters = Array.from(value);
+  const lines: string[] = [];
+  while (remainingCharacters.length > 0) {
+    let lower = 1;
+    let upper = remainingCharacters.length;
+    let fittingLength = 0;
+    while (lower <= upper) {
+      const middle = Math.floor((lower + upper) / 2);
+      const candidate = remainingCharacters.slice(0, middle).join('');
+      if (doc.getTextWidth(candidate) <= width) {
+        fittingLength = middle;
+        lower = middle + 1;
+      } else {
+        upper = middle - 1;
+      }
+    }
+    // A positive layout width should always fit at least one glyph. Keeping
+    // this floor guarantees progress for unusual fonts or malformed metrics.
+    const consumed = Math.max(1, fittingLength);
+    lines.push(remainingCharacters.splice(0, consumed).join(''));
+  }
+  return lines;
 }
+
+export function wrapPdfText(doc: jsPDF, value: string, width: number): string[] {
+  const lines = doc.splitTextToSize(pdfSafe(value), width) as string[];
+  const boundedLines = (lines.length > 0 ? lines : [''])
+    .flatMap((line) => hardWrapPdfLine(doc, line, width));
+  return boundedLines.length > 0 ? boundedLines : [''];
+}
+
+const splitText = wrapPdfText;
 
 function drawContinuationHeader(layout: PdfLayout, label: string): void {
   const { doc } = layout;
@@ -469,11 +507,20 @@ function drawKpiCards(
   layout.y += height + 6;
 }
 
-function compactLines(lines: string[], maximum: number): string[] {
+function compactLines(
+  doc: jsPDF,
+  lines: string[],
+  maximum: number,
+  width: number,
+): string[] {
   if (lines.length <= maximum) return lines;
   const shortened = lines.slice(0, maximum);
-  const last = shortened[maximum - 1] ?? '';
-  shortened[maximum - 1] = `${last.replace(/\s*\.{0,3}$/, '')}...`;
+  const suffix = '...';
+  const last = Array.from((shortened[maximum - 1] ?? '').replace(/\s*\.{0,3}$/, ''));
+  while (last.length > 0 && doc.getTextWidth(`${last.join('')}${suffix}`) > width) {
+    last.pop();
+  }
+  shortened[maximum - 1] = `${last.join('')}${suffix}`;
   return shortened;
 }
 
@@ -488,7 +535,8 @@ function drawSummaryGrid(
     const prepared = pair.map((item) => {
       layout.doc.setFont('helvetica', 'normal');
       layout.doc.setFontSize(8.2);
-      const lines = compactLines(splitText(layout.doc, item.value, cellWidth - 6), 5);
+      const width = cellWidth - 6;
+      const lines = compactLines(layout.doc, splitText(layout.doc, item.value, width), 5, width);
       return { ...item, lines };
     });
     const valueLineHeight = lineHeightMm(8.2, 1.12);

@@ -15,6 +15,8 @@ const readXlsxFileMock = vi.hoisted(() => vi.fn(async () => {
   }];
 }));
 
+const reportMockState = vi.hoisted(() => ({ hashDelayMs: 0 }));
+
 vi.mock('read-excel-file/browser', () => ({ default: readXlsxFileMock }));
 
 vi.mock('../src/io', async (importOriginal) => {
@@ -29,6 +31,19 @@ vi.mock('../src/io', async (importOriginal) => {
         await new Promise((resolve) => setTimeout(resolve, 100));
       }
       return actual.ingestThermalFiles(files, options);
+    },
+  };
+});
+
+vi.mock('../src/report', async (importOriginal) => {
+  const actual = await importOriginal<typeof import('../src/report')>();
+  return {
+    ...actual,
+    hashFile: async (file: File) => {
+      if (reportMockState.hashDelayMs > 0) {
+        await new Promise((resolve) => setTimeout(resolve, reportMockState.hashDelayMs));
+      }
+      return actual.hashFile(file);
     },
   };
 });
@@ -77,6 +92,7 @@ describe('App dataset state integrity', () => {
   let root: Root;
 
   beforeEach(async () => {
+    reportMockState.hashDelayMs = 0;
     actEnvironment.IS_REACT_ACT_ENVIRONMENT = true;
     host = document.createElement('div');
     document.body.append(host);
@@ -175,6 +191,116 @@ describe('App dataset state integrity', () => {
       .toBe('user.csv');
     expect(host.querySelector('.mapping-audit-list section strong')?.textContent)
       .toBe('user.csv');
+  });
+
+  it('STATE-003 resets example-derived context, grid, and method choices for a custom upload', async () => {
+    await click(host, 'button[data-example-id="paper063-kissinger-beta-tp"]');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="project-name"]')?.value)
+      .toBe('Paper063 publication-derived Kissinger example');
+
+    const userCsv = [
+      'Temperature [K],Alpha [0-1],beta [K/min],Run,Reaction stage',
+      '500,0.10,10,user-run,user stage',
+      '525,0.20,10,user-run,user stage',
+      '550,0.30,10,user-run,user stage',
+    ].join('\n');
+    await chooseFiles(host, [new File([userCsv], 'fresh-user.csv', { type: 'text/csv' })]);
+    await waitUntil(
+      () => host.querySelector('.file-row .status-pill')?.textContent === 'Ready',
+      'custom upload to become ready',
+    );
+
+    expect(host.querySelector<HTMLInputElement>('[data-testid="project-name"]')?.value)
+      .toBe('New activation-energy analysis');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="process-name"]')?.value)
+      .toBe('');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="stage-label"]')?.value)
+      .toBe('');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="alpha-start"]')?.value)
+      .toBe('0.10');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="alpha-end"]')?.value)
+      .toBe('0.90');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="alpha-step"]')?.value)
+      .toBe('0.10');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="min-r2-warning"]')?.value)
+      .toBe('0.98');
+    expect(
+      [...host.querySelectorAll<HTMLInputElement>(
+        '.expert-method-settings input[type="checkbox"]',
+      )].map(({ checked }) => checked),
+    ).toEqual([true, true, true, true, true]);
+  });
+
+  it('STATE-004 resets all dataset-specific inputs when files are cleared', async () => {
+    await click(host, 'button[data-example-id="paper010-supplied-dalpha-dt"]');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="project-name"]')?.value)
+      .toBe('Paper010 official supplement Friedman example');
+    await click(host, '[data-testid="clear-files"]');
+
+    expect(host.querySelector<HTMLInputElement>('[data-testid="project-name"]')?.value)
+      .toBe('New activation-energy analysis');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="process-name"]')?.value)
+      .toBe('');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="alpha-start"]')?.value)
+      .toBe('0.10');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="alpha-end"]')?.value)
+      .toBe('0.90');
+    expect(host.querySelector<HTMLInputElement>('[data-testid="alpha-step"]')?.value)
+      .toBe('0.10');
+    expect(host.querySelector('.file-row')).toBeNull();
+  });
+
+  it('STATE-005 cancels an export if report inputs change while hashing is in flight', async () => {
+    let exportedBlob: Blob | undefined;
+    const originalCreateObjectUrl = URL.createObjectURL;
+    const originalRevokeObjectUrl = URL.revokeObjectURL;
+    const originalAnchorClick = HTMLAnchorElement.prototype.click;
+    URL.createObjectURL = ((blob: Blob) => {
+      exportedBlob = blob;
+      return 'blob:stale-export-test';
+    }) as typeof URL.createObjectURL;
+    URL.revokeObjectURL = (() => undefined) as typeof URL.revokeObjectURL;
+    HTMLAnchorElement.prototype.click = () => undefined;
+    reportMockState.hashDelayMs = 100;
+
+    try {
+      await click(host, '.ghost-example-button');
+      await waitUntil(
+        () => host.querySelector('.file-row .status-pill')?.textContent === 'Ready',
+        'synthetic example to become ready',
+      );
+      const confirmation = host.querySelector<HTMLInputElement>(
+        '[data-testid="confirm-interpretation"]',
+      );
+      if (!confirmation) throw new Error('Interpretation confirmation not found.');
+      await act(async () => confirmation.click());
+      await click(host, '[data-testid="run-analysis"]');
+      await waitUntil(
+        () => host.querySelector<HTMLButtonElement>('[data-testid="export-json"]')?.disabled === false,
+        'JSON export to become enabled',
+      );
+
+      await click(host, '[data-testid="export-json"]');
+      const projectInput = host.querySelector<HTMLInputElement>('[data-testid="project-name"]');
+      if (!projectInput) throw new Error('Project name input not found.');
+      await act(async () => setInput(projectInput, 'Changed during export'));
+      await waitUntil(
+        () => host.querySelector<HTMLButtonElement>('[data-testid="export-json"]')?.disabled === false,
+        'stale export to finish',
+      );
+
+      expect(exportedBlob).toBeUndefined();
+      expect(host.textContent).toContain(
+        'The export was cancelled because report metadata or scientific settings changed',
+      );
+      expect(host.querySelector('[data-testid="csv-export-scope-note"]')?.textContent)
+        .toContain('Keep the reproducible JSON for source-file hashes');
+    } finally {
+      URL.createObjectURL = originalCreateObjectUrl;
+      URL.revokeObjectURL = originalRevokeObjectUrl;
+      HTMLAnchorElement.prototype.click = originalAnchorClick;
+      reportMockState.hashDelayMs = 0;
+    }
   });
 
   it('STATE-002 keeps mapping dirty when controls change during an in-flight Apply', async () => {

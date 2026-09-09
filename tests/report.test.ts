@@ -1,3 +1,5 @@
+import { jsPDF } from 'jspdf';
+import Papa from 'papaparse';
 import { describe, expect, it } from 'vitest';
 
 import type { ActivationEnergyAnalysis } from '../src/core/types';
@@ -8,6 +10,7 @@ import {
   createProjectReport,
   createResultsCsv,
   serializeProjectReport,
+  wrapPdfText,
 } from '../src/report';
 import packageJsonRaw from '../package.json?raw';
 
@@ -92,6 +95,80 @@ describe('reproducible reporting', () => {
     expect(csv).toContain('133.33333333333334,166.66666666666669');
     expect(csv.split('\n')[0]).toContain('status,disposition');
     expect(csv).toContain('success,REPORTABLE');
+  });
+
+  it('neutralizes spreadsheet formulas in every string field without changing numeric negatives', () => {
+    const report = createProjectReport(analysis, {
+      projectName: 'CSV injection check',
+      sample: '=2+2',
+      process: ' \t+SUM(A1:A2)',
+      stage: '\r-10+20',
+      atmosphere: '\u00a0@cmd',
+      sourceFiles: [],
+      licensedSourceProvenance: {
+        kind: 'licensed-example',
+        exampleId: '=example-id',
+        citation: {
+          label: '=HYPERLINK("https://example.invalid")',
+          doi: '+10.0000/example',
+          url: 'https://example.invalid/source',
+        },
+        license: {
+          identifier: '-MIT',
+          name: '@License',
+          url: 'https://example.invalid/license',
+          scope: 'article-derived table',
+        },
+        sourceType: 'article-figure-transcription',
+        extractionSteps: ['=IMPORTDATA("https://example.invalid")'],
+        transformationSteps: ['\t@malicious-command'],
+        printedPrecision: '+three decimals',
+        rounding: '-nearest',
+        separateDatasetLicense: {
+          exists: false,
+          identifier: null,
+          scope: '=none',
+        },
+        claimLimits: ['\ufeff=WEBSERVICE("https://example.invalid")'],
+      },
+    });
+    const parsed = Papa.parse<Record<string, string>>(createResultsCsv(report), {
+      header: true,
+      skipEmptyLines: true,
+    });
+    expect(parsed.errors).toEqual([]);
+    const row = parsed.data[0];
+    for (const field of [
+      'sample',
+      'process',
+      'stage',
+      'atmosphere',
+      'sourceExampleId',
+      'sourceCitationLabel',
+      'sourceCitationDoi',
+      'sourceLicenseIdentifier',
+      'sourceLicenseName',
+      'sourceExtractionSteps',
+      'sourceTransformationSteps',
+      'sourcePrintedPrecision',
+      'sourceRounding',
+      'separateDatasetLicenseScope',
+      'sourceClaimLimits',
+    ]) {
+      expect(row[field], field).toMatch(/^'/u);
+    }
+    expect(row.slope).toBe('-18');
+  });
+
+  it('hard-wraps unbroken PDF tokens within the requested physical width', () => {
+    const doc = new jsPDF({ unit: 'mm', format: 'a4' });
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8.2);
+    const longToken = `https://example.invalid/${'a'.repeat(420)}`;
+    const lines = wrapPdfText(doc, longToken, 36);
+    expect(lines.length).toBeGreaterThan(1);
+    expect(lines.join('')).toBe(longToken);
+    expect(lines.every((line) => doc.getTextWidth(line) <= 36 + 1e-9)).toBe(true);
   });
 
   it('uses the report alpha grid and minimum R2 threshold for each row disposition', async () => {

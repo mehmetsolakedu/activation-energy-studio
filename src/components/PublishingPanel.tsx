@@ -162,7 +162,7 @@ export function PublishingPanel() {
           <section aria-labelledby="release-notes-title" className="publishing-section">
             <h3 id="release-notes-title">{'v0.3.2 release notes'}</h3>
             <p>
-              {'Fail-closed time-series validation, grid-stable raw-series Friedman derivatives, revision-bound ingestion and export state, hash-bound source identities, and licensed-source provenance in JSON, CSV, and PDF.'}
+              {'Fail-closed time-series validation, grid-stable raw-series Friedman derivatives, revision-bound ingestion and export state, hash-bound source identities in reproducible JSON and PDF, and licensed-source citation and license fields in JSON, CSV, and PDF.'}
             </p>
             <a href="./RELEASE_NOTES_v0.3.2.md">{'Full release notes'}</a>
           </section>
