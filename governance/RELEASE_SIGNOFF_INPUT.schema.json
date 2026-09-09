@@ -1,0 +1,238 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "activation-energy-studio/five-role-release-signoff-input/v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema",
+    "releaseVersion",
+    "locks",
+    "timeline",
+    "roles"
+  ],
+  "properties": {
+    "schema": {
+      "const": "activation-energy-studio/five-role-release-signoff-input/v1"
+    },
+    "releaseVersion": {
+      "const": "0.2.0"
+    },
+    "locks": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "releaseArtifact",
+        "releaseManifest",
+        "acceptanceCriteria",
+        "p0Ledger",
+        "knownIssues"
+      ],
+      "properties": {
+        "releaseArtifact": {
+          "$ref": "#/definitions/fileLock"
+        },
+        "releaseManifest": {
+          "$ref": "#/definitions/fileLock"
+        },
+        "acceptanceCriteria": {
+          "$ref": "#/definitions/fileLock"
+        },
+        "p0Ledger": {
+          "$ref": "#/definitions/fileLock"
+        },
+        "knownIssues": {
+          "$ref": "#/definitions/fileLock"
+        }
+      }
+    },
+    "timeline": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "preparedAtUtc",
+        "reviewStartedAtUtc",
+        "reviewCompletedAtUtc",
+        "recordedAtUtc"
+      ],
+      "properties": {
+        "preparedAtUtc": {
+          "$ref": "#/definitions/utcOrTemplate"
+        },
+        "reviewStartedAtUtc": {
+          "$ref": "#/definitions/utcOrTemplate"
+        },
+        "reviewCompletedAtUtc": {
+          "$ref": "#/definitions/utcOrTemplate"
+        },
+        "recordedAtUtc": {
+          "$ref": "#/definitions/utcOrTemplate"
+        }
+      }
+    },
+    "roles": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "$ref": "#/definitions/roleRecord"
+      }
+    }
+  },
+  "definitions": {
+    "fileLock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "type": "string",
+          "minLength": 1
+        },
+        "sha256": {
+          "type": "string",
+          "pattern": "^[a-f0-9]{64}$"
+        }
+      }
+    },
+    "utcOrTemplate": {
+      "type": "string",
+      "minLength": 10
+    },
+    "identity": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "identityId",
+        "name",
+        "affiliation",
+        "professionalProfile"
+      ],
+      "properties": {
+        "identityId": {
+          "type": "string",
+          "minLength": 3
+        },
+        "name": {
+          "type": "string",
+          "minLength": 3
+        },
+        "affiliation": {
+          "type": "string",
+          "minLength": 3
+        },
+        "professionalProfile": {
+          "type": "string",
+          "minLength": 3
+        }
+      }
+    },
+    "decision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "decision",
+        "comment"
+      ],
+      "properties": {
+        "id": {
+          "enum": [
+            "SCOPE_EVIDENCE",
+            "KNOWN_ISSUES",
+            "VALIDATED_MVP_RELEASE"
+          ]
+        },
+        "decision": {
+          "enum": [
+            "PASS",
+            "ACKNOWLEDGED",
+            "BLOCKED",
+            "FAIL",
+            "NOT_REVIEWED"
+          ]
+        },
+        "comment": {
+          "type": "string",
+          "minLength": 3
+        }
+      }
+    },
+    "signature": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "artifact",
+        "method",
+        "verificationReference",
+        "signedAtUtc"
+      ],
+      "properties": {
+        "artifact": {
+          "$ref": "#/definitions/fileLock"
+        },
+        "method": {
+          "enum": [
+            "PADES_DIGITAL_SIGNATURE",
+            "PGP_DETACHED_SIGNATURE",
+            "MINISIGN_DETACHED_SIGNATURE",
+            "INSTITUTIONAL_EMAIL_ATTESTATION",
+            "WET_SIGNATURE_WITH_INDEPENDENT_IDENTITY_CHECK"
+          ]
+        },
+        "verificationReference": {
+          "type": "string",
+          "minLength": 3
+        },
+        "signedAtUtc": {
+          "$ref": "#/definitions/utcOrTemplate"
+        }
+      }
+    },
+    "roleRecord": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "identity",
+        "declarations",
+        "decisions",
+        "signature"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "MATH_MAINTAINER",
+            "DATA_IO_MAINTAINER",
+            "THERMAL_ANALYSIS_REVIEWER",
+            "QA",
+            "PRODUCT_OWNER"
+          ]
+        },
+        "identity": {
+          "$ref": "#/definitions/identity"
+        },
+        "declarations": {
+          "type": "object",
+          "minProperties": 6,
+          "additionalProperties": {
+            "type": "boolean"
+          }
+        },
+        "decisions": {
+          "type": "array",
+          "minItems": 3,
+          "maxItems": 3,
+          "items": {
+            "$ref": "#/definitions/decision"
+          }
+        },
+        "signature": {
+          "$ref": "#/definitions/signature"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: >-
+  If you use Activation Energy Studio, cite this software release and the
+  original dataset or article used for every included real-data example.
+title: Activation Energy Studio
+type: software
+authors:
+  - name: Activation Energy Studio contributors
+version: 0.3.2
+date-released: 2026-08-01
+license: MIT
+abstract: >-
+  An offline research-preview application for evidence-grounded apparent
+  activation-energy analysis of multi-rate thermoanalytical data using FWO,
+  KAS, Starink, Friedman, and separate beta-Tp Kissinger workflows.
+keywords:
+  - activation energy
+  - thermogravimetric analysis
+  - isoconversional kinetics
+  - FWO
+  - KAS
+  - Starink
+  - Friedman
+  - Kissinger
+preferred-citation:
+  type: software
+  title: Activation Energy Studio
+  authors:
+    - name: Activation Energy Studio contributors
+  year: 2026
+  version: 0.3.2

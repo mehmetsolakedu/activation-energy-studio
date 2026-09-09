@@ -1,0 +1,250 @@
+{
+  "schema": "activation-energy-studio/five-role-release-signoff-input/v1",
+  "releaseVersion": "0.2.0",
+  "locks": {
+    "releaseArtifact": {
+      "path": "release/Activation-Energy-Studio-v0.2.0.html",
+      "sha256": "ce716471586b098806007853992bed6601dfa359d53e59fe1b50c849d911dbb7"
+    },
+    "releaseManifest": {
+      "path": "release/MANIFEST.v0.2.0.json",
+      "sha256": "c5af42f4d9acc6aaca507cc3037cd1a1b5be76892da78211493e5e178cac843a"
+    },
+    "acceptanceCriteria": {
+      "path": "02_ACCEPTANCE_CRITERIA.md",
+      "sha256": "82225e00f74fd96b1c346ed5c144864bc1b71f41d49e564bb743e17ce27c1797"
+    },
+    "p0Ledger": {
+      "path": "evidence/governance/P0_EVIDENCE_LEDGER.v0.2.0.json",
+      "sha256": "9d4f88c32cbe48d1694a1c71a71adb17e467baaf6fd71ca9eae758fb5df7a21f"
+    },
+    "knownIssues": {
+      "path": "governance/KNOWN_ISSUES.json",
+      "sha256": "a5d795b57ad81f5d987b483c7fb997fad8ee65f0a111e79261ee40ca7bd774b4"
+    }
+  },
+  "timeline": {
+    "preparedAtUtc": "[REQUIRED_ISO_UTC]",
+    "reviewStartedAtUtc": "[REQUIRED_ISO_UTC]",
+    "reviewCompletedAtUtc": "[REQUIRED_ISO_UTC]",
+    "recordedAtUtc": "[REQUIRED_ISO_UTC]"
+  },
+  "roles": [
+    {
+      "role": "MATH_MAINTAINER",
+      "identity": {
+        "identityId": "[REQUIRED_UNIQUE_ID]",
+        "name": "[REQUIRED_HUMAN_NAME]",
+        "affiliation": "[REQUIRED_AFFILIATION]",
+        "professionalProfile": "[REQUIRED_ORCID_OR_PROFILE]"
+      },
+      "declarations": {
+        "isHumanSigner": false,
+        "reviewedRoleScope": false,
+        "reviewedExactLockedArtifacts": false,
+        "reviewedKnownIssuesLedger": false,
+        "understandsStructuralValidationDoesNotAuthenticateIdentityOrSignature": false,
+        "reviewedFormulaRegressionReplicateAndUncertaintyImplementation": false
+      },
+      "decisions": [
+        {
+          "id": "SCOPE_EVIDENCE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "KNOWN_ISSUES",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "VALIDATED_MVP_RELEASE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        }
+      ],
+      "signature": {
+        "artifact": {
+          "path": "[REQUIRED_MATH_MAINTAINER_SIGNATURE_ARTIFACT]",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "method": "INSTITUTIONAL_EMAIL_ATTESTATION",
+        "verificationReference": "[REQUIRED_INDEPENDENT_VERIFICATION_REFERENCE]",
+        "signedAtUtc": "[REQUIRED_ISO_UTC]"
+      }
+    },
+    {
+      "role": "DATA_IO_MAINTAINER",
+      "identity": {
+        "identityId": "[REQUIRED_UNIQUE_ID]",
+        "name": "[REQUIRED_HUMAN_NAME]",
+        "affiliation": "[REQUIRED_AFFILIATION]",
+        "professionalProfile": "[REQUIRED_ORCID_OR_PROFILE]"
+      },
+      "declarations": {
+        "isHumanSigner": false,
+        "reviewedRoleScope": false,
+        "reviewedExactLockedArtifacts": false,
+        "reviewedKnownIssuesLedger": false,
+        "understandsStructuralValidationDoesNotAuthenticateIdentityOrSignature": false,
+        "reviewedIngestionMappingUnitsProvenanceAndExports": false
+      },
+      "decisions": [
+        {
+          "id": "SCOPE_EVIDENCE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "KNOWN_ISSUES",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "VALIDATED_MVP_RELEASE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        }
+      ],
+      "signature": {
+        "artifact": {
+          "path": "[REQUIRED_DATA_IO_MAINTAINER_SIGNATURE_ARTIFACT]",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "method": "INSTITUTIONAL_EMAIL_ATTESTATION",
+        "verificationReference": "[REQUIRED_INDEPENDENT_VERIFICATION_REFERENCE]",
+        "signedAtUtc": "[REQUIRED_ISO_UTC]"
+      }
+    },
+    {
+      "role": "THERMAL_ANALYSIS_REVIEWER",
+      "identity": {
+        "identityId": "[REQUIRED_UNIQUE_ID]",
+        "name": "[REQUIRED_HUMAN_NAME]",
+        "affiliation": "[REQUIRED_AFFILIATION]",
+        "professionalProfile": "[REQUIRED_ORCID_OR_PROFILE]"
+      },
+      "declarations": {
+        "isHumanSigner": false,
+        "reviewedRoleScope": false,
+        "reviewedExactLockedArtifacts": false,
+        "reviewedKnownIssuesLedger": false,
+        "understandsStructuralValidationDoesNotAuthenticateIdentityOrSignature": false,
+        "hasCurrentThermalAnalysisOrSolidStateKineticsExperience": false,
+        "reviewedScientificClaimBoundariesAndRealDataEvidence": false
+      },
+      "decisions": [
+        {
+          "id": "SCOPE_EVIDENCE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "KNOWN_ISSUES",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "VALIDATED_MVP_RELEASE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        }
+      ],
+      "signature": {
+        "artifact": {
+          "path": "[REQUIRED_THERMAL_ANALYSIS_REVIEWER_SIGNATURE_ARTIFACT]",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "method": "INSTITUTIONAL_EMAIL_ATTESTATION",
+        "verificationReference": "[REQUIRED_INDEPENDENT_VERIFICATION_REFERENCE]",
+        "signedAtUtc": "[REQUIRED_ISO_UTC]"
+      }
+    },
+    {
+      "role": "QA",
+      "identity": {
+        "identityId": "[REQUIRED_UNIQUE_ID]",
+        "name": "[REQUIRED_HUMAN_NAME]",
+        "affiliation": "[REQUIRED_AFFILIATION]",
+        "professionalProfile": "[REQUIRED_ORCID_OR_PROFILE]"
+      },
+      "declarations": {
+        "isHumanSigner": false,
+        "reviewedRoleScope": false,
+        "reviewedExactLockedArtifacts": false,
+        "reviewedKnownIssuesLedger": false,
+        "understandsStructuralValidationDoesNotAuthenticateIdentityOrSignature": false,
+        "reviewedAutomatedQaAndOpenPlatformUsabilityGates": false
+      },
+      "decisions": [
+        {
+          "id": "SCOPE_EVIDENCE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "KNOWN_ISSUES",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "VALIDATED_MVP_RELEASE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        }
+      ],
+      "signature": {
+        "artifact": {
+          "path": "[REQUIRED_QA_SIGNATURE_ARTIFACT]",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "method": "INSTITUTIONAL_EMAIL_ATTESTATION",
+        "verificationReference": "[REQUIRED_INDEPENDENT_VERIFICATION_REFERENCE]",
+        "signedAtUtc": "[REQUIRED_ISO_UTC]"
+      }
+    },
+    {
+      "role": "PRODUCT_OWNER",
+      "identity": {
+        "identityId": "[REQUIRED_UNIQUE_ID]",
+        "name": "[REQUIRED_HUMAN_NAME]",
+        "affiliation": "[REQUIRED_AFFILIATION]",
+        "professionalProfile": "[REQUIRED_ORCID_OR_PROFILE]"
+      },
+      "declarations": {
+        "isHumanSigner": false,
+        "reviewedRoleScope": false,
+        "reviewedExactLockedArtifacts": false,
+        "reviewedKnownIssuesLedger": false,
+        "understandsStructuralValidationDoesNotAuthenticateIdentityOrSignature": false,
+        "reviewedMissionAcceptanceCriteriaAndReleaseClaimBoundary": false
+      },
+      "decisions": [
+        {
+          "id": "SCOPE_EVIDENCE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "KNOWN_ISSUES",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        },
+        {
+          "id": "VALIDATED_MVP_RELEASE",
+          "decision": "NOT_REVIEWED",
+          "comment": "[REQUIRED_ROLE_SCOPED_COMMENT]"
+        }
+      ],
+      "signature": {
+        "artifact": {
+          "path": "[REQUIRED_PRODUCT_OWNER_SIGNATURE_ARTIFACT]",
+          "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+        },
+        "method": "INSTITUTIONAL_EMAIL_ATTESTATION",
+        "verificationReference": "[REQUIRED_INDEPENDENT_VERIFICATION_REFERENCE]",
+        "signedAtUtc": "[REQUIRED_ISO_UTC]"
+      }
+    }
+  ]
+}

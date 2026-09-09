@@ -1,0 +1,169 @@
+{
+  "schema": "activation-energy-studio/manual-regression-check/v1",
+  "fixtureId": "chilean-oak-alpha-0.50-bc-independent-check",
+  "checkedAt": "2026-07-29",
+  "scope": "One independently selected alpha point, four heating rates, all three reported isoconversional methods.",
+  "independence": {
+    "calculator": "GNU bc 7.0.3",
+    "calculatorScale": 50,
+    "importsApplicationSource": false,
+    "importsDecimalOracle": false,
+    "sourceRowsCopiedDirectlyFromLockedCsv": true,
+    "note": "The raw row pairs and formulas were entered explicitly into a separate arbitrary-precision calculator. Values below were not copied from application output."
+  },
+  "policy": {
+    "targetAlpha": "0.5",
+    "temperature": "T_K = linearly_interpolated_T_C + 273.15",
+    "derivative": "linearly interpolate supplied dAlpha/dt (min^-1) on alpha",
+    "x": "1/T_K",
+    "fwoY": "ln(beta)",
+    "kasY": "ln(beta/T_K^2)",
+    "friedmanY": "ln(dAlpha/dt)",
+    "ols": "slope=sum((x-xbar)(y-ybar))/sum((x-xbar)^2), with intercept",
+    "gasConstantJPerMolK": "8.31446261815324",
+    "fwoEnergy": "-slope*R/(1.052*1000)",
+    "kasAndFriedmanEnergy": "-slope*R/1000"
+  },
+  "rawRows": [
+    {
+      "heatingRateKPerMin": 5,
+      "sourceRows": [2663, 2664],
+      "left": {
+        "temperatureC": "331.55",
+        "temperatureKAuthor": "604.55",
+        "alpha": "0.499281",
+        "dAlphaDtPerMinute": "0.050512"
+      },
+      "right": {
+        "temperatureC": "331.66",
+        "temperatureKAuthor": "604.66",
+        "alpha": "0.500293",
+        "dAlphaDtPerMinute": "0.046027"
+      }
+    },
+    {
+      "heatingRateKPerMin": 10,
+      "sourceRows": [1388, 1389],
+      "left": {
+        "temperatureC": "342.70",
+        "temperatureKAuthor": "615.70",
+        "alpha": "0.498760",
+        "dAlphaDtPerMinute": "0.094858"
+      },
+      "right": {
+        "temperatureC": "342.91",
+        "temperatureKAuthor": "615.91",
+        "alpha": "0.500766",
+        "dAlphaDtPerMinute": "0.095494"
+      }
+    },
+    {
+      "heatingRateKPerMin": 20,
+      "sourceRows": [729, 730],
+      "left": {
+        "temperatureC": "354.51",
+        "temperatureKAuthor": "627.51",
+        "alpha": "0.496373",
+        "dAlphaDtPerMinute": "0.184865"
+      },
+      "right": {
+        "temperatureC": "354.90",
+        "temperatureKAuthor": "627.90",
+        "alpha": "0.500026",
+        "dAlphaDtPerMinute": "0.187303"
+      }
+    },
+    {
+      "heatingRateKPerMin": 40,
+      "sourceRows": [299, 300],
+      "left": {
+        "temperatureC": "365.27",
+        "temperatureKAuthor": "638.27",
+        "alpha": "0.495826",
+        "dAlphaDtPerMinute": "0.351752"
+      },
+      "right": {
+        "temperatureC": "366.07",
+        "temperatureKAuthor": "639.07",
+        "alpha": "0.503002",
+        "dAlphaDtPerMinute": "0.358824"
+      }
+    }
+  ],
+  "interpolatedObservations": [
+    {
+      "heatingRateKPerMin": 5,
+      "fraction": "0.71047430830039525691699604743083003952569169960474",
+      "temperatureK": "604.77815217391304347826086956521739130434782608695652",
+      "dAlphaDtPerMinute": "0.04732552272727272727272727272727272727272727272728",
+      "x": "0.00165349888451730143949658867004591514782909076073"
+    },
+    {
+      "heatingRateKPerMin": 10,
+      "fraction": "0.61814556331006979062811565304087736789631106679960",
+      "temperatureK": "615.97981056829511465603190428713858424725822532402791",
+      "dAlphaDtPerMinute": "0.09525114057826520438683948155533399800598205383848",
+      "x": "0.00162342983137290288433952667228042120154039697957"
+    },
+    {
+      "heatingRateKPerMin": 20,
+      "fraction": "0.99288256227758007117437722419928825622775800711743",
+      "temperatureK": "628.04722419928825622775800711743772241992882562277579",
+      "dAlphaDtPerMinute": "0.18728564768683274021352313167259786476868327402135",
+      "x": "0.00159223695523043323520960609587634993787159396575"
+    },
+    {
+      "heatingRateKPerMin": 40,
+      "fraction": "0.58166109253065774804905239687848383500557413600891",
+      "temperatureK": "638.88532887402452619843924191750278706800445930880712",
+      "dAlphaDtPerMinute": "0.35586550724637681159420289855072463768115942028985",
+      "x": "0.00156522611305287948034632643176223136959518436636"
+    }
+  ],
+  "results": {
+    "FWO": {
+      "y": [
+        "1.60943791243410037460075933322618763952560135426851",
+        "2.30258509299404568401799145468436420760110148862877",
+        "2.99573227355399099343522357614254077567660162298902",
+        "3.68887945411393630285245569760071734375210175734928"
+      ],
+      "slopeK": "-23396.24593846974501824162282664345676441066824200079256",
+      "intercept": "40.28431184502220439024668820905950782834021103357736",
+      "rSquared": "0.99914575266953064187458159254578807999838226845787",
+      "activationEnergyKJPerMol": "184.91179872673599221081065096043523000375149925199016"
+    },
+    "KAS": {
+      "y": [
+        "-11.20028548788942821044289780488724293989423149527967",
+        "-10.54384328289582846062670758450021111971871202896179",
+        "-9.88949844926711984995438318348030303966317956126137",
+        "-9.23057051437100967793072419567869409921182815571654"
+      ],
+      "slopeK": "-22153.33467993429430501170065669641113692441627787627028",
+      "intercept": "25.41975923054802194584348577425417882357484840236299",
+      "rSquared": "0.99906845206690300579937843410762598540853748296932",
+      "activationEnergyKJPerMol": "184.19307306375146170158320642200835478134909667649524"
+    },
+    "FRIEDMAN": {
+      "y": [
+        "-3.05070553646919399087164354656300993898456009544688",
+        "-2.35123829047205858115906367295323519791852145550722",
+        "-1.67512029987424914774345914139972083840536029520846",
+        "-1.03320240814398379420186960633877206464579235193969"
+      ],
+      "slopeK": "-22722.26286368720749290871141446898469198315576301005089",
+      "intercept": "34.52341873824512352617347366071779217687764302624901",
+      "rSquared": "0.99971835879793045386716416356508873832434193600063",
+      "activationEnergyKJPerMol": "188.92340517997887590583040881836560847906142009141783"
+    }
+  },
+  "manualVerdict": {
+    "standardEquationsInternallyConsistent": true,
+    "correctCelsiusToKelvinOffset": "273.15",
+    "authorKelvinColumnOffset": "273.00",
+    "publicationKASAcceptedAsHardOracle": false,
+    "publicationFriedmanAcceptedAsHardOracle": false,
+    "classification": "application_and_independent_oracle_should_match_manual_standard_equations; publication discrepancies require quarantine"
+  }
+}

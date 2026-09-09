@@ -1,0 +1,4 @@
+beta [K/min]	Tp [K]	run	sample	atmosphere
+5	621.2	run-5	biomass	N2
+10	634.8	run-10	biomass	N2
+20	649.1	run-20	biomass	N2

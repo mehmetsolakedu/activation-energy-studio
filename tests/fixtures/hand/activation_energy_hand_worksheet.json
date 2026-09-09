@@ -1,0 +1,116 @@
+{
+  "schema": "activation-energy-studio/independent-hand-worksheet/v1",
+  "provenance": {
+    "calculation": "Independent Python Decimal arithmetic, precision=50; no application source imported",
+    "gasConstantJPerMolK": 8.31446261815324,
+    "studentT95": { "n3": 12.706204736, "n4": 4.30265273, "n5": 3.182446305 }
+  },
+  "massNormalization": {
+    "mass": [10, 8.5, 7],
+    "massPercent": [100, 85, 70],
+    "expectedAlpha": [0, 0.5, 1]
+  },
+  "inputs": {
+    "heatingRatesKPerMin": [5, 10, 20, 40, 80],
+    "temperaturesK": [600, 625, 650, 675, 700],
+    "derivativesPerMinute": [0.001, 0.0025, 0.006, 0.014, 0.03],
+    "targetAlpha": 0.5
+  },
+  "friedmanDerivativeEquivalence": {
+    "activationEnergyKJPerMol": 140,
+    "arrheniusIntercept": 25,
+    "targetAlpha": 0.5,
+    "derivativeRelativeTolerance": 2e-14,
+    "energyMachineEpsilonMultiplier": 8,
+    "toleranceJustification": "Derivative finite differences allow 64-90 binary64 ulps for cancellation; the noise-free linear-case Ea is separately bounded by 8 * Number.EPSILON relative error after logarithm and OLS propagation",
+    "runs": [
+      { "heatingRateKPerMin": 5, "targetTemperatureK": 570, "expectedDerivativePerMinute": 0.010667234503687388, "deltaTimeMinutes": 9.374500951060238, "deltaTemperatureK": 46.87250475530119 },
+      { "heatingRateKPerMin": 10, "targetTemperatureK": 600, "expectedDerivativePerMinute": 0.04672156189872896, "deltaTimeMinutes": 2.140339405107098, "deltaTemperatureK": 21.403394051070983 },
+      { "heatingRateKPerMin": 20, "targetTemperatureK": 630, "expectedDerivativePerMinute": 0.17778327805767286, "deltaTimeMinutes": 0.5624825973090677, "deltaTemperatureK": 11.249651946181354 },
+      { "heatingRateKPerMin": 40, "targetTemperatureK": 660, "expectedDerivativePerMinute": 0.5991054000459943, "deltaTimeMinutes": 0.16691553772061282, "deltaTemperatureK": 6.676621508824513 }
+    ]
+  },
+  "methodsN4": {
+    "FWO": {
+      "x": [0.0016666666666666668, 0.0016, 0.0015384615384615385, 0.0014814814814814814],
+      "y": [1.6094379124341003, 2.302585092994046, 2.995732273553991, 3.6888794541139363],
+      "slope": -11218.609561487723,
+      "intercept": 20.28091356815921,
+      "slopeStandardError": 278.5349681784863,
+      "slopeConfidence95": [-12417.04880272135, -10020.170320254096],
+      "r2": 0.9987686648188123,
+      "activationEnergyKJPerMol": 88.6660739797017,
+      "energyConfidence95KJPerMol": [79.19423151642705, 98.13791644297633]
+    },
+    "KAS": {
+      "x": [0.0016666666666666668, 0.0016, 0.0015384615384615385, 0.0014814814814814814],
+      "y": [-11.184421397998193, -10.572918206478757, -9.958212452225375, -9.340545927631123],
+      "slope": -9947.075225984576,
+      "intercept": 5.369320371194105,
+      "slopeStandardError": 262.7591477068599,
+      "slopeConfidence95": [-11077.63659019797, -8816.51386177118],
+      "r2": 0.9986063644710024,
+      "activationEnergyKJPerMol": 82.70458512640694,
+      "energyConfidence95KJPerMol": [73.30457492612635, 92.10459532668753]
+    },
+    "STARINK": {
+      "x": [0.0016666666666666668, 0.0016, 0.0015384615384615385, 0.0014814814814814814],
+      "y": [-10.672667025580902, -10.057898074499846, -9.4400546631942, -8.819368912361321],
+      "slope": -9997.9365994047,
+      "intercept": 5.9657840990727085,
+      "slopeStandardError": 263.39017904907627,
+      "slopeConfidence95": [-11131.213072345397, -8864.660126464005],
+      "r2": 0.9986138635469883,
+      "activationEnergyKJPerMol": 83.0610212973786,
+      "energyConfidence95KJPerMol": [73.64596846934306, 92.47607412541416]
+    },
+    "FRIEDMAN": {
+      "x": [0.0016666666666666668, 0.0016, 0.0015384615384615385, 0.0014814814814814814],
+      "y": [-6.907755278982137, -5.991464547107982, -5.115995809754082, -4.268697949366879],
+      "slope": -14239.700511504536,
+      "intercept": 16.808881396208562,
+      "slopeStandardError": 176.7204920081027,
+      "slopeConfidence95": [-15000.067418890143, -13479.33360411893],
+      "r2": 0.9996920584077472,
+      "activationEnergyKJPerMol": 118.39545759660203,
+      "energyConfidence95KJPerMol": [112.07341536906362, 124.71749982414045]
+    },
+    "KISSINGER": {
+      "x": [0.0016666666666666668, 0.0016, 0.0015384615384615385, 0.0014814814814814814],
+      "y": [-11.184421397998193, -10.572918206478757, -9.958212452225375, -9.340545927631123],
+      "slope": -9947.075225984576,
+      "intercept": 5.369320371194105,
+      "slopeStandardError": 262.7591477068599,
+      "slopeConfidence95": [-11077.63659019797, -8816.51386177118],
+      "r2": 0.9986063644710024,
+      "activationEnergyKJPerMol": 82.70458512640694,
+      "energyConfidence95KJPerMol": [73.30457492612635, 92.10459532668753]
+    }
+  },
+  "kasRegressionSizes": [
+    {
+      "n": 3,
+      "slope": -9558.998577928753,
+      "slopeStandardError": 235.17781964703914,
+      "slopeConfidence95": [-12547.216103730116, -6570.7810521273905],
+      "activationEnergyKJPerMol": 79.4779363431686,
+      "energyConfidence95KJPerMol": [54.6325134299828, 104.3233592563544]
+    },
+    {
+      "n": 4,
+      "slope": -9947.075225984576,
+      "slopeStandardError": 262.7591477068599,
+      "slopeConfidence95": [-11077.63659019797, -8816.51386177118],
+      "activationEnergyKJPerMol": 82.70458512640694,
+      "energyConfidence95KJPerMol": [73.30457492612635, 92.10459532668753]
+    },
+    {
+      "n": 5,
+      "slope": -10336.74672900555,
+      "slopeStandardError": 289.2642990664294,
+      "slopeConfidence95": [-11257.314828737923, -9416.178629273178],
+      "activationEnergyKJPerMol": 85.94449427163443,
+      "energyConfidence95KJPerMol": [78.29046521894524, 93.59852332432361]
+    }
+  ]
+}

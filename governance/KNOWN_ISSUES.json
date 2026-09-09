@@ -1,0 +1,207 @@
+{
+  "schema": "activation-energy-studio/known-issues/v1",
+  "releaseVersion": "0.2.0",
+  "ledgerState": "OPEN_BLOCKERS_RETAINED_NOT_VALIDATED_MVP",
+  "policy": {
+    "severityOrder": [
+      "CRITICAL",
+      "MAJOR",
+      "MINOR",
+      "INFO"
+    ],
+    "priorityOrder": [
+      "P0",
+      "P1"
+    ],
+    "blockingStates": [
+      "OPEN"
+    ],
+    "validatedMvpBlockingSeverities": [
+      "CRITICAL",
+      "MAJOR"
+    ],
+    "rule": "Any OPEN CRITICAL or MAJOR issue, and any unresolved P0 issue, makes validatedMvpEligible=false and must fail a validated-MVP release-readiness assertion.",
+    "externalGateBoundary": "External evidence remains OPEN until retained evidence and the required human authenticity/content review exist; automation or a prepared protocol cannot close it."
+  },
+  "sourceLocks": [
+    {
+      "path": "02_ACCEPTANCE_CRITERIA.md",
+      "sha256": "82225e00f74fd96b1c346ed5c144864bc1b71f41d49e564bb743e17ce27c1797"
+    },
+    {
+      "path": "CURRENT_VALIDATION_STATUS.md",
+      "sha256": "62407952118c731f35e1a3d35865a6900d772f9e49ed18a749996fe60e4f34ea"
+    },
+    {
+      "path": "REAL_DATA_VALIDATION_STATUS.md",
+      "sha256": "6eeddb142d31ad158faa2f573721da2560d0d060003104556cf52a9d09915a09"
+    },
+    {
+      "path": "SECOND_RAW_DATASET_SEARCH.md",
+      "sha256": "39d8114c6e7b3906c36c98b1b1e47e887e5325b9bb2713afe83dd1fc3f4cf705"
+    },
+    {
+      "path": "evidence/corpus/CORPUS_INTEGRITY_LEDGER.json",
+      "sha256": "2ecbe617bf988aeb58bc30a599b2ed3f81e0be70b045521f1fe0e5e9a5f0260e"
+    },
+    {
+      "path": "tests/fixtures/real/manifest.json",
+      "sha256": "48236d198269ba75bce5330d406c2b6168fad0a6f8d16771bbc544e1623faa5e"
+    }
+  ],
+  "issues": [
+    {
+      "id": "KI-CORPUS-001",
+      "title": "231-PDF corpus does not establish 231 distinct articles or Q1/Q2 identity",
+      "severity": "MINOR",
+      "priority": "P1",
+      "state": "OPEN",
+      "blockerClass": "CORPUS_IDENTITY_BOUNDARY",
+      "blocksValidatedMvp": false,
+      "externalGate": false,
+      "acceptanceCriteria": [],
+      "evidencePaths": [
+        "CURRENT_VALIDATION_STATUS.md",
+        "evidence/corpus/CORPUS_INTEGRITY_LEDGER.json"
+      ],
+      "statement": "The integrity ledger proves 231 unique PDF files and complete extraction accounting. It does not prove 231 distinct article identities, nor current Q1/Q2 quartile status.",
+      "closureCondition": "Create an independently auditable article-identity ledger and verify journal quartiles against dated authoritative indexing records without converting supplementary PDFs into separate articles."
+    },
+    {
+      "id": "KI-DATA-001",
+      "title": "External second raw-curve candidate is not yet scientifically integrated",
+      "severity": "MINOR",
+      "priority": "P1",
+      "state": "OPEN",
+      "blockerClass": "SCIENTIFIC_EVIDENCE_BOUNDARY",
+      "blocksValidatedMvp": false,
+      "externalGate": false,
+      "acceptanceCriteria": [],
+      "evidencePaths": [
+        "REAL_DATA_VALIDATION_STATUS.md",
+        "SECOND_RAW_DATASET_SEARCH.md",
+        "tests/fixtures/real/manifest.json",
+        "tests/fixtures/real/paper063/provenance.json"
+      ],
+      "statement": "Paper 010 remains the only integrated and independent-oracle-locked row-wise raw-curve lane. A licensed five-rate NETZSCH TG candidate was found at Zenodo DOI 10.5281/zenodo.20777046, but it is external to the local corpus and has not completed stage adjudication, non-linear-heating handling, sensitivity analysis, fixture locking, or independent-oracle validation. Paper 063 remains publication-derived peak evidence.",
+      "closureCondition": "Immutably acquire and provenance-lock the Zenodo candidate, predeclare and independently review the stage/preprocessing policy, retain the non-linear-heating and numerical-derivative boundaries, build an independent reference, and validate the result through ingestion and the scientific core."
+    },
+    {
+      "id": "KI-PLAT-001",
+      "title": "Real three-platform offline evidence and human review are incomplete",
+      "severity": "MAJOR",
+      "priority": "P0",
+      "state": "OPEN",
+      "blockerClass": "EXTERNAL_EVIDENCE",
+      "blocksValidatedMvp": true,
+      "externalGate": true,
+      "acceptanceCriteria": [
+        "AC-PLAT-01",
+        "AC-PLAT-02"
+      ],
+      "evidencePaths": [
+        "02_ACCEPTANCE_CRITERIA.md",
+        "CURRENT_VALIDATION_STATUS.md",
+        "PLATFORM_VALIDATION_PROTOCOL.md",
+        "EXTERNAL_EVIDENCE_ADJUDICATION_PROTOCOL.md"
+      ],
+      "statement": "The Parallels-free hosted workflow and local macOS diagnostic are technical preparation only. Real retained Windows 11, macOS, and Ubuntu runs plus the required human evidence review have not closed the platform gates.",
+      "closureCondition": "Execute the fixed hosted three-OS matrix on the locked release, retain and verify every required artifact, obtain the protocol-defined human review, and bind AC-PLAT-01/02 to a signed independent adjudication without treating automation or structural validation as platform PASS."
+    },
+    {
+      "id": "KI-PUB-001",
+      "title": "Paper 010 publication Table 4 is not exactly reproduced from raw curves",
+      "severity": "MAJOR",
+      "priority": "P1",
+      "state": "DOCUMENTED_NEGATIVE",
+      "blockerClass": "PUBLICATION_METHOD_BOUNDARY",
+      "blocksValidatedMvp": false,
+      "externalGate": false,
+      "acceptanceCriteria": [],
+      "evidencePaths": [
+        "REAL_DATA_VALIDATION_STATUS.md",
+        "tests/fixtures/real/manifest.json",
+        "tests/fixtures/real/paper010_rh_reference.json"
+      ],
+      "statement": "Equation-correct processing of the official Paper 010 raw S2 curves does not reproduce the publication Table 4 averages. The Friedman mismatch and S4 label/value inconsistency are retained as negative publication-methodology evidence, not accepted preprocessing oracles.",
+      "closureCondition": "Do not close by fitting undocumented transformations. Closure requires author-supplied preprocessing provenance or an independently reproducible explanation that preserves the equation-correct software path."
+    },
+    {
+      "id": "KI-REV-001",
+      "title": "Independent scientific reviewer identity, signature, and gate sign-off are unverified",
+      "severity": "MAJOR",
+      "priority": "P0",
+      "state": "OPEN",
+      "blockerClass": "EXTERNAL_EVIDENCE",
+      "blocksValidatedMvp": true,
+      "externalGate": true,
+      "acceptanceCriteria": [
+        "AC-SCI-03",
+        "AC-VAL-05"
+      ],
+      "evidencePaths": [
+        "02_ACCEPTANCE_CRITERIA.md",
+        "CURRENT_VALIDATION_STATUS.md",
+        "SCIENTIFIC_REVIEW_SIGNOFF_PROTOCOL.md",
+        "EXTERNAL_EVIDENCE_ADJUDICATION_PROTOCOL.md"
+      ],
+      "statement": "The independent-review package and recorder are structurally validated, but no eligible human reviewer identity, declaration truth, signature authenticity, or final scientific sign-off has been independently authenticated.",
+      "closureCondition": "Complete the locked review protocol with an eligible independent thermal-analysis reviewer, verify identity, declarations, evidence decisions, signature artifact and authenticity outside the software, and bind AC-SCI-03/AC-VAL-05 to the signed independent adjudication record."
+    },
+    {
+      "id": "KI-UX-001",
+      "title": "Five-user usability, comprehension, and warning-visibility human evidence are incomplete",
+      "severity": "MAJOR",
+      "priority": "P0",
+      "state": "OPEN",
+      "blockerClass": "EXTERNAL_EVIDENCE",
+      "blocksValidatedMvp": true,
+      "externalGate": true,
+      "acceptanceCriteria": [
+        "AC-UX-01",
+        "AC-UX-02",
+        "AC-UX-03",
+        "AC-UX-04"
+      ],
+      "evidencePaths": [
+        "02_ACCEPTANCE_CRITERIA.md",
+        "CURRENT_VALIDATION_STATUS.md",
+        "USABILITY_VALIDATION_PROTOCOL.md",
+        "WARNING_VISIBILITY_VISUAL_QA.md",
+        "EXTERNAL_EVIDENCE_ADJUDICATION_PROTOCOL.md"
+      ],
+      "statement": "Automation proves technical workflow and warning rendering preconditions only. Five observed nonexpert sessions, verbatim/content review, 4/4 comprehension evidence, and named human review of all warning cells remain absent.",
+      "closureCondition": "Run the protocol with five eligible nonexpert participants, retain consented evidence and independent scoring, meet every threshold, complete named human visual review of the 8/8 warning matrix, and bind AC-UX-01..04 to the signed independent adjudication record."
+    }
+  ],
+  "summary": {
+    "total": 6,
+    "bySeverity": {
+      "CRITICAL": 0,
+      "MAJOR": 4,
+      "MINOR": 2,
+      "INFO": 0
+    },
+    "byPriority": {
+      "P0": 3,
+      "P1": 3
+    },
+    "byState": {
+      "OPEN": 5,
+      "CLOSED": 0,
+      "DOCUMENTED_NEGATIVE": 1
+    },
+    "openCriticalOrMajorIds": [
+      "KI-PLAT-001",
+      "KI-REV-001",
+      "KI-UX-001"
+    ],
+    "unresolvedP0Ids": [
+      "KI-PLAT-001",
+      "KI-REV-001",
+      "KI-UX-001"
+    ],
+    "validatedMvpEligible": false,
+    "releaseReadiness": "BLOCKED_BY_OPEN_CRITICAL_MAJOR_OR_P0_ISSUES"
+  }
+}

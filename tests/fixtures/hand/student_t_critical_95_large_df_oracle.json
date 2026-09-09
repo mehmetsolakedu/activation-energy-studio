@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "activation-energy-studio/student-t-critical-95-large-df-oracle/v1",
+  "recordedOn": "2026-08-08",
+  "probability": 0.975,
+  "productionBranch": "residual degrees of freedom greater than 30",
+  "formulaAuthority": {
+    "title": "Handbook of Mathematical Functions with Formulas, Graphs, and Mathematical Tables",
+    "editors": "Milton Abramowitz and Irene A. Stegun",
+    "publisher": "National Bureau of Standards",
+    "series": "Applied Mathematics Series 55",
+    "year": 1964,
+    "locator": "formula 26.7.5, printed page 949",
+    "localPdfSha256": "5ea9a769b531d8e9d1fc14cfbf4c62c5273a5fd617a6d8b59c2322e07a8761c4"
+  },
+  "independentNumericOracle": {
+    "library": "SciPy",
+    "version": "1.13.1",
+    "runtime": "Python 3.9.6",
+    "function": "scipy.stats.t.ppf",
+    "call": "t.ppf(0.975, degrees_of_freedom)",
+    "relationshipToProduction": "The oracle does not call the TypeScript production implementation or reuse its expansion coefficients."
+  },
+  "acceptanceBoundary": {
+    "maximumAbsoluteDifference": 0.0000018,
+    "scope": "All integer degrees of freedom from 31 through 1000000 at probability 0.975, plus the listed frozen test points.",
+    "notClaimed": "This finite scan is not a proof for noninteger degrees of freedom, degrees of freedom above 1000000, or probabilities other than 0.975."
+  },
+  "independentIntegerScan": {
+    "command": "python3 scripts/verify-student-t-large-df-oracle.py",
+    "firstDegreesOfFreedom": 31,
+    "lastDegreesOfFreedom": 1000000,
+    "evaluatedIntegerPoints": 999970,
+    "maximumObservedAbsoluteDifference": 0.0000017474766971226074,
+    "maximumObservedRelativeDifference": 8.568105791164081e-7,
+    "maximumDifferenceDegreesOfFreedom": 31
+  },
+  "referenceValues": [
+    { "degreesOfFreedom": 31, "criticalValue": 2.0395134463964077 },
+    { "degreesOfFreedom": 32, "criticalValue": 2.0369333434601011 },
+    { "degreesOfFreedom": 40, "criticalValue": 2.0210753903062733 },
+    { "degreesOfFreedom": 50, "criticalValue": 2.0085591121007611 },
+    { "degreesOfFreedom": 60, "criticalValue": 2.00029782201426 },
+    { "degreesOfFreedom": 100, "criticalValue": 1.9839715184496334 },
+    { "degreesOfFreedom": 120, "criticalValue": 1.9799304050527766 },
+    { "degreesOfFreedom": 1000, "criticalValue": 1.9623390808264074 },
+    { "degreesOfFreedom": 1000000, "criticalValue": 1.9599663568141066 }
+  ]
+}

@@ -1,0 +1,10 @@
+Temperature [°C]	Alpha [0-1]	dAlpha/dt [1/min]	Heating rate [K/min]	Run	Sample	Atmosphere	Stage
+300	0.10	0.0040	5	run-5	replace-with-sample	N2	main-decomposition
+350	0.50	0.0140	5	run-5	replace-with-sample	N2	main-decomposition
+400	0.90	0.0050	5	run-5	replace-with-sample	N2	main-decomposition
+310	0.10	0.0080	10	run-10	replace-with-sample	N2	main-decomposition
+360	0.50	0.0280	10	run-10	replace-with-sample	N2	main-decomposition
+410	0.90	0.0100	10	run-10	replace-with-sample	N2	main-decomposition
+320	0.10	0.0160	20	run-20	replace-with-sample	N2	main-decomposition
+370	0.50	0.0560	20	run-20	replace-with-sample	N2	main-decomposition
+420	0.90	0.0200	20	run-20	replace-with-sample	N2	main-decomposition

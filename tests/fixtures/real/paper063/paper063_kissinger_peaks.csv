@@ -1,0 +1,6 @@
+runId,heatingRateKPerMinute,peakTemperatureK,stage,ambiguous
+paper063-xps-5,5,681,XPS_primary_pyrolysis,false
+paper063-xps-20,20,707,XPS_primary_pyrolysis,false
+paper063-xps-40,40,721,XPS_primary_pyrolysis,false
+paper063-xps-60,60,731,XPS_primary_pyrolysis,false
+paper063-xps-80,80,737,XPS_primary_pyrolysis,false

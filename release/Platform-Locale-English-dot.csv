@@ -1,0 +1,2 @@
+Temperature [K],Time [s],Mass [mg],Mass [%],Alpha [0-1],beta [K/min],Run ID,Sample,Atmosphere
+373.15,120,2500,75,0.25,60,run-60,cellulose,N2

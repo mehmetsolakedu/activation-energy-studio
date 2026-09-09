@@ -1,0 +1,454 @@
+{
+  "schema": "activation-energy-studio/nr-cels-validation-manifest/v1",
+  "fixtureId": "nr-cels-zenodo-v1-friedman-alpha-005-095",
+  "classification": "diagnostic-reconstruction-with-production-comparison",
+  "lockedAt": "2026-07-29",
+  "sourceMetadata": {
+    "datasetVersionDoi": "10.5281/zenodo.16939440",
+    "datasetVersionRecord": "https://zenodo.org/records/16939440",
+    "datasetConceptDoi": "10.5281/zenodo.16939439",
+    "currentConceptLatestRecord": "https://zenodo.org/records/18176373",
+    "currentConceptLatestContainsRawArchives": false,
+    "articleDoi": "10.1016/j.ecmx.2025.101513",
+    "license": "CC-BY-4.0",
+    "retainedCompositeCurveCount": 18,
+    "retainedKineticExportCount": 9,
+    "heatingRatesKPerMin": [
+      2,
+      4,
+      6,
+      8,
+      10,
+      20
+    ],
+    "samplesPhr": [
+      30,
+      45,
+      55
+    ],
+    "intentionallyUnretainedSingleRateMembers": [
+      "CEL 10Cmin.txt",
+      "CELS 10Cmin.txt"
+    ]
+  },
+  "validationContract": {
+    "alphaValues": [
+      "0.05",
+      "0.06",
+      "0.07",
+      "0.08",
+      "0.09",
+      "0.1",
+      "0.11",
+      "0.12",
+      "0.13",
+      "0.14",
+      "0.15",
+      "0.16",
+      "0.17",
+      "0.18",
+      "0.19",
+      "0.2",
+      "0.21",
+      "0.22",
+      "0.23",
+      "0.24",
+      "0.25",
+      "0.26",
+      "0.27",
+      "0.28",
+      "0.29",
+      "0.3",
+      "0.31",
+      "0.32",
+      "0.33",
+      "0.34",
+      "0.35",
+      "0.36",
+      "0.37",
+      "0.38",
+      "0.39",
+      "0.4",
+      "0.41",
+      "0.42",
+      "0.43",
+      "0.44",
+      "0.45",
+      "0.46",
+      "0.47",
+      "0.48",
+      "0.49",
+      "0.5",
+      "0.51",
+      "0.52",
+      "0.53",
+      "0.54",
+      "0.55",
+      "0.56",
+      "0.57",
+      "0.58",
+      "0.59",
+      "0.6",
+      "0.61",
+      "0.62",
+      "0.63",
+      "0.64",
+      "0.65",
+      "0.66",
+      "0.67",
+      "0.68",
+      "0.69",
+      "0.7",
+      "0.71",
+      "0.72",
+      "0.73",
+      "0.74",
+      "0.75",
+      "0.76",
+      "0.77",
+      "0.78",
+      "0.79",
+      "0.8",
+      "0.81",
+      "0.82",
+      "0.83",
+      "0.84",
+      "0.85",
+      "0.86",
+      "0.87",
+      "0.88",
+      "0.89",
+      "0.9",
+      "0.91",
+      "0.92",
+      "0.93",
+      "0.94",
+      "0.95"
+    ],
+    "independentMethods": [
+      "DEPOSITED_DTG",
+      "TG_LOCAL_LINEAR_7"
+    ],
+    "productionAcceptanceMethod": "DEPOSITED_DTG",
+    "productionPath": "wide-series massPercent with explicit 100/minimum-TG anchors and signed deposited dTG as massChangeRate",
+    "productionAlphaComparisonCount": 273,
+    "productionComparisonTolerances": {
+      "energyAbsoluteKJPerMol": 2e-9,
+      "regressionSlopeAbsoluteK": 2e-7,
+      "regressionInterceptAbsolute": 2e-10,
+      "regressionRSquaredAbsolute": 2e-12,
+      "regressionN": 6
+    },
+    "depositedSeriesRmseUpperBoundsKJPerMol": {
+      "30": 4,
+      "45": 10,
+      "55": 10
+    },
+    "publicationValuesAreHardOracle": false,
+    "explicitRecipeOutputsAreHardOracle": true,
+    "noSortingExtrapolationMonotonicRepairOrSourceMutation": true
+  },
+  "expectedRmseVsDepositedKJPerMol": {
+    "30": {
+      "DEPOSITED_DTG": "3.6336069789090786169661319703784347465489956964152",
+      "TG_LOCAL_LINEAR_7": "2.8309457374931844254366227389305162061388062393324"
+    },
+    "45": {
+      "DEPOSITED_DTG": "9.5141299739665259520785608870528942381176637444424",
+      "TG_LOCAL_LINEAR_7": "6.1922231025599545501804611083547582982985818289881"
+    },
+    "55": {
+      "DEPOSITED_DTG": "9.9256956017149095039881925001141638265939165736821",
+      "TG_LOCAL_LINEAR_7": "5.1577451385085390100662077497976399283435754060457"
+    }
+  },
+  "conceptDoiAdjudication": "Pin version record 16939440. The concept DOI currently resolves to article-only record 18176373 without the two source archives.",
+  "knownHumanProducedSourceIssues": [
+    {
+      "code": "DATASET_TITLE_FILLER_RANGE",
+      "disposition": "Metadata says 30-50 phr; article and retained files are 30, 45, and 55 phr."
+    },
+    {
+      "code": "NR_CELS_45_MAXIMUM_TRANSPOSED",
+      "disposition": "Publication 334.986 conflicts with deposited maximum 334.968 kJ/mol at alpha 0.68."
+    },
+    {
+      "code": "NR_CELS_30_MODEL_N_ROUNDING_OR_VERSION",
+      "disposition": "Publication model n=2.175 conflicts with deposited export n=2.176."
+    },
+    {
+      "code": "PROCESSED_RAW_EXPORTS",
+      "disposition": "Every curve is blank-subtracted and some TG/dTG columns are marked smoothed."
+    },
+    {
+      "code": "VARIABLE_TG_DTG_COLUMN_ORDER",
+      "disposition": "Resolve TG and dTG from exact headers; physical positions change across files."
+    }
+  ],
+  "missingAuthorPipeline": [
+    "Kinetics Neo .kinx project",
+    "smoothing algorithm/window/order",
+    "blank curves",
+    "conversion baseline and final-mass selection",
+    "conversion interpolation settings",
+    "definition and confidence level of exported ±Error"
+  ],
+  "files": [
+    {
+      "path": "source/TG_DTG_DTA_data.zip",
+      "role": "immutable_official_zenodo_v1_archive",
+      "bytes": 293756,
+      "sha256": "7894a691297b9b8626ac40e73cd128d066820e64b884b82b59d121b0ccb7a26a"
+    },
+    {
+      "path": "source/Kinetic_data.zip",
+      "role": "immutable_official_zenodo_v1_archive",
+      "bytes": 9668,
+      "sha256": "021c2de122021dcab547af0fe5f27910b22a383e99fff6c58441af110d8756e0"
+    },
+    {
+      "path": "source/curves/NR-CELS 30 2Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 54394,
+      "sha256": "0109fd6646211fe553441e152c25043aa6aacdb7668af2acd792796fc2dc70a0"
+    },
+    {
+      "path": "source/curves/NR-CELS 30 4Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53802,
+      "sha256": "00183ea53b9323a779115aee8199f6a39cb18486a40f234e3ec93ccda5e5115c"
+    },
+    {
+      "path": "source/curves/NR-CELS 30 6Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53870,
+      "sha256": "86b8ba0bd838fd1bd1d4218b16f08b0f6fb96745d243aea51d5fa768b64172fb"
+    },
+    {
+      "path": "source/curves/NR-CELS 30 8Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53106,
+      "sha256": "98c2cb67c60958718390058b682bcde572bd6a9cb4e460c2daaf202dc7f37828"
+    },
+    {
+      "path": "source/curves/NR-CELS 30 10Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 52176,
+      "sha256": "5850c5a1fec67b6b386cae2420234326a3355488909d607083bc02db02d7dcdd"
+    },
+    {
+      "path": "source/curves/NR-CELS 30 20Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 51914,
+      "sha256": "4befa2fd9b994792f91e72cdfd14eaacdaef67ac4e8d8b51e213f374ed09e4ee"
+    },
+    {
+      "path": "source/curves/NR-CELS 45 2Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 54652,
+      "sha256": "aa9104eff3f5d3490be2db5602dce17bbf152183dd0a36bd8eb563333202f1af"
+    },
+    {
+      "path": "source/curves/NR-CELS 45 4Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53414,
+      "sha256": "acd6630852f86043e155793728de46aded517818bf3dc8eccd096b0d84a91a36"
+    },
+    {
+      "path": "source/curves/NR-CELS 45 6Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53508,
+      "sha256": "84cd9c4500e177763ae5771d0e6e6845d6f4168039383eb836b9416d351ec4fe"
+    },
+    {
+      "path": "source/curves/NR-CELS 45 8Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53394,
+      "sha256": "072aeb453898c6dfe1dc8932309dbf699156e9860b1d19ba71becf01c24996d1"
+    },
+    {
+      "path": "source/curves/NR-CELS 45 10Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53058,
+      "sha256": "924da81171f18685755cbb8c9ba5e2026472eda489311a8e203655a31c08d02c"
+    },
+    {
+      "path": "source/curves/NR-CELS 45 20Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 51842,
+      "sha256": "16dadb169872cc8f87371bc355b3c3877df6e203c9423d38f661f35689d7482e"
+    },
+    {
+      "path": "source/curves/NR-CELS 55 2Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 54638,
+      "sha256": "db0fbf1cbbcc2f8949b1611814c8efd63b9dd0b069b63c8001ad9d6664a2ae36"
+    },
+    {
+      "path": "source/curves/NR-CELS 55 4Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53764,
+      "sha256": "72a9ff64066f55faf018be4dc5756311492a4f7076d76e88cb63f829a594b709"
+    },
+    {
+      "path": "source/curves/NR-CELS 55 6Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53592,
+      "sha256": "6c7eca304b561e4a9f27cf39bd858944ed395f73a6ebc8251268ab553577b510"
+    },
+    {
+      "path": "source/curves/NR-CELS 55 8Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 53344,
+      "sha256": "4bde44892514b5aa0ed3774e5bfb66252baecab7671fd046ea7f16d28a9665b0"
+    },
+    {
+      "path": "source/curves/NR-CELS 55 10Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 52684,
+      "sha256": "88e3edb768b1add63afb3718c6b5edb3b2dff9defb5be8e1ed74c94247139156"
+    },
+    {
+      "path": "source/curves/NR-CELS 55 20Cmin.txt",
+      "role": "exact_official_archive_member_composite_curve",
+      "bytes": 51160,
+      "sha256": "ced225e82004e331e1543626bf0699e4adc5350ffa811decbe92ad2eae9ae7d0"
+    },
+    {
+      "path": "source/kinetic/NR-CELS 30 Friedman.txt",
+      "role": "exact_official_archive_member_kinetic_export",
+      "bytes": 2333,
+      "sha256": "1ab874107fd29ab23d0e1b5f77e8c5750a6917756a577091457b208e1c7fa003"
+    },
+    {
+      "path": "source/kinetic/NR-CELS 30 LogA Friedman.txt",
+      "role": "exact_official_archive_member_kinetic_export",
+      "bytes": 2265,
+      "sha256": "669db626152b746d2a99bc6de1c512d0f506e1065c2fd38c951ff8c9be442c7b"
+    },
+    {
+      "path": "source/kinetic/NR-CELS 30 model based.txt",
+      "role": "exact_official_archive_member_kinetic_export",
+      "bytes": 2008,
+      "sha256": "a04fea0719a7854b6bf5ced9d09c6320301b31dbb977d5de0dbd2d0949504089"
+    },
+    {
+      "path": "source/kinetic/NR-CELS 45 Friedman.txt",
+      "role": "exact_official_archive_member_kinetic_export",
+      "bytes": 2308,
+      "sha256": "b3ae45f05068acd91f5b958e50ac474b6d3831e8cb36c236a7c875d79e9f1d0d"
+    },
+    {
+      "path": "source/kinetic/NR-CELS 45 LogA Friedman.txt",
+      "role": "exact_official_archive_member_kinetic_export",
+      "bytes": 2266,
+      "sha256": "9a0598defd40b40c78f7285e1f85fbc37f1df25dc13b8ea174940997deee46a2"
+    },
+    {
+      "path": "source/kinetic/NR-CELS 45 model based.txt",
+      "role": "exact_official_archive_member_kinetic_export",
+      "bytes": 1987,
+      "sha256": "70dcdb0c4ac80627f88704eb6698d9f33e767becc55243314c71ab00353396b0"
+    },
+    {
+      "path": "source/kinetic/NR-CELS 55 Friedman.txt",
+      "role": "exact_official_archive_member_kinetic_export",
+      "bytes": 2325,
+      "sha256": "45e7bb4989f0ca4aef8b6aae5f5d0a46b2149d456aa391ceea14735e89b99fdb"
+    },
+    {
+      "path": "source/kinetic/NR-CELS 55 LogA Friedman.txt",
+      "role": "exact_official_archive_member_kinetic_export",
+      "bytes": 2266,
+      "sha256": "749530441201646900ebdc1d1079b615a9ddb8eea51b278094982f6082df147f"
+    },
+    {
+      "path": "source/kinetic/NR-CELS 55 model based.txt",
+      "role": "exact_official_archive_member_kinetic_export",
+      "bytes": 1959,
+      "sha256": "4574b8e9c317c5035b789ecee72bb406cc892bfe5f8cdab31a174d30a92ea5b0"
+    },
+    {
+      "path": "oracle/nr_cels_friedman_oracle.py",
+      "role": "independent_standard_library_decimal_oracle",
+      "bytes": 40782,
+      "sha256": "4583a9f39a1927d854a10b7c1bc0520480ee800fa8d98b68ccdbe61f60c0e81e"
+    },
+    {
+      "path": "oracle/expected-output.json",
+      "role": "byte_locked_independent_oracle_output",
+      "bytes": 470340,
+      "sha256": "4454de4b557b47efec5ec4a7ce5c662f5284df9927fa82cf5abfaaf9e08db2d4"
+    },
+    {
+      "path": "manual/nr-cels-adjudication.json",
+      "role": "manual_source_publication_and_production_adjudication",
+      "bytes": 5310,
+      "sha256": "ec8d0264bc4b4c90306d7063f44c55f3a4029b8d35267fe74a5c68972f4b1a4f"
+    }
+  ],
+  "supportingEvidence": [
+    {
+      "path": "evidence/validation/nr-cels/NR_CELS_VALIDATION.md",
+      "role": "validation_protocol_findings_and_reproduction_commands",
+      "bytes": 4207,
+      "sha256": "fb3c0413bdfaa3e8643d9e2f2dd078f7b9259e48583e55a293676a041fa9b56d"
+    },
+    {
+      "path": "evidence/validation/nr-cels/source_file_manifest.csv",
+      "role": "human_readable_source_hash_and_semantic_manifest",
+      "bytes": 5797,
+      "sha256": "99dfaf480b7080e57a9c4d3e76922aad68f89386535542cefa354b2218bce747"
+    },
+    {
+      "path": "evidence/validation/nr-cels/friedman_reconstruction_summary.csv",
+      "role": "six_method_sample_summary_rows",
+      "bytes": 2579,
+      "sha256": "8d0755cf99a194fc817b26978146c07f6d2bd8b9b657e0b9aa821f8cddffd398"
+    },
+    {
+      "path": "evidence/validation/nr-cels/friedman_all_alpha_comparison.csv",
+      "role": "all_546_independent_vs_deposited_alpha_rows",
+      "bytes": 138776,
+      "sha256": "3f206e8583bb0cdd5204e5be065e892d1ae0c22e860846801022743379d128f7"
+    },
+    {
+      "path": "scripts/run-nr-cels-friedman-oracle.mjs",
+      "role": "dedicated_isolated_oracle_runner",
+      "bytes": 2444,
+      "sha256": "eb9527080d5d640d8b9467aab14593f1f7b9518eb156f15208291ba46fc85a33"
+    },
+    {
+      "path": "scripts/generate-nr-cels-validation-evidence.mjs",
+      "role": "deterministic_evidence_generator_and_checker",
+      "bytes": 9839,
+      "sha256": "b8af9b7a2105b4fb4e76a73f4428f2462810d586fcfd6f82e9bf7675b38fdcbf"
+    },
+    {
+      "path": "scripts/generate-nr-cels-validation-manifest.mjs",
+      "role": "deterministic_dedicated_manifest_generator_and_checker",
+      "bytes": 8674,
+      "sha256": "07884822b907a69b2d52f26b5040cff247ea3d5fa712c1eb480ae8f51f170a2b"
+    },
+    {
+      "path": "tests/nr-cels-source-integrity.test.mjs",
+      "role": "focused_archive_hash_encoding_header_and_grid_integrity_test",
+      "bytes": 7373,
+      "sha256": "20995d8c5ce533ff788a1c28c933214594f84c444a7cc3fd62cf6b649c1b42bb"
+    },
+    {
+      "path": "tests/nr-cels-oracle-reproducibility.test.mjs",
+      "role": "focused_oracle_and_manual_adjudication_reproducibility_test",
+      "bytes": 4333,
+      "sha256": "a471051f25230d34247ce4ae46f674b17cf5cdd7483cae6d2a4b463ad41376bd"
+    },
+    {
+      "path": "tests/nr-cels-wide-production-oracle.test.ts",
+      "role": "wide_series_production_vs_independent_dtg_all_alpha_test",
+      "bytes": 9414,
+      "sha256": "6794b79c9492f6e2feadaaea3460439436d90862d9ef428049a4f83f491aec9e"
+    }
+  ],
+  "promotionRule": "This lane may support production regression only through the declared wide-series deposited-dTG semantics; exact Kinetics Neo raw-pipeline parity remains quarantined.",
+  "rebaselinePolicy": "Any source byte, archive member, header semantic, recipe, oracle, expected output, manual adjudication, test, or evidence change requires a written scientific reason and a fresh audit."
+}

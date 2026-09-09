@@ -1,0 +1,15 @@
+* text=auto eol=lf
+
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.xlsx binary
+*.xls binary
+*.docx binary
+*.zip binary
+tests/fixtures/real/oak/source/*.csv -text
+tests/fixtures/real/nr-cels/source/curves/*.txt -text
+*.woff binary
+*.woff2 binary

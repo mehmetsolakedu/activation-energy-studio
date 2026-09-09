@@ -1,0 +1,98 @@
+name: Hosted Platform Validation
+
+"on":
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AES_ACTION_CHECKOUT_SHA: d23441a48e516b6c34aea4fa41551a30e30af803
+  AES_ACTION_SETUP_NODE_SHA: 249970729cb0ef3589644e2896645e5dc5ba9c38
+  AES_ACTION_UPLOAD_ARTIFACT_SHA: b7c566a772e6b6bfb58ed0dc250532a479d7789f
+  AES_EXPECTED_GOOGLE_CHROME_MAJOR: "150"
+
+jobs:
+  validate-platform:
+    name: Validate ${{ matrix.os_family }} on ${{ matrix.runner_label }}
+    runs-on: ${{ matrix.runner_label }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner_label: ubuntu-24.04
+            os_family: ubuntu
+            node_arch: x64
+          - runner_label: macos-15
+            os_family: macos
+            node_arch: arm64
+          - runner_label: windows-11-arm
+            os_family: windows11
+            node_arch: arm64
+
+    steps:
+      - name: Check out the locked source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Initialize retained pre-browser diagnostics
+        run: node scripts/write-hosted-workflow-preflight.mjs --os "${{ matrix.os_family }}" --runner-label "${{ matrix.runner_label }}" --node-arch "${{ matrix.node_arch }}" --output "output/hosted-platform/${{ matrix.os_family }}"
+
+      - name: Set up Node.js 22.22.3
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22.22.3
+          architecture: ${{ matrix.node_arch }}
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Verify the independent Paper 010 Decimal oracle
+        run: npm run verify:paper010-oracle
+
+      - name: Verify the independent Oak Decimal oracle
+        run: npm run verify:oak-oracle
+
+      - name: Verify the independent Dryad Polyisoprene Decimal oracle
+        run: npm run verify:dryad-oracle
+
+      - name: Verify the independent NR-CELS Decimal oracle and evidence
+        run: npm run verify:nr-cels-oracle
+
+      - name: Verify the independent Coal-SPT-Paraffin Decimal oracle
+        run: npm run verify:coal-spt-paraffin-oracle
+
+      - name: Run TypeScript typecheck
+        run: npm run typecheck
+
+      - name: Run complete Vitest suite including all real-data lanes
+        run: npm test
+
+      - name: Run dedicated real-data oracle reproducibility suites
+        run: npm run test:dryad-oracle && npm run test:nr-cels-oracle && npm run test:coal-spt-paraffin-oracle
+
+      - name: Verify the recursive fixture manifest
+        run: npm run verify:fixture-manifest
+
+      - name: Run hosted contracts and the real Chrome Worker boundary probe
+        timeout-minutes: 10
+        env:
+          AES_RUN_REAL_CHROME_WORKER_INTEGRATION: "1"
+        run: npm run test:hosted-platform
+
+      - name: Run hosted real-browser platform validation
+        timeout-minutes: 35
+        run: node scripts/run-hosted-platform-validation.mjs --os "${{ matrix.os_family }}" --runner-label "${{ matrix.runner_label }}" --node-arch "${{ matrix.node_arch }}" --output "output/hosted-platform/${{ matrix.os_family }}"
+
+      - name: Upload retained evidence, including failed-run diagnostics
+        if: ${{ always() }}
+        id: upload-evidence
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: hosted-platform-${{ matrix.os_family }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: output/hosted-platform/${{ matrix.os_family }}
+          if-no-files-found: error
+          retention-days: 90

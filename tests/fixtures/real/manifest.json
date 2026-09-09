@@ -1,0 +1,110 @@
+{
+  "schema": "activation-energy-studio/fixture-manifest/v2",
+  "scientificBaseline": "paper010-rh-four-method-decimal-oracle-v1",
+  "lockedAt": "2026-07-27",
+  "sourceMetadata": {
+    "doi": "10.1371/journal.pone.0173946.s002",
+    "license": "CC BY 4.0",
+    "sample": "Rhubarb (RH)",
+    "atmosphere": "Simulated air (N2:O2=4:1)",
+    "sheet": "Fig.2.",
+    "dataStartRow": 4,
+    "heatingRatesKPerMin": [
+      5,
+      10,
+      20
+    ],
+    "rhColumnGroups": [
+      {
+        "heatingRateKPerMin": 5,
+        "tgColumns": "A:B",
+        "minusDtgColumns": "G:H"
+      },
+      {
+        "heatingRateKPerMin": 10,
+        "tgColumns": "C:D",
+        "minusDtgColumns": "I:J"
+      },
+      {
+        "heatingRateKPerMin": 20,
+        "tgColumns": "E:F",
+        "minusDtgColumns": "K:L"
+      }
+    ],
+    "publicationDiagnosticSources": [
+      {
+        "file": "pone.0173946.s004.xlsx",
+        "sheet": "Fig4(A)",
+        "range": "A2:AF5",
+        "role": "labeled transformed coordinates"
+      },
+      {
+        "file": "pone.0173946.s005.xlsx",
+        "sheet": "Fig5",
+        "range": "A3:B19",
+        "role": "published RH Friedman results"
+      }
+    ]
+  },
+  "derivation": {
+    "alphaDefinition": "1 - massPercent/100",
+    "alphaSemanticLabel": "initial-normalized mass-loss fraction",
+    "stageNormalizedConversion": false,
+    "crossingRule": "first piecewise-linear upward crossing in ascending source temperature order",
+    "alphaTargets": "0.05 through 0.80 in 0.05 increments",
+    "temperatureCQuantization": "1e-9",
+    "temperatureCRounding": "ROUND_HALF_UP",
+    "derivativeRule": "piecewise-linear interpolation of official Fig.2. RH -DTG at quantized T_alpha; dAlpha/dt=(-DTG percent per minute)/100",
+    "derivativeInputUnit": "percent per minute",
+    "derivativeOutputUnit": "min^-1",
+    "derivativeSignConvention": "published ordinate is -DTG, a positive mass-loss rate",
+    "dAlphaDtPerMinuteQuantization": "1e-12",
+    "dAlphaDtPerMinuteRounding": "ROUND_HALF_UP"
+  },
+  "comparisonTolerances": {
+    "alphaAbs": "5e-13",
+    "derivativeAbsPerMinute": "1e-12",
+    "transformedXYAbs": "1e-12",
+    "slopeAbsK": "1e-3",
+    "interceptAbs": "1e-6",
+    "rSquaredAbs": "1e-12",
+    "energyAbsKJPerMol": "5e-6",
+    "energyCiEndpointAbsKJPerMol": "5e-6",
+    "meanEnergyAbsKJPerMol": "5e-6",
+    "justification": "Locked binary64-versus-Decimal comparison bounds; defined before application comparison and never inferred from an application result."
+  },
+  "files": [
+    {
+      "path": "source/paper010/pone.0173946.s002.xlsx",
+      "role": "immutable_official_raw_source",
+      "sha256": "d24e218dd8da9646312b122ddc892d1d338783ce2829877145fa298491d99b57"
+    },
+    {
+      "path": "source/paper010/pone.0173946.s004.xlsx",
+      "role": "official_publication_transform_source",
+      "sha256": "0bed9425e3b8a6195a540d0461f3fca5451d0039db5ccee7c1b7bfcaebaaabdd"
+    },
+    {
+      "path": "source/paper010/pone.0173946.s005.xlsx",
+      "role": "official_publication_result_source",
+      "sha256": "f74bc21563263ef43669c41937d842065683e615a4b8d30a6df422caadf89463"
+    },
+    {
+      "path": "paper010_rh_t_alpha_beta.csv",
+      "role": "deterministic_derived_fixture",
+      "sha256": "a913d8111af91a4fa8a2fc3d1c8dd02ec0e216795dad9bfd77cff4912e76b27d"
+    },
+    {
+      "path": "paper010_rh_reference.json",
+      "role": "independent_expected_output",
+      "sha256": "956617949a4f2b1ddf29d672c946fda6fea48dd33a0536d69fbf24f5aa863e68"
+    },
+    {
+      "path": "oracle/paper010_decimal_oracle.py",
+      "role": "independent_reference_implementation",
+      "sha256": "d9ae629d26d183bda53c11875dfe3e8a5bd1e59150a2fb149864f8df31f8eeb2"
+    }
+  ],
+  "publicationBoundary": "Equation-correct Friedman from official S2 -DTG does not reproduce S5/Table 4. Exact S2 raw -DTG used nonstandardly as the ordinate nearly follows S5, while S4 lnda/dt-labelled values track unlogged -DTG but stored S4 coordinates do not exactly reproduce S5. All nonstandard paths are negative diagnostics, not accepted Friedman oracles.",
+  "rebaselinePolicy": "Any hash change requires a scientific release note, a documented reason, and independent recalculation before acceptance."
+}

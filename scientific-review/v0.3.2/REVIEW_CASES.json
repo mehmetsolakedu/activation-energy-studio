@@ -1,0 +1,111 @@
+{
+  "schema": "activation-energy-studio/scientific-review-cases/v1",
+  "releaseVersion": "0.3.2",
+  "state": "UNSIGNED_AWAITING_INDEPENDENT_REVIEW",
+  "boundary": "Expected observations are audit targets, not forced reviewer verdicts.",
+  "cases": [
+    {
+      "id": "OAK_RAW",
+      "inputs": [
+        "evidence/project/tests/fixtures/real/oak/source/TGA-Oak-5Kmin-1.csv",
+        "evidence/project/tests/fixtures/real/oak/source/TGA-Oak-10Kmin-1.csv",
+        "evidence/project/tests/fixtures/real/oak/source/TGA-Oak-20Kmin-1.csv",
+        "evidence/project/tests/fixtures/real/oak/source/TGA-Oak-40Kmin-1.csv"
+      ],
+      "surfaces": ["UI", "PDF", "CSV", "JSON"],
+      "auditTargets": [
+        "FWO, KAS, and Starink remain method-specific apparent activation-energy estimates",
+        "raw wide-series provenance and sha256 source identities remain available",
+        "claim and uncertainty boundaries remain visible"
+      ]
+    },
+    {
+      "id": "PAPER010_DERIVATIVE",
+      "inputs": [
+        "evidence/project/tests/fixtures/real/paper010_rh_t_alpha_beta.csv",
+        "evidence/project/tests/fixtures/real/paper010_rh_reference.json",
+        "evidence/project/tests/fixtures/real/source/paper010/pone.0173946.s002.xlsx",
+        "evidence/project/tests/fixtures/real/source/paper010/pone.0173946.s004.xlsx",
+        "evidence/project/tests/fixtures/real/source/paper010/pone.0173946.s005.xlsx"
+      ],
+      "surfaces": ["UI", "PDF", "CSV", "JSON"],
+      "auditTargets": [
+        "Friedman derivative provenance remains explicitly supplied/derived from the official retained source",
+        "four method paths remain separate on the shared alpha basis",
+        "publication non-reproduction and nonstandard S4 behavior remain negative evidence"
+      ]
+    },
+    {
+      "id": "PAPER063_KISSINGER",
+      "inputs": [
+        "evidence/project/tests/fixtures/real/paper063/paper063_kissinger_peaks.csv",
+        "evidence/project/tests/fixtures/real/paper063/provenance.json",
+        "evidence/project/tests/fixtures/real/paper063/expected-output.json"
+      ],
+      "surfaces": ["UI", "PDF", "CSV", "JSON"],
+      "auditTargets": [
+        "Kissinger remains separate from Ea(alpha)",
+        "publication-derived whole-kelvin rounding remains disclosed",
+        "the article licence is not presented as a separate raw-dataset licence"
+      ]
+    },
+    {
+      "id": "SCI001_PARTIAL_TIME",
+      "inputs": [
+        "evidence/project/tests/scientific-blocker-regressions-v032.test.ts",
+        "SCIENTIFIC_REMEDIATION_ADDENDUM.md"
+      ],
+      "surfaces": ["SOURCE", "AUTOMATED_REGRESSION"],
+      "auditTargets": [
+        "partially missing or nonfinite mapped time fails with INVALID_TIME_SERIES",
+        "temperature/heating-rate fallback is permitted only when the entire time series is absent"
+      ]
+    },
+    {
+      "id": "SCI002_WIDE_DERIVATIVE",
+      "inputs": [
+        "evidence/project/tests/scientific-blocker-regressions-v032.test.ts",
+        "evidence/project/tests/nr-cels-wide-production-oracle.test.ts",
+        "SCIENTIFIC_REMEDIATION_ADDENDUM.md"
+      ],
+      "surfaces": ["SOURCE", "AUTOMATED_REGRESSION", "JSON"],
+      "auditTargets": [
+        "raw source-observation derivative is computed before target-alpha projection",
+        "derivative source and source-row provenance propagate together",
+        "a malformed lower-level adapter fails with WIDE_PROJECTED_DERIVATIVE_MISSING"
+      ]
+    },
+    {
+      "id": "LOW_R2",
+      "inputs": [
+        "evidence/project/evidence/usability/v0.2.0/study_bundle/W3_low_r2.csv"
+      ],
+      "surfaces": ["UI", "PDF", "CSV", "JSON"],
+      "auditTargets": ["LOW_R2 remains visible and attached to affected results"]
+    },
+    {
+      "id": "MULTISTEP",
+      "inputs": [
+        "evidence/project/evidence/usability/v0.2.0/study_bundle/W4_multistep.csv"
+      ],
+      "surfaces": ["UI", "PDF", "CSV", "JSON"],
+      "auditTargets": ["MULTISTEP_EA_VARIATION remains visible and cross-alpha divergence is not averaged away"]
+    },
+    {
+      "id": "REFUSAL_R1",
+      "inputs": [
+        "evidence/project/evidence/usability/v0.2.0/study_bundle/R1_two_rates.csv"
+      ],
+      "surfaces": ["UI"],
+      "auditTargets": ["INSUFFICIENT_DISTINCT_HEATING_RATES produces an explicit refusal and no successful export"]
+    },
+    {
+      "id": "REFUSAL_R2",
+      "inputs": [
+        "evidence/project/evidence/usability/v0.2.0/study_bundle/R2_no_common_alpha.csv"
+      ],
+      "surfaces": ["UI"],
+      "auditTargets": ["NO_COMMON_ALPHA_RANGE produces an explicit refusal without extrapolated results"]
+    }
+  ]
+}

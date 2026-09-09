@@ -1,0 +1,41 @@
+{
+  "schema": "activation-energy-studio/publication-derived-peak-fixture/v1",
+  "fixtureId": "paper063-xps-kissinger-publication-peak-v1",
+  "classification": "publication-derived-peak-table",
+  "isRawCurveData": false,
+  "validationScope": "standalone Kissinger implementation validation only",
+  "paper": {
+    "corpusId": "paper_063",
+    "title": "Pyrolysis Kinetic Properties of Thermal Insulation Waste Extruded Polystyrene by Multiple Thermal Analysis Methods",
+    "doi": "10.3390/ma13245595",
+    "publicationYear": 2020
+  },
+  "source": {
+    "corpusRelativePath": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_ma13245595_Pyrolysis_Kinetic_Properties_of_Thermal_Insulation_Waste_Extruded_Polyst.pdf",
+    "sha256": "53ede19afffd9194d7c0800227646dacdb8256af652b01bd2579c8199402c9f2",
+    "articleLicense": {
+      "spdx": "CC-BY-4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "separateDatasetLicense": null,
+    "separateDatasetLicenseReason": "No separate machine-readable dataset or raw-curve supplement is locally available."
+  },
+  "extraction": {
+    "sourcePages": [
+      6,
+      7
+    ],
+    "sourceFigure": "Figure 1",
+    "reportedQuantity": "DTG peak temperature for one XPS pyrolysis peak at each heating rate",
+    "heatingRateUnit": "K/min",
+    "peakTemperatureUnit": "K",
+    "printedTemperatureResolutionK": 1,
+    "transcriptionRule": "Pair the five heating rates listed for the experiment with the five peak temperatures reported in the same order."
+  },
+  "scientificBoundaries": [
+    "The rows are a transcription of values printed in the article, not instrument-exported TGA or DTG curves.",
+    "The fixture cannot validate alpha-dependent FWO, KAS, Starink, or Friedman calculations.",
+    "The calculated Kissinger result is conditional on peak temperatures rounded to whole kelvin in the publication.",
+    "The article reports a single DTG peak for each rate, but this fixture does not establish universal one-step kinetics."
+  ]
+}

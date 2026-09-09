@@ -1,0 +1,79 @@
+name: Hosted Platform Validation v0.3.2
+
+"on":
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+env:
+  AES_ACTION_CHECKOUT_SHA: d23441a48e516b6c34aea4fa41551a30e30af803
+  AES_ACTION_SETUP_NODE_SHA: 249970729cb0ef3589644e2896645e5dc5ba9c38
+  AES_ACTION_UPLOAD_ARTIFACT_SHA: b7c566a772e6b6bfb58ed0dc250532a479d7789f
+  AES_EXPECTED_GOOGLE_CHROME_MAJOR: "150"
+
+jobs:
+  validate-platform-v032:
+    name: Validate v0.3.2 ${{ matrix.os_family }} on ${{ matrix.runner_label }}
+    runs-on: ${{ matrix.runner_label }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner_label: ubuntu-24.04
+            os_family: ubuntu
+            node_arch: x64
+          - runner_label: macos-15
+            os_family: macos
+            node_arch: arm64
+          - runner_label: windows-11-arm
+            os_family: windows11
+            node_arch: arm64
+
+    steps:
+      - name: Check out the locked source
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+
+      - name: Initialize retained pre-browser diagnostics
+        env:
+          AES_PLATFORM_VALIDATION_VERSION: "0.3.2"
+        run: node scripts/write-hosted-workflow-preflight.mjs --os "${{ matrix.os_family }}" --runner-label "${{ matrix.runner_label }}" --node-arch "${{ matrix.node_arch }}" --output "output/hosted-platform-v0.3.2/${{ matrix.os_family }}"
+
+      - name: Set up Node.js 22.22.3
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: 22.22.3
+          architecture: ${{ matrix.node_arch }}
+          cache: npm
+
+      - name: Install locked dependencies
+        run: npm ci
+
+      - name: Verify the v0.3.2 candidate freeze
+        run: node scripts/verify-v0.3.2-external-candidate.mjs
+
+      - name: Run v0.3.2 one-run recorder contract
+        run: npm run test:platform-evidence
+
+      - name: Run v0.3.2 hosted contracts and real Chrome Worker boundary probe
+        timeout-minutes: 10
+        env:
+          AES_RUN_REAL_CHROME_WORKER_INTEGRATION: "1"
+        run: npm run test:hosted-platform
+
+      - name: Run hosted real-browser v0.3.2 platform validation
+        timeout-minutes: 35
+        run: npm run validate:hosted-platform -- --os "${{ matrix.os_family }}" --runner-label "${{ matrix.runner_label }}" --node-arch "${{ matrix.node_arch }}" --output "output/hosted-platform-v0.3.2/${{ matrix.os_family }}"
+
+      - name: Upload retained v0.3.2 evidence, including failed-run diagnostics
+        if: ${{ always() }}
+        id: upload-evidence-v032
+        uses: actions/upload-artifact@b7c566a772e6b6bfb58ed0dc250532a479d7789f # v6
+        with:
+          name: hosted-platform-v0.3.2-${{ matrix.os_family }}-${{ github.run_id }}-${{ github.run_attempt }}
+          path: output/hosted-platform-v0.3.2/${{ matrix.os_family }}
+          if-no-files-found: error
+          retention-days: 90

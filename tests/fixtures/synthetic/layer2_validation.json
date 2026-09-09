@@ -1,0 +1,21 @@
+{
+  "schema": "activation-energy-studio/synthetic-layer2-validation/v1",
+  "controlledNoise": {
+    "method": "KAS",
+    "trueActivationEnergyKJPerMol": 150,
+    "intercept": 20,
+    "heatingRatesKPerMin": [5, 10, 20, 40],
+    "temperatureNoiseK": [1.5, -1, 0.75, -0.5],
+    "maximumRelativeEnergyError": 0.15,
+    "minR2Warning": 0.99999
+  },
+  "multistep": {
+    "alpha": [0.3, 0.7],
+    "activationEnergyKJPerMol": [100, 140],
+    "expectedCode": "MULTISTEP_EA_VARIATION"
+  },
+  "missingCommonRange": {
+    "alphaRanges": [[0.05, 0.25], [0.35, 0.55], [0.65, 0.85]],
+    "expectedCode": "NO_COMMON_ALPHA_RANGE"
+  }
+}

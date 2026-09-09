@@ -1,0 +1,427 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://activation-energy-studio.local/schemas/external-evidence-adjudication-input-v1.json",
+  "title": "Activation Energy Studio external evidence adjudication input",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "adjudicationId",
+    "release",
+    "acceptanceCriteria",
+    "lanes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "activation-energy-studio/external-evidence-adjudication-input/v1"
+    },
+    "adjudicationId": {
+      "$ref": "#/$defs/completedId"
+    },
+    "release": {
+      "$ref": "#/$defs/fileLock"
+    },
+    "acceptanceCriteria": {
+      "$ref": "#/$defs/fileLock"
+    },
+    "lanes": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "scientific",
+        "platform",
+        "usability"
+      ],
+      "properties": {
+        "scientific": {
+          "$ref": "#/$defs/scientificLane"
+        },
+        "platform": {
+          "$ref": "#/$defs/platformLane"
+        },
+        "usability": {
+          "$ref": "#/$defs/usabilityLane"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "completedText": {
+      "type": "string",
+      "minLength": 3,
+      "pattern": "^(?!.*(?:REPLACE|TODO|TBD|FIXME|CHANGEME|PLACEHOLDER|YOUR_NAME|<[^>]+>|\\[[^\\]]+\\])).{3,}$"
+    },
+    "completedId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{2,127}$"
+    },
+    "sha256": {
+      "type": "string",
+      "pattern": "^[a-f0-9]{64}$"
+    },
+    "portablePath": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/completedText"
+        },
+        {
+          "type": "string",
+          "pattern": "^(?!/)(?!.*\\\\)(?!.*(?:^|/)\\.\\.?/)(?!.*//)[^/]+(?:/[^/]+)*$"
+        }
+      ]
+    },
+    "fileLock": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "path",
+        "sha256"
+      ],
+      "properties": {
+        "path": {
+          "$ref": "#/$defs/portablePath"
+        },
+        "sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      }
+    },
+    "adjudicator": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name",
+        "organization",
+        "professionalReference",
+        "isHumanAdjudicator",
+        "independentFromProject",
+        "notProjectContributor",
+        "noConflictOfInterest"
+      ],
+      "properties": {
+        "name": {
+          "$ref": "#/$defs/completedText"
+        },
+        "organization": {
+          "$ref": "#/$defs/completedText"
+        },
+        "professionalReference": {
+          "$ref": "#/$defs/completedText"
+        },
+        "isHumanAdjudicator": {
+          "const": true
+        },
+        "independentFromProject": {
+          "const": true
+        },
+        "notProjectContributor": {
+          "const": true
+        },
+        "noConflictOfInterest": {
+          "const": true
+        }
+      }
+    },
+    "review": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "startedAtUtc",
+        "endedAtUtc",
+        "signatureUtc",
+        "reviewReference",
+        "signatureMethod",
+        "signatureVerificationReference"
+      ],
+      "properties": {
+        "startedAtUtc": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        "endedAtUtc": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        "signatureUtc": {
+          "type": "string",
+          "format": "date-time",
+          "pattern": "Z$"
+        },
+        "reviewReference": {
+          "$ref": "#/$defs/completedText"
+        },
+        "signatureMethod": {
+          "enum": [
+            "PADES_DIGITAL_SIGNATURE",
+            "PGP_DETACHED_SIGNATURE",
+            "MINISIGN_DETACHED_SIGNATURE",
+            "WET_SIGNATURE_WITH_INDEPENDENT_IDENTITY_CHECK",
+            "OTHER_INDEPENDENTLY_VERIFIED_SIGNATURE"
+          ]
+        },
+        "signatureVerificationReference": {
+          "$ref": "#/$defs/completedText"
+        }
+      }
+    },
+    "gateDecision": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "gateId",
+        "contentDecision",
+        "authenticityDecision",
+        "evidenceReference",
+        "rationale"
+      ],
+      "properties": {
+        "gateId": {
+          "enum": [
+            "AC-SCI-03",
+            "AC-VAL-05",
+            "AC-PLAT-01",
+            "AC-PLAT-02",
+            "AC-UX-01",
+            "AC-UX-02",
+            "AC-UX-03",
+            "AC-UX-04"
+          ]
+        },
+        "contentDecision": {
+          "enum": [
+            "PASS",
+            "FAIL",
+            "NOT_VERIFIED"
+          ]
+        },
+        "authenticityDecision": {
+          "enum": [
+            "VERIFIED",
+            "FAILED",
+            "NOT_VERIFIED"
+          ]
+        },
+        "evidenceReference": {
+          "$ref": "#/$defs/completedText"
+        },
+        "rationale": {
+          "$ref": "#/$defs/completedText"
+        }
+      }
+    },
+    "laneBase": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "evidenceRecord",
+        "humanAudit",
+        "signedAudit",
+        "adjudicator",
+        "review",
+        "gateDecisions"
+      ],
+      "properties": {
+        "evidenceRecord": {
+          "$ref": "#/$defs/fileLock"
+        },
+        "humanAudit": {
+          "$ref": "#/$defs/fileLock"
+        },
+        "signedAudit": {
+          "$ref": "#/$defs/fileLock"
+        },
+        "adjudicator": {
+          "$ref": "#/$defs/adjudicator"
+        },
+        "review": {
+          "$ref": "#/$defs/review"
+        },
+        "gateDecisions": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/gateDecision"
+          }
+        }
+      }
+    },
+    "scientificLane": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/laneBase"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gateDecisions": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "allOf": [
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "gateId": {
+                        "const": "AC-SCI-03"
+                      }
+                    },
+                    "required": [
+                      "gateId"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "gateId": {
+                        "const": "AC-VAL-05"
+                      }
+                    },
+                    "required": [
+                      "gateId"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "platformLane": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/laneBase"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gateDecisions": {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "allOf": [
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "gateId": {
+                        "const": "AC-PLAT-01"
+                      }
+                    },
+                    "required": [
+                      "gateId"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "gateId": {
+                        "const": "AC-PLAT-02"
+                      }
+                    },
+                    "required": [
+                      "gateId"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "usabilityLane": {
+      "allOf": [
+        {
+          "$ref": "#/$defs/laneBase"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "gateDecisions": {
+              "type": "array",
+              "minItems": 4,
+              "maxItems": 4,
+              "allOf": [
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "gateId": {
+                        "const": "AC-UX-01"
+                      }
+                    },
+                    "required": [
+                      "gateId"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "gateId": {
+                        "const": "AC-UX-02"
+                      }
+                    },
+                    "required": [
+                      "gateId"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "gateId": {
+                        "const": "AC-UX-03"
+                      }
+                    },
+                    "required": [
+                      "gateId"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                },
+                {
+                  "contains": {
+                    "type": "object",
+                    "properties": {
+                      "gateId": {
+                        "const": "AC-UX-04"
+                      }
+                    },
+                    "required": [
+                      "gateId"
+                    ]
+                  },
+                  "minContains": 1,
+                  "maxContains": 1
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,77 @@
+Project: NR-CELS 55.kinx
+Model: q:, 2Bna+2Bna
+
+Model Scheme:
+A─B─C
+D─E─F
+
+Model Reaction Steps:
+A → B
+B → C
+D → E
+E → F
+
+Concentration Equations:
+da/dt=-d(a->b)/dt
+db/dt=d(a->b)/dt-d(b->c)/dt
+dc/dt=d(b->c)/dt
+dd/dt=-d(d->e)/dt
+de/dt=d(d->e)/dt-d(e->f)/dt
+df/dt=d(e->f)/dt
+
+Balance Equation:
+Mass=InitialMass-TotalMassChange*[Contribution(a->b)*Integral[d(a->b)/dt]dt + Contribution(b->c)*Integral[d(b->c)/dt]dt + Contribution(d->e)*Integral[d(d->e)/dt]dt + Contribution(e->f)*Integral[d(e->f)/dt]dt]
+
+Step: A → B
+-----------------------
+Reaction Type: Bna
+Equation: d(a->b)/dt=PreExp*(a^n)*(b^AutocatOrder)*Exp[-ActivationEnergy/(RT)]
+ActivationEnergy: 	 168,655 
+Log(PreExp): 	 12,425 
+ReactOrder n: 	 2,242 
+AutocatOrder: 	 0,010 
+Contribution: 	 0,340 
+-----------------------
+
+Step: B → C
+-----------------------
+Reaction Type: Bna
+Equation: d(b->c)/dt=PreExp*(b^n)*(c^AutocatOrder)*Exp[-ActivationEnergy/(RT)]
+ActivationEnergy: 	 359,114 
+Log(PreExp): 	 26,896 
+ReactOrder n: 	 3,938 
+AutocatOrder: 	 0,010 
+Contribution: 	 0,375 
+-----------------------
+
+Step: D → E
+-----------------------
+Reaction Type: Bna
+Equation: d(d->e)/dt=PreExp*(d^n)*(e^AutocatOrder)*Exp[-ActivationEnergy/(RT)]
+ActivationEnergy: 	 264,905 
+Log(PreExp): 	 20,479 
+ReactOrder n: 	 1,675 
+AutocatOrder: 	 0,525 
+Contribution: 	 0,164 
+-----------------------
+
+Step: E → F
+-----------------------
+Reaction Type: Bna
+Equation: d(e->f)/dt=PreExp*(e^n)*(f^AutocatOrder)*Exp[-ActivationEnergy/(RT)]
+ActivationEnergy: 	 304,611 
+Log(PreExp): 	 20,690 
+ReactOrder n: 	 1,443 
+AutocatOrder: 	 0,206 
+Contribution: 	 0,121 
+-----------------------
+
+Mass
+NR-CELS 7 2Cmin_s_1.txt: 	 -90,177 %
+NR-CELS 7 4Cmin_s_1.txt: 	 -91,138 %
+NR-CELS 7 6Cmin_s_1.txt: 	 -90,174 %
+NR-CELS 7 8Cmin_1.txt: 	 -89,497 %
+NR-CELS 7 10Cmin_1.txt: 	 -90,721 %
+NR-CELS 7 20Cmin_1.txt: 	 -91,500 %
+
+R2 = 0,99988

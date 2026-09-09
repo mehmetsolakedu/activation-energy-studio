@@ -1,0 +1,172 @@
+{
+  "schema": "activation-energy-studio/oak-fixture-manifest/v1",
+  "fixtureId": "chilean-oak-mendeley-v2-alpha-005-085",
+  "classification": "gold-candidate",
+  "lockedAt": "2026-07-29",
+  "sourceMetadata": {
+    "datasetDoi": "10.17632/gkhjh4v8tg.2",
+    "datasetVersion": 2,
+    "datasetLandingPage": "https://data.mendeley.com/datasets/gkhjh4v8tg/2",
+    "license": "CC BY 4.0",
+    "articleDoi": "10.1016/j.indcrop.2025.121296",
+    "sample": "Chilean Oak (Nothofagus obliqua)",
+    "atmosphere": "N2",
+    "heatingRatesKPerMin": [5, 10, 20, 40],
+    "articleWholeBiomassAlphaRange": [0.01, 0.85]
+  },
+  "validationContract": {
+    "alphaValues": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8,
+      0.85
+    ],
+    "alphaGridPurpose": "Prospectively locked software-validation grid inside the article range; not asserted to be the authors' undisclosed averaging grid.",
+    "temperatureInput": {
+      "sourceColumn": "Temperature (°C)",
+      "sourceUnit": "C",
+      "conversion": "T_K=T_C+273.15",
+      "reason": "The redundant author Kelvin column equals T_C+273.00 and is scientifically inconsistent by 0.15 K."
+    },
+    "alphaInput": {
+      "sourceColumn": "Conversion, α",
+      "unit": "fraction"
+    },
+    "friedmanDerivativeInput": {
+      "sourceColumn": "dα/dt (min-1)",
+      "unit": "min^-1",
+      "interpolation": "piecewise-linear at target alpha"
+    },
+    "branchRule": "Exactly one upward crossing and zero downward crossings at every locked target alpha; no smoothing, sorting, extrapolation, or source-file repair.",
+    "methods": ["FWO", "KAS", "FRIEDMAN"],
+    "gasConstantJPerMolK": "8.31446261815324",
+    "publicationValuesAreOracle": false
+  },
+  "knownHumanProducedSourceIssues": [
+    {
+      "code": "AUTHOR_KELVIN_OFFSET_273_00",
+      "classification": "source-data conversion error",
+      "decision": "Do not use the redundant Kelvin column for the hard oracle; convert the Celsius column with +273.15."
+    },
+    {
+      "code": "INVERSE_TEMPERATURE_LABEL_FACTOR_1000",
+      "classification": "source-data label/scale error",
+      "decision": "The column labelled 1/T stores approximately 1000/T_author_K; ignore it and calculate reciprocal temperature from corrected kelvin."
+    },
+    {
+      "code": "NONMONOTONIC_ALPHA_MICRONOISE",
+      "classification": "measured/derived signal noise",
+      "decision": "Use the fail-closed unique-upward-crossing projection. Every locked 0.05-spaced target has one upward and no downward crossing."
+    },
+    {
+      "code": "DELIMITER_ONLY_EXPORT_TAILS",
+      "classification": "human export artifact",
+      "decision": "Retain physical source-row numbering and ignore rows whose mapped fields are all blank."
+    },
+    {
+      "code": "OAK_10_TRAILING_PARTIAL_ROW_4802",
+      "classification": "human export tail artifact",
+      "decision": "Retain the immutable source byte-for-byte; exclude the post-data one-cell row with an explicit WIDE_TRAILING_INCOMPLETE_ROW_EXCLUDED warning."
+    },
+    {
+      "code": "N2_FLOW_METADATA_CONFLICT",
+      "classification": "unresolved provenance conflict",
+      "decision": "Article states 20 mL/min while dataset metadata states 40; do not encode a flow value in the kinetic oracle until resolved."
+    }
+  ],
+  "publicationAdjudication": {
+    "fwo": "soft comparison only; author-K path reproduces 176.9 kJ/mol at the locked grid",
+    "kas": "quarantined as hard oracle; reported 167.3 is consistent to the reported tenth with wrongly applying FWO's 1.052 coefficient to equation-correct author-K KAS",
+    "friedman": "quarantined as hard oracle; a related 1.052 signal exists but derivative/smoothing details and Figure 6 prevent a definitive author-error claim",
+    "spreadValues": "quarantined; the article does not define the ± statistic or exact alpha grid",
+    "adjustedRSquared": "soft publication context only",
+    "internalPublicationConflict": "Torr3 Friedman spread is ±84 in Table 3 and ±87 in prose"
+  },
+  "files": [
+    {
+      "path": "source/TGA-Oak-5Kmin-1.csv",
+      "role": "immutable_official_raw_source_5Kmin",
+      "bytes": 531531,
+      "sha256": "cdefb2f643e26562400d6313ed5bc2cfe02a500e36242651c42cdcccbd014608"
+    },
+    {
+      "path": "source/TGA-Oak-10Kmin-1.csv",
+      "role": "immutable_official_raw_source_10Kmin",
+      "bytes": 309500,
+      "sha256": "ddf80f5e2252d77732207768be7c245a6e319349216d32eda7c208b6f6aed9a9"
+    },
+    {
+      "path": "source/TGA-Oak-20Kmin-1.csv",
+      "role": "immutable_official_raw_source_20Kmin",
+      "bytes": 137848,
+      "sha256": "37f8e355b086479c62e74181d0b2ade298c7bdd63bdb10238dcf566ed0ef8fa1"
+    },
+    {
+      "path": "source/TGA-Oak-40Kmin-1.csv",
+      "role": "immutable_official_raw_source_40Kmin",
+      "bytes": 154524,
+      "sha256": "967ccc4aac128a5a980fd1eea9154220e846cba4b7e853f3046c08fbc22d10a8"
+    },
+    {
+      "path": "expected-output.json",
+      "role": "independent_decimal_expected_output",
+      "bytes": 187786,
+      "sha256": "3789b266c58393d94cba0a58d1a738cd03a98600417082aeedc2e2f5f8ff331f"
+    },
+    {
+      "path": "oracle/oak_decimal_oracle.py",
+      "role": "independent_standard_library_decimal_oracle",
+      "bytes": 31440,
+      "sha256": "72f6ca9255a2effa83bf305882467c1e5341d6356c7f7a1359ea2a4636f6f79e"
+    },
+    {
+      "path": "manual/alpha-0.50-hand-check.json",
+      "role": "independent_manual_bc_adjudication",
+      "bytes": 6553,
+      "sha256": "12a4aef4a538ec5d870a10c75bba0e148fb5d932ae18d97f789392669b5fc514"
+    }
+  ],
+  "supportingEvidence": [
+    {
+      "path": "evidence/validation/oak-publication-audit/OAK_PUBLICATION_AUDIT.md",
+      "sha256": "beb3036275c54b6fd37022864d2ac4fdc56a08ca140f02de72f7fd212337a922"
+    },
+    {
+      "path": "evidence/validation/oak-publication-audit/publication_table3_targets.csv",
+      "sha256": "5656154c7420310f17719c80b3115546320d05a827a4894e3d1641a475beda72"
+    },
+    {
+      "path": "evidence/validation/oak-publication-audit/independent_standard_reproduction.csv",
+      "sha256": "c0691f0b8999da34ef0d8d1524c1c04557cbb958918f524b8e8fef7e68d2ae76"
+    },
+    {
+      "path": "evidence/validation/oak-publication-audit/factor_1_052_forensic_test.csv",
+      "sha256": "91f17fa8d091f2223bc2ca01d1c4c0d9876e2a061d9b0ffad6be4cc7522ef774"
+    },
+    {
+      "path": "evidence/validation/oak-publication-audit/source_file_manifest.csv",
+      "sha256": "f23c24c30aa458c9a57c2b47e5a7ac75a54f25a2a8a75c6d68494cbce2719505"
+    }
+  ],
+  "platformStatus": {
+    "localMacOS": "passed",
+    "hostedLinux": "pending",
+    "hostedWindows": "pending",
+    "parallelsRequired": false
+  },
+  "promotionRule": "Promote from gold-candidate to gold only after the Decimal oracle, raw production path, manual alpha=0.50 adjudication, full regression suite, native macOS run, and hosted Linux/Windows runs all pass.",
+  "rebaselinePolicy": "Any source, oracle, manual, tolerance, grid, or expected-output hash change requires a written scientific reason and a fresh three-way application/oracle/manual adjudication."
+}

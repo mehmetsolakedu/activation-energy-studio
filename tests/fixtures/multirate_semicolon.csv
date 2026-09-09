@@ -1,0 +1,5 @@
+Temperature [°C];Alpha [0-1];Heating rate [K/min];Run;Sample;Atmosphere
+100,0;0,10;5,0;run-5;cellulose;N2
+125,0;0,20;5,0;run-5;cellulose;N2
+150,0;0,10;10,0;run-10;cellulose;N2
+175,0;0,20;10,0;run-10;cellulose;N2
