@@ -10,6 +10,9 @@ import type { IngestionDiagnostic } from './types';
  * not inferred from available device memory.
  */
 export const INGESTION_LIMITS = Object.freeze({
+  batchFiles: 64,
+  batchTotalBytes: 128 * 1024 * 1024,
+  batchConcurrency: 4,
   delimitedFileBytes: 16 * 1024 * 1024,
   xlsxFileBytes: 32 * 1024 * 1024,
   tableRows: 250_000,
@@ -279,7 +282,7 @@ function parseZipDirectory(bytes: Uint8Array): ZipEntry[] {
       throw corruptArchive('A ZIP entry has inconsistent local and central names.');
     }
 
-    if (/\.xml(?:\.rels)?$/i.test(name)) {
+    if (/(?:\.xml|\.rels)$/i.test(name)) {
       if (method !== 0 && method !== 8) {
         throw new IngestionGuardError(
           'xlsx_unsupported_xml_compression',
@@ -361,7 +364,7 @@ function unzipXmlParts(
   entries: readonly ZipEntry[],
 ): Promise<Record<string, Uint8Array>> {
   const xmlNames = new Set(
-    entries.filter(({ name }) => /\.xml(?:\.rels)?$/i.test(name)).map(({ name }) => name),
+    entries.filter(({ name }) => /(?:\.xml|\.rels)$/i.test(name)).map(({ name }) => name),
   );
   return new Promise((resolve, reject) => {
     unzip(
@@ -456,6 +459,68 @@ function workbookSheetMetadata(xmlParts: Readonly<Record<string, string>>): Work
       xmlPath: relationId ? relationships.get(relationId) : undefined,
     }];
   });
+}
+
+function relationshipTags(
+  xmlParts: Readonly<Record<string, string>>,
+): string[] {
+  return Object.entries(xmlParts)
+    .filter(([name]) => /\.rels$/iu.test(name))
+    .flatMap(([, xml]) =>
+      xml.match(/<(?:[\w.-]+:)?Relationship\b[^>]*>/giu) ?? [],
+    );
+}
+
+function rejectExecutableOrExternalWorkbookContent(
+  entries: readonly ZipEntry[],
+  xmlParts: Readonly<Record<string, string>>,
+): void {
+  const entryNames = entries.map(({ name }) => name.toLowerCase());
+  const contentTypesXml = Object.entries(xmlParts).find(
+    ([name]) => name.toLowerCase() === '[content_types].xml',
+  )?.[1] ?? '';
+  const relationships = relationshipTags(xmlParts);
+
+  const hasMacroEntry = entryNames.some(
+    (name) => name === 'xl/vbaproject.bin' || name.endsWith('/vbaproject.bin'),
+  );
+  const hasMacroContentType =
+    /application\/vnd\.(?:ms-excel\.[^"'\s>]*macroenabled|ms-office\.vbaproject)/iu
+      .test(contentTypesXml);
+  const hasMacroRelationship = relationships.some((tag) => {
+    const type = xmlAttribute(tag, 'Type');
+    const target = xmlAttribute(tag, 'Target');
+    return (type !== undefined && /\/vbaProject$/iu.test(decodeXmlAttribute(type)))
+      || (target !== undefined && /(?:^|\/)vbaProject\.bin$/iu.test(
+        decodeXmlAttribute(target).replaceAll('\\', '/'),
+      ));
+  });
+  if (hasMacroEntry || hasMacroContentType || hasMacroRelationship) {
+    throw new IngestionGuardError(
+      'xlsx_macro_content_rejected',
+      'The workbook contains or declares executable VBA macro content. Macro-bearing workbooks are not accepted as measured source data.',
+      'Export a reviewed, value-only .xlsx workbook with all macros removed before importing.',
+    );
+  }
+
+  const hasExternalLinkEntry = entryNames.some(
+    (name) => name.startsWith('xl/externallinks/'),
+  );
+  const hasExternalRelationship = relationships.some((tag) => {
+    const type = xmlAttribute(tag, 'Type');
+    const targetMode = xmlAttribute(tag, 'TargetMode');
+    return (type !== undefined && /\/(?:externalLink|externalLinkPath)$/iu.test(
+      decodeXmlAttribute(type),
+    )) || (targetMode !== undefined
+      && decodeXmlAttribute(targetMode).toLowerCase() === 'external');
+  });
+  if (hasExternalLinkEntry || hasExternalRelationship) {
+    throw new IngestionGuardError(
+      'xlsx_external_links_rejected',
+      'The workbook contains an external relationship or linked-workbook part. Cached or externally resolved values are not accepted as measured source data.',
+      'Break external links, paste explicitly reviewed values, and export a self-contained .xlsx workbook before importing.',
+    );
+  }
 }
 
 function columnIndexFromReference(reference: string): number | undefined {
@@ -631,7 +696,7 @@ export async function inspectXlsxSecurity(file: File): Promise<XlsxSecurityInspe
   const entries = parseZipDirectory(bytes);
   const unzipped = await unzipXmlParts(bytes, entries);
   const declaredXmlEntries = new Map(
-    entries.filter(({ name }) => /\.xml(?:\.rels)?$/i.test(name)).map((entry) => [entry.name, entry]),
+    entries.filter(({ name }) => /(?:\.xml|\.rels)$/i.test(name)).map((entry) => [entry.name, entry]),
   );
   const xmlParts: Record<string, string> = {};
   for (const [name, data] of Object.entries(unzipped)) {
@@ -649,6 +714,8 @@ export async function inspectXlsxSecurity(file: File): Promise<XlsxSecurityInspe
     }
     xmlParts[name] = xml;
   }
+
+  rejectExecutableOrExternalWorkbookContent(entries, xmlParts);
 
   const sheetMetadata = workbookSheetMetadata(xmlParts);
   const sheetNameByPath = new Map(

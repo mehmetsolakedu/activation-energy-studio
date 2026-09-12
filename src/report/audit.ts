@@ -41,7 +41,7 @@ export const APPARENT_EA_CLAIM_BOUNDARY =
   'Reported values are apparent activation energies conditional on the sample, process/stage, atmosphere, method, alpha range, input data, and preprocessing choices. They are not universal material constants and do not prove a single-step mechanism.';
 
 export const REGRESSION_CI_CLAIM_BOUNDARY =
-  'Regression-only uncertainty: the 95% confidence interval covers post-aggregation regression scatter only; it does not include within-heating-rate replicate variability, calibration uncertainty, anchor uncertainty, baseline uncertainty, or derivative-method uncertainty.';
+  'Regression-only uncertainty: the 95% confidence interval covers post-aggregation regression scatter only; it does not include within-heating-rate replicate variability, calibration uncertainty, temperature-lag uncertainty, anchor uncertainty, baseline uncertainty, or derivative-method uncertainty.';
 
 export interface ReportContextLabels {
   sample: string;

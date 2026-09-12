@@ -36,6 +36,7 @@ const ACTIVE_DIRECTORIES = [
   'docs/technical-english',
   'release/v0.3.1',
   'release/v0.3.2',
+  'release/v0.4.0',
 ];
 
 const ACTIVE_FILES = [
@@ -47,6 +48,7 @@ const ACTIVE_FILES = [
   'CITATION.cff',
   'SUPPORT.md',
   'THIRD_PARTY_NOTICES.md',
+  '01_SCIENTIFIC_SPEC_V1_1_ADDENDUM.md',
   'evidence/EXTERNAL_HUMAN_LANES_DISPATCH.md',
   'evidence/validation/REAL_DATA_VALIDATION_FINAL_REPORT.en.md',
   'evidence/validation/oak-publication-audit/OAK_PUBLICATION_AUDIT.en.md',
@@ -69,10 +71,10 @@ const IMMUTABLE_V02_FILES = [
   'scripts/generate-scientific-review-package.mjs',
 ];
 
-// These exact strings are test-only historical or negative fixtures. Removing
-// one from a test must also remove its allowance here, so the exception set
-// cannot silently grow.
-const EXACT_TEST_ALLOWANCES = new Map([
+// Exact exceptions are limited to historical/negative test fixtures and the
+// author's official proper-noun affiliation. Removing one occurrence must also
+// remove its allowance here, so the exception set cannot silently grow.
+const EXACT_TEXT_ALLOWANCES = new Map([
   [
     'tests/english-only-ui-contract.test.tsx',
     [
@@ -90,6 +92,20 @@ const EXACT_TEST_ALLOWANCES = new Map([
   [
     'tests/platform-human-review-record.test.ts',
     ['Dr. Ay\u015fe Kaya'],
+  ],
+  [
+    'CITATION.cff',
+    [
+      'authors:\n  - family-names: Solak\n    given-names: Mehmet\n    affiliation: Biosystems Engineering, Siirt University, Siirt, T\u00fcrkiye\nversion:',
+      'preferred-citation:\n  type: software\n  title: Activation Energy Studio\n  authors:\n    - family-names: Solak\n      given-names: Mehmet\n      affiliation: Biosystems Engineering, Siirt University, Siirt, T\u00fcrkiye\n  year:',
+    ],
+  ],
+  [
+    'release/v0.4.0/CITATION.cff',
+    [
+      'authors:\n  - family-names: Solak\n    given-names: Mehmet\n    affiliation: Biosystems Engineering, Siirt University, Siirt, T\u00fcrkiye\nversion:',
+      'preferred-citation:\n  type: software\n  title: Activation Energy Studio\n  authors:\n    - family-names: Solak\n      given-names: Mehmet\n      affiliation: Biosystems Engineering, Siirt University, Siirt, T\u00fcrkiye\n  year:',
+    ],
   ],
 ]);
 
@@ -116,6 +132,10 @@ const EXACT_HTML_ALLOWANCES = new Map([
   ],
   [
     'release/v0.3.2/Activation-Energy-Studio-v0.3.2.html',
+    PDF_TRANSLITERATION_ALLOWANCES,
+  ],
+  [
+    'release/v0.4.0/Activation-Energy-Studio-v0.4.0.html',
     PDF_TRANSLITERATION_ALLOWANCES,
   ],
 ]);
@@ -198,7 +218,7 @@ function lineAndColumn(text, index) {
 function neutralizeExactAllowances(relativePath, source) {
   let text = source;
   const allowances = [
-    ...(EXACT_TEST_ALLOWANCES.get(relativePath) ?? []),
+    ...(EXACT_TEXT_ALLOWANCES.get(relativePath) ?? []),
     ...(EXACT_HTML_ALLOWANCES.get(relativePath) ?? []),
   ];
   for (const allowed of allowances) {

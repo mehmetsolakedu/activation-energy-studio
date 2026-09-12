@@ -29,6 +29,7 @@ describe('AC-REG-03 regression-only confidence boundary', () => {
       expect(REGRESSION_CI_CLAIM_BOUNDARY).toContain('95% confidence interval');
       expect(REGRESSION_CI_CLAIM_BOUNDARY).toContain('within-heating-rate replicate variability');
       expect(REGRESSION_CI_CLAIM_BOUNDARY).toContain('calibration uncertainty');
+      expect(REGRESSION_CI_CLAIM_BOUNDARY).toContain('temperature-lag uncertainty');
       expect(REGRESSION_CI_CLAIM_BOUNDARY).toContain('anchor uncertainty');
       expect(REGRESSION_CI_CLAIM_BOUNDARY).toContain('baseline uncertainty');
       expect(REGRESSION_CI_CLAIM_BOUNDARY).toContain('derivative-method uncertainty');
@@ -65,7 +66,7 @@ describe('AC-REG-03 regression-only confidence boundary', () => {
     ).toBe(true);
   });
 
-  it('embeds the same scope and all four explicit exclusions in the PDF', async () => {
+  it('embeds the same scope and all explicit exclusions in the PDF', async () => {
     const report = await makeSchemaV7QaReport();
     const pdf = createPdfReport(report);
     const binary = new TextDecoder('latin1').decode(await pdf.arrayBuffer());
@@ -76,6 +77,7 @@ describe('AC-REG-03 regression-only confidence boundary', () => {
     expect(unescapedPdfLiterals).toContain(exclusionStatement);
     for (const exclusion of [
       'calibration uncertainty',
+      'temperature-lag uncertainty',
       'anchor uncertainty',
       'baseline uncertainty',
       'derivative-method uncertainty',

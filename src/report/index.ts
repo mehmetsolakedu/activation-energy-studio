@@ -1206,10 +1206,12 @@ function writeWrappedText(layout: PdfLayout, value: string, options: WrappedText
   const x = options.x ?? PDF_LAYOUT.marginLeft;
   const width = options.width ?? 182;
   const fontSize = options.fontSize ?? 8.2;
+  const fontStyle = options.fontStyle ?? 'normal';
+  const color = options.color ?? PDF_COLORS.ink;
   const lineHeight = lineHeightMm(fontSize, 1.18);
-  layout.doc.setFont('helvetica', options.fontStyle ?? 'normal');
+  layout.doc.setFont('helvetica', fontStyle);
   layout.doc.setFontSize(fontSize);
-  setTextColor(layout.doc, options.color ?? PDF_COLORS.ink);
+  setTextColor(layout.doc, color);
   const lines = splitText(layout.doc, value, width);
   if (lines.length > 1) {
     // Keep short paragraphs together and avoid a one-line continuation.
@@ -1221,6 +1223,12 @@ function writeWrappedText(layout: PdfLayout, value: string, options: WrappedText
   }
   for (const line of lines) {
     ensureSpace(layout, lineHeight + 0.8, options.continuationLabel);
+    // A page break draws a continuation header and therefore changes the
+    // jsPDF font state. Restore the paragraph style before every line so the
+    // measured wrap width remains valid on continuation pages.
+    layout.doc.setFont('helvetica', fontStyle);
+    layout.doc.setFontSize(fontSize);
+    setTextColor(layout.doc, color);
     layout.doc.text(line, x, layout.y);
     layout.y += lineHeight;
   }

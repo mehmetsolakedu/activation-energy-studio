@@ -1208,8 +1208,9 @@ export async function ingestThermalFile(
 }
 
 /**
- * Imports files concurrently, but exposes aggregate records only when every
- * file is ready. This prevents accidental analysis of a silent partial batch.
+ * Imports a bounded batch with bounded concurrency, and exposes aggregate
+ * records only when every file is ready. This prevents memory amplification
+ * and accidental analysis of a silent partial batch.
  */
 export async function ingestThermalFiles(
   files: readonly File[],
@@ -1230,20 +1231,86 @@ export async function ingestThermalFiles(
       tables: { tAlphaBeta: [], betaTp: [] },
     };
   }
-  const results = await Promise.all(
-    files.map((file, index) => {
+
+  if (files.length > INGESTION_LIMITS.batchFiles) {
+    return {
+      status: 'error',
+      files: [],
+      diagnostics: [{
+        severity: 'error',
+        code: 'batch_file_limit_exceeded',
+        message: `The batch contains ${files.length} files; the fixed limit is ${INGESTION_LIMITS.batchFiles}.`,
+        suggestion: 'Import a smaller, scientifically coherent batch.',
+      }],
+      records: [],
+      tables: { tAlphaBeta: [], betaTp: [] },
+    };
+  }
+
+  const totalBytes = files.reduce((sum, file) => sum + file.size, 0);
+  if (!Number.isSafeInteger(totalBytes) || totalBytes > INGESTION_LIMITS.batchTotalBytes) {
+    return {
+      status: 'error',
+      files: [],
+      diagnostics: [{
+        severity: 'error',
+        code: 'batch_size_limit_exceeded',
+        message: `The batch contains ${totalBytes} bytes; the fixed aggregate limit is ${INGESTION_LIMITS.batchTotalBytes} bytes.`,
+        suggestion: 'Import a smaller, scientifically coherent batch.',
+      }],
+      records: [],
+      tables: { tAlphaBeta: [], betaTp: [] },
+    };
+  }
+
+  const results: IngestionResult[] = new Array(files.length);
+  let nextFileIndex = 0;
+  async function ingestNext(): Promise<void> {
+    while (nextFileIndex < files.length) {
+      const index = nextFileIndex;
+      nextFileIndex += 1;
+      const file = files[index];
       const fileOptions = Array.isArray(options)
         ? (options[index] ?? {})
         : (options as IngestionOptions);
-      return ingestThermalFile(file, fileOptions);
-    }),
+      results[index] = await ingestThermalFile(file, fileOptions);
+    }
+  }
+  await Promise.all(
+    Array.from(
+      { length: Math.min(files.length, INGESTION_LIMITS.batchConcurrency) },
+      () => ingestNext(),
+    ),
   );
+
+  const seenSourceIds = new Map<string, string>();
+  const duplicateDiagnostics: IngestionDiagnostic[] = [];
+  for (const result of results) {
+    const sourceFileId = result.source.sourceFileId;
+    if (!sourceFileId) continue;
+    const firstFileName = seenSourceIds.get(sourceFileId);
+    if (firstFileName === undefined) {
+      seenSourceIds.set(sourceFileId, result.source.fileName);
+    } else {
+      duplicateDiagnostics.push({
+        severity: 'warning',
+        code: 'duplicate_source_bytes_detected',
+        message: `The batch contains byte-identical source files "${firstFileName}" and "${result.source.fileName}".`,
+        sourceFile: result.source.fileName,
+        suggestion: 'Confirm whether these are intentional independent runs or a duplicated upload before analysis.',
+      });
+    }
+  }
+
   const status: IngestionStatus = results.some((result) => result.status === 'error')
     ? 'error'
     : results.some((result) => result.status === 'needs_mapping')
       ? 'needs_mapping'
       : 'ready';
-  const diagnostics = results.flatMap((result) => result.diagnostics);
+  const diagnostics = [
+    ...results.flatMap((result) => result.diagnostics),
+    ...duplicateDiagnostics,
+  ];
   const wideSeriesAudit = results.flatMap((result) => (
     result.wideSeriesAudit ? [result.wideSeriesAudit] : []
   ));

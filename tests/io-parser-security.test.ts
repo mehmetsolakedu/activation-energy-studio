@@ -53,6 +53,10 @@ function xlsxBytes(options: {
   worksheetXml?: string;
   level?: 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
   workbookDoctype?: boolean;
+  contentTypesExtra?: string;
+  packageRelationshipsExtra?: string;
+  workbookRelationshipsExtra?: string;
+  extraFiles?: Record<string, Uint8Array>;
 } = {}): Uint8Array {
   const sheetName = options.sheetName ?? 'Data';
   const state = options.sheetState ? ` state="${options.sheetState}"` : '';
@@ -67,10 +71,12 @@ function xlsxBytes(options: {
   <Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/>
   <Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/>
   <Override PartName="/xl/styles.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.styles+xml"/>
+  ${options.contentTypesExtra ?? ''}
 </Types>`),
     '_rels/.rels': strToU8(`<?xml version="1.0" encoding="UTF-8"?>
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/>
+  ${options.packageRelationshipsExtra ?? ''}
 </Relationships>`),
     'xl/workbook.xml': strToU8(`<?xml version="1.0" encoding="UTF-8"?>
 ${workbookDoctype}
@@ -82,6 +88,7 @@ ${workbookDoctype}
 <Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
   <Relationship Id="rId1" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/>
   <Relationship Id="rId2" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles" Target="styles.xml"/>
+  ${options.workbookRelationshipsExtra ?? ''}
 </Relationships>`),
     'xl/styles.xml': strToU8(`<?xml version="1.0" encoding="UTF-8"?>
 <styleSheet xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main">
@@ -91,6 +98,7 @@ ${workbookDoctype}
   <cellXfs count="1"><xf numFmtId="0" fontId="0" fillId="0" borderId="0" xfId="0"/></cellXfs>
 </styleSheet>`),
     'xl/worksheets/sheet1.xml': strToU8(options.worksheetXml ?? canonicalWorksheet()),
+    ...(options.extraFiles ?? {}),
   };
   return Uint8Array.from(zipSync(files, { level: options.level ?? 0 }));
 }
@@ -205,6 +213,80 @@ describe('bounded delimited-text ingestion', () => {
 });
 
 describe('raw OOXML security inspection', () => {
+  it.each([
+    {
+      label: 'VBA binary part',
+      options: { extraFiles: { 'xl/vbaProject.bin': Uint8Array.from([0xd0, 0xcf, 0x11, 0xe0]) } },
+    },
+    {
+      label: 'macro-enabled main content type',
+      options: {
+        contentTypesExtra: '<Override PartName="/xl/workbook.xml" ContentType="application/vnd.ms-excel.sheet.macroEnabled.main+xml"/>',
+      },
+    },
+    {
+      label: 'VBA relationship',
+      options: {
+        workbookRelationshipsExtra: '<Relationship Id="rId9" Type="http://schemas.microsoft.com/office/2006/relationships/vbaProject" Target="vbaProject.bin"/>',
+      },
+    },
+  ])('rejects macro-bearing OOXML signaled by $label', async ({ options }) => {
+    const result = await ingestThermalFile(
+      xlsxFile(xlsxBytes(options), 'macro-content.xlsx'),
+    );
+
+    expect(result.status).toBe('error');
+    expect(result.records).toEqual([]);
+    expect(result.tables).toEqual({ tAlphaBeta: [], betaTp: [] });
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'xlsx_macro_content_rejected',
+      sourceFile: 'macro-content.xlsx',
+    }));
+  });
+
+  it.each([
+    {
+      label: 'externalLinks package part',
+      options: {
+        extraFiles: {
+          'xl/externalLinks/externalLink1.xml': strToU8(
+            '<?xml version="1.0"?><externalLink xmlns="http://schemas.openxmlformats.org/spreadsheetml/2006/main"/>',
+          ),
+        },
+      },
+    },
+    {
+      label: 'externalLink relationship type',
+      options: {
+        workbookRelationshipsExtra: '<Relationship Id="rId8" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLink" Target="externalLinks/externalLink1.xml"/>',
+      },
+    },
+    {
+      label: 'external relationship target mode',
+      options: {
+        workbookRelationshipsExtra: '<Relationship Id="rId8" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLinkPath" Target="file:///external/source.xlsx" TargetMode="External"/>',
+      },
+    },
+    {
+      label: 'package-root external relationship',
+      options: {
+        packageRelationshipsExtra: '<Relationship Id="rId9" Type="http://schemas.openxmlformats.org/officeDocument/2006/relationships/externalLinkPath" Target="file:///external/source.xlsx" TargetMode="External"/>',
+      },
+    },
+  ])('rejects OOXML signaled by $label', async ({ options }) => {
+    const result = await ingestThermalFile(
+      xlsxFile(xlsxBytes(options), 'external-link.xlsx'),
+    );
+
+    expect(result.status).toBe('error');
+    expect(result.records).toEqual([]);
+    expect(result.tables).toEqual({ tAlphaBeta: [], betaTp: [] });
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({
+      code: 'xlsx_external_links_rejected',
+      sourceFile: 'external-link.xlsx',
+    }));
+  });
+
   it('rejects cached formula values before workbook normalization', async () => {
     const result = await ingestThermalFile(
       xlsxFile(xlsxBytes({ worksheetXml: canonicalWorksheet({ formula: true }) }), 'formula.xlsx'),

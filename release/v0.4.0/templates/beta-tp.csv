@@ -1,0 +1,5 @@
+Peak Temperature [K],Heating rate [K/min],Run,Sample,Atmosphere,Stage,Peak resolved,Peak quality,Peak source signal,Analyst confirmed,Ambiguous
+585,5,peak-5,replace-with-sample,N2,main-peak,true,clear-interior,external-beta-tp-table,true,false
+600,10,peak-10,replace-with-sample,N2,main-peak,true,clear-interior,external-beta-tp-table,true,false
+618,20,peak-20,replace-with-sample,N2,main-peak,true,clear-interior,external-beta-tp-table,true,false
+637,40,peak-40,replace-with-sample,N2,main-peak,true,clear-interior,external-beta-tp-table,true,false

@@ -67,7 +67,7 @@ check('CFF identifies Mehmet Solak as the sole author', () => {
   assert.equal((rootCitation.match(/given-names: Mehmet$/gm) ?? []).length, 2);
   assert.equal(
     (rootCitation.match(
-      /affiliation: Biosystems Engineering, Siirt University, Siirt, Türkiye$/gm,
+      /affiliation: Biosystems Engineering, Siirt University, Siirt, T\u00fcrkiye$/gm,
     ) ?? []).length,
     2,
   );
@@ -199,18 +199,30 @@ check('notices enumerate every production dependency with valid relative links',
   assert.ok(releaseNotice.includes('(SBOM.production.cdx.json)'));
 });
 
-check('candidate metadata directory cannot be mistaken for a complete release', () => {
+check('complete candidate package remains explicitly unreleased', () => {
   const entries = fs.readdirSync(releaseDirectory);
   assert.ok(entries.includes('README.md'));
   assert.ok(entries.includes('RELEASE_NOTES_v0.4.0.md'));
-  assert.equal(entries.some((entry) => entry.endsWith('.html')), false);
-  assert.equal(entries.some((entry) => /^MANIFEST/i.test(entry)), false);
-  assert.equal(entries.some((entry) => /^SHA256SUMS/i.test(entry)), false);
-  assert.match(read(path.join(releaseDirectory, 'README.md')), /not a complete\nrelease package/);
+  assert.ok(entries.includes('Activation-Energy-Studio-v0.4.0.html'));
+  assert.ok(entries.includes('MANIFEST.v0.4.0.json'));
+  assert.ok(entries.includes('SHA256SUMS.v0.4.0.txt'));
+  assert.match(
+    read(path.join(releaseDirectory, 'README.md')),
+    /complete, hash-bound \*\*audit candidate package\*\*/,
+  );
+  assert.match(
+    read(path.join(releaseDirectory, 'README.md')),
+    /not\nan externally published release/,
+  );
   assert.match(
     read(path.join(releaseDirectory, 'RELEASE_NOTES_v0.4.0.md')),
-    /unreleased audit candidate/,
+    /not externally released/,
   );
+  const manifest = readJson(
+    path.join(releaseDirectory, 'MANIFEST.v0.4.0.json'),
+  );
+  assert.equal(manifest.release.status, 'UNRELEASED_AUDIT_CANDIDATE');
+  assert.equal(manifest.release.externalPublicationApproved, false);
 });
 
 check('historical v0.3.2 HTML remains byte-identical to the immutable baseline', () => {
@@ -260,10 +272,22 @@ const record = {
     production_inventory_sha256: sha256(fs.readFileSync(inventoryPath)),
     production_sbom_sha256: sha256(fs.readFileSync(sbomPath)),
     third_party_notices_sha256: sha256(Buffer.from(releaseNotice)),
+    candidate_html_sha256: sha256(fs.readFileSync(path.join(
+      releaseDirectory,
+      'Activation-Energy-Studio-v0.4.0.html',
+    ))),
+    candidate_manifest_sha256: sha256(fs.readFileSync(path.join(
+      releaseDirectory,
+      'MANIFEST.v0.4.0.json',
+    ))),
+    candidate_checksum_index_sha256: sha256(fs.readFileSync(path.join(
+      releaseDirectory,
+      'SHA256SUMS.v0.4.0.txt',
+    ))),
     historical_v0_3_2_html_sha256: sha256(fs.readFileSync(historicalHtml)),
   },
   boundaries: [
-    'No v0.4.0 application HTML, final manifest, or release checksum file exists yet.',
+    'The v0.4.0 HTML, manifest, and checksum index form a complete local audit-candidate package; they have not been externally published.',
     'This validation is not release, deployment, journal, or Zenodo approval.',
     'Development-dependency licensing is outside this production-only inventory.',
   ],

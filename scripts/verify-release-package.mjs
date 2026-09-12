@@ -3,7 +3,9 @@
 import { createHash } from 'node:crypto';
 import {
   existsSync,
+  lstatSync,
   readFileSync,
+  readdirSync,
   statSync,
 } from 'node:fs';
 import path from 'node:path';
@@ -70,9 +72,38 @@ function resolvePortableRelativeFile(baseDirectory, relativePath, label) {
 
 function requireRegularFile(filePath, label) {
   if (!existsSync(filePath)) fail(`Missing ${label}: ${filePath}`);
+  const linkStats = lstatSync(filePath);
+  if (linkStats.isSymbolicLink()) {
+    fail(`${label} must not be a symbolic link: ${filePath}`);
+  }
   const stats = statSync(filePath);
   if (!stats.isFile()) fail(`${label} is not a regular file: ${filePath}`);
   return stats;
+}
+
+function listPackageFiles(packageDirectory, relativeDirectory = '') {
+  const currentDirectory = path.resolve(packageDirectory, relativeDirectory);
+  const paths = [];
+  const entries = readdirSync(currentDirectory, { withFileTypes: true })
+    .sort((left, right) => left.name.localeCompare(right.name, 'en'));
+  for (const entry of entries) {
+    const relativePath = relativeDirectory
+      ? path.join(relativeDirectory, entry.name)
+      : entry.name;
+    const absolutePath = path.resolve(packageDirectory, relativePath);
+    const stats = lstatSync(absolutePath);
+    if (entry.isSymbolicLink() || stats.isSymbolicLink()) {
+      fail(`Release package contains a symbolic link: ${portablePath(relativePath)}`);
+    }
+    if (stats.isDirectory()) {
+      paths.push(...listPackageFiles(packageDirectory, relativePath));
+    } else if (stats.isFile()) {
+      paths.push(portablePath(relativePath));
+    } else {
+      fail(`Release package contains a non-regular entry: ${portablePath(relativePath)}`);
+    }
+  }
+  return paths.sort();
 }
 
 function sha256(filePath) {
@@ -269,6 +300,23 @@ export function verifyReleasePackage({
   if (missingChecksumPaths.length > 0 || unexpectedChecksumPaths.length > 0) {
     fail(
       `Checksum path set mismatch; missing=${JSON.stringify(missingChecksumPaths)}, unexpected=${JSON.stringify(unexpectedChecksumPaths)}`,
+    );
+  }
+
+  const expectedPackagePaths = [
+    ...expectedChecksumPaths,
+    path.basename(checksumAbsolutePath),
+  ].sort();
+  const actualPackagePaths = listPackageFiles(packageDirectory);
+  const expectedPackagePathSet = new Set(expectedPackagePaths);
+  const actualPackagePathSet = new Set(actualPackagePaths);
+  const missingPackagePaths = expectedPackagePaths
+    .filter((entryPath) => !actualPackagePathSet.has(entryPath));
+  const unlistedPackagePaths = actualPackagePaths
+    .filter((entryPath) => !expectedPackagePathSet.has(entryPath));
+  if (missingPackagePaths.length > 0 || unlistedPackagePaths.length > 0) {
+    fail(
+      `Release package path set mismatch; missing=${JSON.stringify(missingPackagePaths)}, unlisted=${JSON.stringify(unlistedPackagePaths)}`,
     );
   }
 

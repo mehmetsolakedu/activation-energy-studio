@@ -3,7 +3,7 @@
 Activation Energy Studio is an evidence-grounded, offline-first application for
 apparent activation-energy analysis of multi-heating-rate thermoanalytical data.
 
-The v0.3.2 Research Preview presents a three-step workflow: upload data,
+The unreleased v0.4.0 audit candidate presents a three-step workflow: upload data,
 inspect and explicitly confirm the software interpretation, then calculate and
 download a bounded scientific report. Its user interface and canonical
 documentation use standard technical English. It includes Simple and Expert
@@ -20,9 +20,9 @@ CSV/TSV/TXT/XLSX ingestion remains fail-closed for ambiguous columns, units,
 decimal notation, header rows, workbook sheets, layouts, and physical stage.
 FWO/OFW, KAS, Starink, Friedman, and separate β–Tp Kissinger outputs retain
 Ea(alpha), regression diagnostics, provenance, regression-only confidence
-intervals, and JSON/CSV/PDF exports. The v0.3.2 report schema is
-`activation-energy-studio/project-report/v6`; the scientific calculation core
-and formula set remain `activation-energy-core/v2` and
+intervals, and JSON/CSV/PDF exports. Its report schema is
+`activation-energy-studio/project-report/v7`; the scientific calculation core
+and formula set are `activation-energy-core/v3` and
 `activation-energy-formulas/v1`.
 
 The project is intentionally separate from the source-PDF corpus. Scientific
@@ -33,7 +33,12 @@ records and their extraction coverage. It also preserves the important unit
 boundary: these are 230 primary PDFs plus one supplementary PDF, not locally
 verified evidence of 231 distinct Q1/Q2 articles.
 
-## Current project disposition
+## Candidate and historical disposition
+
+Activation Energy Studio v0.4.0 is a local, unreleased audit candidate. It has
+not been deployed, submitted to the journal, deposited in Zenodo, or approved
+as a public release. The versioned v0.3.2 HTML and its historical records remain
+immutable while this candidate is audited.
 
 Activation Energy Studio v0.3.2 is **publishable as a bounded Research
 Preview** under the solo-researcher, single-host scope. The authoritative
@@ -64,15 +69,19 @@ and its hash-bound full-check receipt.
 npm ci
 npm run dev
 npm test
-npm run package:v0.3.2
+npm run package:v0.4.0
+npm run verify:release-manifest:v0.3.2
 npm run close:solo:v0.3.2
 ```
 
 `npm run build` produces a self-contained offline HTML application in `dist/`.
-`npm run package:v0.3.2` builds it, verifies the single-HTML offline boundary,
-and writes the versioned offline HTML,
+`npm run package:v0.4.0` builds it, verifies the single-HTML offline boundary,
+and writes the local v0.4.0 audit-candidate HTML,
 manifest, checksum index, English documentation, legal files, and templates to
-`release/v0.3.2/`. The package also includes the exact JSON report schema.
+`release/v0.4.0/`. The package also includes the exact JSON report schema.
+`npm run package:v0.3.2` and `npm run verify:release-manifest:v0.3.2` are
+read-only aliases that verify the immutable historical v0.3.2 package; they do
+not rebuild or overwrite it.
 `npm run verify:offline` checks the fresh bundle statically.
 
 The byte-bound v0.2 and v0.3.0 artifacts remain unchanged as historical

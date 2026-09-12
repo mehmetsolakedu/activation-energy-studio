@@ -4,8 +4,11 @@ import { createHash } from 'node:crypto';
 import {
   copyFileSync,
   existsSync,
+  lstatSync,
   mkdirSync,
   readFileSync,
+  readdirSync,
+  rmSync,
   statSync,
   writeFileSync,
 } from 'node:fs';
@@ -13,8 +16,9 @@ import path from 'node:path';
 import process from 'node:process';
 import { fileURLToPath } from 'node:url';
 
-export const RELEASE_VERSION = '0.3.2';
-export const RELEASE_DATE = '2026-08-01';
+import { verifyProductionSbom } from './verify-production-sbom.mjs';
+
+export const RELEASE_VERSION = '0.4.0';
 export const MANIFEST_SCHEMA =
   'activation-energy-studio/release-package-manifest/v1';
 
@@ -22,8 +26,11 @@ const PROJECT_ROOT = path.resolve(
   path.dirname(fileURLToPath(import.meta.url)),
   '..',
 );
-const RELEASE_ROOT = path.resolve(PROJECT_ROOT, 'release');
-const RELEASE_DIR = path.resolve(RELEASE_ROOT, `v${RELEASE_VERSION}`);
+const RELEASE_DIR = path.resolve(
+  PROJECT_ROOT,
+  'release',
+  `v${RELEASE_VERSION}`,
+);
 const DIST_HTML = path.resolve(PROJECT_ROOT, 'dist/index.html');
 const RELEASE_HTML_NAME =
   `Activation-Energy-Studio-v${RELEASE_VERSION}.html`;
@@ -36,13 +43,13 @@ const CHECKSUM_PATH = path.resolve(RELEASE_DIR, CHECKSUM_NAME);
 const SOURCE_COPIES = Object.freeze([
   ['LICENSE', 'LICENSE'],
   ['CITATION.cff', 'CITATION.cff'],
-  ['THIRD_PARTY_NOTICES.md', 'THIRD_PARTY_NOTICES.md'],
   ['CHANGELOG.md', 'CHANGELOG.md'],
   ['SUPPORT.md', 'SUPPORT.md'],
   [
-    'src/report/project-report.schema.json',
-    'project-report.schema.json',
+    '01_SCIENTIFIC_SPEC_V1_1_ADDENDUM.md',
+    'SCIENTIFIC_SPEC_V1_1_ADDENDUM.md',
   ],
+  ['src/report/project-report.schema.json', 'project-report.schema.json'],
   ['release/templates/curve-long.csv', 'templates/curve-long.csv'],
   [
     'release/templates/supplied-dalpha-dt.txt',
@@ -51,67 +58,30 @@ const SOURCE_COPIES = Object.freeze([
   ['release/templates/beta-tp.csv', 'templates/beta-tp.csv'],
 ]);
 
-const PACKAGE_FILES = Object.freeze([
-  {
-    path: RELEASE_HTML_NAME,
-    role: 'offline_single_html_application',
-  },
-  {
-    path: 'index.html',
-    role: 'english_download_landing_page',
-  },
-  {
-    path: 'README.md',
-    role: 'english_release_readme',
-  },
-  {
-    path: 'QUICK_START.md',
-    role: 'english_five_minute_quick_start',
-  },
-  {
-    path: 'RELEASE_NOTES_v0.3.2.md',
-    role: 'release_notes',
-  },
-  {
-    path: 'LICENSE',
-    role: 'application_license',
-  },
-  {
-    path: 'CITATION.cff',
-    role: 'software_citation_metadata',
-  },
-  {
-    path: 'THIRD_PARTY_NOTICES.md',
-    role: 'dataset_and_dependency_attribution',
-  },
-  {
-    path: 'CHANGELOG.md',
-    role: 'project_changelog',
-  },
-  {
-    path: 'SUPPORT.md',
-    role: 'bug_reporting_path',
-  },
-  {
-    path: 'project-report.schema.json',
-    role: 'reproducible_project_report_schema',
-  },
-  {
-    path: 'templates/curve-long.csv',
-    role: 'long_curve_import_template',
-  },
-  {
-    path: 'templates/supplied-dalpha-dt.txt',
-    role: 'supplied_derivative_import_template',
-  },
-  {
-    path: 'templates/beta-tp.csv',
-    role: 'kissinger_peak_import_template',
-  },
-]);
+const EXACT_ROLES = Object.freeze({
+  '.gitattributes': 'line_ending_integrity_policy',
+  [RELEASE_HTML_NAME]: 'offline_single_html_application',
+  'index.html': 'english_candidate_landing_page',
+  'README.md': 'english_candidate_readme',
+  'QUICK_START.md': 'english_five_minute_quick_start',
+  'RELEASE_NOTES_v0.4.0.md': 'candidate_release_notes',
+  'LICENSE': 'application_license',
+  'CITATION.cff': 'software_citation_metadata',
+  'THIRD_PARTY_NOTICES.md': 'dataset_and_dependency_attribution',
+  'CHANGELOG.md': 'project_changelog',
+  'SUPPORT.md': 'bug_reporting_path',
+  'SCIENTIFIC_SPEC_V1_1_ADDENDUM.md':
+    'normative_v0.4.0_scientific_correction_contract',
+  'project-report.schema.json': 'reproducible_project_report_schema_v7',
+  'SBOM.production.cdx.json': 'cyclonedx_production_dependency_sbom',
+  'templates/curve-long.csv': 'long_curve_import_template',
+  'templates/supplied-dalpha-dt.txt':
+    'supplied_derivative_import_template',
+  'templates/beta-tp.csv': 'kissinger_peak_import_template',
+});
 
 function fail(message) {
-  throw new Error(`[package-v0.3.2-release] ${message}`);
+  throw new Error(`[package-v0.4.0-release] ${message}`);
 }
 
 function requireFile(filePath, purpose) {
@@ -120,16 +90,62 @@ function requireFile(filePath, purpose) {
   }
 }
 
-function sha256(filePath) {
-  return createHash('sha256').update(readFileSync(filePath)).digest('hex');
+function sha256Bytes(bytes) {
+  return createHash('sha256').update(bytes).digest('hex');
 }
 
-function packageEntry({ path: relativePath, role }) {
-  const absolutePath = path.resolve(RELEASE_DIR, relativePath);
-  requireFile(absolutePath, role);
+function sha256(filePath) {
+  return sha256Bytes(readFileSync(filePath));
+}
+
+function portableOrder(left, right) {
+  if (left < right) return -1;
+  if (left > right) return 1;
+  return 0;
+}
+
+function portablePath(filePath) {
+  return filePath.split(path.sep).join('/');
+}
+
+function walkRegularFiles(directory, relativeDirectory = '') {
+  const absoluteDirectory = path.resolve(directory, relativeDirectory);
+  const result = [];
+  const entries = readdirSync(absoluteDirectory, { withFileTypes: true })
+    .sort((left, right) => portableOrder(left.name, right.name));
+  for (const entry of entries) {
+    const relativePath = relativeDirectory
+      ? path.join(relativeDirectory, entry.name)
+      : entry.name;
+    const absolutePath = path.resolve(directory, relativePath);
+    if (entry.isSymbolicLink() || lstatSync(absolutePath).isSymbolicLink()) {
+      fail(`Symlinks are forbidden in the release package: ${relativePath}`);
+    }
+    if (entry.isDirectory()) {
+      result.push(...walkRegularFiles(directory, relativePath));
+    } else if (entry.isFile()) {
+      result.push(portablePath(relativePath));
+    } else {
+      fail(`Unsupported release entry: ${relativePath}`);
+    }
+  }
+  return result.sort(portableOrder);
+}
+
+function roleFor(relativePath) {
+  if (EXACT_ROLES[relativePath]) return EXACT_ROLES[relativePath];
+  if (/^licenses\/[^/]+\/[^/]+$/u.test(relativePath)) {
+    return 'third_party_dependency_license_text';
+  }
+  fail(`Unclassified file in v0.4.0 package: ${relativePath}`);
+}
+
+function packageEntry(relativePath) {
+  const absolutePath = path.resolve(RELEASE_DIR, ...relativePath.split('/'));
+  requireFile(absolutePath, roleFor(relativePath));
   return {
     path: `release/v${RELEASE_VERSION}/${relativePath}`,
-    role,
+    role: roleFor(relativePath),
     bytes: statSync(absolutePath).size,
     sha256: sha256(absolutePath),
   };
@@ -139,20 +155,6 @@ function writeJson(filePath, value) {
   writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
-function portablePathOrder(left, right) {
-  if (left.path < right.path) return -1;
-  if (left.path > right.path) return 1;
-  return 0;
-}
-
-// v0.3.2 is an externally published, hash-locked historical artifact. The
-// original reconstruction implementation is retained below for provenance,
-// but direct execution is permanently fail-closed so a current dist build or
-// current root metadata can never overwrite the historical package.
-fail(
-  'Historical v0.3.2 packaging is retired and immutable. Use npm run verify:release-manifest:v0.3.2 for read-only verification.',
-);
-
 requireFile(
   DIST_HTML,
   'built offline application; run the normal build before packaging',
@@ -161,8 +163,9 @@ const distHtml = readFileSync(DIST_HTML, 'utf8');
 if (!/<!doctype html>/iu.test(distHtml) || !/<script\b/iu.test(distHtml)) {
   fail('dist/index.html is not a recognizable built application document.');
 }
-
 mkdirSync(RELEASE_DIR, { recursive: true });
+rmSync(MANIFEST_PATH, { force: true });
+rmSync(CHECKSUM_PATH, { force: true });
 copyFileSync(DIST_HTML, RELEASE_HTML);
 
 for (const [sourceRelativePath, destinationRelativePath] of SOURCE_COPIES) {
@@ -173,33 +176,76 @@ for (const [sourceRelativePath, destinationRelativePath] of SOURCE_COPIES) {
   copyFileSync(source, destination);
 }
 
-const files = PACKAGE_FILES
-  .map(packageEntry)
-  .sort(portablePathOrder);
+const requiredAuthoredFiles = [
+  '.gitattributes',
+  'index.html',
+  'README.md',
+  'QUICK_START.md',
+  'RELEASE_NOTES_v0.4.0.md',
+  'SBOM.production.cdx.json',
+  'THIRD_PARTY_NOTICES.md',
+];
+for (const relativePath of requiredAuthoredFiles) {
+  requireFile(
+    path.resolve(RELEASE_DIR, relativePath),
+    `v0.4.0 package source ${relativePath}`,
+  );
+}
+
+const sbomVerification = verifyProductionSbom({
+  projectRoot: PROJECT_ROOT,
+  sbomPath: 'release/v0.4.0/SBOM.production.cdx.json',
+});
+
+const packagePaths = walkRegularFiles(RELEASE_DIR)
+  .filter((relativePath) =>
+    relativePath !== MANIFEST_NAME && relativePath !== CHECKSUM_NAME,
+  );
+const files = packagePaths.map(packageEntry);
 const releaseHtml = files.find(
   ({ path: filePath }) =>
     filePath === `release/v${RELEASE_VERSION}/${RELEASE_HTML_NAME}`,
 );
 if (!releaseHtml) fail('The packaged HTML was not included in the file set.');
 
+const packageJsonPath = path.resolve(PROJECT_ROOT, 'package.json');
+const packageLockPath = path.resolve(PROJECT_ROOT, 'package-lock.json');
+requireFile(packageJsonPath, 'package.json');
+requireFile(packageLockPath, 'package-lock.json');
+
 const manifest = {
   schema: MANIFEST_SCHEMA,
   release: {
     name: 'Activation Energy Studio',
     version: RELEASE_VERSION,
-    releaseDate: RELEASE_DATE,
+    status: 'UNRELEASED_AUDIT_CANDIDATE',
     classification: 'RESEARCH_PREVIEW',
+    externalPublicationApproved: false,
     artifact: releaseHtml.path,
     bytes: releaseHtml.bytes,
     sha256: releaseHtml.sha256,
   },
   integrityScope: {
     claim:
-      'This manifest binds exact package bytes. It does not establish scientific validity, human usability, or platform approval.',
+      'This manifest binds exact candidate-package bytes. It is not a release, deployment, journal revision, scientific-validity certificate, or human/platform approval.',
     hashAlgorithm: 'sha256',
     hashInput: 'raw_file_bytes',
     deterministic: true,
     generatedTimestampOmitted: true,
+  },
+  sourceInputs: {
+    packageJsonSha256: sha256(packageJsonPath),
+    packageLockSha256: sha256(packageLockPath),
+    builtArtifactSha256: sha256(DIST_HTML),
+    reportSchemaSha256: sha256(
+      path.resolve(PROJECT_ROOT, 'src/report/project-report.schema.json'),
+    ),
+  },
+  scientificMethods: {
+    isoconversional: ['FWO', 'KAS', 'STARINK', 'FRIEDMAN'],
+    peakBasedSeparateWorkflow: ['KISSINGER'],
+    reportSchema: 'activation-energy-studio/project-report/v7',
+    scientificCore: 'activation-energy-core/v3',
   },
   realExamples: [
     {
@@ -233,15 +279,16 @@ const manifest = {
   ],
   claimBoundaries: [
     'Outputs are apparent activation energies conditional on sample, atmosphere, stage, preprocessing, method, and selected conversion range.',
-    'Regression confidence intervals do not cover every source of experimental and model-form uncertainty.',
+    'Regression confidence intervals do not cover every source of experimental and model-form uncertainty, including temperature lag.',
+    'The x-spread refusal floor is a numerical-conditioning guard, not an instrument-specific metrological threshold.',
     'A device-profile match is advisory and must be confirmed before ingestion options are applied.',
     'Generic DTG is not automatically equivalent to direct d(alpha)/dt.',
     'Paper063 has an article CC BY 4.0 license but no separate raw-dataset license.',
   ],
   files,
   generation: {
-    generator: 'scripts/package-v0.3.2-release.mjs',
-    command: 'npm run package:v0.3.2',
+    generator: 'scripts/package-v0.4.0-release.mjs',
+    command: 'npm run package:v0.4.0',
     sourceArtifact: 'dist/index.html',
     manifestPath: `release/v${RELEASE_VERSION}/${MANIFEST_NAME}`,
     checksumPath: `release/v${RELEASE_VERSION}/${CHECKSUM_NAME}`,
@@ -257,11 +304,8 @@ const checksumEntries = [
     path: filePath.replace(`release/v${RELEASE_VERSION}/`, ''),
     sha256: digest,
   })),
-  {
-    path: MANIFEST_NAME,
-    sha256: sha256(MANIFEST_PATH),
-  },
-].sort(portablePathOrder);
+  { path: MANIFEST_NAME, sha256: sha256(MANIFEST_PATH) },
+].sort((left, right) => portableOrder(left.path, right.path));
 
 writeFileSync(
   CHECKSUM_PATH,
@@ -275,6 +319,8 @@ process.stdout.write(
   [
     `Packaged ${path.relative(PROJECT_ROOT, RELEASE_HTML)}`,
     `SHA-256 ${releaseHtml.sha256}`,
+    `Manifest files ${files.length}`,
+    `SBOM components ${sbomVerification.componentCount}`,
     `Wrote ${path.relative(PROJECT_ROOT, MANIFEST_PATH)}`,
     `Wrote ${path.relative(PROJECT_ROOT, CHECKSUM_PATH)}`,
   ].join('\n') + '\n',

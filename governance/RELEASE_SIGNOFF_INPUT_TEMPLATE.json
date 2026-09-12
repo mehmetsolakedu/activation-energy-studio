@@ -16,7 +16,7 @@
     },
     "p0Ledger": {
       "path": "evidence/governance/P0_EVIDENCE_LEDGER.v0.2.0.json",
-      "sha256": "9d4f88c32cbe48d1694a1c71a71adb17e467baaf6fd71ca9eae758fb5df7a21f"
+      "sha256": "ce0ac39ad8fae7256cb8a746f43ca855b834abc2af750657f9826acfa2e0cb49"
     },
     "knownIssues": {
       "path": "governance/KNOWN_ISSUES.json",

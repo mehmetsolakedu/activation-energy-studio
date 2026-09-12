@@ -417,7 +417,7 @@ function makeReport() {
       },
     },
     reproducibility: {
-      coreMathVersion: 'activation-energy-core/v3',
+      coreMathVersion: 'activation-energy-core/v2',
       formulaSetVersion: 'activation-energy-formulas/v1',
       volatileFields: ['generatedAt'],
       canonicalUnits: {

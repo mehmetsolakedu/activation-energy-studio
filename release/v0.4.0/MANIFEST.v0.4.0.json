@@ -1,0 +1,414 @@
+{
+  "schema": "activation-energy-studio/release-package-manifest/v1",
+  "release": {
+    "name": "Activation Energy Studio",
+    "version": "0.4.0",
+    "status": "UNRELEASED_AUDIT_CANDIDATE",
+    "classification": "RESEARCH_PREVIEW",
+    "externalPublicationApproved": false,
+    "artifact": "release/v0.4.0/Activation-Energy-Studio-v0.4.0.html",
+    "bytes": 2560681,
+    "sha256": "5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e"
+  },
+  "integrityScope": {
+    "claim": "This manifest binds exact candidate-package bytes. It is not a release, deployment, journal revision, scientific-validity certificate, or human/platform approval.",
+    "hashAlgorithm": "sha256",
+    "hashInput": "raw_file_bytes",
+    "deterministic": true,
+    "generatedTimestampOmitted": true
+  },
+  "sourceInputs": {
+    "packageJsonSha256": "0bdc3e872cbeed08b72f6a4ca6d73c96e618f69e2c91ba1d6831c75cd973d5ca",
+    "packageLockSha256": "240bbfd04f0bb9330515d5189244783ba6aebe794b361334a552b31c2e94060f",
+    "builtArtifactSha256": "5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e",
+    "reportSchemaSha256": "05a0268af34ccb272906417077934214b7dbb4acea2e69088c8a108cf7c18e67"
+  },
+  "scientificMethods": {
+    "isoconversional": [
+      "FWO",
+      "KAS",
+      "STARINK",
+      "FRIEDMAN"
+    ],
+    "peakBasedSeparateWorkflow": [
+      "KISSINGER"
+    ],
+    "reportSchema": "activation-energy-studio/project-report/v7",
+    "scientificCore": "activation-energy-core/v3"
+  },
+  "realExamples": [
+    {
+      "id": "chilean-oak-raw",
+      "resultType": "isoconversional",
+      "methods": [
+        "FWO",
+        "KAS",
+        "STARINK"
+      ],
+      "sourceDoi": "10.17632/gkhjh4v8tg.2",
+      "license": "CC-BY-4.0",
+      "alphaGrid": {
+        "start": 0.05,
+        "end": 0.85,
+        "step": 0.05
+      }
+    },
+    {
+      "id": "paper010-supplied-dalpha-dt",
+      "resultType": "isoconversional",
+      "methods": [
+        "FRIEDMAN"
+      ],
+      "sourceDoi": "10.1371/journal.pone.0173946.s002",
+      "license": "CC-BY-4.0",
+      "alphaGrid": {
+        "start": 0.05,
+        "end": 0.8,
+        "step": 0.05
+      },
+      "transformation": "Deterministically derived from official S2 TG and -DTG under the locked fixture recipe."
+    },
+    {
+      "id": "paper063-kissinger-beta-tp",
+      "resultType": "peak",
+      "methods": [
+        "KISSINGER"
+      ],
+      "sourceDoi": "10.3390/ma13245595",
+      "license": "CC-BY-4.0 article content",
+      "separateDatasetLicense": null,
+      "boundary": "Article-derived five-row beta-Tp transcription at printed 1 K resolution; not raw curve data."
+    }
+  ],
+  "claimBoundaries": [
+    "Outputs are apparent activation energies conditional on sample, atmosphere, stage, preprocessing, method, and selected conversion range.",
+    "Regression confidence intervals do not cover every source of experimental and model-form uncertainty, including temperature lag.",
+    "The x-spread refusal floor is a numerical-conditioning guard, not an instrument-specific metrological threshold.",
+    "A device-profile match is advisory and must be confirmed before ingestion options are applied.",
+    "Generic DTG is not automatically equivalent to direct d(alpha)/dt.",
+    "Paper063 has an article CC BY 4.0 license but no separate raw-dataset license."
+  ],
+  "files": [
+    {
+      "path": "release/v0.4.0/.gitattributes",
+      "role": "line_ending_integrity_policy",
+      "bytes": 108,
+      "sha256": "68f4fb5c7af80cd0ed09e8de56882a21c0e795e7ae2cf6780f098d1a7b78d668"
+    },
+    {
+      "path": "release/v0.4.0/Activation-Energy-Studio-v0.4.0.html",
+      "role": "offline_single_html_application",
+      "bytes": 2560681,
+      "sha256": "5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e"
+    },
+    {
+      "path": "release/v0.4.0/CHANGELOG.md",
+      "role": "project_changelog",
+      "bytes": 3653,
+      "sha256": "b5125bef7e5fe85a48902054e3902d14db22f3355997999cf9cac81b40c609da"
+    },
+    {
+      "path": "release/v0.4.0/CITATION.cff",
+      "role": "software_citation_metadata",
+      "bytes": 998,
+      "sha256": "ec3c1e3749658a5c058391f6d80734e41330ebf9e450ffb638a01eecd87f5559"
+    },
+    {
+      "path": "release/v0.4.0/LICENSE",
+      "role": "application_license",
+      "bytes": 1417,
+      "sha256": "824a8b8cc8cbffe7ba6ce0c8810a7bfba45ad0d5b8b7769bb6cb47b973226166"
+    },
+    {
+      "path": "release/v0.4.0/QUICK_START.md",
+      "role": "english_five_minute_quick_start",
+      "bytes": 3527,
+      "sha256": "ee5fbb378101dd4113262836f01533e6721fcb08f5102bcdb50d9eaa94e340bc"
+    },
+    {
+      "path": "release/v0.4.0/README.md",
+      "role": "english_candidate_readme",
+      "bytes": 1364,
+      "sha256": "52cf24812d875ca9954f80a8a17530d7e049aba283c26a35c43bac851656017b"
+    },
+    {
+      "path": "release/v0.4.0/RELEASE_NOTES_v0.4.0.md",
+      "role": "candidate_release_notes",
+      "bytes": 5579,
+      "sha256": "d0e11e683341810365205192a478f858501022d9cbe9443bf2200b2f61f80efa"
+    },
+    {
+      "path": "release/v0.4.0/SBOM.production.cdx.json",
+      "role": "cyclonedx_production_dependency_sbom",
+      "bytes": 41438,
+      "sha256": "fa8f1b7abada8c58b28a26c16d473f601a374fd263b431dd74431c6bcbd8c58b"
+    },
+    {
+      "path": "release/v0.4.0/SCIENTIFIC_SPEC_V1_1_ADDENDUM.md",
+      "role": "normative_v0.4.0_scientific_correction_contract",
+      "bytes": 5280,
+      "sha256": "3b8f7a63a430482b937ff106f45021c675865e8975699fb3eb53306e096af402"
+    },
+    {
+      "path": "release/v0.4.0/SUPPORT.md",
+      "role": "bug_reporting_path",
+      "bytes": 1488,
+      "sha256": "7158c448c98c3e3f435223d5f94050ada21f85025632f56d21074ed220bf7a0c"
+    },
+    {
+      "path": "release/v0.4.0/THIRD_PARTY_NOTICES.md",
+      "role": "dataset_and_dependency_attribution",
+      "bytes": 8800,
+      "sha256": "66ed32bf6656152352b1273afd18f1da514e22faaf5f199d7e9c6a7eabf05684"
+    },
+    {
+      "path": "release/v0.4.0/index.html",
+      "role": "english_candidate_landing_page",
+      "bytes": 4889,
+      "sha256": "9a800a0534fb54f2c2bfbfd291f9c882df9e0ce5ff96b8967ea4254d0285fab0"
+    },
+    {
+      "path": "release/v0.4.0/licenses/babel__runtime@7.29.7/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1106,
+      "sha256": "117da2af0d4ce0fe1c8e19b5cff9dcd806adf973d328d27b11d4448c4ff24f76"
+    },
+    {
+      "path": "release/v0.4.0/licenses/base64-arraybuffer@1.0.2/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1062,
+      "sha256": "f3eca6ff762533fa5a77caf954a143e48afa204668cf97dce758c45a9e006be3"
+    },
+    {
+      "path": "release/v0.4.0/licenses/canvg@3.0.11/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1144,
+      "sha256": "86622ffc909487e6029235d31503263b796895679b0926f4a4d6f02d2623fde0"
+    },
+    {
+      "path": "release/v0.4.0/licenses/core-js@3.50.0/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1134,
+      "sha256": "b87653fff2d44426ab5cd4723cee3b1364dc8d35a0acdf098c54689543123bf8"
+    },
+    {
+      "path": "release/v0.4.0/licenses/css-line-break@2.1.0/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1061,
+      "sha256": "ce1ee0539f7fe1f7b75b76d121e674cb897c709c3e24ddba7f9a10fe2d0d88a5"
+    },
+    {
+      "path": "release/v0.4.0/licenses/dompurify@3.4.15/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 11358,
+      "sha256": "cfc7749b96f63bd31c3c42b5c471bf756814053e847c10f3eb003417bc523d30"
+    },
+    {
+      "path": "release/v0.4.0/licenses/dompurify@3.4.15/LICENSE-MPL",
+      "role": "third_party_dependency_license_text",
+      "bytes": 16726,
+      "sha256": "fab3dd6bdab226f1c08630b1dd917e11fcb4ec5e1e020e2c16f83a0a13863e85"
+    },
+    {
+      "path": "release/v0.4.0/licenses/fast-png@6.4.0/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1071,
+      "sha256": "47ec9747cf2c470a505fcb20f3ec2ff2e60ea4febaf2e1e7041a24fc369fac3c"
+    },
+    {
+      "path": "release/v0.4.0/licenses/fflate@0.8.3/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1069,
+      "sha256": "0a1df3a083d0c010560aa342e87959c8c1070e6fd54545741f083f22d0c8b551"
+    },
+    {
+      "path": "release/v0.4.0/licenses/graceful-fs@4.2.11/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 791,
+      "sha256": "f65c5d9f22a317b2a10803bd1868461ce6499c2ed7217bc80c0cc772a748789c"
+    },
+    {
+      "path": "release/v0.4.0/licenses/html2canvas@1.4.1/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1061,
+      "sha256": "86200ce4e92d9a22c41c8647a55f7a5fddff304ff89b4d36ecc699ed8c123d2c"
+    },
+    {
+      "path": "release/v0.4.0/licenses/iobuffer@5.4.0/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1082,
+      "sha256": "1c22118fd112e8c394a5ec0598d2e2dfcdc19b3e1055ac3eaccdb2522b777335"
+    },
+    {
+      "path": "release/v0.4.0/licenses/jspdf@4.2.1/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1142,
+      "sha256": "dc388ec35ff463288cdde3588a36fd4ed12a45deff053243b37309acc9ef583b"
+    },
+    {
+      "path": "release/v0.4.0/licenses/node-int64@0.4.0/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1058,
+      "sha256": "8f85aab053e268546014761da47630a09886626afbd0d8d440cb2c69611bb8d3"
+    },
+    {
+      "path": "release/v0.4.0/licenses/pako@2.2.0/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1104,
+      "sha256": "a04665b3b2de56c66730c1f720f528175739e4104f79073614aa611da1e85539"
+    },
+    {
+      "path": "release/v0.4.0/licenses/papaparse@5.5.4/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1079,
+      "sha256": "99aa68e4b42758b09828a46515f70369e5463458ab7a990189f641af2b8d9b4e"
+    },
+    {
+      "path": "release/v0.4.0/licenses/performance-now@2.1.0/license.txt",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1052,
+      "sha256": "c3af1272f30870168177e888b184c1f802e5081e75a126c794670c0b562d3783"
+    },
+    {
+      "path": "release/v0.4.0/licenses/raf@3.4.1/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1075,
+      "sha256": "6b2194e178545b3dcde4a40a09b5f6c00bd9b5b695db0c826c14995c6c9b4ec5"
+    },
+    {
+      "path": "release/v0.4.0/licenses/react-dom@19.2.7/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1088,
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+    },
+    {
+      "path": "release/v0.4.0/licenses/react@19.2.7/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1088,
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+    },
+    {
+      "path": "release/v0.4.0/licenses/read-excel-file@9.3.10/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1103,
+      "sha256": "8cf9b31947daf7adb4a7a00a037459e58241af050cd0a603bfcf1756e533f75e"
+    },
+    {
+      "path": "release/v0.4.0/licenses/regenerator-runtime@0.13.11/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1080,
+      "sha256": "51887a3d47051ac2fce1210562e5b9fe0830a8a8fabeb272c2d586eeb18a05fd"
+    },
+    {
+      "path": "release/v0.4.0/licenses/rgbcolor@1.0.1/FEEL-FREE.md",
+      "role": "third_party_dependency_license_text",
+      "bytes": 256,
+      "sha256": "b5aa5b115427980bda4fb6cecdff9f6eab4adafae5ab3aeaf00e0a9ca7f0c780"
+    },
+    {
+      "path": "release/v0.4.0/licenses/rgbcolor@1.0.1/LICENSE.md",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1182,
+      "sha256": "86045408b01f66f9319a2fe7bc7f7e115f272956ac44d2d840fc00127124a78c"
+    },
+    {
+      "path": "release/v0.4.0/licenses/saxen@11.1.1/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1153,
+      "sha256": "dbda1f03cbd146adb0da20657a72432d83eae3134dffacdfeff6db4c5e32207a"
+    },
+    {
+      "path": "release/v0.4.0/licenses/scheduler@0.27.0/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1088,
+      "sha256": "da6d3703ed11cbe42bd212c725957c98da23cbff1998c05fa4b3d976d1a58e93"
+    },
+    {
+      "path": "release/v0.4.0/licenses/stackblur-canvas@2.7.0/LICENSE-MIT.txt",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1060,
+      "sha256": "609e3755e6e7a048b8ca85de25233cfc4f62ec7cb9afeea603269a03b73db197"
+    },
+    {
+      "path": "release/v0.4.0/licenses/svg-pathdata@6.0.3/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1089,
+      "sha256": "cd05e8e2516f46a2cd79494bbabdea76f874e8d049dbc19a76b367534a4e013e"
+    },
+    {
+      "path": "release/v0.4.0/licenses/text-segmentation@1.0.3/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1061,
+      "sha256": "8b00952cd8d0f5cbbefb13576778e1185dc963943151353d90c4e14a5a4caf40"
+    },
+    {
+      "path": "release/v0.4.0/licenses/types__pako@2.0.4/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1141,
+      "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+    },
+    {
+      "path": "release/v0.4.0/licenses/types__raf@3.4.3/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1141,
+      "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+    },
+    {
+      "path": "release/v0.4.0/licenses/types__trusted-types@2.0.7/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1141,
+      "sha256": "c2cfccb812fe482101a8f04597dfc5a9991a6b2748266c47ac91b6a5aae15383"
+    },
+    {
+      "path": "release/v0.4.0/licenses/unzipper-esm@0.13.3/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1238,
+      "sha256": "ef0a3f70daa7f6ce251efbec2cb563e8abc0899404b69057fbd2b486bf02484e"
+    },
+    {
+      "path": "release/v0.4.0/licenses/utrie@1.0.2/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1061,
+      "sha256": "8b00952cd8d0f5cbbefb13576778e1185dc963943151353d90c4e14a5a4caf40"
+    },
+    {
+      "path": "release/v0.4.0/licenses/worker-f@0.1.20/LICENSE",
+      "role": "third_party_dependency_license_text",
+      "bytes": 1556,
+      "sha256": "cb8bb263d2e2a984279aa6e58b6be70febbb552920bcad148ae6fbe79aa058e9"
+    },
+    {
+      "path": "release/v0.4.0/project-report.schema.json",
+      "role": "reproducible_project_report_schema_v7",
+      "bytes": 49703,
+      "sha256": "05a0268af34ccb272906417077934214b7dbb4acea2e69088c8a108cf7c18e67"
+    },
+    {
+      "path": "release/v0.4.0/templates/beta-tp.csv",
+      "role": "kissinger_peak_import_template",
+      "bytes": 550,
+      "sha256": "d51c167ee73da4f1f2dccc14c3778720b505059121a6aa635469cbdccc5600ba"
+    },
+    {
+      "path": "release/v0.4.0/templates/curve-long.csv",
+      "role": "long_curve_import_template",
+      "bytes": 627,
+      "sha256": "d832cb2c6b64e5ede0ea07092915675a30a49b773dd2ca06fddaa6a339b804c9"
+    },
+    {
+      "path": "release/v0.4.0/templates/supplied-dalpha-dt.txt",
+      "role": "supplied_derivative_import_template",
+      "bytes": 703,
+      "sha256": "9823c3cacdc25c4897e36cc382dd912963567fdaac5d0cc26be4789c9f165272"
+    }
+  ],
+  "generation": {
+    "generator": "scripts/package-v0.4.0-release.mjs",
+    "command": "npm run package:v0.4.0",
+    "sourceArtifact": "dist/index.html",
+    "manifestPath": "release/v0.4.0/MANIFEST.v0.4.0.json",
+    "checksumPath": "release/v0.4.0/SHA256SUMS.v0.4.0.txt",
+    "manifestSelfHashExcluded": true,
+    "checksumSelfHashExcluded": true
+  }
+}
