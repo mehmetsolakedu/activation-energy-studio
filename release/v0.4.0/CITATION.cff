@@ -9,7 +9,10 @@ authors:
     given-names: Mehmet
     affiliation: Biosystems Engineering, Siirt University, Siirt, Türkiye
 version: 0.4.0
+date-released: 2026-09-12
 license: MIT
+repository-code: https://github.com/mehmetsolakedu/activation-energy-studio
+url: https://mehmetsolak.cc/activation-energy-studio/
 abstract: >-
   A local-first browser application for evidence-grounded apparent
   activation-energy analysis of multi-rate thermoanalytical data using FWO,

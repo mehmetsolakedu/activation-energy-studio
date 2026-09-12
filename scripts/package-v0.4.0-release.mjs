@@ -61,10 +61,10 @@ const SOURCE_COPIES = Object.freeze([
 const EXACT_ROLES = Object.freeze({
   '.gitattributes': 'line_ending_integrity_policy',
   [RELEASE_HTML_NAME]: 'offline_single_html_application',
-  'index.html': 'english_candidate_landing_page',
-  'README.md': 'english_candidate_readme',
+  'index.html': 'english_release_landing_page',
+  'README.md': 'english_release_readme',
   'QUICK_START.md': 'english_five_minute_quick_start',
-  'RELEASE_NOTES_v0.4.0.md': 'candidate_release_notes',
+  'RELEASE_NOTES_v0.4.0.md': 'research_preview_release_notes',
   'LICENSE': 'application_license',
   'CITATION.cff': 'software_citation_metadata',
   'THIRD_PARTY_NOTICES.md': 'dataset_and_dependency_attribution',
@@ -218,16 +218,22 @@ const manifest = {
   release: {
     name: 'Activation Energy Studio',
     version: RELEASE_VERSION,
-    status: 'UNRELEASED_AUDIT_CANDIDATE',
+    status: 'RELEASED_RESEARCH_PREVIEW',
     classification: 'RESEARCH_PREVIEW',
-    externalPublicationApproved: false,
+    releaseDate: '2026-09-12',
+    externalPublicationApproved: true,
+    releaseAuthority: 'Mehmet Solak',
+    canonicalRepository:
+      'https://github.com/mehmetsolakedu/activation-energy-studio',
+    canonicalWebApplication:
+      'https://mehmetsolak.cc/activation-energy-studio/',
     artifact: releaseHtml.path,
     bytes: releaseHtml.bytes,
     sha256: releaseHtml.sha256,
   },
   integrityScope: {
     claim:
-      'This manifest binds exact candidate-package bytes. It is not a release, deployment, journal revision, scientific-validity certificate, or human/platform approval.',
+      'This manifest binds exact Research Preview release-package bytes and records the author\'s publication approval. It does not by itself prove deployment at a URL, journal revision, scientific-validity certification, or independent human/platform approval.',
     hashAlgorithm: 'sha256',
     hashInput: 'raw_file_bytes',
     deterministic: true,
@@ -240,6 +246,16 @@ const manifest = {
     reportSchemaSha256: sha256(
       path.resolve(PROJECT_ROOT, 'src/report/project-report.schema.json'),
     ),
+  },
+  auditProvenance: {
+    frozenCandidateCommit: '7ea6575342c822eae609ba3d32a785dcb5a94b6e',
+    frozenCandidateTree: 'a5519de096dbee8cdc884beb77e1cac756946135',
+    frozenCandidateHtmlSha256:
+      '5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e',
+    verdict:
+      'CONDITIONAL PASS — SAFE RESEARCH PREVIEW WITH LISTED LIMITATIONS',
+    promotionScope:
+      'Release-state UI copy, documentation, citation, package metadata, and their tests only; scientific and calculation code is unchanged from the frozen candidate.',
   },
   scientificMethods: {
     isoconversional: ['FWO', 'KAS', 'STARINK', 'FRIEDMAN'],

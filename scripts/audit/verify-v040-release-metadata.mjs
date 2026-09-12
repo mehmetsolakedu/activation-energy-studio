@@ -57,7 +57,7 @@ const releaseCitationPath = path.join(releaseDirectory, 'CITATION.cff');
 const rootCitation = read(rootCitationPath);
 const releaseCitation = read(releaseCitationPath);
 
-check('root and candidate CFF files are byte-identical', () => {
+check('root and released-package CFF files are byte-identical', () => {
   assert.equal(rootCitation, releaseCitation);
 });
 check('CFF identifies Mehmet Solak as the sole author', () => {
@@ -74,10 +74,18 @@ check('CFF identifies Mehmet Solak as the sole author', () => {
   assert.doesNotMatch(rootCitation, /contributors/i);
   assert.doesNotMatch(rootCitation, /orcid/i);
 });
-check('CFF is an unreleased v0.4.0 candidate without a fabricated release date', () => {
+check('CFF identifies the released v0.4.0 Research Preview and canonical URLs', () => {
   assert.match(rootCitation, /^version: 0\.4\.0$/m);
   assert.match(rootCitation, /^  version: 0\.4\.0$/m);
-  assert.doesNotMatch(rootCitation, /^date-released:/m);
+  assert.match(rootCitation, /^date-released: 2026-09-12$/m);
+  assert.match(
+    rootCitation,
+    /^repository-code: https:\/\/github\.com\/mehmetsolakedu\/activation-energy-studio$/m,
+  );
+  assert.match(
+    rootCitation,
+    /^url: https:\/\/mehmetsolak\.cc\/activation-energy-studio\/$/m,
+  );
 });
 
 const rootLicense = read(path.join(projectRoot, 'LICENSE'));
@@ -168,6 +176,13 @@ check('CycloneDX production SBOM covers the inventory exactly', () => {
   assert.equal(sbom.metadata.component.version, '0.4.0');
   assert.equal(sbom.metadata.component.authors.length, 1);
   assert.equal(sbom.metadata.component.authors[0].name, 'Mehmet Solak');
+  assert.ok(
+    sbom.metadata.component.properties.some(
+      ({ name, value }) =>
+        name === 'activation-energy-studio:release-status'
+        && value === 'released-research-preview',
+    ),
+  );
   assert.equal(sbom.components.length, inventory.dependencies.length);
   assert.deepEqual(
     sorted(sbom.components.map((component) => `${component.name}@${component.version}`)),
@@ -199,7 +214,7 @@ check('notices enumerate every production dependency with valid relative links',
   assert.ok(releaseNotice.includes('(SBOM.production.cdx.json)'));
 });
 
-check('complete candidate package remains explicitly unreleased', () => {
+check('complete package is explicitly identified as a released Research Preview', () => {
   const entries = fs.readdirSync(releaseDirectory);
   assert.ok(entries.includes('README.md'));
   assert.ok(entries.includes('RELEASE_NOTES_v0.4.0.md'));
@@ -208,21 +223,23 @@ check('complete candidate package remains explicitly unreleased', () => {
   assert.ok(entries.includes('SHA256SUMS.v0.4.0.txt'));
   assert.match(
     read(path.join(releaseDirectory, 'README.md')),
-    /complete, hash-bound \*\*audit candidate package\*\*/,
+    /complete, hash-bound \*\*v0\.4\.0 Research Preview release\s+package\*\*/,
   );
   assert.match(
     read(path.join(releaseDirectory, 'README.md')),
-    /not\nan externally published release/,
+    /approved for public distribution by Mehmet Solak on 2026-09-12/,
   );
   assert.match(
     read(path.join(releaseDirectory, 'RELEASE_NOTES_v0.4.0.md')),
-    /not externally released/,
+    /released Research Preview; public distribution approved by Mehmet/,
   );
   const manifest = readJson(
     path.join(releaseDirectory, 'MANIFEST.v0.4.0.json'),
   );
-  assert.equal(manifest.release.status, 'UNRELEASED_AUDIT_CANDIDATE');
-  assert.equal(manifest.release.externalPublicationApproved, false);
+  assert.equal(manifest.release.status, 'RELEASED_RESEARCH_PREVIEW');
+  assert.equal(manifest.release.releaseDate, '2026-09-12');
+  assert.equal(manifest.release.externalPublicationApproved, true);
+  assert.equal(manifest.release.releaseAuthority, 'Mehmet Solak');
 });
 
 check('historical v0.3.2 HTML remains byte-identical to the immutable baseline', () => {
@@ -259,7 +276,7 @@ check('production advisory recheck and closure evidence pass', () => {
 const record = {
   schema_version: 'activation-energy-studio/release-metadata-validation/1',
   target_release_version: '0.4.0',
-  release_status: 'unreleased-audit-candidate',
+  release_status: 'released-research-preview',
   result: 'PASS',
   check_count: checks.length,
   checks,
@@ -272,23 +289,23 @@ const record = {
     production_inventory_sha256: sha256(fs.readFileSync(inventoryPath)),
     production_sbom_sha256: sha256(fs.readFileSync(sbomPath)),
     third_party_notices_sha256: sha256(Buffer.from(releaseNotice)),
-    candidate_html_sha256: sha256(fs.readFileSync(path.join(
+    release_html_sha256: sha256(fs.readFileSync(path.join(
       releaseDirectory,
       'Activation-Energy-Studio-v0.4.0.html',
     ))),
-    candidate_manifest_sha256: sha256(fs.readFileSync(path.join(
+    release_manifest_sha256: sha256(fs.readFileSync(path.join(
       releaseDirectory,
       'MANIFEST.v0.4.0.json',
     ))),
-    candidate_checksum_index_sha256: sha256(fs.readFileSync(path.join(
+    release_checksum_index_sha256: sha256(fs.readFileSync(path.join(
       releaseDirectory,
       'SHA256SUMS.v0.4.0.txt',
     ))),
     historical_v0_3_2_html_sha256: sha256(fs.readFileSync(historicalHtml)),
   },
   boundaries: [
-    'The v0.4.0 HTML, manifest, and checksum index form a complete local audit-candidate package; they have not been externally published.',
-    'This validation is not release, deployment, journal, or Zenodo approval.',
+    'The v0.4.0 HTML, manifest, and checksum index form the complete Research Preview release package.',
+    'This validation records package identity and author approval; deployment, journal, and Zenodo states require separate receipts.',
     'Development-dependency licensing is outside this production-only inventory.',
   ],
 };

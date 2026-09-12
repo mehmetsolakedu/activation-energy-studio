@@ -23,7 +23,11 @@
       "properties": [
         {
           "name": "activation-energy-studio:release-status",
-          "value": "unreleased-audit-candidate"
+          "value": "released-research-preview"
+        },
+        {
+          "name": "activation-energy-studio:release-date",
+          "value": "2026-09-12"
         },
         {
           "name": "activation-energy-studio:lockfile-root-version",

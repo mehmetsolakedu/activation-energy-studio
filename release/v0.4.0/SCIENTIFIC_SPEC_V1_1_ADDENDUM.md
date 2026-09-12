@@ -1,7 +1,7 @@
 # Scientific Computation Specification v1.1 Addendum
 
-**Status:** Normative correction contract for the unreleased v0.4.0 audit
-candidate  
+**Status:** Normative correction contract for the released v0.4.0 Research
+Preview
 **Date:** 2026-09-09  
 **Base contract:** source-tree `01_SCIENTIFIC_SPEC_V1.md`, SHA-256
 `d1679dfaf20b6d1ea8e2889abe88c4357fa1854d2172f42eeb90a8af2ad022e4`  
@@ -9,7 +9,7 @@ candidate
 other v1 clauses remain in force.
 
 This addendum must not be used to relabel or reinterpret historical v0.2.0,
-v0.3.x, journal-submission, or Zenodo artifacts. It defines candidate behavior
+v0.3.x, journal-submission, or Zenodo artifacts. It defines v0.4.0 behavior
 only when the software identifies scientific core
 `activation-energy-core/v3` and report schema
 `activation-energy-studio/project-report/v7`.
@@ -30,7 +30,7 @@ that identity requires scientific context.
 
 ## 2. Numerical derivatives on irregular grids
 
-When Friedman uses a numerical derivative, the candidate uses the nonuniform
+When Friedman uses a numerical derivative, v0.4.0 uses the nonuniform
 three-point finite-difference formula at interior observations and the
 corresponding nonuniform three-point one-sided formula at each endpoint. A
 strictly increasing, finite time axis is used when available; otherwise a
@@ -62,7 +62,7 @@ reaches or crosses zero apparent activation energy, the result is
 
 ## 5. Method equations and nonpositive estimates
 
-The exact candidate method definitions are:
+The exact v0.4.0 method definitions are:
 
 - FWO: `ln(beta)` against `1/T_alpha`, with
   `Ea [kJ/mol] = -R*slope/(1.052*1000)`;
@@ -76,7 +76,7 @@ The exact candidate method definitions are:
   `Ea [kJ/mol] = -R*slope/1000`, in its separate peak workflow.
 
 Here `R = 8.31446261815324 J mol^-1 K^-1`; division by 1000 converts
-joules per mole to kilojoules per mole. The candidate retains the versioned
+joules per mole to kilojoules per mole. The release retains the versioned
 Doyle FWO coefficient `1.052` used by the implementation and its locked
 validation fixtures.
 

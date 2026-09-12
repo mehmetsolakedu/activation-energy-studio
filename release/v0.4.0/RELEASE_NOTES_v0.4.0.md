@@ -1,11 +1,24 @@
-# Activation Energy Studio v0.4.0 audit candidate
+# Activation Energy Studio v0.4.0 Research Preview
 
-Status: **complete local candidate package; not externally released**. These
-notes do not constitute a deployment, journal update, Zenodo deposit, or
-publication approval. v0.4.0 is a major corrective candidate because the audit
+Status: **released Research Preview; public distribution approved by Mehmet
+Solak on 2026-09-12**. The canonical repository is
+<https://github.com/mehmetsolakedu/activation-energy-studio> and the canonical
+web entry point is <https://mehmetsolak.cc/activation-energy-studio/>. These
+notes do not by themselves prove deployment, journal update, or Zenodo deposit.
+v0.4.0 is a major corrective release because the audit
 changed scientific refusal rules, numerical calculations, parser behavior,
 report provenance, and dependency closure. The historical v0.3.2 bytes and DOI
 identity must not be relabeled as v0.4.0.
+
+The frozen audit candidate is commit
+`7ea6575342c822eae609ba3d32a785dcb5a94b6e`, tree
+`a5519de096dbee8cdc884beb77e1cac756946135`, with HTML SHA-256
+`5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e`.
+Its verdict was **CONDITIONAL PASS — SAFE RESEARCH PREVIEW WITH LISTED
+LIMITATIONS**. The public-release rebuild changes release-state interface
+wording, documentation, citation and package metadata, and their tests only;
+scientific and calculation code is unchanged from the frozen candidate. The
+public artifact has its own SHA-256 in `MANIFEST.v0.4.0.json`.
 
 ## Scientific and numerical corrections
 
@@ -79,24 +92,25 @@ preprocessing, method, and selected conversion range.
 
 The audit initially identified the moderate-severity DOMPurify advisory
 [GHSA-55q2-fjhq-7xh7](https://github.com/advisories/GHSA-55q2-fjhq-7xh7)
-in the transitive production dependency closure. The candidate now pins
+in the transitive production dependency closure. The release pins
 DOMPurify 3.4.15 through an npm override. A fresh
 `npm audit --omit=dev --json` check against the resulting lockfile reported
 zero production advisories. The pre-fix response, remediation record, and
 post-fix response remain in the audit evidence package. This is a time-bounded
 registry result, not a timeless claim that the software is vulnerability-free.
 
-External release remains blocked until all of the following are true:
+## Release basis and continuing boundaries
 
-1. the independent oracle, synthetic ODE, controlled-noise, real-data,
-   metamorphic, adversarial, mutation, browser, offline, export, and manuscript
-   consistency gates are complete;
-2. no P0 or P1 finding remains open and no critical test is skipped;
-3. the candidate single-file HTML is reproduced from the frozen reviewed
-   source and the manifest/checksums cover every packaged file;
-4. manuscript numbers, figures, method descriptions, and software-version
-   references are regenerated against that same frozen candidate;
-5. Mehmet Solak explicitly approves each external publication, deployment,
-   journal re-upload, or Zenodo action.
+The independent oracle, synthetic ODE, controlled-noise, real-data,
+metamorphic, adversarial, mutation, browser, offline, export, and manuscript
+consistency gates were completed for the frozen candidate. No P0 or P1 finding
+remained open, no critical test was skipped, the package was reproduced and
+hash-bound, and Mehmet Solak explicitly approved public software distribution.
+
+That decision is deliberately limited to a Research Preview. It is not
+independent peer review, cross-platform certification, observed-human
+usability evidence, an instrument-specific metrological validation, journal
+acceptance, or regulatory approval. Each later journal re-upload, Zenodo
+version, or other external record remains a separate author-controlled action.
 
 The historical v0.3.2 artifact remains immutable and separately identifiable.

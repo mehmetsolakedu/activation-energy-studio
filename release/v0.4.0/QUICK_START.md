@@ -1,6 +1,6 @@
 # Activation Energy Studio v0.4.0 — Five-Minute Quick Start
 
-The candidate application is one offline HTML file. It requires no installer
+The Research Preview application is one offline HTML file. It requires no installer
 or server. Open `Activation-Energy-Studio-v0.4.0.html` in a current Chrome,
 Edge, Firefox, or Safari browser.
 
@@ -75,4 +75,4 @@ instrument-specific uncertainty study.
 
 Verify package integrity with `SHA256SUMS.v0.4.0.txt`. Follow `SUPPORT.md` or
 send a reproducible report to
-<mailto:mehmetsolak@siirt.edu.tr?subject=Activation%20Energy%20Studio%20v0.4.0%20candidate%20bug%20report>.
+<mailto:mehmetsolak@siirt.edu.tr?subject=Activation%20Energy%20Studio%20v0.4.0%20bug%20report>.

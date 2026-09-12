@@ -3,7 +3,7 @@
 Activation Energy Studio is an evidence-grounded, offline-first application for
 apparent activation-energy analysis of multi-heating-rate thermoanalytical data.
 
-The unreleased v0.4.0 audit candidate presents a three-step workflow: upload data,
+The released v0.4.0 Research Preview presents a three-step workflow: upload data,
 inspect and explicitly confirm the software interpretation, then calculate and
 download a bounded scientific report. Its user interface and canonical
 documentation use standard technical English. It includes Simple and Expert
@@ -33,22 +33,26 @@ records and their extraction coverage. It also preserves the important unit
 boundary: these are 230 primary PDFs plus one supplementary PDF, not locally
 verified evidence of 231 distinct Q1/Q2 articles.
 
-## Candidate and historical disposition
+## Release and historical disposition
 
-Activation Energy Studio v0.4.0 is a local, unreleased audit candidate. It has
-not been deployed, submitted to the journal, deposited in Zenodo, or approved
-as a public release. The versioned v0.3.2 HTML and its historical records remain
-immutable while this candidate is audited.
+Activation Energy Studio v0.4.0 is the current bounded Research Preview,
+approved for public distribution by Mehmet Solak on 2026-09-12. Its canonical
+repository is <https://github.com/mehmetsolakedu/activation-energy-studio> and
+its canonical web entry point is
+<https://mehmetsolak.cc/activation-energy-studio/>. The versioned v0.3.2 HTML
+and its historical records remain immutable and separately identifiable.
 
-Activation Energy Studio v0.3.2 is **publishable as a bounded Research
-Preview** under the solo-researcher, single-host scope. The authoritative
-verdict is
-`PUBLISHABLE_RESEARCH_PREVIEW_READY_WITH_DECLARED_LIMITATIONS`; the project
-status is `CLOSED_WITH_BOUNDED_CLAIMS`.
+The v0.4.0 release was promoted from frozen candidate commit
+`7ea6575342c822eae609ba3d32a785dcb5a94b6e` after the end-to-end audit verdict
+**CONDITIONAL PASS — SAFE RESEARCH PREVIEW WITH LISTED LIMITATIONS**. Promotion
+changes are confined to release-state interface wording, documentation,
+citation and package metadata, and their tests; scientific and calculation
+code is unchanged from that audited candidate. The manifest records both the
+audited-candidate identity and the exact released bytes.
 
 This decision is supported by the hash-locked release, deterministic scientific
 oracle lanes, real-data reproduction, complete automated verification, static
-offline verification, and a fresh offline macOS/Chrome run of the exact
+offline verification, and a fresh offline macOS/Chrome run of the frozen
 candidate with retained JSON, CSV, PDF, screenshot, HAR, and raw CDP evidence.
 It does not claim independent peer review, Windows/Linux validation,
 cross-platform certification, observed human usability, validated-MVP status,
@@ -76,7 +80,7 @@ npm run close:solo:v0.3.2
 
 `npm run build` produces a self-contained offline HTML application in `dist/`.
 `npm run package:v0.4.0` builds it, verifies the single-HTML offline boundary,
-and writes the local v0.4.0 audit-candidate HTML,
+and writes the v0.4.0 Research Preview HTML,
 manifest, checksum index, English documentation, legal files, and templates to
 `release/v0.4.0/`. The package also includes the exact JSON report schema.
 `npm run package:v0.3.2` and `npm run verify:release-manifest:v0.3.2` are

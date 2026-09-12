@@ -12,12 +12,15 @@ function renderPanel(): Document {
 }
 
 describe('PublishingPanel', () => {
-  it('renders the English v0.3 package and only local relative links', () => {
+  it('renders the released English v0.4 Research Preview and only local relative links', () => {
     const document = renderPanel();
     const panel = document.querySelector('[data-testid="publishing-panel"]');
     const links = [...(panel?.querySelectorAll<HTMLAnchorElement>('a') ?? [])];
 
     expect(panel?.textContent).toContain('Five-minute quick start');
+    expect(panel?.textContent).toContain('v0.4.0 · Research Preview');
+    expect(panel?.textContent).toContain('released Research Preview');
+    expect(panel?.textContent).not.toContain('audit candidate');
     expect(panel?.textContent).toContain('Single-HTML offline edition');
     expect(panel?.textContent).toContain('Exact software citation');
     expect(panel?.textContent).toContain(ACTIVATION_ENERGY_STUDIO_CITATION);

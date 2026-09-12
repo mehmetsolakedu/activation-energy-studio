@@ -273,7 +273,8 @@ const sbom = {
       authors: [{ name: 'Mehmet Solak' }],
       licenses: [{ license: { id: 'MIT' } }],
       properties: [
-        { name: 'activation-energy-studio:release-status', value: 'unreleased-audit-candidate' },
+        { name: 'activation-energy-studio:release-status', value: 'released-research-preview' },
+        { name: 'activation-energy-studio:release-date', value: '2026-09-12' },
         { name: 'activation-energy-studio:lockfile-root-version', value: rootLockEntry.version },
         { name: 'activation-energy-studio:package-lock-sha256', value: sha256(packageLockBytes) },
         {
@@ -407,7 +408,7 @@ fs.writeFileSync(
 const inventoryRecord = {
   schema_version: 'activation-energy-studio/production-dependency-inventory/1',
   target_release_version: targetVersion,
-  release_status: 'unreleased-audit-candidate',
+  release_status: 'released-research-preview',
   package_lock: {
     path: path.relative(projectRoot, packageLockPath).split(path.sep).join('/'),
     root_version: rootLockEntry.version,
@@ -443,7 +444,7 @@ const inventoryRecordPath = path.join(
 writeJson(inventoryRecordPath, inventoryRecord);
 
 const reportLines = [
-  '# Production dependency and license audit: v0.4.0 candidate',
+  '# Production dependency and license audit: v0.4.0 Research Preview',
   '',
   '- Scope: lockfile-defined production package installations only.',
   `- Package-lock SHA-256: \`${inventoryRecord.package_lock.sha256}\`.`,
@@ -453,7 +454,7 @@ const reportLines = [
   `- Dependency coordinates with unresolved metadata: ${inventoryRecord.counts.unresolved_metadata}.`,
   `- npm overrides: ${Object.keys(inventoryRecord.package_json.npm_overrides).length ? Object.entries(inventoryRecord.package_json.npm_overrides).map(([name, version]) => `\`${name}=${version}\``).join(', ') : 'none'}.`,
   '- Development dependencies are outside this production-license inventory and remain auditable from the lockfile.',
-  '- This is metadata evidence for an unreleased candidate; it is not release approval.',
+  '- This is production-dependency metadata for the released Research Preview; it is not a universal security guarantee.',
   '',
   '## Completeness checks',
   '',

@@ -3,15 +3,19 @@
   "release": {
     "name": "Activation Energy Studio",
     "version": "0.4.0",
-    "status": "UNRELEASED_AUDIT_CANDIDATE",
+    "status": "RELEASED_RESEARCH_PREVIEW",
     "classification": "RESEARCH_PREVIEW",
-    "externalPublicationApproved": false,
+    "releaseDate": "2026-09-12",
+    "externalPublicationApproved": true,
+    "releaseAuthority": "Mehmet Solak",
+    "canonicalRepository": "https://github.com/mehmetsolakedu/activation-energy-studio",
+    "canonicalWebApplication": "https://mehmetsolak.cc/activation-energy-studio/",
     "artifact": "release/v0.4.0/Activation-Energy-Studio-v0.4.0.html",
-    "bytes": 2560681,
-    "sha256": "5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e"
+    "bytes": 2560692,
+    "sha256": "a02e6b54ac8897164282034f47b23dedb1d7f75a3d0fbe8e24374c5ecca3ae69"
   },
   "integrityScope": {
-    "claim": "This manifest binds exact candidate-package bytes. It is not a release, deployment, journal revision, scientific-validity certificate, or human/platform approval.",
+    "claim": "This manifest binds exact Research Preview release-package bytes and records the author's publication approval. It does not by itself prove deployment at a URL, journal revision, scientific-validity certification, or independent human/platform approval.",
     "hashAlgorithm": "sha256",
     "hashInput": "raw_file_bytes",
     "deterministic": true,
@@ -20,8 +24,15 @@
   "sourceInputs": {
     "packageJsonSha256": "0bdc3e872cbeed08b72f6a4ca6d73c96e618f69e2c91ba1d6831c75cd973d5ca",
     "packageLockSha256": "240bbfd04f0bb9330515d5189244783ba6aebe794b361334a552b31c2e94060f",
-    "builtArtifactSha256": "5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e",
+    "builtArtifactSha256": "a02e6b54ac8897164282034f47b23dedb1d7f75a3d0fbe8e24374c5ecca3ae69",
     "reportSchemaSha256": "05a0268af34ccb272906417077934214b7dbb4acea2e69088c8a108cf7c18e67"
+  },
+  "auditProvenance": {
+    "frozenCandidateCommit": "7ea6575342c822eae609ba3d32a785dcb5a94b6e",
+    "frozenCandidateTree": "a5519de096dbee8cdc884beb77e1cac756946135",
+    "frozenCandidateHtmlSha256": "5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e",
+    "verdict": "CONDITIONAL PASS — SAFE RESEARCH PREVIEW WITH LISTED LIMITATIONS",
+    "promotionScope": "Release-state UI copy, documentation, citation, package metadata, and their tests only; scientific and calculation code is unchanged from the frozen candidate."
   },
   "scientificMethods": {
     "isoconversional": [
@@ -98,20 +109,20 @@
     {
       "path": "release/v0.4.0/Activation-Energy-Studio-v0.4.0.html",
       "role": "offline_single_html_application",
-      "bytes": 2560681,
-      "sha256": "5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e"
+      "bytes": 2560692,
+      "sha256": "a02e6b54ac8897164282034f47b23dedb1d7f75a3d0fbe8e24374c5ecca3ae69"
     },
     {
       "path": "release/v0.4.0/CHANGELOG.md",
       "role": "project_changelog",
-      "bytes": 3653,
-      "sha256": "b5125bef7e5fe85a48902054e3902d14db22f3355997999cf9cac81b40c609da"
+      "bytes": 5086,
+      "sha256": "48333c89ad2c87908545aa231ceaa3a7bde6ac9829c722088551e780e52d9c8b"
     },
     {
       "path": "release/v0.4.0/CITATION.cff",
       "role": "software_citation_metadata",
-      "bytes": 998,
-      "sha256": "ec3c1e3749658a5c058391f6d80734e41330ebf9e450ffb638a01eecd87f5559"
+      "bytes": 1154,
+      "sha256": "ade2bcbb2c1fc1870240fb4744acf056858bdb0fc5547574bd9bb26ae710e713"
     },
     {
       "path": "release/v0.4.0/LICENSE",
@@ -122,32 +133,32 @@
     {
       "path": "release/v0.4.0/QUICK_START.md",
       "role": "english_five_minute_quick_start",
-      "bytes": 3527,
-      "sha256": "ee5fbb378101dd4113262836f01533e6721fcb08f5102bcdb50d9eaa94e340bc"
+      "bytes": 3522,
+      "sha256": "48416a8ea4b2f486b453ae68c38e46ba49e1ce8cb11fa71469b7298eb3c47eda"
     },
     {
       "path": "release/v0.4.0/README.md",
-      "role": "english_candidate_readme",
-      "bytes": 1364,
-      "sha256": "52cf24812d875ca9954f80a8a17530d7e049aba283c26a35c43bac851656017b"
+      "role": "english_release_readme",
+      "bytes": 1987,
+      "sha256": "fa622ae989a03e52a128d0022fda79342ca0a6a7454074fa02319ea3cc603ffc"
     },
     {
       "path": "release/v0.4.0/RELEASE_NOTES_v0.4.0.md",
-      "role": "candidate_release_notes",
-      "bytes": 5579,
-      "sha256": "d0e11e683341810365205192a478f858501022d9cbe9443bf2200b2f61f80efa"
+      "role": "research_preview_release_notes",
+      "bytes": 6418,
+      "sha256": "a82cc321a21f8d219a5b75602af96b7cf8c3d2e3d726021ca8622f75a773c786"
     },
     {
       "path": "release/v0.4.0/SBOM.production.cdx.json",
       "role": "cyclonedx_production_dependency_sbom",
-      "bytes": 41438,
-      "sha256": "fa8f1b7abada8c58b28a26c16d473f601a374fd263b431dd74431c6bcbd8c58b"
+      "bytes": 41549,
+      "sha256": "8ea724c99944ff2c5015c82009ad2aeeb72a93aa74482852c7b96d94a58bc51b"
     },
     {
       "path": "release/v0.4.0/SCIENTIFIC_SPEC_V1_1_ADDENDUM.md",
       "role": "normative_v0.4.0_scientific_correction_contract",
-      "bytes": 5280,
-      "sha256": "3b8f7a63a430482b937ff106f45021c675865e8975699fb3eb53306e096af402"
+      "bytes": 5262,
+      "sha256": "3b81eed681e4c463e7785de3f967ee017fc7dbd7e9afe4cc41c58c48ae3f2e9c"
     },
     {
       "path": "release/v0.4.0/SUPPORT.md",
@@ -163,9 +174,9 @@
     },
     {
       "path": "release/v0.4.0/index.html",
-      "role": "english_candidate_landing_page",
-      "bytes": 4889,
-      "sha256": "9a800a0534fb54f2c2bfbfd291f9c882df9e0ce5ff96b8967ea4254d0285fab0"
+      "role": "english_release_landing_page",
+      "bytes": 4958,
+      "sha256": "cc2d5fde37411495d07dd336ebbcc98c61ea0a898e921fc9a6f8c565df5dbff7"
     },
     {
       "path": "release/v0.4.0/licenses/babel__runtime@7.29.7/LICENSE",

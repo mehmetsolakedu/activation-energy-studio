@@ -51,11 +51,11 @@ const HISTORICAL_V030_RELEASE = Object.freeze({
 });
 const CURRENT_LOCKS = Object.freeze({
   manifest:
-    'd7a12f61b7642780d851a234f1c5b5f76e1e6a243a6ef16f4bac3df8ae630e09',
+    'dbde6893fa2b58b0e7c6678a4d22499014eb89b7f559868bb63b3e2e534d08c2',
   checksum:
-    '2f85346dcfa6543bdb45374194063a7f04ac4b86264e462bc0093bb514b8ed5a',
+    '89b26c0ab68f7946ede31a9a193ed63af84231506d3656f757357fe35dd3307f',
   artifact:
-    '5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e',
+    'a02e6b54ac8897164282034f47b23dedb1d7f75a3d0fbe8e24374c5ecca3ae69',
 });
 const HISTORICAL_LOCKS = Object.freeze({
   v020Manifest:
@@ -111,7 +111,7 @@ test.after(() => {
   }
 });
 
-test('checked-in v0.4.0 candidate manifest and checksum bind the complete package', () => {
+test('checked-in v0.4.0 Research Preview manifest and checksum bind the complete package', () => {
   const result = verifyReleasePackage({
     projectRoot: PROJECT_ROOT,
     ...CURRENT_RELEASE,
@@ -137,8 +137,18 @@ test('checked-in v0.4.0 candidate manifest and checksum bind the complete packag
     readFileSync(path.resolve(PROJECT_ROOT, CURRENT_RELEASE.manifestPath), 'utf8'),
   );
   assert.equal(manifest.schema, RELEASE_PACKAGE_SCHEMA);
+  assert.equal(manifest.release.status, 'RELEASED_RESEARCH_PREVIEW');
+  assert.equal(manifest.release.classification, 'RESEARCH_PREVIEW');
+  assert.equal(manifest.release.releaseDate, '2026-09-12');
+  assert.equal(manifest.release.externalPublicationApproved, true);
+  assert.equal(manifest.release.releaseAuthority, 'Mehmet Solak');
   assert.equal(manifest.release.bytes, result.artifactBytes);
   assert.equal(manifest.release.sha256, result.artifactSha256);
+  assert.equal(
+    manifest.auditProvenance.frozenCandidateHtmlSha256,
+    '5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e',
+  );
+  assert.match(manifest.auditProvenance.promotionScope, /scientific and calculation code is unchanged/u);
 
   const cli = runVerifier(PROJECT_ROOT, CURRENT_RELEASE);
   assert.equal(cli.status, 0, cli.stdout + cli.stderr);
@@ -289,7 +299,7 @@ test('packager SBOM gate rejects stale lockfile provenance', () => {
   );
 });
 
-test('candidate manifest, schema, runtime, and normative equations share canonical identities and units', () => {
+test('current-release manifest, schema, runtime, and normative equations share canonical identities and units', () => {
   const manifest = JSON.parse(readFileSync(
     path.resolve(PROJECT_ROOT, CURRENT_RELEASE.manifestPath),
     'utf8',

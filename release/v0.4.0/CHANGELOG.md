@@ -3,6 +3,35 @@
 All notable user-facing changes are recorded here. This project follows
 semantic versioning for packaged research-preview artifacts.
 
+## 0.4.0 — 2026-09-12
+
+### Fixed
+
+- Replaced cancellation-prone regression arithmetic with centered,
+  scale-conditioned ordinary least squares and exact Student-t confidence
+  limits; reject nonpositive apparent activation energies and numerically
+  under-resolved inverse-temperature spreads.
+- Added nonuniform three-point derivatives, complete-run Friedman evidence,
+  explicit Kissinger peak-evidence requirements, and fail-closed handling of
+  invalid or ambiguous inputs.
+- Hardened CSV, TSV, TXT, and XLSX ingestion, including bounded OOXML resource
+  handling and rejection of macro-bearing or externally linked workbooks.
+- Bound reports to source identities, analyzed revisions, scientific-core v3,
+  report schema v7, and consistent JSON, CSV, and PDF provenance.
+- Closed the audited production dependency advisory and added a production
+  SBOM, dependency notices, and bundled license texts.
+
+### Released
+
+- Published v0.4.0 as a bounded Research Preview after the frozen end-to-end
+  audit verdict **CONDITIONAL PASS — SAFE RESEARCH PREVIEW WITH LISTED
+  LIMITATIONS**.
+- Limited the post-audit promotion changes to release-state interface wording,
+  documentation, citation and package metadata, and their tests; scientific
+  and calculation code remains identical to frozen candidate commit
+  `7ea6575342c822eae609ba3d32a785dcb5a94b6e`.
+- Retained v0.3.2 and earlier byte-bound artifacts as immutable history.
+
 ## 0.3.2 — 2026-08-01
 
 ### Fixed

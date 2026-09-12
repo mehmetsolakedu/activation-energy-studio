@@ -44,7 +44,7 @@ export function PublishingPanel() {
             {'Move from an example to a scientifically bounded report in five minutes, or retain the offline package locally.'}
           </p>
         </div>
-        <span className="status-pill ok">v0.4.0 · Audit candidate</span>
+        <span className="status-pill ok">v0.4.0 · Research Preview</span>
       </div>
 
       <div className="publishing-panel-body">
@@ -186,7 +186,7 @@ export function PublishingPanel() {
         </div>
 
         <p className="publishing-boundary">
-          {'v0.4.0 is an audit candidate; it is not certified instrument software, does not determine mechanism, and does not present apparent Ea as an immutable material constant.'}
+          {'v0.4.0 is a released Research Preview; it is not certified instrument software, does not determine mechanism, and does not present apparent Ea as an immutable material constant.'}
         </p>
       </div>
     </section>
