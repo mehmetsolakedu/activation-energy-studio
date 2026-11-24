@@ -72,7 +72,8 @@ export type DiagnosticCode =
   | "OVERLAPPING_PEAKS"
   | "NONPOSITIVE_APPARENT_EA"
   | "MULTISTEP_EA_VARIATION"
-  | "POSSIBLE_MULTISTEP_EA_VARIATION";
+  | "POSSIBLE_MULTISTEP_EA_VARIATION"
+  | "INTEGRAL_METHOD_VARIABLE_EA_BIAS";
 
 export interface Diagnostic {
   readonly code: DiagnosticCode;

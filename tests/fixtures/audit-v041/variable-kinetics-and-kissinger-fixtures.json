@@ -1,0 +1,1719 @@
+{
+  "schema": "activation-energy-studio/variable-kinetics-and-kissinger-validation/v1",
+  "independentKissingerDecimal50": {
+    "description": "Independent 5-rate Kissinger peak benchmark with coordinates distinct from KAS",
+    "heatingRatesKPerMinute": [
+      "2",
+      "5",
+      "10",
+      "20",
+      "40"
+    ],
+    "peakTemperaturesK": [
+      "582.40",
+      "601.85",
+      "617.30",
+      "633.65",
+      "650.90"
+    ],
+    "n": 5,
+    "residualDegreesOfFreedom": 3,
+    "slope": "-15355.881027743018996",
+    "intercept": "14.325542457270003",
+    "r2": "0.999997500100225",
+    "slopeStandardError": "14.017673912274609",
+    "activationEnergyKJPerMol": "127.675898773977888",
+    "confidence95KJPerMol": [
+      "127.304986484691080",
+      "128.046811063264695"
+    ]
+  },
+  "scenarios": {
+    "singleStepControl": {
+      "name": "single-step-control",
+      "description": "Single-step first-order ODE control (Ea = 120 kJ/mol, A = 1e10 min^-1); expects REPORTABLE with no variation warning.",
+      "alphaGrid": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85
+      ],
+      "heatingRatesKPerMinute": [
+        5.0,
+        10.0,
+        20.0,
+        40.0
+      ],
+      "runs": [
+        {
+          "id": "single-step-control-beta-5",
+          "heatingRateKPerMinute": 5.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 529.002970925728,
+              "dAlphaDtPerMinute": 0.0134571727383813
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 542.353677813429,
+              "dAlphaDtPerMinute": 0.02495426949854048
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 550.710921348654,
+              "dAlphaDtPerMinute": 0.03529429753897031
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 556.983270254226,
+              "dAlphaDtPerMinute": 0.04462193149859776
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 562.110047598436,
+              "dAlphaDtPerMinute": 0.05298569339561222
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 566.520056364801,
+              "dAlphaDtPerMinute": 0.06039462502426016
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 570.448279139183,
+              "dAlphaDtPerMinute": 0.06683489115267933
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 574.039987852483,
+              "dAlphaDtPerMinute": 0.07227554141890985
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 577.393856116297,
+              "dAlphaDtPerMinute": 0.07667047806734152
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 580.582714599742,
+              "dAlphaDtPerMinute": 0.07995778524752827
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 583.665104313247,
+              "dAlphaDtPerMinute": 0.08205754560793393
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 586.692683072458,
+              "dAlphaDtPerMinute": 0.08286749314900908
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 589.716162644028,
+              "dAlphaDtPerMinute": 0.08225599249979201
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 592.791586816179,
+              "dAlphaDtPerMinute": 0.0800504683412131
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 595.989303355758,
+              "dAlphaDtPerMinute": 0.07601774625127836
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 599.410391603265,
+              "dAlphaDtPerMinute": 0.06982807664917161
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 603.224030087371,
+              "dAlphaDtPerMinute": 0.06098197287652149
+            }
+          ]
+        },
+        {
+          "id": "single-step-control-beta-10",
+          "heatingRateKPerMinute": 10.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 541.84721171751,
+              "dAlphaDtPerMinute": 0.02569351402912745
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 555.839768230721,
+              "dAlphaDtPerMinute": 0.04759370624401629
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 564.606420714799,
+              "dAlphaDtPerMinute": 0.0672696743883526
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 571.18987958059,
+              "dAlphaDtPerMinute": 0.08500528989263202
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 576.573383870539,
+              "dAlphaDtPerMinute": 0.1008971451650131
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 581.205996774754,
+              "dAlphaDtPerMinute": 0.1149652216768828
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 585.333853707247,
+              "dAlphaDtPerMinute": 0.1271849829343625
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 589.109235942447,
+              "dAlphaDtPerMinute": 0.1374992673076817
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 592.63557765779,
+              "dAlphaDtPerMinute": 0.1458215830883579
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 595.989296964906,
+              "dAlphaDtPerMinute": 0.1520354530228601
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 599.23184350879,
+              "dAlphaDtPerMinute": 0.155990019862674
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 602.41750093073,
+              "dAlphaDtPerMinute": 0.1574920594297062
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 605.599603481265,
+              "dAlphaDtPerMinute": 0.1562925907808117
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 608.837157876122,
+              "dAlphaDtPerMinute": 0.1520650758247682
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 612.204278285175,
+              "dAlphaDtPerMinute": 0.1443680827781467
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 615.807546242084,
+              "dAlphaDtPerMinute": 0.1325773752327699
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 619.825410841245,
+              "dAlphaDtPerMinute": 0.1157472485579018
+            }
+          ]
+        },
+        {
+          "id": "single-step-control-beta-20",
+          "heatingRateKPerMinute": 20.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 555.308679636592,
+              "dAlphaDtPerMinute": 0.04900560640524403
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 569.989411299074,
+              "dAlphaDtPerMinute": 0.09067480327514942
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 579.195567160321,
+              "dAlphaDtPerMinute": 0.1280717899707586
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 586.113293465042,
+              "dAlphaDtPerMinute": 0.1617532741712248
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 591.772827913611,
+              "dAlphaDtPerMinute": 0.1919113982832988
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 596.644900254892,
+              "dAlphaDtPerMinute": 0.2185894460390744
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 600.987630458269,
+              "dAlphaDtPerMinute": 0.2417446724325929
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 604.960775461445,
+              "dAlphaDtPerMinute": 0.2612715008719289
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 608.672904564565,
+              "dAlphaDtPerMinute": 0.2770082716427864
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 612.204275460618,
+              "dAlphaDtPerMinute": 0.2887361341507816
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 615.619468220922,
+              "dAlphaDtPerMinute": 0.2961708288410826
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 618.97559191475,
+              "dAlphaDtPerMinute": 0.2989478262897515
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 622.3288106322,
+              "dAlphaDtPerMinute": 0.2965969302030447
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 625.74131859119,
+              "dAlphaDtPerMinute": 0.288501065776309
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 629.291317863681,
+              "dAlphaDtPerMinute": 0.2738259371364219
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 633.09132396659,
+              "dAlphaDtPerMinute": 0.2513913345662407
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 637.329826539212,
+              "dAlphaDtPerMinute": 0.2194093414166604
+            }
+          ]
+        },
+        {
+          "id": "single-step-control-beta-40",
+          "heatingRateKPerMinute": 40.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 569.431899382672,
+              "dAlphaDtPerMinute": 0.09336866695483304
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 584.851610690173,
+              "dAlphaDtPerMinute": 0.172558059153555
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 594.5303252005,
+              "dAlphaDtPerMinute": 0.2435483065952177
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 601.807804013807,
+              "dAlphaDtPerMinute": 0.3074308597379828
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 607.764607583791,
+              "dAlphaDtPerMinute": 0.3645870740386531
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 612.894714569301,
+              "dAlphaDtPerMinute": 0.415109840744794
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 617.469103562058,
+              "dAlphaDtPerMinute": 0.4589257499563534
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 621.655563377654,
+              "dAlphaDtPerMinute": 0.4958405963789125
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 625.56816993079,
+              "dAlphaDtPerMinute": 0.5255527296903052
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 629.291312952964,
+              "dAlphaDtPerMinute": 0.5476517762577359
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 632.892951179175,
+              "dAlphaDtPerMinute": 0.5616031965210606
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 636.433230844544,
+              "dAlphaDtPerMinute": 0.5667202169365478
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 639.97137431473,
+              "dAlphaDtPerMinute": 0.5621163252811474
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 643.573029378565,
+              "dAlphaDtPerMinute": 0.5466273283940563
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 647.320813220886,
+              "dAlphaDtPerMinute": 0.5186785990034308
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 651.333680956629,
+              "dAlphaDtPerMinute": 0.4760423053177247
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 655.811001835918,
+              "dAlphaDtPerMinute": 0.4153432089018367
+            }
+          ]
+        }
+      ]
+    },
+    "parallelModerateVariation": {
+      "name": "parallel-moderate-variation",
+      "description": "Two parallel first-order reactions (w1=0.5, E1=108 kJ/mol, A1=5e9 min^-1; w2=0.5, E2=126 kJ/mol, A2=5e10 min^-1); expects POSSIBLE_MULTISTEP_EA_VARIATION (10-20%) on all four methods and INTEGRAL_METHOD_VARIABLE_EA_BIAS on integral methods only.",
+      "alphaGrid": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85
+      ],
+      "heatingRatesKPerMinute": [
+        5.0,
+        10.0,
+        20.0,
+        40.0
+      ],
+      "runs": [
+        {
+          "id": "parallel-moderate-variation-beta-5",
+          "heatingRateKPerMinute": 5.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 500.028832886669,
+              "dAlphaDtPerMinute": 0.01360066168407499
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 513.336721598113,
+              "dAlphaDtPerMinute": 0.02480497231432465
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 521.814141701973,
+              "dAlphaDtPerMinute": 0.03446471404520057
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 528.296702902807,
+              "dAlphaDtPerMinute": 0.04273708012198457
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 533.70440299838,
+              "dAlphaDtPerMinute": 0.04967830833985196
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 538.461634568523,
+              "dAlphaDtPerMinute": 0.05530750423552162
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 542.805689231027,
+              "dAlphaDtPerMinute": 0.05962871975896446
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 546.88849298921,
+              "dAlphaDtPerMinute": 0.0626437667300546
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 550.818886478973,
+              "dAlphaDtPerMinute": 0.06436395000917242
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 554.683095677226,
+              "dAlphaDtPerMinute": 0.06482409145906415
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 558.555723231123,
+              "dAlphaDtPerMinute": 0.06410085210148098
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 562.505638185527,
+              "dAlphaDtPerMinute": 0.06233442530829441
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 566.598116995703,
+              "dAlphaDtPerMinute": 0.0597445369362531
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 570.893790368197,
+              "dAlphaDtPerMinute": 0.05661401025020983
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 575.447319104148,
+              "dAlphaDtPerMinute": 0.05318861158530411
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 580.317102675931,
+              "dAlphaDtPerMinute": 0.04945232435924915
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 585.611308767542,
+              "dAlphaDtPerMinute": 0.04483102851559063
+            }
+          ]
+        },
+        {
+          "id": "parallel-moderate-variation-beta-10",
+          "heatingRateKPerMinute": 10.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 512.522716589262,
+              "dAlphaDtPerMinute": 0.02599883380493425
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 526.444823030945,
+              "dAlphaDtPerMinute": 0.04743414370338248
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 535.307259445139,
+              "dAlphaDtPerMinute": 0.06597272327387076
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 542.075745099799,
+              "dAlphaDtPerMinute": 0.0819295844440314
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 547.712235423743,
+              "dAlphaDtPerMinute": 0.09542366935247325
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 552.65972693463,
+              "dAlphaDtPerMinute": 0.1065009254659592
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 557.164975154538,
+              "dAlphaDtPerMinute": 0.1151758327231061
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 561.384872594876,
+              "dAlphaDtPerMinute": 0.1214535496084649
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 565.430580040359,
+              "dAlphaDtPerMinute": 0.1253476967146256
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 569.388961652881,
+              "dAlphaDtPerMinute": 0.1268995634181953
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 573.334300280096,
+              "dAlphaDtPerMinute": 0.1262013066419538
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 577.335250853109,
+              "dAlphaDtPerMinute": 0.1234221578608662
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 581.45902240965,
+              "dAlphaDtPerMinute": 0.1188285653683014
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 585.773851985613,
+              "dAlphaDtPerMinute": 0.1127702117221987
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 590.351843198267,
+              "dAlphaDtPerMinute": 0.1055728977190027
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 595.279486547894,
+              "dAlphaDtPerMinute": 0.09726150460533084
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 600.696786412944,
+              "dAlphaDtPerMinute": 0.08708115195865698
+            }
+          ]
+        },
+        {
+          "id": "parallel-moderate-variation-beta-20",
+          "heatingRateKPerMinute": 20.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 525.611859193192,
+              "dAlphaDtPerMinute": 0.04965691903247821
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 540.188922731258,
+              "dAlphaDtPerMinute": 0.09062993209770298
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 549.461854448238,
+              "dAlphaDtPerMinute": 0.1261755797327664
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 556.535179065846,
+              "dAlphaDtPerMinute": 0.1569207184931597
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 562.415708989802,
+              "dAlphaDtPerMinute": 0.1831107649655436
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 567.566504944955,
+              "dAlphaDtPerMinute": 0.2048475431278929
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 572.244704488799,
+              "dAlphaDtPerMinute": 0.2221671563356917
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 576.612868475517,
+              "dAlphaDtPerMinute": 0.2350784942271542
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 580.785186375901,
+              "dAlphaDtPerMinute": 0.2435906840926987
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 584.849901773025,
+              "dAlphaDtPerMinute": 0.2477387467938348
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 588.881741104855,
+              "dAlphaDtPerMinute": 0.2476121005061093
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 592.949695452177,
+              "dAlphaDtPerMinute": 0.243384268399503
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 597.122603484178,
+              "dAlphaDtPerMinute": 0.2353358994330333
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 601.474021117911,
+              "dAlphaDtPerMinute": 0.2238393553036351
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 606.088521460744,
+              "dAlphaDtPerMinute": 0.2092427188486388
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 611.075085071225,
+              "dAlphaDtPerMinute": 0.1915361807164875
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 616.605560616685,
+              "dAlphaDtPerMinute": 0.1696586364647978
+            }
+          ]
+        },
+        {
+          "id": "parallel-moderate-variation-beta-40",
+          "heatingRateKPerMinute": 40.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 539.337061334352,
+              "dAlphaDtPerMinute": 0.09475903964231948
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 554.613585809092,
+              "dAlphaDtPerMinute": 0.173004725855331
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 564.324971680126,
+              "dAlphaDtPerMinute": 0.2410891480478665
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 571.724011406918,
+              "dAlphaDtPerMinute": 0.3002516208356518
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 577.865568168402,
+              "dAlphaDtPerMinute": 0.3509891392265042
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 583.234315376288,
+              "dAlphaDtPerMinute": 0.3935156443649001
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 588.098741436514,
+              "dAlphaDtPerMinute": 0.4279089043204047
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 592.627821632756,
+              "dAlphaDtPerMinute": 0.4541782744221987
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 596.939444778023,
+              "dAlphaDtPerMinute": 0.4723075812905145
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 601.123903512411,
+              "dAlphaDtPerMinute": 0.4822889374234987
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 605.257036069005,
+              "dAlphaDtPerMinute": 0.4841556512693394
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 609.40866822261,
+              "dAlphaDtPerMinute": 0.4780132630665732
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 613.649175894249,
+              "dAlphaDtPerMinute": 0.4640581456490862
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 618.056027015159,
+              "dAlphaDtPerMinute": 0.4425541564188266
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 622.722675755359,
+              "dAlphaDtPerMinute": 0.4136917240965672
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 627.775337338564,
+              "dAlphaDtPerMinute": 0.3771798725657319
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 633.414510147123,
+              "dAlphaDtPerMinute": 0.3312895227722068
+            }
+          ]
+        }
+      ]
+    },
+    "parallelStrongVariation": {
+      "name": "parallel-strong-variation",
+      "description": "Two parallel first-order reactions (w1=0.5, E1=80 kJ/mol, A1=1e7 min^-1; w2=0.5, E2=160 kJ/mol, A2=1e13 min^-1); expects MULTISTEP_EA_VARIATION (>20%), INTEGRAL_METHOD_VARIABLE_EA_BIAS on integral methods, and meanEaRecommended=false.",
+      "alphaGrid": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85
+      ],
+      "heatingRatesKPerMinute": [
+        5.0,
+        10.0,
+        20.0,
+        40.0
+      ],
+      "runs": [
+        {
+          "id": "parallel-strong-variation-beta-5",
+          "heatingRateKPerMinute": 5.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 484.420827620057,
+              "dAlphaDtPerMinute": 0.01067231761302028
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 501.642274762197,
+              "dAlphaDtPerMinute": 0.01883064041343688
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 512.982043139185,
+              "dAlphaDtPerMinute": 0.02531682120499998
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 521.965233098019,
+              "dAlphaDtPerMinute": 0.03022472374192297
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 529.782006840042,
+              "dAlphaDtPerMinute": 0.03352289895315372
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 537.03663808883,
+              "dAlphaDtPerMinute": 0.03511704713571277
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 544.147924321689,
+              "dAlphaDtPerMinute": 0.03487735161283938
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 551.514406355919,
+              "dAlphaDtPerMinute": 0.03269492945173885
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 559.635529983283,
+              "dAlphaDtPerMinute": 0.02870515356669666
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 569.14087082838,
+              "dAlphaDtPerMinute": 0.02418460424990793
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 579.909594594399,
+              "dAlphaDtPerMinute": 0.02332623196885279
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 589.695567861258,
+              "dAlphaDtPerMinute": 0.02875870062301268
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 597.40573125927,
+              "dAlphaDtPerMinute": 0.03641087749128249
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 603.68445411202,
+              "dAlphaDtPerMinute": 0.04312999717767806
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 609.166474727047,
+              "dAlphaDtPerMinute": 0.04774986589617074
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 614.274635123528,
+              "dAlphaDtPerMinute": 0.04964135680115146
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 619.355779384179,
+              "dAlphaDtPerMinute": 0.04813336331627922
+            }
+          ]
+        },
+        {
+          "id": "parallel-strong-variation-beta-10",
+          "heatingRateKPerMinute": 10.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 500.294797839924,
+              "dAlphaDtPerMinute": 0.02009151219211422
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 518.59366971712,
+              "dAlphaDtPerMinute": 0.03544824010349121
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 530.633760152927,
+              "dAlphaDtPerMinute": 0.04773551512915825
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 540.147804741545,
+              "dAlphaDtPerMinute": 0.05719152299377499
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 548.386161295027,
+              "dAlphaDtPerMinute": 0.0638448540068842
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 555.965231203248,
+              "dAlphaDtPerMinute": 0.06765785861162169
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 563.278178792486,
+              "dAlphaDtPerMinute": 0.06861795646999809
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 570.635550178195,
+              "dAlphaDtPerMinute": 0.06689507395636171
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 578.311396851249,
+              "dAlphaDtPerMinute": 0.06320315689098388
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 586.480587485123,
+              "dAlphaDtPerMinute": 0.05950484023775765
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 594.959415789843,
+              "dAlphaDtPerMinute": 0.0593421991058538
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 603.059703707043,
+              "dAlphaDtPerMinute": 0.06517089850950697
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 610.220903074368,
+              "dAlphaDtPerMinute": 0.07505291362303444
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 616.461466982638,
+              "dAlphaDtPerMinute": 0.08516563182998722
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 622.068876371929,
+              "dAlphaDtPerMinute": 0.09266653585398604
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 627.354200567087,
+              "dAlphaDtPerMinute": 0.09566887646297807
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 632.63592988411,
+              "dAlphaDtPerMinute": 0.09249836336410798
+            }
+          ]
+        },
+        {
+          "id": "parallel-strong-variation-beta-20",
+          "heatingRateKPerMinute": 20.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 517.168207187152,
+              "dAlphaDtPerMinute": 0.03779913685363916
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 536.612977459339,
+              "dAlphaDtPerMinute": 0.06678259193646052
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 549.374545584378,
+              "dAlphaDtPerMinute": 0.09027000010724465
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 559.407209224416,
+              "dAlphaDtPerMinute": 0.1088735679002056
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 568.020074192481,
+              "dAlphaDtPerMinute": 0.1228703605577722
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 575.833981944549,
+              "dAlphaDtPerMinute": 0.1325028204765664
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 583.207514549666,
+              "dAlphaDtPerMinute": 0.1381634328837232
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 590.370566643102,
+              "dAlphaDtPerMinute": 0.1406114874177432
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 597.462918241014,
+              "dAlphaDtPerMinute": 0.1412369958939964
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 604.525823370383,
+              "dAlphaDtPerMinute": 0.1422033212402378
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 611.481684403248,
+              "dAlphaDtPerMinute": 0.1459862917659512
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 618.166136590357,
+              "dAlphaDtPerMinute": 0.1539920077770828
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 624.439444296775,
+              "dAlphaDtPerMinute": 0.1653055416711635
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 630.279916609449,
+              "dAlphaDtPerMinute": 0.1770464293875225
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 635.782713265165,
+              "dAlphaDtPerMinute": 0.1856559595201874
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 641.120854379267,
+              "dAlphaDtPerMinute": 0.187610062014337
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 646.54311190033,
+              "dAlphaDtPerMinute": 0.1792457646625854
+            }
+          ]
+        },
+        {
+          "id": "parallel-strong-variation-beta-40",
+          "heatingRateKPerMinute": 40.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 535.111613126991,
+              "dAlphaDtPerMinute": 0.07112637933682857
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 555.748014274222,
+              "dAlphaDtPerMinute": 0.126156488449115
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 569.216888042052,
+              "dAlphaDtPerMinute": 0.1717538992748533
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 579.710394226211,
+              "dAlphaDtPerMinute": 0.2094498440630794
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 588.598546145388,
+              "dAlphaDtPerMinute": 0.2402078799035849
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 596.508746840022,
+              "dAlphaDtPerMinute": 0.264955099919943
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 603.778516917694,
+              "dAlphaDtPerMinute": 0.284794782271882
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 610.602097483156,
+              "dAlphaDtPerMinute": 0.3010973044744299
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 617.089023786857,
+              "dAlphaDtPerMinute": 0.3154494869709061
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 623.293435310883,
+              "dAlphaDtPerMinute": 0.3293960699009395
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 629.235923013324,
+              "dAlphaDtPerMinute": 0.3439712162476615
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 634.925790224323,
+              "dAlphaDtPerMinute": 0.3591801256795938
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 640.382241045219,
+              "dAlphaDtPerMinute": 0.3736963772028931
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 645.649760396394,
+              "dAlphaDtPerMinute": 0.3849005783400344
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 650.807595854398,
+              "dAlphaDtPerMinute": 0.3891023750025008
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 655.981555145958,
+              "dAlphaDtPerMinute": 0.3816315422414319
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 661.376968767031,
+              "dAlphaDtPerMinute": 0.3564669017645012
+            }
+          ]
+        }
+      ]
+    },
+    "consecutiveStrongVariation": {
+      "name": "consecutive-strong-variation",
+      "description": "Two consecutive first-order reactions A->B->C (w1=0.5, E1=80 kJ/mol, A1=1e7 min^-1; w2=0.5, E2=160 kJ/mol, A2=1e13 min^-1); expects MULTISTEP_EA_VARIATION (>20%) and INTEGRAL_METHOD_VARIABLE_EA_BIAS on integral methods.",
+      "alphaGrid": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6,
+        0.65,
+        0.7,
+        0.75,
+        0.8,
+        0.85
+      ],
+      "heatingRatesKPerMinute": [
+        5.0,
+        10.0,
+        20.0,
+        40.0
+      ],
+      "runs": [
+        {
+          "id": "consecutive-strong-variation-beta-5",
+          "heatingRateKPerMinute": 5.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 484.449321818844,
+              "dAlphaDtPerMinute": 0.01065816242537297
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 501.705038346784,
+              "dAlphaDtPerMinute": 0.01877723424931427
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 513.086856688153,
+              "dAlphaDtPerMinute": 0.02519730720111496
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 522.122930416566,
+              "dAlphaDtPerMinute": 0.03000803469611287
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 530.0083390426,
+              "dAlphaDtPerMinute": 0.03317205908913103
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 537.355663579381,
+              "dAlphaDtPerMinute": 0.03458796313756644
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 544.598639762949,
+              "dAlphaDtPerMinute": 0.03412059154487367
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 552.163890665211,
+              "dAlphaDtPerMinute": 0.03167224970954225
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 560.599417120197,
+              "dAlphaDtPerMinute": 0.02747595723109681
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 570.540372490427,
+              "dAlphaDtPerMinute": 0.02325202690367523
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 581.458331981125,
+              "dAlphaDtPerMinute": 0.02373881949879994
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 590.889103950348,
+              "dAlphaDtPerMinute": 0.0301561320874892
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 598.25503834449,
+              "dAlphaDtPerMinute": 0.03795588210073043
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 604.30736830393,
+              "dAlphaDtPerMinute": 0.04452574653038642
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 609.638543763656,
+              "dAlphaDtPerMinute": 0.04891985864375994
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 614.639312860852,
+              "dAlphaDtPerMinute": 0.05056951923934159
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 619.638572727776,
+              "dAlphaDtPerMinute": 0.04882009043779167
+            }
+          ]
+        },
+        {
+          "id": "consecutive-strong-variation-beta-10",
+          "heatingRateKPerMinute": 10.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 500.351728291406,
+              "dAlphaDtPerMinute": 0.02004152503954007
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 518.718750719151,
+              "dAlphaDtPerMinute": 0.03526118902807771
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 530.841738160411,
+              "dAlphaDtPerMinute": 0.04732076027387904
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 540.458567931845,
+              "dAlphaDtPerMinute": 0.05644879702413968
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 548.827293215117,
+              "dAlphaDtPerMinute": 0.06266384038198683
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 556.575849681928,
+              "dAlphaDtPerMinute": 0.06592552406705571
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 564.114354723706,
+              "dAlphaDtPerMinute": 0.06624796151673935
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 571.774753031286,
+              "dAlphaDtPerMinute": 0.0639200672922977
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 579.839447886656,
+              "dAlphaDtPerMinute": 0.06002162217318045
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 588.404269115177,
+              "dAlphaDtPerMinute": 0.05728599205662489
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 597.037623260263,
+              "dAlphaDtPerMinute": 0.05966387027655012
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 604.924316377008,
+              "dAlphaDtPerMinute": 0.0681305021495191
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 611.724395156967,
+              "dAlphaDtPerMinute": 0.0793230084719559
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 617.638200457247,
+              "dAlphaDtPerMinute": 0.0896048606381339
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 622.98962808638,
+              "dAlphaDtPerMinute": 0.0966763801497931
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 628.077137227865,
+              "dAlphaDtPerMinute": 0.09898084164175287
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 633.201413870973,
+              "dAlphaDtPerMinute": 0.09500266121528723
+            }
+          ]
+        },
+        {
+          "id": "consecutive-strong-variation-beta-20",
+          "heatingRateKPerMinute": 20.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 517.281796512226,
+              "dAlphaDtPerMinute": 0.0376236764896446
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 536.8612571551,
+              "dAlphaDtPerMinute": 0.06613373441988499
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 549.784066690964,
+              "dAlphaDtPerMinute": 0.08885221771657296
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 560.011729139777,
+              "dAlphaDtPerMinute": 0.1063862372960352
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 568.862366937819,
+              "dAlphaDtPerMinute": 0.1190309229659275
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 576.966860241562,
+              "dAlphaDtPerMinute": 0.1271120150801791
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 584.69132548176,
+              "dAlphaDtPerMinute": 0.1312497378502022
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 592.260140758332,
+              "dAlphaDtPerMinute": 0.1327002237775511
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 599.772338523624,
+              "dAlphaDtPerMinute": 0.1337020181363093
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 607.171392411065,
+              "dAlphaDtPerMinute": 0.1373076179966629
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 614.257953484913,
+              "dAlphaDtPerMinute": 0.1459198500067779
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 620.827466180819,
+              "dAlphaDtPerMinute": 0.1593390418098934
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 626.818290267183,
+              "dAlphaDtPerMinute": 0.1747775169997599
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 632.316536753449,
+              "dAlphaDtPerMinute": 0.1885845815141315
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 637.484450668617,
+              "dAlphaDtPerMinute": 0.1973990478980844
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 642.519882105984,
+              "dAlphaDtPerMinute": 0.1982038832187395
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 647.67341248406,
+              "dAlphaDtPerMinute": 0.1877989956782552
+            }
+          ]
+        },
+        {
+          "id": "consecutive-strong-variation-beta-40",
+          "heatingRateKPerMinute": 40.0,
+          "points": [
+            {
+              "alpha": 0.05,
+              "temperatureK": 535.337560909811,
+              "dAlphaDtPerMinute": 0.070515357007061
+            },
+            {
+              "alpha": 0.1,
+              "temperatureK": 556.237175650866,
+              "dAlphaDtPerMinute": 0.1239377590239902
+            },
+            {
+              "alpha": 0.15,
+              "temperatureK": 570.012465306686,
+              "dAlphaDtPerMinute": 0.1670211188286785
+            },
+            {
+              "alpha": 0.2,
+              "temperatureK": 580.861050306162,
+              "dAlphaDtPerMinute": 0.2014194614045218
+            },
+            {
+              "alpha": 0.25,
+              "temperatureK": 590.155577258524,
+              "dAlphaDtPerMinute": 0.2283748080715588
+            },
+            {
+              "alpha": 0.3,
+              "temperatureK": 598.518930671204,
+              "dAlphaDtPerMinute": 0.2493633856073099
+            },
+            {
+              "alpha": 0.35,
+              "temperatureK": 606.270338408561,
+              "dAlphaDtPerMinute": 0.2664019912035396
+            },
+            {
+              "alpha": 0.4,
+              "temperatureK": 613.565216896906,
+              "dAlphaDtPerMinute": 0.2820871152450074
+            },
+            {
+              "alpha": 0.45,
+              "temperatureK": 620.454086487126,
+              "dAlphaDtPerMinute": 0.2991607245179945
+            },
+            {
+              "alpha": 0.5,
+              "temperatureK": 626.928093247989,
+              "dAlphaDtPerMinute": 0.319545097250249
+            },
+            {
+              "alpha": 0.55,
+              "temperatureK": 632.969053102486,
+              "dAlphaDtPerMinute": 0.3433540423901473
+            },
+            {
+              "alpha": 0.6,
+              "temperatureK": 638.589324225775,
+              "dAlphaDtPerMinute": 0.3686546773041088
+            },
+            {
+              "alpha": 0.65,
+              "temperatureK": 643.844729142902,
+              "dAlphaDtPerMinute": 0.3920677215042612
+            },
+            {
+              "alpha": 0.7,
+              "temperatureK": 648.827118535024,
+              "dAlphaDtPerMinute": 0.4095464749442292
+            },
+            {
+              "alpha": 0.75,
+              "temperatureK": 653.655818364731,
+              "dAlphaDtPerMinute": 0.4167746083065033
+            },
+            {
+              "alpha": 0.8,
+              "temperatureK": 658.48252008529,
+              "dAlphaDtPerMinute": 0.4090525231703523
+            },
+            {
+              "alpha": 0.85,
+              "temperatureK": 663.52424338248,
+              "dAlphaDtPerMinute": 0.3806430504581298
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "diagnosticSummary": {
+    "singleStepControl": {
+      "FWO": {
+        "min": 122.454,
+        "max": 123.635,
+        "mean": 123.173,
+        "relRange": 0.00959
+      },
+      "KAS": {
+        "min": 119.609,
+        "max": 119.697,
+        "mean": 119.644,
+        "relRange": 0.00074
+      },
+      "STARINK": {
+        "min": 119.931,
+        "max": 119.966,
+        "mean": 119.946,
+        "relRange": 0.00029
+      },
+      "FRIEDMAN": {
+        "min": 120.0,
+        "max": 120.0,
+        "mean": 120.0,
+        "relRange": 0.0
+      }
+    },
+    "parallelModerateVariation": {
+      "FWO": {
+        "min": 112.754,
+        "max": 127.53,
+        "mean": 118.442,
+        "relRange": 0.12475
+      },
+      "KAS": {
+        "min": 109.985,
+        "max": 124.037,
+        "mean": 115.108,
+        "relRange": 0.12208
+      },
+      "STARINK": {
+        "min": 110.242,
+        "max": 124.342,
+        "mean": 115.395,
+        "relRange": 0.12219
+      },
+      "FRIEDMAN": {
+        "min": 110.733,
+        "max": 129.683,
+        "mean": 119.551,
+        "relRange": 0.15851
+      }
+    },
+    "parallelStrongVariation": {
+      "FWO": {
+        "min": 84.039,
+        "max": 160.295,
+        "mean": 114.018,
+        "relRange": 0.66881
+      },
+      "KAS": {
+        "min": 79.947,
+        "max": 157.989,
+        "mean": 110.216,
+        "relRange": 0.70809
+      },
+      "STARINK": {
+        "min": 80.221,
+        "max": 158.288,
+        "mean": 110.517,
+        "relRange": 0.70638
+      },
+      "FRIEDMAN": {
+        "min": 80.641,
+        "max": 173.945,
+        "mean": 126.064,
+        "relRange": 0.74013
+      }
+    },
+    "consecutiveStrongVariation": {
+      "FWO": {
+        "min": 83.757,
+        "max": 154.063,
+        "mean": 110.16,
+        "relRange": 0.63822
+      },
+      "KAS": {
+        "min": 79.648,
+        "max": 151.414,
+        "mean": 106.134,
+        "relRange": 0.67618
+      },
+      "STARINK": {
+        "min": 79.922,
+        "max": 151.719,
+        "mean": 106.439,
+        "relRange": 0.67453
+      },
+      "FRIEDMAN": {
+        "min": 80.064,
+        "max": 164.765,
+        "mean": 121.775,
+        "relRange": 0.69555
+      }
+    }
+  }
+}

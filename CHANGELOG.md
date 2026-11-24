@@ -3,6 +3,20 @@
 All notable user-facing changes are recorded here. This project follows
 semantic versioning for packaged research-preview artifacts.
 
+## 0.4.1 — 2026-11-23
+
+### Changed and Verified
+
+- Enforced interval-based unreliability screening (`ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE`) so any apparent activation-energy estimate whose two-sided 95% Student-t confidence interval reaches or crosses zero is classified as `CALCULATED_UNRELIABLE` even when pointwise `R^2` exceeds the configured threshold.
+- Added the `INTEGRAL_METHOD_VARIABLE_EA_BIAS` diagnostic warning to cumulative integral methods (FWO, KAS, and Starink, excluding differential Friedman) whenever relative profile variation reaches 10% or more (`POSSIBLE_MULTISTEP_EA_VARIATION` or `MULTISTEP_EA_VARIATION`), advising differential or incremental small-interval cross-checks in accordance with ICTAC guidance.
+- Improved CSS wrapping for long diagnostic identifiers inside the Scientific Decision Summary (`src/styles.css`).
+- Added an independent five-rate Kissinger Decimal(50) benchmark (`df = 3`) and five independent fourth-order Runge-Kutta (RK4) variable-kinetics ODE and confidence-interval boundary scenarios (`scripts/generate-variable-kinetics-ode-fixture.py`, `tests/disposition-variable-kinetics-v041.test.ts`, `tests/revision-v041-parity.test.ts`).
+- Recorded cross-engine offline browser verification on macOS (`darwin arm64`) across Google Chrome 158.0.8127.37, Mozilla Firefox 159.0, and WebKit 27.2 (`docs/verification-v0.4.1/`, `scripts/run-cross-browser-v0.4.1.mjs`).
+
+### Preserved
+
+- Retained `release/v0.4.0/`, `release/v0.3.2/` (Zenodo DOI `10.5281/zenodo.21921403`), and all earlier byte-bound release packages as immutable historical records.
+
 ## 0.4.0 — 2026-09-12
 
 ### Fixed

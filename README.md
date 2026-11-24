@@ -3,7 +3,7 @@
 Activation Energy Studio is an evidence-grounded, offline-first application for
 apparent activation-energy analysis of multi-heating-rate thermoanalytical data.
 
-The released v0.4.0 Research Preview presents a three-step workflow: upload data,
+The released v0.4.1 Research Preview presents a guided offline workflow: upload data,
 inspect and explicitly confirm the software interpretation, then calculate and
 download a bounded scientific report. Its user interface and canonical
 documentation use standard technical English. It includes Simple and Expert
@@ -35,12 +35,12 @@ verified evidence of 231 distinct Q1/Q2 articles.
 
 ## Release and historical disposition
 
-Activation Energy Studio v0.4.0 is the current bounded Research Preview,
-approved for public distribution by Mehmet Solak on 2026-09-12. Its canonical
+Activation Energy Studio v0.4.1 is the current bounded Research Preview,
+approved for public distribution by Mehmet Solak on 2026-11-23 (`release/v0.4.1/Activation-Energy-Studio-v0.4.1.html`, 2,562,747 bytes, SHA-256 `553457455a666d288025ca2c3a44e091d11847d9a894fbc32eb2aa14c2bd98e2`). Version 0.4.1 adds interval-based non-positive 95% confidence-interval unreliability screening (`ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE`), ICTAC-aligned cumulative integral variable-Ea bias warnings (`INTEGRAL_METHOD_VARIABLE_EA_BIAS`), five RK4 variable-kinetics ODE and CI boundary verification scenarios (`tests/disposition-variable-kinetics-v041.test.ts`), an independent five-rate Kissinger Decimal(50) benchmark, and macOS cross-browser verification logs (`docs/verification-v0.4.1/`). Its canonical
 repository is <https://github.com/mehmetsolakedu/activation-energy-studio> and
 its canonical web entry point is
-<https://mehmetsolak.cc/activation-energy-studio/>. The versioned v0.3.2 HTML
-and its historical records remain immutable and separately identifiable.
+<https://mehmetsolak.cc/activation-energy-studio/>. The versioned v0.4.0 and v0.3.2 HTML packages (including Zenodo record <https://doi.org/10.5281/zenodo.21921403>)
+and their historical records remain immutable and separately identifiable.
 
 The v0.4.0 release was promoted from frozen candidate commit
 `7ea6575342c822eae609ba3d32a785dcb5a94b6e` after the end-to-end audit verdict
@@ -73,16 +73,17 @@ and its hash-bound full-check receipt.
 npm ci
 npm run dev
 npm test
-npm run package:v0.4.0
+npm run package:v0.4.1
+npm run verify:release-manifest:v0.4.0
 npm run verify:release-manifest:v0.3.2
 npm run close:solo:v0.3.2
 ```
 
 `npm run build` produces a self-contained offline HTML application in `dist/`.
-`npm run package:v0.4.0` builds it, verifies the single-HTML offline boundary,
-and writes the v0.4.0 Research Preview HTML,
+`npm run package:v0.4.1` builds it, verifies the single-HTML offline boundary,
+and writes the v0.4.1 Research Preview HTML,
 manifest, checksum index, English documentation, legal files, and templates to
-`release/v0.4.0/`. The package also includes the exact JSON report schema.
+`release/v0.4.1/`. `npm run verify:release-manifest:v0.4.0` verifies the immutable v0.4.0 package. The package also includes the exact JSON report schema.
 `npm run package:v0.3.2` and `npm run verify:release-manifest:v0.3.2` are
 read-only aliases that verify the immutable historical v0.3.2 package; they do
 not rebuild or overwrite it.

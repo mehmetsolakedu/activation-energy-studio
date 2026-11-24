@@ -1,0 +1,119 @@
+{
+  "htmlPath": "release/v0.4.1/Activation-Energy-Studio-v0.4.1.html",
+  "htmlSha256": "553457455a666d288025ca2c3a44e091d11847d9a894fbc32eb2aa14c2bd98e2",
+  "executedAt": "2026-11-23T16:13:18.276Z",
+  "os": "darwin arm64",
+  "allExternalRequestsZero": true,
+  "allConsoleErrorsZero": true,
+  "oakCanonicalJsonIdenticalAcrossEngines": false,
+  "oakCsvIdenticalAcrossEngines": false,
+  "rhubarbCanonicalJsonIdenticalAcrossEngines": false,
+  "rhubarbCsvIdenticalAcrossEngines": false,
+  "runs": [
+    {
+      "label": "macos_chrome",
+      "browserVersion": "158.0.8127.37",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/158.0.0.0 Safari/537.36",
+      "externalRequestCount": 0,
+      "externalRequests": [],
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "selfTestStatus": "PASS",
+      "directXlsxUpload": {
+        "hasFilename": true,
+        "hasSheetName": false
+      },
+      "oak": {
+        "appVersion": "0.4.1",
+        "resultCount": 51,
+        "dispositions": {
+          "REPORTABLE_WITH_CAUTION": 51
+        },
+        "canonicalJsonSha256": "866528db3fdf662c9f94112689d8d099b514f6e07ce555d1fbd9b5f1b2c75273",
+        "csvSha256": "f2f3c814adf012e903e17e7c867149397f2edb69ab2f01a82339c6139b820957",
+        "pdfBytes": 372770
+      },
+      "rhubarb": {
+        "appVersion": "0.4.1",
+        "resultCount": 16,
+        "dispositions": {
+          "CALCULATED_UNRELIABLE": 13,
+          "REPORTABLE_WITH_CAUTION": 3
+        },
+        "canonicalJsonSha256": "7ab7ff83c1efef5d9988347bd29f0df16273c2a16492a187ee44db3ae6687ea4",
+        "csvSha256": "101e6f4ae2f5e5d0dbbab5823763ae2e48a6949f4e54bb861a9f66e1a1ed28e9",
+        "pdfBytes": 133674
+      }
+    },
+    {
+      "label": "macos_firefox",
+      "browserVersion": "159.0",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10.15; rv:159.0) Gecko/20100101 Firefox/159.0",
+      "externalRequestCount": 0,
+      "externalRequests": [],
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "selfTestStatus": "PASS",
+      "directXlsxUpload": {
+        "hasFilename": true,
+        "hasSheetName": false
+      },
+      "oak": {
+        "appVersion": "0.4.1",
+        "resultCount": 51,
+        "dispositions": {
+          "REPORTABLE_WITH_CAUTION": 51
+        },
+        "canonicalJsonSha256": "5d8bb5e2ff490715a42a7ed89e70bf4f75a8b64df7a7013a61cfeb39b3eac8c5",
+        "csvSha256": "2248b955f0ad2e0a424163acb3c6d7ee5c89588a7ded316a26676148eaddcb6c",
+        "pdfBytes": 372775
+      },
+      "rhubarb": {
+        "appVersion": "0.4.1",
+        "resultCount": 16,
+        "dispositions": {
+          "CALCULATED_UNRELIABLE": 13,
+          "REPORTABLE_WITH_CAUTION": 3
+        },
+        "canonicalJsonSha256": "de8c740fd9a3d33b4dd1d35a01214bcce2918cd4cee2652045175c4cf2d6d2ef",
+        "csvSha256": "5b11b0912df1eb3080055d9138dd540dce95ba13d5b8040f57eeedcb25a1b10a",
+        "pdfBytes": 133678
+      }
+    },
+    {
+      "label": "macos_webkit",
+      "browserVersion": "27.2",
+      "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/27.2 Safari/605.1.15",
+      "externalRequestCount": 0,
+      "externalRequests": [],
+      "consoleErrorCount": 0,
+      "consoleErrors": [],
+      "selfTestStatus": "PASS",
+      "directXlsxUpload": {
+        "hasFilename": true,
+        "hasSheetName": false
+      },
+      "oak": {
+        "appVersion": "0.4.1",
+        "resultCount": 51,
+        "dispositions": {
+          "REPORTABLE_WITH_CAUTION": 51
+        },
+        "canonicalJsonSha256": "866528db3fdf662c9f94112689d8d099b514f6e07ce555d1fbd9b5f1b2c75273",
+        "csvSha256": "f2f3c814adf012e903e17e7c867149397f2edb69ab2f01a82339c6139b820957",
+        "pdfBytes": 372770
+      },
+      "rhubarb": {
+        "appVersion": "0.4.1",
+        "resultCount": 16,
+        "dispositions": {
+          "CALCULATED_UNRELIABLE": 13,
+          "REPORTABLE_WITH_CAUTION": 3
+        },
+        "canonicalJsonSha256": "7ab7ff83c1efef5d9988347bd29f0df16273c2a16492a187ee44db3ae6687ea4",
+        "csvSha256": "101e6f4ae2f5e5d0dbbab5823763ae2e48a6949f4e54bb861a9f66e1a1ed28e9",
+        "pdfBytes": 133674
+      }
+    }
+  ]
+}

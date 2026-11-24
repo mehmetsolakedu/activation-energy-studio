@@ -289,6 +289,25 @@ function appendEaVariationWarning(
       ),
     );
   }
+  if (relativeRange >= 0.1 && method !== "FRIEDMAN") {
+    warnings.push(
+      diagnostic(
+        "warning",
+        "INTEGRAL_METHOD_VARIABLE_EA_BIAS",
+        `${method} integrates from 0 to alpha assuming constant E(alpha); when E(alpha) varies by >=10%, integral estimates can carry systematic error. Following ICTAC recommendations, compare with Friedman or incremental small-Delta-alpha integration.`,
+        {
+          method,
+          details: {
+            relativeRange,
+            variationWarning:
+              relativeRange > 0.2
+                ? "MULTISTEP_EA_VARIATION"
+                : "POSSIBLE_MULTISTEP_EA_VARIATION",
+          },
+        },
+      ),
+    );
+  }
 }
 
 function calculateIntegralMethod(

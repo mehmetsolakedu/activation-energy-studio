@@ -42,7 +42,7 @@ function sorted(values) {
 
 export function verifyProductionSbom({
   projectRoot,
-  sbomPath = 'release/v0.4.0/SBOM.production.cdx.json',
+  sbomPath = 'release/v0.4.1/SBOM.production.cdx.json',
 }) {
   const resolvedRoot = path.resolve(projectRoot);
   const packageJsonPath = path.resolve(resolvedRoot, 'package.json');

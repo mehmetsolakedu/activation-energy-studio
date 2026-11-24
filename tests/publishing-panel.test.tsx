@@ -18,8 +18,8 @@ describe('PublishingPanel', () => {
     const links = [...(panel?.querySelectorAll<HTMLAnchorElement>('a') ?? [])];
 
     expect(panel?.textContent).toContain('Five-minute quick start');
-    expect(panel?.textContent).toContain('v0.4.0 · Research Preview');
-    expect(panel?.textContent).toContain('released Research Preview');
+    expect(panel?.textContent).toContain('v0.4.1 · Research preview');
+    expect(panel?.textContent).toContain('v0.4.1 is a research preview');
     expect(panel?.textContent).not.toContain('audit candidate');
     expect(panel?.textContent).toContain('Single-HTML offline edition');
     expect(panel?.textContent).toContain('Exact software citation');

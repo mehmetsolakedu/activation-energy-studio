@@ -1,0 +1,1539 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://activation-energy-studio.local/schema/project-report-v7.json",
+  "title": "Activation Energy Studio reproducible project report v7",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "application",
+    "generatedAt",
+    "context",
+    "scientificBoundary",
+    "reproducibility",
+    "analysis",
+    "results",
+    "traceability"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "activation-energy-studio/project-report/v7"
+    },
+    "application": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version", "calculationLocation"],
+      "properties": {
+        "name": { "const": "Activation Energy Studio" },
+        "version": { "type": "string", "minLength": 1 },
+        "calculationLocation": { "const": "local-browser" }
+      }
+    },
+    "generatedAt": {
+      "type": "string",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}(?:\\.[0-9]{3})?Z$"
+    },
+    "context": { "$ref": "#/$defs/context" },
+    "scientificBoundary": { "$ref": "#/$defs/scientificBoundary" },
+    "reproducibility": { "$ref": "#/$defs/reproducibility" },
+    "analysis": { "$ref": "#/$defs/analysis" },
+    "results": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/result" }
+    },
+    "traceability": { "$ref": "#/$defs/traceability" }
+  },
+  "$defs": {
+    "method": {
+      "enum": ["FWO", "KAS", "STARINK", "FRIEDMAN", "KISSINGER"]
+    },
+    "status": {
+      "enum": ["success", "partial", "refused"]
+    },
+    "scientificDisposition": {
+      "enum": [
+        "REPORTABLE",
+        "REPORTABLE_WITH_CAUTION",
+        "CALCULATED_UNRELIABLE",
+        "CALCULATION_REJECTED"
+      ]
+    },
+    "nullableNumber": {
+      "type": ["number", "null"]
+    },
+    "sourceFileId": {
+      "type": "string",
+      "pattern": "^sha256:[0-9a-f]{64}$"
+    },
+    "regressionCiBoundary": {
+      "type": "string",
+      "allOf": [
+        { "pattern": "Regression-only uncertainty" },
+        { "pattern": "regression scatter only" },
+        { "pattern": "calibration uncertainty" },
+        { "pattern": "anchor uncertainty" },
+        { "pattern": "baseline uncertainty" },
+        { "pattern": "derivative-method uncertainty" }
+      ]
+    },
+    "context": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["projectName", "sourceFiles", "licensedSourceProvenance"],
+      "properties": {
+        "projectName": { "type": "string" },
+        "sample": { "type": "string" },
+        "process": { "type": "string" },
+        "atmosphere": { "type": "string" },
+        "stage": { "type": "string" },
+        "analystNote": { "type": "string" },
+        "licensedSourceProvenance": {
+          "anyOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/licensedSourceProvenance" }
+          ]
+        },
+        "sourceFiles": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["sourceFileId", "name", "sizeBytes", "sha256"],
+            "properties": {
+              "sourceFileId": { "$ref": "#/$defs/sourceFileId" },
+              "name": { "type": "string", "minLength": 1 },
+              "sizeBytes": { "type": "integer", "minimum": 0 },
+              "sha256": { "type": "string", "pattern": "^[a-fA-F0-9]{64}$" }
+            }
+          }
+        }
+      }
+    },
+    "licensedSourceProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "kind",
+        "exampleId",
+        "citation",
+        "license",
+        "sourceType",
+        "extractionSteps",
+        "transformationSteps",
+        "printedPrecision",
+        "rounding",
+        "separateDatasetLicense",
+        "claimLimits"
+      ],
+      "properties": {
+        "kind": { "const": "licensed-example" },
+        "exampleId": { "type": "string", "minLength": 1 },
+        "citation": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["label", "doi", "url"],
+          "properties": {
+            "label": { "type": "string", "minLength": 1 },
+            "doi": { "type": "string", "minLength": 1 },
+            "url": { "type": "string", "minLength": 1 }
+          }
+        },
+        "license": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["identifier", "name", "url", "scope"],
+          "properties": {
+            "identifier": { "type": "string", "minLength": 1 },
+            "name": { "type": "string", "minLength": 1 },
+            "url": { "type": "string", "minLength": 1 },
+            "scope": { "type": "string", "minLength": 1 }
+          }
+        },
+        "sourceType": {
+          "enum": [
+            "deposited-raw-instrument-data",
+            "official-supplement-derived-table",
+            "article-figure-transcription"
+          ]
+        },
+        "extractionSteps": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "transformationSteps": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "printedPrecision": { "type": "string", "minLength": 1 },
+        "rounding": { "type": "string", "minLength": 1 },
+        "separateDatasetLicense": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["exists", "identifier", "scope"],
+          "properties": {
+            "exists": { "type": "boolean" },
+            "identifier": { "type": ["string", "null"] },
+            "scope": { "type": "string", "minLength": 1 }
+          }
+        },
+        "claimLimits": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "scientificBoundary": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "quantity",
+        "statement",
+        "regressionConfidenceInterval",
+        "contextLabels"
+      ],
+      "properties": {
+        "quantity": { "const": "apparent activation energy" },
+        "statement": {
+          "type": "string",
+          "allOf": [
+            { "pattern": "apparent activation energies" },
+            { "pattern": "not universal material constants" },
+            { "pattern": "do not prove a single-step mechanism" }
+          ]
+        },
+        "regressionConfidenceInterval": { "$ref": "#/$defs/regressionCiBoundary" },
+        "contextLabels": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sample", "process", "stage", "atmosphere", "methods"],
+          "properties": {
+            "sample": { "type": "string", "minLength": 1 },
+            "process": { "type": "string", "minLength": 1 },
+            "stage": { "type": "string", "minLength": 1 },
+            "atmosphere": { "type": "string", "minLength": 1 },
+            "methods": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/method" },
+              "uniqueItems": true
+            }
+          }
+        }
+      }
+    },
+    "reproducibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "coreMathVersion",
+        "formulaSetVersion",
+        "volatileFields",
+        "canonicalUnits",
+        "configuration",
+        "inputTables",
+        "preprocessing",
+        "alphaGrid",
+        "commonAlphaRange",
+        "temperatureAtAlphaMatrix",
+        "formulas"
+      ],
+      "properties": {
+        "coreMathVersion": { "const": "activation-energy-core/v3" },
+        "formulaSetVersion": { "const": "activation-energy-formulas/v1" },
+        "volatileFields": {
+          "const": ["generatedAt"]
+        },
+        "canonicalUnits": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "temperature",
+            "heatingRate",
+            "time",
+            "alpha",
+            "activationEnergy",
+            "derivative"
+          ],
+          "properties": {
+            "temperature": { "const": "K" },
+            "heatingRate": { "const": "K/min" },
+            "time": { "const": "min" },
+            "alpha": { "const": "fraction" },
+            "activationEnergy": { "const": "kJ/mol" },
+            "derivative": { "const": "1/min" }
+          }
+        },
+        "configuration": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "alphaGrid",
+            "selectedMethods",
+            "includeKissinger",
+            "minR2Warning",
+            "stageWindowCelsius"
+          ],
+          "properties": {
+            "alphaGrid": { "$ref": "#/$defs/alphaGrid" },
+            "selectedMethods": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/method" },
+              "uniqueItems": true
+            },
+            "includeKissinger": { "type": "boolean" },
+            "minR2Warning": { "type": "number", "minimum": 0, "maximum": 1 },
+            "stageWindowCelsius": {
+              "oneOf": [
+                { "type": "null" },
+                {
+                  "type": "array",
+                  "minItems": 2,
+                  "maxItems": 2,
+                  "items": { "type": "number" }
+                }
+              ]
+            }
+          }
+        },
+        "inputTables": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/inputTable" }
+        },
+        "preprocessing": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "temperatureOrdering",
+            "alphaInterpolation",
+            "smoothing",
+            "derivativeSources",
+            "massNormalization",
+            "wideSeriesFiles"
+          ],
+          "properties": {
+            "temperatureOrdering": { "const": "ascending" },
+            "alphaInterpolation": { "const": "piecewise-linear" },
+            "smoothing": { "const": "none" },
+            "derivativeSources": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "additionalProperties": false,
+                "required": ["runId", "source"],
+                "properties": {
+                  "runId": { "type": "string", "minLength": 1 },
+                  "source": {
+                    "enum": ["provided", "time", "temperature", "unavailable"]
+                  }
+                }
+              }
+            },
+            "massNormalization": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/massNormalization" }
+            },
+            "wideSeriesFiles": {
+              "type": "array",
+              "items": { "$ref": "#/$defs/wideSeriesFileAudit" }
+            }
+          }
+        },
+        "alphaGrid": { "$ref": "#/$defs/alphaGrid" },
+        "commonAlphaRange": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          ]
+        },
+        "temperatureAtAlphaMatrix": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["alpha", "temperatures"],
+            "properties": {
+              "alpha": { "type": "number", "minimum": 0, "maximum": 1 },
+              "temperatures": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "additionalProperties": false,
+                  "required": ["runId", "temperatureK"],
+                  "properties": {
+                    "runId": { "type": "string", "minLength": 1 },
+                    "temperatureK": { "type": "number", "exclusiveMinimum": 0 }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "formulas": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "method",
+              "formulaId",
+              "logBase",
+              "approximationConstants",
+              "modelEquation",
+              "xTransform",
+              "yTransform",
+              "energyFromSlope"
+            ],
+            "properties": {
+              "method": { "$ref": "#/$defs/method" },
+              "formulaId": { "type": "string", "minLength": 1 },
+              "logBase": { "const": "natural" },
+              "approximationConstants": {
+                "type": "object",
+                "minProperties": 1,
+                "additionalProperties": { "type": "number" }
+              },
+              "modelEquation": { "type": "string", "minLength": 1 },
+              "xTransform": { "type": "string", "minLength": 1 },
+              "yTransform": { "type": "string", "minLength": 1 },
+              "energyFromSlope": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "wideTemperatureColumn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["columnIndex", "unit"],
+      "properties": {
+        "columnIndex": { "type": "integer", "minimum": 0 },
+        "unit": { "enum": ["K", "C"] }
+      }
+    },
+    "wideAlphaReference": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["initialValue", "finalValue", "source"],
+      "properties": {
+        "initialValue": { "type": "number" },
+        "finalValue": { "type": "number" },
+        "source": { "const": "manual" }
+      }
+    },
+    "wideSeriesDefinition": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seriesId",
+        "runId",
+        "temperature",
+        "signal",
+        "derivative",
+        "heatingRate",
+        "context"
+      ],
+      "properties": {
+        "seriesId": { "type": "string", "minLength": 1 },
+        "runId": { "type": "string", "minLength": 1 },
+        "temperature": { "$ref": "#/$defs/wideTemperatureColumn" },
+        "signal": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["kind", "columnIndex", "unit", "alphaReference"],
+          "properties": {
+            "kind": { "enum": ["alpha", "mass", "massPercent"] },
+            "columnIndex": { "type": "integer", "minimum": 0 },
+            "unit": { "enum": ["fraction", "%", "mg", "g"] },
+            "alphaReference": {
+              "oneOf": [
+                { "type": "null" },
+                { "$ref": "#/$defs/wideAlphaReference" }
+              ]
+            }
+          },
+          "allOf": [
+            {
+              "if": { "properties": { "kind": { "const": "alpha" } } },
+              "then": {
+                "properties": {
+                  "unit": { "enum": ["fraction", "%"] },
+                  "alphaReference": { "type": "null" }
+                }
+              }
+            },
+            {
+              "if": { "properties": { "kind": { "const": "mass" } } },
+              "then": {
+                "properties": {
+                  "unit": { "enum": ["mg", "g"] },
+                  "alphaReference": { "$ref": "#/$defs/wideAlphaReference" }
+                }
+              }
+            },
+            {
+              "if": { "properties": { "kind": { "const": "massPercent" } } },
+              "then": {
+                "properties": {
+                  "unit": { "enum": ["fraction", "%"] },
+                  "alphaReference": { "$ref": "#/$defs/wideAlphaReference" }
+                }
+              }
+            }
+          ]
+        },
+        "derivative": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "semantic",
+                "semanticSource",
+                "valueColumnIndex",
+                "unit",
+                "temperatureColumn",
+                "canonicalOutput",
+                "canonicalConversionFormula"
+              ],
+              "properties": {
+                "semantic": {
+                  "enum": ["dAlphaDt", "massLossRate", "massChangeRate"]
+                },
+                "semanticSource": { "const": "manual" },
+                "valueColumnIndex": { "type": "integer", "minimum": 0 },
+                "unit": {
+                  "enum": [
+                    "min^-1",
+                    "s^-1",
+                    "%/min",
+                    "%/s",
+                    "mg/min",
+                    "mg/s",
+                    "g/min",
+                    "g/s",
+                    "fraction/min",
+                    "fraction/s"
+                  ]
+                },
+                "temperatureColumn": {
+                  "oneOf": [
+                    { "type": "null" },
+                    { "$ref": "#/$defs/wideTemperatureColumn" }
+                  ]
+                },
+                "canonicalOutput": { "const": "dAlphaDtPerMinute" },
+                "canonicalConversionFormula": {
+                  "type": "string",
+                  "minLength": 1
+                }
+              },
+              "allOf": [
+                {
+                  "if": {
+                    "properties": { "semantic": { "const": "dAlphaDt" } }
+                  },
+                  "then": {
+                    "properties": {
+                      "unit": {
+                        "enum": ["min^-1", "s^-1", "%/min", "%/s"]
+                      }
+                    }
+                  }
+                },
+                {
+                  "if": {
+                    "properties": {
+                      "semantic": {
+                        "enum": ["massLossRate", "massChangeRate"]
+                      }
+                    }
+                  },
+                  "then": {
+                    "properties": {
+                      "unit": {
+                        "enum": [
+                          "mg/min",
+                          "mg/s",
+                          "g/min",
+                          "g/s",
+                          "%/min",
+                          "%/s",
+                          "fraction/min",
+                          "fraction/s"
+                        ]
+                      }
+                    }
+                  }
+                }
+              ]
+            }
+          ]
+        },
+        "heatingRate": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value", "unit", "canonicalKPerMinute", "source"],
+          "properties": {
+            "value": { "type": "number", "exclusiveMinimum": 0 },
+            "unit": { "enum": ["K/min", "K/s", "C/min", "C/s"] },
+            "canonicalKPerMinute": {
+              "type": "number",
+              "exclusiveMinimum": 0
+            },
+            "source": { "const": "manual" }
+          }
+        },
+        "context": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sample", "atmosphere", "stage", "source"],
+          "properties": {
+            "sample": { "type": "string", "minLength": 1 },
+            "atmosphere": { "type": "string", "minLength": 1 },
+            "stage": { "type": "string", "minLength": 1 },
+            "source": { "const": "manual" }
+          }
+        }
+      },
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "signal": {
+                "type": "object",
+                "properties": { "kind": { "const": "alpha" } }
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "derivative": {
+                "oneOf": [
+                  { "type": "null" },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "semantic": { "const": "dAlphaDt" }
+                    }
+                  }
+                ]
+              }
+            }
+          }
+        }
+      ]
+    },
+    "wideSeriesBranch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seriesId",
+        "runId",
+        "sourceObservationCount",
+        "selectedObservationCount",
+        "startSourceRow",
+        "endSourceRow",
+        "targetAlphaRange",
+        "selectedAlphaRange"
+      ],
+      "properties": {
+        "seriesId": { "type": "string", "minLength": 1 },
+        "runId": { "type": "string", "minLength": 1 },
+        "sourceObservationCount": { "type": "integer", "minimum": 1 },
+        "selectedObservationCount": { "type": "integer", "minimum": 1 },
+        "startSourceRow": { "type": "integer", "minimum": 1 },
+        "endSourceRow": { "type": "integer", "minimum": 1 },
+        "targetAlphaRange": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "selectedAlphaRange": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" }
+        }
+      }
+    },
+    "wideExcludedColumn": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "columnIndex",
+        "sourceHeader",
+        "populatedRowCount",
+        "firstSourceRow",
+        "lastSourceRow"
+      ],
+      "properties": {
+        "columnIndex": { "type": "integer", "minimum": 0 },
+        "sourceHeader": { "type": "string" },
+        "populatedRowCount": { "type": "integer", "minimum": 1 },
+        "firstSourceRow": { "type": "integer", "minimum": 1 },
+        "lastSourceRow": { "type": "integer", "minimum": 1 }
+      }
+    },
+    "wideProjectedPointAudit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "seriesId",
+        "runId",
+        "alpha",
+        "sourceRows",
+        "derivativeSourceRows"
+      ],
+      "properties": {
+        "seriesId": { "type": "string", "minLength": 1 },
+        "runId": { "type": "string", "minLength": 1 },
+        "alpha": { "type": "number", "minimum": 0, "maximum": 1 },
+        "sourceRows": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": { "type": "integer", "minimum": 1 },
+          "uniqueItems": true
+        },
+        "derivativeSourceRows": {
+          "type": "array",
+          "maxItems": 2,
+          "items": { "type": "integer", "minimum": 1 },
+          "uniqueItems": true
+        }
+      }
+    },
+    "wideSeriesFileAudit": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "layout",
+        "source",
+        "headerRow",
+        "headerSourceRow",
+        "headers",
+        "decimalSeparator",
+        "alphaGrid",
+        "series",
+        "rawObservationCount",
+        "projectedPointCount",
+        "branches",
+        "excludedPopulatedColumns",
+        "scopeConfirmed",
+        "points"
+      ],
+      "properties": {
+        "layout": { "const": "wide-series" },
+        "source": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["sourceFileId", "fileName", "fileType", "sheetName"],
+          "properties": {
+            "sourceFileId": {
+              "anyOf": [
+                { "type": "null" },
+                { "$ref": "#/$defs/sourceFileId" }
+              ]
+            },
+            "fileName": { "type": "string", "minLength": 1 },
+            "fileType": { "enum": ["csv", "tsv", "txt", "xlsx", "table"] },
+            "sheetName": { "type": ["string", "null"] }
+          }
+        },
+        "headerRow": { "type": "integer", "minimum": 0 },
+        "headerSourceRow": { "type": "integer", "minimum": 1 },
+        "headers": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string" }
+        },
+        "decimalSeparator": { "enum": [".", ","] },
+        "alphaGrid": { "$ref": "#/$defs/alphaGrid" },
+        "series": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/wideSeriesDefinition" }
+        },
+        "rawObservationCount": { "type": "integer", "minimum": 1 },
+        "projectedPointCount": { "type": "integer", "minimum": 1 },
+        "branches": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/wideSeriesBranch" }
+        },
+        "excludedPopulatedColumns": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/wideExcludedColumn" }
+        },
+        "scopeConfirmed": { "const": true },
+        "points": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/wideProjectedPointAudit" }
+        }
+      }
+    },
+    "alphaGrid": {
+      "type": "array",
+      "items": { "type": "number", "minimum": 0, "maximum": 1 },
+      "uniqueItems": true
+    },
+    "provenanceColumnMapping": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "role",
+        "sourceColumnIndex",
+        "sourceHeader",
+        "sourceUnit",
+        "confidence"
+      ],
+      "properties": {
+        "role": {
+          "enum": [
+            "temperature",
+            "time",
+            "mass",
+            "massPercent",
+            "alpha",
+            "dAlphaDt",
+            "heatingRate",
+            "run",
+            "sample",
+            "atmosphere",
+            "stage",
+            "peakResolved",
+            "peakQuality",
+            "peakSourceSignal",
+            "peakAnalystConfirmed",
+            "peakAmbiguous"
+          ]
+        },
+        "sourceColumnIndex": { "type": "integer", "minimum": 0 },
+        "sourceHeader": { "type": "string" },
+        "sourceUnit": { "type": ["string", "null"] },
+        "confidence": { "enum": ["exact", "alias", "manual"] }
+      }
+    },
+    "inputTable": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "sourceFileId",
+        "fileName",
+        "fileType",
+        "sheetName",
+        "delimiter",
+        "decimalSeparator",
+        "textEncoding",
+        "headerRow",
+        "tableKind",
+        "mappings"
+      ],
+      "properties": {
+        "sourceFileId": {
+          "anyOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/sourceFileId" }
+          ]
+        },
+        "fileName": { "type": "string", "minLength": 1 },
+        "fileType": { "enum": ["csv", "tsv", "txt", "xlsx", "table"] },
+        "sheetName": { "type": ["string", "null"] },
+        "delimiter": { "type": ["string", "null"] },
+        "decimalSeparator": { "enum": [".", ",", null] },
+        "textEncoding": {
+          "enum": ["utf-8", "utf-16le", "utf-16be", "windows-1252", null]
+        },
+        "headerRow": { "type": "integer", "minimum": 0 },
+        "tableKind": { "enum": ["auto", "curve", "t-alpha-beta", "beta-tp"] },
+        "ignoredRoles": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "enum": [
+              "temperature",
+              "time",
+              "mass",
+              "massPercent",
+              "alpha",
+              "dAlphaDt",
+              "heatingRate",
+              "run",
+              "sample",
+              "atmosphere",
+              "stage"
+            ]
+          }
+        },
+        "mappings": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "role",
+              "sourceColumnIndex",
+              "sourceHeader",
+              "sourceUnit",
+              "canonicalUnit",
+              "conversion",
+              "confidence"
+            ],
+            "properties": {
+              "role": {
+                "enum": [
+                  "temperature",
+                  "time",
+                  "mass",
+                  "massPercent",
+                  "alpha",
+                  "dAlphaDt",
+                  "heatingRate",
+                  "run",
+                  "sample",
+                  "atmosphere",
+                  "stage"
+                ]
+              },
+              "sourceColumnIndex": { "type": "integer", "minimum": 0 },
+              "sourceHeader": { "type": "string" },
+              "sourceUnit": { "type": ["string", "null"] },
+              "canonicalUnit": { "type": ["string", "null"] },
+              "conversion": { "type": "string", "minLength": 1 },
+              "confidence": { "enum": ["exact", "alias", "manual"] }
+            }
+          }
+        }
+      }
+    },
+    "massNormalization": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "runId",
+        "alphaSource",
+        "sourceQuantity",
+        "initialValue",
+        "finalValue",
+        "stageWindowCelsius",
+        "initialAnchor",
+        "finalAnchor"
+      ],
+      "properties": {
+        "runId": { "type": "string", "minLength": 1 },
+        "alphaSource": { "enum": ["direct-alpha", "mass-normalized", "unknown"] },
+        "sourceQuantity": { "enum": ["alpha", "massMg", "massPercent", "unknown"] },
+        "initialValue": { "$ref": "#/$defs/nullableNumber" },
+        "finalValue": { "$ref": "#/$defs/nullableNumber" },
+        "stageWindowCelsius": {
+          "oneOf": [
+            { "type": "null" },
+            {
+              "type": "array",
+              "minItems": 2,
+              "maxItems": 2,
+              "items": { "type": "number" }
+            }
+          ]
+        },
+        "initialAnchor": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/stageBoundaryAnchor" }
+          ]
+        },
+        "finalAnchor": {
+          "oneOf": [
+            { "type": "null" },
+            { "$ref": "#/$defs/stageBoundaryAnchor" }
+          ]
+        }
+      }
+    },
+    "stageBoundaryAnchor": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["temperatureCelsius", "method", "sourceRows"],
+      "properties": {
+        "temperatureCelsius": { "type": "number" },
+        "method": { "enum": ["source-row", "linear-interpolation"] },
+        "sourceRows": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 2,
+          "items": { "type": "integer", "minimum": 1 }
+        }
+      }
+    },
+    "result": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resultId",
+        "quantity",
+        "claimBoundary",
+        "confidenceBoundary",
+        "sample",
+        "process",
+        "stage",
+        "atmosphere",
+        "method",
+        "resultType",
+        "formulaId",
+        "alpha",
+        "activationEnergyKJPerMol",
+        "confidence95LowerKJPerMol",
+        "confidence95UpperKJPerMol",
+        "n",
+        "rawObservationCount",
+        "residualDegreesOfFreedom",
+        "regressionInputAggregation",
+        "r2",
+        "slope",
+        "slopeStandardError",
+        "status",
+        "disposition"
+      ],
+      "properties": {
+        "resultId": { "type": "string", "minLength": 1 },
+        "quantity": { "const": "apparent activation energy" },
+        "claimBoundary": { "type": "string", "minLength": 1 },
+        "confidenceBoundary": { "$ref": "#/$defs/regressionCiBoundary" },
+        "sample": { "type": "string", "minLength": 1 },
+        "process": { "type": "string", "minLength": 1 },
+        "stage": { "type": "string", "minLength": 1 },
+        "atmosphere": { "type": "string", "minLength": 1 },
+        "method": { "$ref": "#/$defs/method" },
+        "resultType": { "enum": ["isoconversional", "peak"] },
+        "formulaId": { "type": "string", "minLength": 1 },
+        "alpha": { "$ref": "#/$defs/nullableNumber" },
+        "activationEnergyKJPerMol": { "$ref": "#/$defs/nullableNumber" },
+        "confidence95LowerKJPerMol": { "$ref": "#/$defs/nullableNumber" },
+        "confidence95UpperKJPerMol": { "$ref": "#/$defs/nullableNumber" },
+        "n": { "type": ["integer", "null"], "minimum": 0 },
+        "rawObservationCount": { "type": ["integer", "null"], "minimum": 0 },
+        "residualDegreesOfFreedom": { "type": ["integer", "null"], "minimum": 0 },
+        "regressionInputAggregation": {
+          "enum": [
+            null,
+            "none",
+            "arithmetic-mean-physical-scale-by-heating-rate"
+          ]
+        },
+        "r2": { "$ref": "#/$defs/nullableNumber" },
+        "slope": { "$ref": "#/$defs/nullableNumber" },
+        "slopeStandardError": { "$ref": "#/$defs/nullableNumber" },
+        "status": { "$ref": "#/$defs/status" },
+        "disposition": { "$ref": "#/$defs/scientificDisposition" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "resultType": { "const": "peak" } } },
+          "then": {
+            "properties": {
+              "method": { "const": "KISSINGER" },
+              "alpha": { "type": "null" }
+            }
+          }
+        },
+        {
+          "if": { "properties": { "resultType": { "const": "isoconversional" } } },
+          "then": {
+            "properties": {
+              "method": { "enum": ["FWO", "KAS", "STARINK", "FRIEDMAN"] },
+              "alpha": { "type": "number", "minimum": 0, "maximum": 1 }
+            }
+          }
+        }
+      ]
+    },
+    "traceability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["resultLinks", "observationLinks", "gaps"],
+      "properties": {
+        "resultLinks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/resultTrace" }
+        },
+        "observationLinks": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/observationTrace" }
+        },
+        "gaps": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["code", "message"],
+            "properties": {
+              "code": {
+                "enum": [
+                  "INPUT_AUDIT_UNAVAILABLE",
+                  "SOURCE_ROW_UNRESOLVED",
+                  "SOURCE_MAPPING_UNAVAILABLE",
+                  "SOURCE_FILE_IDENTITY_UNAVAILABLE"
+                ]
+              },
+              "message": { "type": "string", "minLength": 1 },
+              "observationId": { "type": "string", "minLength": 1 }
+            }
+          }
+        }
+      }
+    },
+    "resultTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "resultId",
+        "method",
+        "resultType",
+        "alpha",
+        "formulaId",
+        "includedObservationIds",
+        "regressionInputGroupIds",
+        "exclusions"
+      ],
+      "properties": {
+        "resultId": { "type": "string", "minLength": 1 },
+        "method": { "$ref": "#/$defs/method" },
+        "resultType": { "enum": ["isoconversional", "peak"] },
+        "alpha": { "$ref": "#/$defs/nullableNumber" },
+        "formulaId": { "type": "string", "minLength": 1 },
+        "includedObservationIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "regressionInputGroupIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["resultId", "runId", "decision", "reasonCode", "reason", "severity"],
+            "properties": {
+              "resultId": { "type": "string", "minLength": 1 },
+              "runId": { "type": "string", "minLength": 1 },
+              "decision": { "const": "excluded" },
+              "reasonCode": { "type": "string", "minLength": 1 },
+              "reason": { "type": "string", "minLength": 1 },
+              "severity": { "enum": ["warning", "refusal"] }
+            }
+          }
+        }
+      }
+    },
+    "observationTrace": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "observationId",
+        "resultId",
+        "runId",
+        "regressionInputGroupId",
+        "decision",
+        "heatingRateKPerMinute",
+        "temperatureK",
+        "dAlphaDtPerMinute",
+        "x",
+        "y",
+        "predictedY",
+        "residual",
+        "peakEvidence",
+        "sourceResolution",
+        "sourceRows"
+      ],
+      "properties": {
+        "observationId": { "type": "string", "minLength": 1 },
+        "resultId": { "type": "string", "minLength": 1 },
+        "runId": { "type": "string", "minLength": 1 },
+        "regressionInputGroupId": { "type": "string", "minLength": 1 },
+        "decision": { "const": "included" },
+        "heatingRateKPerMinute": { "type": "number", "exclusiveMinimum": 0 },
+        "temperatureK": { "type": "number", "exclusiveMinimum": 0 },
+        "dAlphaDtPerMinute": { "$ref": "#/$defs/nullableNumber" },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "predictedY": { "type": "number" },
+        "residual": { "type": "number" },
+        "peakEvidence": {
+          "anyOf": [
+            { "type": "null" },
+            {
+              "type": "object",
+              "additionalProperties": false,
+              "required": [
+                "peakResolved",
+                "peakQuality",
+                "peakSourceSignal",
+                "peakAnalystConfirmed",
+                "peakAmbiguous"
+              ],
+              "properties": {
+                "peakResolved": { "type": ["boolean", "null"] },
+                "peakQuality": {
+                  "enum": [null, "clear-interior", "boundary", "shoulder", "multiple-overlapping", "unknown"]
+                },
+                "peakSourceSignal": {
+                  "enum": [null, "positive-mass-loss-rate", "positive-dalpha-dt", "external-beta-tp-table"]
+                },
+                "peakAnalystConfirmed": { "type": ["boolean", "null"] },
+                "peakAmbiguous": { "type": ["boolean", "null"] }
+              }
+            }
+          ]
+        },
+        "sourceResolution": { "enum": ["exact", "interpolated", "unresolved"] },
+        "sourceRows": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": [
+              "sourceFileId",
+              "fileName",
+              "sheetName",
+              "sourceRow",
+              "contribution",
+              "columnMappings"
+            ],
+            "properties": {
+              "sourceFileId": {
+                "anyOf": [
+                  { "type": "null" },
+                  { "$ref": "#/$defs/sourceFileId" }
+                ]
+              },
+              "fileName": { "type": "string", "minLength": 1 },
+              "sheetName": { "type": ["string", "null"] },
+              "sourceRow": { "type": "integer", "minimum": 1 },
+              "contribution": {
+                "enum": [
+                  "exact",
+                  "interpolation-lower",
+                  "interpolation-upper",
+                  "derivative-exact",
+                  "derivative-interpolation-lower",
+                  "derivative-interpolation-upper"
+                ]
+              },
+              "columnMappings": {
+                "type": "array",
+                "items": { "$ref": "#/$defs/provenanceColumnMapping" }
+              }
+            }
+          }
+        }
+      }
+    },
+    "analysis": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "status",
+        "preparedRuns",
+        "eligibility",
+        "methods",
+        "refusals",
+        "warnings",
+        "constants"
+      ],
+      "properties": {
+        "status": { "$ref": "#/$defs/status" },
+        "preparedRuns": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/preparedRun" }
+        },
+        "eligibility": { "$ref": "#/$defs/eligibility" },
+        "methods": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/alphaMethod" }
+        },
+        "kissinger": { "$ref": "#/$defs/kissinger" },
+        "refusals": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/diagnostic" }
+        },
+        "warnings": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/diagnostic" }
+        },
+        "constants": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gasConstantJPerMolK"],
+          "properties": {
+            "gasConstantJPerMolK": { "type": "number", "exclusiveMinimum": 0 }
+          }
+        }
+      }
+    },
+    "preparedRun": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "heatingRateKPerMinute", "points", "derivativeSource"],
+      "properties": {
+        "id": { "type": "string", "minLength": 1 },
+        "heatingRateKPerMinute": { "type": "number", "exclusiveMinimum": 0 },
+        "points": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "required": ["temperatureK", "alpha"],
+            "properties": {
+              "temperatureK": { "type": "number", "exclusiveMinimum": 0 },
+              "alpha": { "type": "number", "minimum": 0, "maximum": 1 },
+              "timeMinutes": { "type": "number" },
+              "dAlphaDtPerMinute": { "type": "number" }
+            }
+          }
+        },
+        "derivativeSource": { "enum": ["provided", "time", "temperature", "unavailable"] },
+        "peakTemperatureK": { "type": "number", "exclusiveMinimum": 0 },
+        "peakAmbiguous": { "type": "boolean" },
+        "peakResolved": { "type": "boolean" },
+        "peakQuality": {
+          "enum": ["clear-interior", "boundary", "shoulder", "multiple-overlapping", "unknown"]
+        },
+        "peakSourceSignal": {
+          "enum": ["positive-mass-loss-rate", "positive-dalpha-dt", "external-beta-tp-table"]
+        },
+        "peakAnalystConfirmed": { "type": "boolean" },
+        "sampleId": { "type": "string" },
+        "atmosphere": { "type": "string" },
+        "stage": { "type": "string" }
+      }
+    },
+    "eligibility": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["eligible", "distinctHeatingRates", "refusals", "warnings"],
+      "properties": {
+        "eligible": { "type": "boolean" },
+        "commonAlphaRange": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number", "minimum": 0, "maximum": 1 }
+        },
+        "distinctHeatingRates": { "type": "integer", "minimum": 0 },
+        "refusals": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/diagnostic" }
+        },
+        "warnings": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/diagnostic" }
+        }
+      }
+    },
+    "alphaMethod": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "resultType", "formulaId", "status", "estimates", "refusals", "warnings"],
+      "properties": {
+        "method": { "enum": ["FWO", "KAS", "STARINK", "FRIEDMAN"] },
+        "resultType": { "const": "isoconversional" },
+        "formulaId": { "type": "string", "minLength": 1 },
+        "status": { "$ref": "#/$defs/status" },
+        "estimates": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/estimate" }
+        },
+        "refusals": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/diagnostic" }
+        },
+        "warnings": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/diagnostic" }
+        }
+      }
+    },
+    "estimate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["alpha", "activationEnergyKJPerMol", "regression", "observations"],
+      "properties": {
+        "alpha": { "type": "number", "minimum": 0, "maximum": 1 },
+        "activationEnergyKJPerMol": { "type": "number" },
+        "regression": { "$ref": "#/$defs/regression" },
+        "observations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/methodObservation" }
+        }
+      }
+    },
+    "kissinger": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["method", "resultType", "alpha", "formulaId", "status", "observations", "refusals", "warnings"],
+      "properties": {
+        "method": { "const": "KISSINGER" },
+        "resultType": { "const": "peak" },
+        "alpha": { "type": "null" },
+        "formulaId": { "const": "kissinger_peak_ln_v1" },
+        "status": { "$ref": "#/$defs/status" },
+        "activationEnergyKJPerMol": { "type": "number" },
+        "regression": { "$ref": "#/$defs/regression" },
+        "observations": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/methodObservation" }
+        },
+        "refusals": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/diagnostic" }
+        },
+        "warnings": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/diagnostic" }
+        }
+      }
+    },
+    "regression": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "n",
+        "rawObservationCount",
+        "residualDegreesOfFreedom",
+        "inputAggregation",
+        "inputGroups",
+        "x",
+        "y",
+        "slope",
+        "intercept",
+        "fitted",
+        "residuals",
+        "sse",
+        "r2",
+        "residualStandardError",
+        "slopeStandardError",
+        "slopeConfidence95"
+      ],
+      "properties": {
+        "n": { "type": "integer", "minimum": 3 },
+        "rawObservationCount": { "type": "integer", "minimum": 3 },
+        "residualDegreesOfFreedom": { "type": "integer", "minimum": 1 },
+        "inputAggregation": {
+          "enum": [
+            "none",
+            "arithmetic-mean-physical-scale-by-heating-rate"
+          ]
+        },
+        "inputGroups": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/regressionInputGroup" }
+        },
+        "x": { "type": "array", "items": { "type": "number" } },
+        "y": { "type": "array", "items": { "type": "number" } },
+        "slope": { "type": "number" },
+        "intercept": { "type": "number" },
+        "fitted": { "type": "array", "items": { "type": "number" } },
+        "residuals": { "type": "array", "items": { "type": "number" } },
+        "sse": { "type": "number", "minimum": 0 },
+        "r2": { "type": "number" },
+        "residualStandardError": { "type": "number", "minimum": 0 },
+        "slopeStandardError": { "type": "number", "minimum": 0 },
+        "slopeConfidence95": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "type": "number" }
+        }
+      }
+    },
+    "regressionInputGroup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "groupId",
+        "sourceRunIds",
+        "replicateCount",
+        "aggregation",
+        "heatingRateKPerMinute",
+        "temperatureK",
+        "x",
+        "y",
+        "temperatureSampleStandardDeviationK"
+      ],
+      "properties": {
+        "groupId": { "type": "string", "minLength": 1 },
+        "sourceRunIds": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 },
+          "uniqueItems": true
+        },
+        "replicateCount": { "type": "integer", "minimum": 1 },
+        "aggregation": {
+          "enum": [
+            "single-run",
+            "arithmetic-mean-physical-scale-by-heating-rate"
+          ]
+        },
+        "heatingRateKPerMinute": { "type": "number", "exclusiveMinimum": 0 },
+        "temperatureK": { "type": "number", "exclusiveMinimum": 0 },
+        "dAlphaDtPerMinute": { "type": "number" },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "temperatureSampleStandardDeviationK": { "$ref": "#/$defs/nullableNumber" },
+        "derivativeSampleStandardDeviationPerMinute": {
+          "$ref": "#/$defs/nullableNumber"
+        }
+      }
+    },
+    "methodObservation": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["runId", "heatingRateKPerMinute", "temperatureK", "x", "y"],
+      "properties": {
+        "runId": { "type": "string", "minLength": 1 },
+        "heatingRateKPerMinute": { "type": "number", "exclusiveMinimum": 0 },
+        "temperatureK": { "type": "number", "exclusiveMinimum": 0 },
+        "x": { "type": "number" },
+        "y": { "type": "number" },
+        "dAlphaDtPerMinute": { "type": "number" }
+      }
+    },
+    "diagnostic": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "severity", "message"],
+      "properties": {
+        "code": { "type": "string", "minLength": 1 },
+        "severity": { "enum": ["warning", "refusal"] },
+        "message": { "type": "string", "minLength": 1 },
+        "method": { "$ref": "#/$defs/method" },
+        "runIds": {
+          "type": "array",
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "alpha": { "type": "number", "minimum": 0, "maximum": 1 },
+        "details": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "number", "boolean"]
+          }
+        }
+      }
+    }
+  }
+}

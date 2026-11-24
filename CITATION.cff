@@ -8,8 +8,8 @@ authors:
   - family-names: Solak
     given-names: Mehmet
     affiliation: Biosystems Engineering, Siirt University, Siirt, Türkiye
-version: 0.4.0
-date-released: 2026-09-12
+version: 0.4.1
+date-released: 2026-11-23
 license: MIT
 repository-code: https://github.com/mehmetsolakedu/activation-energy-studio
 url: https://mehmetsolak.cc/activation-energy-studio/
@@ -34,4 +34,4 @@ preferred-citation:
       given-names: Mehmet
       affiliation: Biosystems Engineering, Siirt University, Siirt, Türkiye
   year: 2026
-  version: 0.4.0
+  version: 0.4.1

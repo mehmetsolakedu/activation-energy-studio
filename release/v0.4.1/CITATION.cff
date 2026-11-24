@@ -1,0 +1,37 @@
+cff-version: 1.2.0
+message: >-
+  If you use Activation Energy Studio, cite this software release and the
+  original dataset or article used for every included real-data example.
+title: Activation Energy Studio
+type: software
+authors:
+  - family-names: Solak
+    given-names: Mehmet
+    affiliation: Biosystems Engineering, Siirt University, Siirt, Türkiye
+version: 0.4.1
+date-released: 2026-11-23
+license: MIT
+repository-code: https://github.com/mehmetsolakedu/activation-energy-studio
+url: https://mehmetsolak.cc/activation-energy-studio/
+abstract: >-
+  A local-first browser application for evidence-grounded apparent
+  activation-energy analysis of multi-rate thermoanalytical data using FWO,
+  KAS, Starink, Friedman, and a separate beta-Tp Kissinger workflow.
+keywords:
+  - activation energy
+  - thermogravimetric analysis
+  - isoconversional kinetics
+  - FWO
+  - KAS
+  - Starink
+  - Friedman
+  - Kissinger
+preferred-citation:
+  type: software
+  title: Activation Energy Studio
+  authors:
+    - family-names: Solak
+      given-names: Mehmet
+      affiliation: Biosystems Engineering, Siirt University, Siirt, Türkiye
+  year: 2026
+  version: 0.4.1

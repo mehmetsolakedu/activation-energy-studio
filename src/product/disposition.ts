@@ -138,6 +138,7 @@ const REASON_MESSAGES: Partial<Record<DiagnosticCode, string>> = {
   FRIEDMAN_DERIVATIVE_UNAVAILABLE: 'Friedman is refused for this alpha: every required heating-rate run must contribute a finite positive derivative, and at least one does not.',
   MULTISTEP_EA_VARIATION: 'Ea(alpha) varies strongly; a single mean would hide likely process complexity.',
   POSSIBLE_MULTISTEP_EA_VARIATION: 'Ea(alpha) variation warrants checking for multiple stages.',
+  INTEGRAL_METHOD_VARIABLE_EA_BIAS: 'Integral methods (FWO, KAS, Starink) integrate from 0 to alpha assuming constant Ea and carry systematic error when Ea(alpha) varies; compare with Friedman or incremental-interval integration per ICTAC.',
   KISSINGER_COMPLEXITY_UNDERPOWERED: 'The Kissinger design is underpowered for detecting nonlinearity.',
   OVERLAPPING_PEAKS: 'Peak overlap prevents a defensible same-stage Kissinger result.',
   AMBIGUOUS_STAGE: 'One common physical reaction stage has not been established.',
@@ -151,7 +152,8 @@ const REASON_MESSAGES: Partial<Record<DiagnosticCode, string>> = {
   INVALID_ALPHA_GRID: 'The configured alpha grid is invalid for calculation.',
 };
 
-const NEXT_EXPERIMENT_HINTS: Partial<Record<DiagnosticCode, string>> = {
+const NEXT_EXPERIMENT_HINTS: Partial<Record<string, string>> = {
+  ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE: 'Add independent heating rates over a wider span so the 95% slope confidence interval excludes zero before reporting.',
   LOW_R2: 'Inspect raw curves, stage bounds and influential runs; add independent heating rates before reporting.',
   NONPOSITIVE_APPARENT_EA: 'Repeat the experiment and verify stage identity, temperature mapping and heating-rate metadata.',
   LIMITED_HEATING_RATES: 'Add at least one independent heating rate to improve uncertainty estimation.',
@@ -161,6 +163,7 @@ const NEXT_EXPERIMENT_HINTS: Partial<Record<DiagnosticCode, string>> = {
   FRIEDMAN_DERIVATIVE_UNAVAILABLE: 'Provide positive finite derivative data at this alpha for every required heating-rate run, with at least three distinct rates overall.',
   MULTISTEP_EA_VARIATION: 'Report Ea(alpha), review stage bounds and do not collapse the profile to one mean.',
   POSSIBLE_MULTISTEP_EA_VARIATION: 'Inspect DTG shoulders and repeat the analysis with defensible stage bounds.',
+  INTEGRAL_METHOD_VARIABLE_EA_BIAS: 'Cross-check varying integral profiles with differential Friedman or incremental small-Delta-alpha integration per ICTAC recommendations.',
   KISSINGER_COMPLEXITY_UNDERPOWERED: 'Use at least five distinct heating rates spanning approximately five-fold or more.',
   OVERLAPPING_PEAKS: 'Resolve the same physical peak independently at each heating rate before using Kissinger.',
   AMBIGUOUS_STAGE: 'Confirm one common physical stage across all runs before recalculating.',

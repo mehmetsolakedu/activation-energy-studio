@@ -1,0 +1,10 @@
+Temperature [°C],Mass percent [%],Heating rate [K/min],Run,Sample,Atmosphere,Stage
+300,98.2,5,run-5,replace-with-sample,N2,main-decomposition
+350,77.4,5,run-5,replace-with-sample,N2,main-decomposition
+400,42.1,5,run-5,replace-with-sample,N2,main-decomposition
+310,98.0,10,run-10,replace-with-sample,N2,main-decomposition
+360,76.8,10,run-10,replace-with-sample,N2,main-decomposition
+410,41.5,10,run-10,replace-with-sample,N2,main-decomposition
+320,97.8,20,run-20,replace-with-sample,N2,main-decomposition
+370,76.2,20,run-20,replace-with-sample,N2,main-decomposition
+420,40.9,20,run-20,replace-with-sample,N2,main-decomposition

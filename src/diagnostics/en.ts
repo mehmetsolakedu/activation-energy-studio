@@ -105,6 +105,16 @@ const COPY: Readonly<Record<string, DiagnosticCopy>> = {
     risk: 'A single mean value may obscure a change in the controlling process.',
     action: 'Inspect the stage boundaries and Ea(alpha) profile and limit interpretation to the selected interval.',
   },
+  INTEGRAL_METHOD_VARIABLE_EA_BIAS: {
+    problem: 'This integral method integrates from 0 to alpha under a constant-Ea assumption while Ea(alpha) varies by at least 10%.',
+    risk: 'Cumulative integral approximations (FWO, KAS, Starink) can carry systematic error when apparent activation energy varies substantially across conversion.',
+    action: 'Compare against the differential Friedman method or an advanced incremental-interval (small Delta-alpha) isoconversional method, as recommended by ICTAC.',
+  },
+  ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE: {
+    problem: 'The 95% regression confidence interval for apparent Ea includes zero or negative values.',
+    risk: 'A point estimate whose confidence interval crosses zero is statistically indistinguishable from a zero or reversed barrier despite any high point R².',
+    action: 'Add independent heating rates over a wider span and inspect data quality before treating the estimate as reportable.',
+  },
   FRIEDMAN_NUMERICAL_DERIVATIVE: {
     problem: 'The Friedman method uses a numerical derivative.',
     risk: 'Differentiation amplifies noise and can increase apparent-Ea scatter.',

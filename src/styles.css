@@ -2037,6 +2037,8 @@ h1 em {
   color: var(--muted);
   font-size: 0.72rem;
   line-height: 1.52;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .research-summary-answers ul {
@@ -2044,6 +2046,12 @@ h1 em {
   gap: 0.25rem;
   margin: 0;
   padding-left: 1rem;
+  min-width: 0;
+}
+
+.research-summary-answers li {
+  min-width: 0;
+  overflow-wrap: anywhere;
 }
 
 .research-summary-answers blockquote {

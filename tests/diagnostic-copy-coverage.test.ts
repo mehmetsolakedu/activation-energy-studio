@@ -25,13 +25,13 @@ function readCoreDiagnosticCodes(): DiagnosticCode[] {
 const coreDiagnosticCodes = readCoreDiagnosticCodes();
 
 describe('English core diagnostic copy coverage', () => {
-  it('covers the complete 58/58 DiagnosticCode source-of-truth set', () => {
+  it('covers the complete 59/59 DiagnosticCode source-of-truth set', () => {
     const coveredCodes = coreDiagnosticCodes.filter(hasEnglishDiagnosticCopy);
 
     expect(new Set(coreDiagnosticCodes).size).toBe(coreDiagnosticCodes.length);
     expect({ covered: coveredCodes.length, total: coreDiagnosticCodes.length }).toEqual({
-      covered: 58,
-      total: 58,
+      covered: 59,
+      total: 59,
     });
   });
 

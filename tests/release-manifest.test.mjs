@@ -30,6 +30,11 @@ const VERIFIER = path.resolve(
   'scripts/verify-release-package.mjs',
 );
 const CURRENT_RELEASE = Object.freeze({
+  manifestPath: 'release/v0.4.1/MANIFEST.v0.4.1.json',
+  checksumPath: 'release/v0.4.1/SHA256SUMS.v0.4.1.txt',
+  expectedVersion: '0.4.1',
+});
+const HISTORICAL_V040_RELEASE = Object.freeze({
   manifestPath: 'release/v0.4.0/MANIFEST.v0.4.0.json',
   checksumPath: 'release/v0.4.0/SHA256SUMS.v0.4.0.txt',
   expectedVersion: '0.4.0',
@@ -51,13 +56,19 @@ const HISTORICAL_V030_RELEASE = Object.freeze({
 });
 const CURRENT_LOCKS = Object.freeze({
   manifest:
-    'dbde6893fa2b58b0e7c6678a4d22499014eb89b7f559868bb63b3e2e534d08c2',
+    '3ed9b523b4b98a3bcb82689965eed1f08667bc6f787cbf2aeb7b014ede7e854d',
   checksum:
-    '89b26c0ab68f7946ede31a9a193ed63af84231506d3656f757357fe35dd3307f',
+    '403fc31091bdf884e770a1148871565861b0e6dd996b11656828156f4c499191',
   artifact:
-    'a02e6b54ac8897164282034f47b23dedb1d7f75a3d0fbe8e24374c5ecca3ae69',
+    '553457455a666d288025ca2c3a44e091d11847d9a894fbc32eb2aa14c2bd98e2',
 });
 const HISTORICAL_LOCKS = Object.freeze({
+  v040Manifest:
+    'dbde6893fa2b58b0e7c6678a4d22499014eb89b7f559868bb63b3e2e534d08c2',
+  v040Checksum:
+    '89b26c0ab68f7946ede31a9a193ed63af84231506d3656f757357fe35dd3307f',
+  v040Artifact:
+    'a02e6b54ac8897164282034f47b23dedb1d7f75a3d0fbe8e24374c5ecca3ae69',
   v020Manifest:
     'c5af42f4d9acc6aaca507cc3037cd1a1b5be76892da78211493e5e178cac843a',
   v020Artifact:
@@ -111,17 +122,17 @@ test.after(() => {
   }
 });
 
-test('checked-in v0.4.0 Research Preview manifest and checksum bind the complete package', () => {
+test('checked-in v0.4.1 Research Preview manifest and checksum bind the complete package', () => {
   const result = verifyReleasePackage({
     projectRoot: PROJECT_ROOT,
     ...CURRENT_RELEASE,
   });
-  assert.equal(result.version, '0.4.0');
+  assert.equal(result.version, '0.4.1');
   assert.equal(result.manifestFileCount, 52);
   assert.equal(result.checksumEntryCount, 53);
   assert.equal(
     result.artifactPath,
-    'release/v0.4.0/Activation-Energy-Studio-v0.4.0.html',
+    'release/v0.4.1/Activation-Energy-Studio-v0.4.1.html',
   );
   assert.equal(result.artifactSha256, CURRENT_LOCKS.artifact);
   assert.equal(
@@ -139,7 +150,7 @@ test('checked-in v0.4.0 Research Preview manifest and checksum bind the complete
   assert.equal(manifest.schema, RELEASE_PACKAGE_SCHEMA);
   assert.equal(manifest.release.status, 'RELEASED_RESEARCH_PREVIEW');
   assert.equal(manifest.release.classification, 'RESEARCH_PREVIEW');
-  assert.equal(manifest.release.releaseDate, '2026-09-12');
+  assert.equal(manifest.release.releaseDate, '2026-11-23');
   assert.equal(manifest.release.externalPublicationApproved, true);
   assert.equal(manifest.release.releaseAuthority, 'Mehmet Solak');
   assert.equal(manifest.release.bytes, result.artifactBytes);
@@ -148,25 +159,25 @@ test('checked-in v0.4.0 Research Preview manifest and checksum bind the complete
     manifest.auditProvenance.frozenCandidateHtmlSha256,
     '5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e',
   );
-  assert.match(manifest.auditProvenance.promotionScope, /scientific and calculation code is unchanged/u);
+  assert.match(manifest.auditProvenance.promotionScope, /ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE/u);
 
   const cli = runVerifier(PROJECT_ROOT, CURRENT_RELEASE);
   assert.equal(cli.status, 0, cli.stdout + cli.stderr);
-  assert.match(cli.stdout, /PASS RELEASE_PACKAGE_CURRENT v0\.4\.0/u);
+  assert.match(cli.stdout, /PASS RELEASE_PACKAGE_CURRENT v0\.4\.1/u);
   assert.match(cli.stdout, /MANIFEST_FILES 52/u);
   assert.match(cli.stdout, /CHECKSUM_ENTRIES 53/u);
 });
 
-test('read-only verifier rejects a tampered v0.4.0 artifact without rewriting locks', () => {
+test('read-only verifier rejects a tampered v0.4.1 artifact without rewriting locks', () => {
   const temporaryRoot = mkdtempSync(path.join(tmpdir(), 'ae-release-check-'));
   temporaryDirectories.push(temporaryRoot);
   const sourceReleaseDirectory = path.resolve(
     PROJECT_ROOT,
-    'release/v0.4.0',
+    'release/v0.4.1',
   );
   const temporaryReleaseDirectory = path.resolve(
     temporaryRoot,
-    'release/v0.4.0',
+    'release/v0.4.1',
   );
   mkdirSync(path.dirname(temporaryReleaseDirectory), { recursive: true });
   cpSync(sourceReleaseDirectory, temporaryReleaseDirectory, { recursive: true });
@@ -184,7 +195,7 @@ test('read-only verifier rejects a tampered v0.4.0 artifact without rewriting lo
   appendFileSync(
     path.resolve(
       temporaryReleaseDirectory,
-      'Activation-Energy-Studio-v0.4.0.html',
+      'Activation-Energy-Studio-v0.4.1.html',
     ),
     '\n<!-- integrity-test tamper -->\n',
   );
@@ -208,11 +219,11 @@ test('read-only verifier rejects a package file omitted from manifest and checks
   temporaryDirectories.push(temporaryRoot);
   const temporaryReleaseDirectory = path.resolve(
     temporaryRoot,
-    'release/v0.4.0',
+    'release/v0.4.1',
   );
   mkdirSync(path.dirname(temporaryReleaseDirectory), { recursive: true });
   cpSync(
-    path.resolve(PROJECT_ROOT, 'release/v0.4.0'),
+    path.resolve(PROJECT_ROOT, 'release/v0.4.1'),
     temporaryReleaseDirectory,
     { recursive: true },
   );
@@ -240,11 +251,11 @@ test('read-only verifier rejects symbolic links anywhere in the package tree', (
   temporaryDirectories.push(temporaryRoot);
   const temporaryReleaseDirectory = path.resolve(
     temporaryRoot,
-    'release/v0.4.0',
+    'release/v0.4.1',
   );
   mkdirSync(path.dirname(temporaryReleaseDirectory), { recursive: true });
   cpSync(
-    path.resolve(PROJECT_ROOT, 'release/v0.4.0'),
+    path.resolve(PROJECT_ROOT, 'release/v0.4.1'),
     temporaryReleaseDirectory,
     { recursive: true },
   );
@@ -264,12 +275,12 @@ test('read-only verifier rejects symbolic links anywhere in the package tree', (
 
 test('packager SBOM gate rejects stale lockfile provenance', () => {
   const current = verifyProductionSbom({ projectRoot: PROJECT_ROOT });
-  assert.equal(current.version, '0.4.0');
+  assert.equal(current.version, '0.4.1');
   assert.ok(current.componentCount > 0);
 
   const temporaryRoot = mkdtempSync(path.join(tmpdir(), 'ae-sbom-stale-'));
   temporaryDirectories.push(temporaryRoot);
-  mkdirSync(path.resolve(temporaryRoot, 'release/v0.4.0'), { recursive: true });
+  mkdirSync(path.resolve(temporaryRoot, 'release/v0.4.1'), { recursive: true });
   cpSync(
     path.resolve(PROJECT_ROOT, 'package.json'),
     path.resolve(temporaryRoot, 'package.json'),
@@ -279,7 +290,7 @@ test('packager SBOM gate rejects stale lockfile provenance', () => {
     path.resolve(temporaryRoot, 'package-lock.json'),
   );
   const sbom = JSON.parse(readFileSync(
-    path.resolve(PROJECT_ROOT, 'release/v0.4.0/SBOM.production.cdx.json'),
+    path.resolve(PROJECT_ROOT, 'release/v0.4.1/SBOM.production.cdx.json'),
     'utf8',
   ));
   const lockHash = sbom.metadata.component.properties.find(
@@ -288,7 +299,7 @@ test('packager SBOM gate rejects stale lockfile provenance', () => {
   );
   lockHash.value = '0'.repeat(64);
   writeFileSync(
-    path.resolve(temporaryRoot, 'release/v0.4.0/SBOM.production.cdx.json'),
+    path.resolve(temporaryRoot, 'release/v0.4.1/SBOM.production.cdx.json'),
     `${JSON.stringify(sbom, null, 2)}\n`,
     'utf8',
   );
@@ -331,7 +342,7 @@ test('current-release manifest, schema, runtime, and normative equations share c
   const packagedAddendum = readFileSync(
     path.resolve(
       PROJECT_ROOT,
-      'release/v0.4.0/SCIENTIFIC_SPEC_V1_1_ADDENDUM.md',
+      'release/v0.4.1/SCIENTIFIC_SPEC_V1_1_ADDENDUM.md',
     ),
     'utf8',
   );
@@ -347,6 +358,29 @@ test('current-release manifest, schema, runtime, and normative equations share c
   );
   assert.match(rootAddendum, /R = 8\.31446261815324 J mol\^-1 K\^-1/u);
   assert.doesNotMatch(rootAddendum, /1\.0518/u);
+});
+
+test('immutable v0.4.0 package still passes and remains hash-locked', () => {
+  const result = verifyReleasePackage({
+    projectRoot: PROJECT_ROOT,
+    ...HISTORICAL_V040_RELEASE,
+  });
+  assert.equal(result.version, '0.4.0');
+  assert.equal(result.manifestFileCount, 52);
+  assert.equal(result.checksumEntryCount, 53);
+  assert.equal(result.artifactSha256, HISTORICAL_LOCKS.v040Artifact);
+  assert.equal(
+    sha256(path.resolve(PROJECT_ROOT, HISTORICAL_V040_RELEASE.manifestPath)),
+    HISTORICAL_LOCKS.v040Manifest,
+  );
+  assert.equal(
+    sha256(path.resolve(PROJECT_ROOT, HISTORICAL_V040_RELEASE.checksumPath)),
+    HISTORICAL_LOCKS.v040Checksum,
+  );
+
+  const cli = runVerifier(PROJECT_ROOT, HISTORICAL_V040_RELEASE);
+  assert.equal(cli.status, 0, cli.stdout + cli.stderr);
+  assert.match(cli.stdout, /PASS RELEASE_PACKAGE_CURRENT v0\.4\.0/u);
 });
 
 test('immutable v0.3.2 package still passes and remains hash-locked', () => {

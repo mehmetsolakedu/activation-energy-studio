@@ -81,7 +81,7 @@ describe('platform self-test application surface', () => {
     expect(networkAttempts).toEqual([]);
 
     await act(async () => buttonContaining(host, 'Platform evidence JSON').click());
-    expect(downloads).toEqual(['activation-energy-platform-self-test-v0.4.0-pass.json']);
+    expect(downloads).toEqual(['activation-energy-platform-self-test-v0.4.1-pass.json']);
     expect(networkAttempts).toEqual([]);
   });
 });

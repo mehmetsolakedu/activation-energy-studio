@@ -37,6 +37,8 @@ const ACTIVE_DIRECTORIES = [
   'release/v0.3.1',
   'release/v0.3.2',
   'release/v0.4.0',
+  'release/v0.4.1',
+  'docs/verification-v0.4.1',
 ];
 
 const ACTIVE_FILES = [
@@ -107,6 +109,13 @@ const EXACT_TEXT_ALLOWANCES = new Map([
       'preferred-citation:\n  type: software\n  title: Activation Energy Studio\n  authors:\n    - family-names: Solak\n      given-names: Mehmet\n      affiliation: Biosystems Engineering, Siirt University, Siirt, T\u00fcrkiye\n  year:',
     ],
   ],
+  [
+    'release/v0.4.1/CITATION.cff',
+    [
+      'authors:\n  - family-names: Solak\n    given-names: Mehmet\n    affiliation: Biosystems Engineering, Siirt University, Siirt, T\u00fcrkiye\nversion:',
+      'preferred-citation:\n  type: software\n  title: Activation Energy Studio\n  authors:\n    - family-names: Solak\n      given-names: Mehmet\n      affiliation: Biosystems Engineering, Siirt University, Siirt, T\u00fcrkiye\n  year:',
+    ],
+  ],
 ]);
 
 const PDF_TRANSLITERATION_ALLOWANCES = [
@@ -136,6 +145,10 @@ const EXACT_HTML_ALLOWANCES = new Map([
   ],
   [
     'release/v0.4.0/Activation-Energy-Studio-v0.4.0.html',
+    PDF_TRANSLITERATION_ALLOWANCES,
+  ],
+  [
+    'release/v0.4.1/Activation-Energy-Studio-v0.4.1.html',
     PDF_TRANSLITERATION_ALLOWANCES,
   ],
 ]);
