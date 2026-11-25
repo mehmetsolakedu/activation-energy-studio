@@ -4,6 +4,7 @@ This directory contains the cross-engine macOS browser verification log and comp
 
 ## Included v0.4.1 files
 
+- `Supporting_Information.pdf`: companion 12-page Supporting Information document (`Tables S1`–`S9` and reproducibility checklist) for the `v0.4.1` manuscript revision.
 - `macos-cross-browser-summary.json`: structured offline execution log on macOS (`darwin arm64`) across Google Chrome (Blink/V8), Mozilla Firefox (Gecko/SpiderMonkey), and WebKit (WebKit/JavaScriptCore), verifying zero external network requests, zero console errors, `11/11` built-in self-test checks, direct binary `.xlsx` upload (`read-excel-file` `9.3.10` + `fflate` `0.8.3`, header-row-3 reread into wide-series layout), and deterministic `PDF`, `CSV`, and `JSON` exports on the Chilean Oak (`51` results) and rhubarb supplied-rate (`16` Friedman results) workflows.
 - `oak_v041_results.csv`: complete `51`-row `v0.4.1` Chilean Oak pyrolysis output table (`FWO`, `KAS`, and `Starink` across `alpha = 0.05` to `0.85`).
 - `oak_app_vs_decimal50_v041.csv`: pointwise comparison of all `51` Chilean Oak `v0.4.1` estimates against an independent 50-digit Python `Decimal` implementation (`max |Delta Ea| <= 7.67e-13 kJ mol^-1`).

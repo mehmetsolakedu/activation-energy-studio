@@ -26,6 +26,7 @@ Version `0.4.1` provides a self-contained single-file HTML workflow (`release/v0
 - **Web application entry point:** <https://mehmetsolak.cc/activation-energy-studio/>
 - **Current release package (`v0.4.1`):** [`release/v0.4.1/`](release/v0.4.1/) (`Activation-Energy-Studio-v0.4.1.html`, [`MANIFEST.v0.4.1.json`](release/v0.4.1/MANIFEST.v0.4.1.json), [`SHA256SUMS.v0.4.1.txt`](release/v0.4.1/SHA256SUMS.v0.4.1.txt), [`SBOM.production.cdx.json`](release/v0.4.1/SBOM.production.cdx.json), [`QUICK_START.md`](release/v0.4.1/QUICK_START.md), and [`RELEASE_NOTES_v0.4.1.md`](release/v0.4.1/RELEASE_NOTES_v0.4.1.md))
 - **Verification logs and companion CSV tables (`v0.4.1`):** [`docs/verification-v0.4.1/`](docs/verification-v0.4.1/)
+  - [`Supporting_Information.pdf`](docs/verification-v0.4.1/Supporting_Information.pdf)
   - [`macos-cross-browser-summary.json`](docs/verification-v0.4.1/macos-cross-browser-summary.json)
   - [`oak_v041_results.csv`](docs/verification-v0.4.1/oak_v041_results.csv)
   - [`oak_app_vs_decimal50_v041.csv`](docs/verification-v0.4.1/oak_app_vs_decimal50_v041.csv)
