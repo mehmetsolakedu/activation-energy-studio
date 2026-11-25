@@ -1,0 +1,431 @@
+{
+  "schema": "activation-energy-studio/fixture-integrity-manifest/v1",
+  "version": "0.2.0",
+  "fixtureRoot": "tests/fixtures",
+  "hashAlgorithm": "sha256",
+  "generation": {
+    "deterministic": true,
+    "generatedAtOmitted": true,
+    "recursive": true,
+    "pathFormat": "project-relative-posix",
+    "manifestSelfExcluded": true,
+    "scopeBoundary": "Only regular files recursively contained by tests/fixtures are locked; node_modules, output, and release are outside this root."
+  },
+  "summary": {
+    "fixtureCount": 82,
+    "totalBytes": 10859044,
+    "fixtureSetSha256": "5c064b09e61b138dbbea06f6345a6c7497a1baa767f0c46930b36b7ba1ffd698"
+  },
+  "fixtures": [
+    {
+      "path": "tests/fixtures/alpha/alpha-safety.ts",
+      "bytes": 5405,
+      "sha256": "2a45c310d4dee221264dad6851fbfe27def5892cb79a260ee4cbbb7c3c6e5e52"
+    },
+    {
+      "path": "tests/fixtures/audit-v040/independent-oracle-expected.json",
+      "bytes": 32453,
+      "sha256": "dcd98f27018c7597b3c01f4e5a716211f7fe89dadd31096d585c61e95cfae0a9"
+    },
+    {
+      "path": "tests/fixtures/audit-v041/variable-kinetics-and-kissinger-fixtures.json",
+      "bytes": 51585,
+      "sha256": "6fabed7ecc0c70cf091b9e96c897494f6638e654f31ac9c5a447c24416c63a29"
+    },
+    {
+      "path": "tests/fixtures/bare_ambiguous.csv",
+      "bytes": 51,
+      "sha256": "1f9060a9b674fd759a74a11b2e22273bdee8829b39e81a0053cd8702f695dee1"
+    },
+    {
+      "path": "tests/fixtures/filename_rate_curve.csv",
+      "bytes": 47,
+      "sha256": "137ddee68f4c175df69430aecd532eb4ef9255da9ef17b82e60091188f7bbef9"
+    },
+    {
+      "path": "tests/fixtures/hand/activation_energy_hand_worksheet.json",
+      "bytes": 5650,
+      "sha256": "faf3418de6b79ba23f384f32479d68100383422d26bcc7a8f70a1fc025456a6d"
+    },
+    {
+      "path": "tests/fixtures/hand/student_t_critical_95_large_df_oracle.json",
+      "bytes": 2392,
+      "sha256": "04ee070a019e643c4ec89c0cc42d178541d721dd9c1aa0dc6a6bc97e4157ec86"
+    },
+    {
+      "path": "tests/fixtures/multirate_semicolon.csv",
+      "bytes": 213,
+      "sha256": "267b5243009d241537b0e9afcb74c1c8524b74bccb332bf6523590d305d6c46e"
+    },
+    {
+      "path": "tests/fixtures/peak_table.tsv",
+      "bytes": 357,
+      "sha256": "98080c73445daacf503ee0cf0d8fc738f0cd77cefa77ce3fc5fa950c657905ea"
+    },
+    {
+      "path": "tests/fixtures/real/README.md",
+      "bytes": 13986,
+      "sha256": "40f99359da4713049628634a3d457bdee3027812af988af4aad24512421bee6f"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/expected-output.json",
+      "bytes": 184716,
+      "sha256": "65731e5bc8b620bcac9b99d7b1944df9b4e00a5e31744a55c2a3de1b4fd28b3a"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/manifest.json",
+      "bytes": 6325,
+      "sha256": "51d432e24ca28782a24226471be8bd5e57b676b2fc9bfda118359a7864ccb2af"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/oracle/coal_spt_paraffin_decimal_oracle.py",
+      "bytes": 46586,
+      "sha256": "8072703fb4188e6dc7ee0c6a68bddb91f372dc7812dffb2dee3bbadeac2a5604"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/paraffin10_t_alpha_beta.csv",
+      "bytes": 6812,
+      "sha256": "146dca7f870e8ab1c0d15449b19b0b1d0754c96c39aa7cbf65922e904a59e782"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/source/TGA raw data of coal, SPT and paraffin at different masses.xlsx",
+      "bytes": 1535050,
+      "sha256": "0226a9f6eaa1fb1bdfc7e5713d2a5faed95d3ac2e8fd3154a66e981bbc4ead21"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/expected-output.json",
+      "bytes": 18917,
+      "sha256": "3e0007d5c7892c42ebff531e72f2f20a295177a1362b49798621c6c01abcbc2d"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/manifest.json",
+      "bytes": 8402,
+      "sha256": "eb0195461d32ab2c57025b1bfff6149ecdec1f25c7ccf184b62fec5a9588fc80"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/manual/hbpi-table3-swap-adjudication.json",
+      "bytes": 3632,
+      "sha256": "002db8f420e747821c6f6b07b9ca39d6967d01fe915a8828773286a236b0e9dd"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/oracle/dryad_polyisoprene_decimal_oracle.py",
+      "bytes": 29553,
+      "sha256": "55d1841373085fe0c7f240239517647dc3c43468fb23a013a3398956f10e862b"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/Data.zip",
+      "bytes": 1947167,
+      "sha256": "6f98106f149567647b58edd8667cc899438a1ac5642c24b9a294655115e3295c"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/lpi-01/33L_10'C Derivative Weight (%).txt",
+      "bytes": 51132,
+      "sha256": "2bd08267207c857f50930273e3791c37e444afd3d3583d2d9f215cf2e351c3ae"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/lpi-01/33L_10'C Weight (%).txt",
+      "bytes": 50044,
+      "sha256": "f94cc7a6457b307e18eb2fbb6ca26147c8af982953385786dc90853127467eea"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/lpi-01/33L_15'C Derivative Weight (%).txt",
+      "bytes": 34185,
+      "sha256": "72555dfdfdd19de144cc66003ccf3ff9c05cb1132acf8b4eb6280c84deeb9ca7"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/lpi-01/33L_15'C Weight (%).txt",
+      "bytes": 33407,
+      "sha256": "eada2b303bf40f5b431f032657bdb71794f3984540df54e649a38a43db3a5c18"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/lpi-01/33L_2'C Derivative Weight (%).txt",
+      "bytes": 274577,
+      "sha256": "2a8e3024dce9b4f37fdc5a32dd664d9b57ff3862b4e7eab21281e2eba9c25bac"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/lpi-01/33L_2'C Weight (%).txt",
+      "bytes": 252172,
+      "sha256": "abf2c56ccec7b7e3989ad0357edb5a897e527fda367925330f05ff7c1ad425af"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/lpi-01/33L_5'C Derivative Weight (%).txt",
+      "bytes": 106238,
+      "sha256": "d858215e949e3d5dc09c53cf2243ab356eca447a2b6132da954da7add32acce5"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/lpi-01/33L_5'C Weight (%).txt",
+      "bytes": 100246,
+      "sha256": "7ce0576b2d33be7fb8ad8a25c242b83d42ba578324a51db4906f3ae09b7c583d"
+    },
+    {
+      "path": "tests/fixtures/real/manifest.json",
+      "bytes": 4215,
+      "sha256": "48236d198269ba75bce5330d406c2b6168fad0a6f8d16771bbc544e1623faa5e"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/manifest/nr-cels-validation-manifest.json",
+      "bytes": 15343,
+      "sha256": "74294f0eb21b188826617e859a445f330cc45331efa3a137d47bcbc7286aacca"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/manual/nr-cels-adjudication.json",
+      "bytes": 5310,
+      "sha256": "ec8d0264bc4b4c90306d7063f44c55f3a4029b8d35267fe74a5c68972f4b1a4f"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/oracle/expected-output.json",
+      "bytes": 470340,
+      "sha256": "4454de4b557b47efec5ec4a7ce5c662f5284df9927fa82cf5abfaaf9e08db2d4"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/oracle/nr_cels_friedman_oracle.py",
+      "bytes": 40782,
+      "sha256": "4583a9f39a1927d854a10b7c1bc0520480ee800fa8d98b68ccdbe61f60c0e81e"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/Kinetic_data.zip",
+      "bytes": 9668,
+      "sha256": "021c2de122021dcab547af0fe5f27910b22a383e99fff6c58441af110d8756e0"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/TG_DTG_DTA_data.zip",
+      "bytes": 293756,
+      "sha256": "7894a691297b9b8626ac40e73cd128d066820e64b884b82b59d121b0ccb7a26a"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 30 10Cmin.txt",
+      "bytes": 52176,
+      "sha256": "5850c5a1fec67b6b386cae2420234326a3355488909d607083bc02db02d7dcdd"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 30 20Cmin.txt",
+      "bytes": 51914,
+      "sha256": "4befa2fd9b994792f91e72cdfd14eaacdaef67ac4e8d8b51e213f374ed09e4ee"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 30 2Cmin.txt",
+      "bytes": 54394,
+      "sha256": "0109fd6646211fe553441e152c25043aa6aacdb7668af2acd792796fc2dc70a0"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 30 4Cmin.txt",
+      "bytes": 53802,
+      "sha256": "00183ea53b9323a779115aee8199f6a39cb18486a40f234e3ec93ccda5e5115c"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 30 6Cmin.txt",
+      "bytes": 53870,
+      "sha256": "86b8ba0bd838fd1bd1d4218b16f08b0f6fb96745d243aea51d5fa768b64172fb"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 30 8Cmin.txt",
+      "bytes": 53106,
+      "sha256": "98c2cb67c60958718390058b682bcde572bd6a9cb4e460c2daaf202dc7f37828"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 45 10Cmin.txt",
+      "bytes": 53058,
+      "sha256": "924da81171f18685755cbb8c9ba5e2026472eda489311a8e203655a31c08d02c"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 45 20Cmin.txt",
+      "bytes": 51842,
+      "sha256": "16dadb169872cc8f87371bc355b3c3877df6e203c9423d38f661f35689d7482e"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 45 2Cmin.txt",
+      "bytes": 54652,
+      "sha256": "aa9104eff3f5d3490be2db5602dce17bbf152183dd0a36bd8eb563333202f1af"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 45 4Cmin.txt",
+      "bytes": 53414,
+      "sha256": "acd6630852f86043e155793728de46aded517818bf3dc8eccd096b0d84a91a36"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 45 6Cmin.txt",
+      "bytes": 53508,
+      "sha256": "84cd9c4500e177763ae5771d0e6e6845d6f4168039383eb836b9416d351ec4fe"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 45 8Cmin.txt",
+      "bytes": 53394,
+      "sha256": "072aeb453898c6dfe1dc8932309dbf699156e9860b1d19ba71becf01c24996d1"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 55 10Cmin.txt",
+      "bytes": 52684,
+      "sha256": "88e3edb768b1add63afb3718c6b5edb3b2dff9defb5be8e1ed74c94247139156"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 55 20Cmin.txt",
+      "bytes": 51160,
+      "sha256": "ced225e82004e331e1543626bf0699e4adc5350ffa811decbe92ad2eae9ae7d0"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 55 2Cmin.txt",
+      "bytes": 54638,
+      "sha256": "db0fbf1cbbcc2f8949b1611814c8efd63b9dd0b069b63c8001ad9d6664a2ae36"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 55 4Cmin.txt",
+      "bytes": 53764,
+      "sha256": "72a9ff64066f55faf018be4dc5756311492a4f7076d76e88cb63f829a594b709"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 55 6Cmin.txt",
+      "bytes": 53592,
+      "sha256": "6c7eca304b561e4a9f27cf39bd858944ed395f73a6ebc8251268ab553577b510"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/curves/NR-CELS 55 8Cmin.txt",
+      "bytes": 53344,
+      "sha256": "4bde44892514b5aa0ed3774e5bfb66252baecab7671fd046ea7f16d28a9665b0"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/kinetic/NR-CELS 30 Friedman.txt",
+      "bytes": 2333,
+      "sha256": "1ab874107fd29ab23d0e1b5f77e8c5750a6917756a577091457b208e1c7fa003"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/kinetic/NR-CELS 30 LogA Friedman.txt",
+      "bytes": 2265,
+      "sha256": "669db626152b746d2a99bc6de1c512d0f506e1065c2fd38c951ff8c9be442c7b"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/kinetic/NR-CELS 30 model based.txt",
+      "bytes": 2008,
+      "sha256": "a04fea0719a7854b6bf5ced9d09c6320301b31dbb977d5de0dbd2d0949504089"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/kinetic/NR-CELS 45 Friedman.txt",
+      "bytes": 2308,
+      "sha256": "b3ae45f05068acd91f5b958e50ac474b6d3831e8cb36c236a7c875d79e9f1d0d"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/kinetic/NR-CELS 45 LogA Friedman.txt",
+      "bytes": 2266,
+      "sha256": "9a0598defd40b40c78f7285e1f85fbc37f1df25dc13b8ea174940997deee46a2"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/kinetic/NR-CELS 45 model based.txt",
+      "bytes": 1987,
+      "sha256": "70dcdb0c4ac80627f88704eb6698d9f33e767becc55243314c71ab00353396b0"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/kinetic/NR-CELS 55 Friedman.txt",
+      "bytes": 2325,
+      "sha256": "45e7bb4989f0ca4aef8b6aae5f5d0a46b2149d456aa391ceea14735e89b99fdb"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/kinetic/NR-CELS 55 LogA Friedman.txt",
+      "bytes": 2266,
+      "sha256": "749530441201646900ebdc1d1079b615a9ddb8eea51b278094982f6082df147f"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/kinetic/NR-CELS 55 model based.txt",
+      "bytes": 1959,
+      "sha256": "4574b8e9c317c5035b789ecee72bb406cc892bfe5f8cdab31a174d30a92ea5b0"
+    },
+    {
+      "path": "tests/fixtures/real/oak/expected-output.json",
+      "bytes": 187786,
+      "sha256": "3789b266c58393d94cba0a58d1a738cd03a98600417082aeedc2e2f5f8ff331f"
+    },
+    {
+      "path": "tests/fixtures/real/oak/manifest.json",
+      "bytes": 7186,
+      "sha256": "c895832f88ee49d45290b120201dd338105a792bd8b9ca1598018360c83c0e97"
+    },
+    {
+      "path": "tests/fixtures/real/oak/manual/alpha-0.50-hand-check.json",
+      "bytes": 6553,
+      "sha256": "12a4aef4a538ec5d870a10c75bba0e148fb5d932ae18d97f789392669b5fc514"
+    },
+    {
+      "path": "tests/fixtures/real/oak/oracle/oak_decimal_oracle.py",
+      "bytes": 31440,
+      "sha256": "72f6ca9255a2effa83bf305882467c1e5341d6356c7f7a1359ea2a4636f6f79e"
+    },
+    {
+      "path": "tests/fixtures/real/oak/source/TGA-Oak-10Kmin-1.csv",
+      "bytes": 309500,
+      "sha256": "ddf80f5e2252d77732207768be7c245a6e319349216d32eda7c208b6f6aed9a9"
+    },
+    {
+      "path": "tests/fixtures/real/oak/source/TGA-Oak-20Kmin-1.csv",
+      "bytes": 137848,
+      "sha256": "37f8e355b086479c62e74181d0b2ade298c7bdd63bdb10238dcf566ed0ef8fa1"
+    },
+    {
+      "path": "tests/fixtures/real/oak/source/TGA-Oak-40Kmin-1.csv",
+      "bytes": 154524,
+      "sha256": "967ccc4aac128a5a980fd1eea9154220e846cba4b7e853f3046c08fbc22d10a8"
+    },
+    {
+      "path": "tests/fixtures/real/oak/source/TGA-Oak-5Kmin-1.csv",
+      "bytes": 531531,
+      "sha256": "cdefb2f643e26562400d6313ed5bc2cfe02a500e36242651c42cdcccbd014608"
+    },
+    {
+      "path": "tests/fixtures/real/oracle/paper010_decimal_oracle.py",
+      "bytes": 81294,
+      "sha256": "d9ae629d26d183bda53c11875dfe3e8a5bd1e59150a2fb149864f8df31f8eeb2"
+    },
+    {
+      "path": "tests/fixtures/real/paper010_rh_reference.json",
+      "bytes": 177474,
+      "sha256": "956617949a4f2b1ddf29d672c946fda6fea48dd33a0536d69fbf24f5aa863e68"
+    },
+    {
+      "path": "tests/fixtures/real/paper010_rh_t_alpha_beta.csv",
+      "bytes": 4732,
+      "sha256": "a913d8111af91a4fa8a2fc3d1c8dd02ec0e216795dad9bfd77cff4912e76b27d"
+    },
+    {
+      "path": "tests/fixtures/real/paper063/expected-output.json",
+      "bytes": 1077,
+      "sha256": "e7cb2664953b4080008a760eb3d604b81d6f474a27c01cb32dbb21c8994defb7"
+    },
+    {
+      "path": "tests/fixtures/real/paper063/paper063_kissinger_peaks.csv",
+      "bytes": 617,
+      "sha256": "ab52fa64e40a18a522f96d711d75d6c3994624b4beea033f505bda1e1edcccee"
+    },
+    {
+      "path": "tests/fixtures/real/paper063/provenance.json",
+      "bytes": 2382,
+      "sha256": "9b4ebd48fd295ab70de9a412509ca5eb7ef0d4b8cea7112d53e35d4747ed1e36"
+    },
+    {
+      "path": "tests/fixtures/real/source/paper010/pone.0173946.s001.xlsx",
+      "bytes": 542321,
+      "sha256": "04d0ac81d6d62cd49510a5a02ba2b6013161c200e0e6c7fbf41957d7cf552e69"
+    },
+    {
+      "path": "tests/fixtures/real/source/paper010/pone.0173946.s002.xlsx",
+      "bytes": 184544,
+      "sha256": "d24e218dd8da9646312b122ddc892d1d338783ce2829877145fa298491d99b57"
+    },
+    {
+      "path": "tests/fixtures/real/source/paper010/pone.0173946.s003.xlsx",
+      "bytes": 1845597,
+      "sha256": "c93910520215959e7aa2c745db2d079c7da5e8396a78fd4537ff060b8b257793"
+    },
+    {
+      "path": "tests/fixtures/real/source/paper010/pone.0173946.s004.xlsx",
+      "bytes": 23205,
+      "sha256": "0bed9425e3b8a6195a540d0461f3fca5451d0039db5ccee7c1b7bfcaebaaabdd"
+    },
+    {
+      "path": "tests/fixtures/real/source/paper010/pone.0173946.s005.xlsx",
+      "bytes": 10071,
+      "sha256": "f74bc21563263ef43669c41937d842065683e615a4b8d30a6df422caadf89463"
+    },
+    {
+      "path": "tests/fixtures/synthetic/layer2_validation.json",
+      "bytes": 619,
+      "sha256": "346a58f37b2889b8f0c06cb95ec884e1813d200a092755baadd640341d7a4e08"
+    }
+  ]
+}

@@ -1,0 +1,186 @@
+{
+  "schema": "activation-energy-studio/dryad-polyisoprene-fixture-manifest/v1",
+  "fixtureId": "dryad-polyisoprene-lpi01-v2-alpha-020-080",
+  "classification": "gold-candidate",
+  "lockedAt": "2026-07-29",
+  "sourceMetadata": {
+    "datasetDoi": "10.5061/dryad.0cfxpnvx2",
+    "datasetVersion": 2,
+    "datasetLandingPage": "https://datadryad.org/dataset/doi:10.5061/dryad.0cfxpnvx2",
+    "dryadVersionId": 42617,
+    "license": "CC0-1.0",
+    "articleDoi": "10.1098/rsos.190869",
+    "sample": "LPI-01",
+    "atmosphere": "N2",
+    "heatingRatesKPerMin": [2, 5, 10, 15],
+    "officialArchive": {
+      "dryadFileId": 188033,
+      "file": "Data.zip",
+      "bytes": 1947167,
+      "sha256": "6f98106f149567647b58edd8667cc899438a1ac5642c24b9a294655115e3295c",
+      "entryCount": 70,
+      "regularFileCount": 64
+    }
+  },
+  "validationContract": {
+    "alphaValues": [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8],
+    "initialWeight": "first Weight (%) row per run",
+    "finalWeight": "last Weight (%) row per run",
+    "conversion": "alpha=(w0-wt)/(w0-wf)",
+    "branchRule": "First downward target-weight crossing in acquisition order whose left T_C is at least 250; piecewise-linear interpolation.",
+    "temperature": "T_K=T_C+273.15",
+    "friedmanDerivative": "Interpolate deposited DTG on the selected weight segment; dalpha/dt=-DTG/(w0-wf).",
+    "regression": "Unweighted ordinary least squares across four heating rates.",
+    "methods": ["FWO", "KAS", "FRIEDMAN"],
+    "gasConstantJPerMolK": "8.3142",
+    "fwoCoefficient": "1.052",
+    "noSmoothingSortingExtrapolationOrRepair": true,
+    "publicationValuesAreOracle": false
+  },
+  "expectedMeansKJPerMol": {
+    "FWO": "316.04241736807292315856392679494452043995001789313",
+    "KAS": "321.14992729701366067640249829557151699969387566379",
+    "FRIEDMAN": "301.0239645361895217878312920772962725706329899783"
+  },
+  "publicationAdjudication": {
+    "table3": "HBPI-01 and HBPI-03 T20/T50/residue cells at 15 K/min track the opposite sample's locked trace; accept raw traces and quarantine affected paper cells.",
+    "table3PeakTemperature": "Not evidence of the swap; both raw DTG peaks are near 444-445 C and the printed values do not map cleanly.",
+    "table4": "Diagnostic comparison only because the paper does not disclose operational endpoints, smoothing, crossing selection, or exact averaging.",
+    "table4InternalConflict": "HBPI-02 KAS is 262 kJ/mol in Table 4 and 264 kJ/mol in prose."
+  },
+  "knownLimitations": [
+    "The archive has no README, author calculation workbook, or transformation code.",
+    "There is one trace per sample and heating rate; no replicates.",
+    "The paper does not operationally define w0, wf, derivative smoothing, crossing selection, or exact mean calculation.",
+    "The derivative export header is truncated at %/m; interpreting the deposited values as percent per minute follows the paper and instrument context.",
+    "Some archive traces have negative terminal weight and repeated or decreasing temperature rows.",
+    "Coats-Redfern input heating rate is unspecified and is not a hard oracle.",
+    "Equation prose, symbol labels, and some figure captions contain typographic or stale-label signals."
+  ],
+  "files": [
+    {
+      "path": "source/Data.zip",
+      "role": "immutable_official_dryad_v2_archive",
+      "bytes": 1947167,
+      "sha256": "6f98106f149567647b58edd8667cc899438a1ac5642c24b9a294655115e3295c"
+    },
+    {
+      "path": "source/lpi-01/33L_2'C Weight (%).txt",
+      "role": "exact_archive_entry_lpi01_weight_2Kmin",
+      "bytes": 252172,
+      "sha256": "abf2c56ccec7b7e3989ad0357edb5a897e527fda367925330f05ff7c1ad425af"
+    },
+    {
+      "path": "source/lpi-01/33L_2'C Derivative Weight (%).txt",
+      "role": "exact_archive_entry_lpi01_dtg_2Kmin",
+      "bytes": 274577,
+      "sha256": "2a8e3024dce9b4f37fdc5a32dd664d9b57ff3862b4e7eab21281e2eba9c25bac"
+    },
+    {
+      "path": "source/lpi-01/33L_5'C Weight (%).txt",
+      "role": "exact_archive_entry_lpi01_weight_5Kmin",
+      "bytes": 100246,
+      "sha256": "7ce0576b2d33be7fb8ad8a25c242b83d42ba578324a51db4906f3ae09b7c583d"
+    },
+    {
+      "path": "source/lpi-01/33L_5'C Derivative Weight (%).txt",
+      "role": "exact_archive_entry_lpi01_dtg_5Kmin",
+      "bytes": 106238,
+      "sha256": "d858215e949e3d5dc09c53cf2243ab356eca447a2b6132da954da7add32acce5"
+    },
+    {
+      "path": "source/lpi-01/33L_10'C Weight (%).txt",
+      "role": "exact_archive_entry_lpi01_weight_10Kmin",
+      "bytes": 50044,
+      "sha256": "f94cc7a6457b307e18eb2fbb6ca26147c8af982953385786dc90853127467eea"
+    },
+    {
+      "path": "source/lpi-01/33L_10'C Derivative Weight (%).txt",
+      "role": "exact_archive_entry_lpi01_dtg_10Kmin",
+      "bytes": 51132,
+      "sha256": "2bd08267207c857f50930273e3791c37e444afd3d3583d2d9f215cf2e351c3ae"
+    },
+    {
+      "path": "source/lpi-01/33L_15'C Weight (%).txt",
+      "role": "exact_archive_entry_lpi01_weight_15Kmin",
+      "bytes": 33407,
+      "sha256": "eada2b303bf40f5b431f032657bdb71794f3984540df54e649a38a43db3a5c18"
+    },
+    {
+      "path": "source/lpi-01/33L_15'C Derivative Weight (%).txt",
+      "role": "exact_archive_entry_lpi01_dtg_15Kmin",
+      "bytes": 34185,
+      "sha256": "72555dfdfdd19de144cc66003ccf3ff9c05cb1132acf8b4eb6280c84deeb9ca7"
+    },
+    {
+      "path": "expected-output.json",
+      "role": "independent_decimal_expected_output",
+      "bytes": 18917,
+      "sha256": "3e0007d5c7892c42ebff531e72f2f20a295177a1362b49798621c6c01abcbc2d"
+    },
+    {
+      "path": "oracle/dryad_polyisoprene_decimal_oracle.py",
+      "role": "independent_standard_library_decimal_oracle",
+      "bytes": 29553,
+      "sha256": "55d1841373085fe0c7f240239517647dc3c43468fb23a013a3398956f10e862b"
+    },
+    {
+      "path": "manual/hbpi-table3-swap-adjudication.json",
+      "role": "manual_publication_table3_adjudication",
+      "bytes": 3632,
+      "sha256": "002db8f420e747821c6f6b07b9ca39d6967d01fe915a8828773286a236b0e9dd"
+    }
+  ],
+  "supportingEvidence": [
+    {
+      "path": "evidence/validation/dryad-polyisoprene/DRYAD_POLYISOPRENE_VALIDATION.md",
+      "role": "validation_protocol_and_findings",
+      "bytes": 6231,
+      "sha256": "9bbbce0f6decc8bd9167d98d925ffe06ac36f21304d8870244969acdc9977dab"
+    },
+    {
+      "path": "evidence/validation/dryad-polyisoprene/independent_oracle_summary.csv",
+      "role": "independent_and_publication_mean_comparison",
+      "bytes": 545,
+      "sha256": "a16a149d10012593d21e4194061af5dcf1f3a72abcb52f5663ff4e534e691e3d"
+    },
+    {
+      "path": "evidence/validation/dryad-polyisoprene/publication_table4_targets.csv",
+      "role": "paper_table4_diagnostic_targets",
+      "bytes": 312,
+      "sha256": "4f71ada4e703ef99414900e7b3c46be007904d4ce21d24362fe505e0a957db62"
+    },
+    {
+      "path": "evidence/validation/dryad-polyisoprene/source_file_manifest.csv",
+      "role": "human_readable_source_hash_manifest",
+      "bytes": 1888,
+      "sha256": "3e9835a907b524587074ba8e80ec023092be4dcaaa772bcfd1d52d14126846c7"
+    },
+    {
+      "path": "evidence/validation/dryad-polyisoprene/table3_swap_adjudication.csv",
+      "role": "human_readable_table3_cross_sample_check",
+      "bytes": 409,
+      "sha256": "4e0386cd1c72e6edc88691656a89c63d578eed9a1f8c3cb089572f7067b00c25"
+    },
+    {
+      "path": "scripts/run-dryad-polyisoprene-oracle.mjs",
+      "role": "dedicated_isolated_oracle_runner",
+      "bytes": 2492,
+      "sha256": "69fb1f930a1fea8cc11c3b739070b4cae74b47a9977ecc9356440e1851cd2096"
+    },
+    {
+      "path": "tests/dryad-polyisoprene-oracle-reproducibility.test.mjs",
+      "role": "dedicated_reproducibility_and_provenance_test",
+      "bytes": 4686,
+      "sha256": "a61024e9489d109aad5ed61552f874175fc55d4bef37da25801cb9e9f0b13bd9"
+    },
+    {
+      "path": "tests/dryad-polyisoprene-production-core.test.ts",
+      "role": "raw_split_stream_to_production_core_comparison",
+      "bytes": 7344,
+      "sha256": "472c55ffdffbeae110c2c8446dcb3dd6b77fa8066bcf2f2b55fb9b91e39260c3"
+    }
+  ],
+  "promotionRule": "Promote only after the independent Decimal oracle, exact source/archive equality checks, manual Table 3 adjudication, a production-path comparison, and required platform runs pass.",
+  "rebaselinePolicy": "Any source, recipe, oracle, expected-output, manual-adjudication, or evidence hash change requires a written scientific reason and a fresh audit."
+}

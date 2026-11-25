@@ -1,0 +1,6 @@
+sample,treatment,fwo_mean_ea_kj_mol,fwo_plus_minus_untyped,fwo_mean_adj_r2,kas_mean_ea_kj_mol,kas_plus_minus_untyped,kas_mean_adj_r2,friedman_mean_ea_kj_mol,friedman_plus_minus_table_untyped,friedman_mean_adj_r2,friedman_plus_minus_prose_untyped,oracle_class
+Oak,untreated_dried,176.9,7,0.9992,167.3,7,0.9991,168.2,9,0.9982,9,publication_transcription_target
+Torr4,523K_15min,207.5,16,0.9857,197.9,16,0.9844,192.9,22,0.9727,22,publication_transcription_target
+Torr1,523K_30min,194.5,12,0.9927,184.9,12,0.9919,189.2,24,0.9940,24,publication_transcription_target
+Torr2,573K_15min,214.8,31,0.9831,205.0,31,0.9816,213.4,55,0.9813,55,publication_transcription_target
+Torr3,573K_30min,221.2,64,0.9655,211.3,64,0.9623,213.7,84,0.9626,87,publication_internal_conflict

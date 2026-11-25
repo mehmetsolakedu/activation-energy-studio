@@ -1,0 +1,487 @@
+{
+  "archiveAudit": {
+    "archivePath": "tests/fixtures/real/dryad-polyisoprene/source/Data.zip",
+    "bytes": 1947167,
+    "crcCheck": "passed",
+    "dryadFileId": 188033,
+    "dryadVersionId": 42617,
+    "entryCount": 70,
+    "file": "Data.zip",
+    "regularFileCount": 64,
+    "sha256": "6f98106f149567647b58edd8667cc899438a1ac5642c24b9a294655115e3295c"
+  },
+  "classification": "gold-candidate",
+  "fixtureId": "dryad-polyisoprene-lpi01-v2-alpha-020-080",
+  "knownLimitations": [
+    "The archive has no README, transformation worksheet, or author code.",
+    "There is one trace per sample and heating rate; no replicates.",
+    "The paper does not operationally define w0/wf or derivative smoothing.",
+    "The derivative export header is truncated at %/m; interpreting the deposited values as percent per minute follows the paper and instrument context.",
+    "Some archive runs have negative terminal weight and repeated/decreasing T.",
+    "Paper Table 4 gives HBPI-02 KAS as 262; prose gives 264 kJ/mol.",
+    "Coats-Redfern input heating rate is unspecified and is not a hard oracle."
+  ],
+  "methods": {
+    "FRIEDMAN": {
+      "formula": "x=1/T_K; y=ln(dalpha/dt_per_min); Ea=-slope*R/1000",
+      "meanActivationEnergyKJPerMol": "301.0239645361895217878312920772962725706329899783",
+      "paperMinusIndependentKJPerMol": "28.9760354638104782121687079227037274293670100217",
+      "paperTable4MeanKJPerMol": "330",
+      "publicationValueIsHardOracle": false,
+      "records": [
+        {
+          "activationEnergyKJPerMol": "381.71407578915078844585850828443422394308590125505",
+          "alpha": "0.2",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99968940769387293536059747150911908038736262169617",
+            "slope": "-45911.100982554038686326827389819131599322352271421"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "358.23361509425816043672497923271422004709823133111",
+          "alpha": "0.3",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99566753744027442184059987992468352626741288867121",
+            "slope": "-43086.96147485725150185525717840732963449258272968"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "305.57310351352579006293038430898092409801568092933",
+          "alpha": "0.4",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99747428807445955264796939645298097357003712376162",
+            "slope": "-36753.157671637173758501164791438854501697779813972"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "290.32335039614674865392847182810272491947567996249",
+          "alpha": "0.5",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99743040738169398430581232521030134997145730701019",
+            "slope": "-34918.976016471428237705187730401328440436323394011"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "269.90454356796166248289000075831767552450871607967",
+          "alpha": "0.6",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.9981117366308029957903939738224971568855316298025",
+            "slope": "-32463.080460893611229329340256226416916180596579306"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "255.19921399436705927586105343621527048945482218529",
+          "alpha": "0.7",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99843697341948410981998686212808758363404935883051",
+            "slope": "-30694.379975748365359969817112435985481399872770115"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "246.2198493979164431566256466923088689727918981051",
+          "alpha": "0.8",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99829185363693391948447571216702854749870853302329",
+            "slope": "-29614.37653627726578102831862263463339500997066526"
+          }
+        }
+      ]
+    },
+    "FWO": {
+      "formula": "x=1/T_K; y=ln(beta_K_per_min); Ea=-slope*R/(1.052*1000)",
+      "meanActivationEnergyKJPerMol": "316.04241736807292315856392679494452043995001789313",
+      "paperMinusIndependentKJPerMol": "2.95758263192707684143607320505547956004998210687",
+      "paperTable4MeanKJPerMol": "319",
+      "publicationValueIsHardOracle": false,
+      "records": [
+        {
+          "activationEnergyKJPerMol": "359.65714215645239448529664510334253289562503635066",
+          "alpha": "0.2",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99761454775656793337778448032147568534800773613443",
+            "slope": "-45507.603082507988621699270001770025330903458930611"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "340.87977551377595609147202172325541334266187332784",
+          "alpha": "0.3",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.9979937269549968108450116264762838886280774306567",
+            "slope": "-43131.693228511739651226644397881298842520060948845"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "339.00948364468428053354325609470533416613353936611",
+          "alpha": "0.4",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99778422941539840540389238548151933193141331189102",
+            "slope": "-42895.04423687280353146273909836544845478488410348"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "310.28509822540702637468589621916229305457790245739",
+          "alpha": "0.5",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99804104049540156333529809167435020346908901299807",
+            "slope": "-39260.532983705971921071126845945338372112284210768"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "296.30094813926998158080603832897511670617863679144",
+          "alpha": "0.6",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99817900335972913511237532453293480961934456009573",
+            "slope": "-37491.111284610909122105308065969284209533079058068"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "286.29623041250370090613047632101108320650869931926",
+          "alpha": "0.7",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99821139090881686007335609116084386594624137065247",
+            "slope": "-36225.209207615151590441565164381859894306987044317"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "279.86824348441712213801315377415986970796443763918",
+          "alpha": "0.8",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99816111274686439172814691457211263972341423689848",
+            "slope": "-35411.872717231581209159009618534096236893337710955"
+          }
+        }
+      ]
+    },
+    "KAS": {
+      "formula": "x=1/T_K; y=ln(beta_K_per_min/T_K^2); Ea=-slope*R/1000",
+      "meanActivationEnergyKJPerMol": "321.14992729701366067640249829557151699969387566379",
+      "paperMinusIndependentKJPerMol": "2.85007270298633932359750170442848300030612433621",
+      "paperTable4MeanKJPerMol": "324",
+      "publicationValueIsHardOracle": false,
+      "records": [
+        {
+          "activationEnergyKJPerMol": "367.67592724049392192358004322806162309394033758906",
+          "alpha": "0.2",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99746888808153116320338363002894097506025131410899",
+            "slope": "-44222.646465143239508741676075637057455189956651158"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "347.59660519142734215995676302541491302796434445886",
+          "alpha": "0.3",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99787713818462284698612417277626822215559783928379",
+            "slope": "-41807.582833156207712101797289626772633321828252732"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "345.4177687441138968373238475933804710783204168696",
+          "alpha": "0.4",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.9976411890415586120949467326059627820265768873773",
+            "slope": "-41545.520764970038829631696085417775742503237457555"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "315.03364790589314705368638821582085138374347435231",
+          "alpha": "0.5",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99790281951353327516210847632453372794790397398499",
+            "slope": "-37891.035566367557558596905079962095136482580928088"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "300.17901270071601636072799762965916938314681280478",
+          "alpha": "0.6",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99804768956363855808341899468708447968274640652559",
+            "slope": "-36104.377174077604142398306226655501357093504222268"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "289.52116429303507122584701494789854883703334140844",
+          "alpha": "0.7",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.99807805652598482713300297007248464596606949699383",
+            "slope": "-34822.492157157041113498233738411218017011058359005"
+          }
+        },
+        {
+          "activationEnergyKJPerMol": "282.62536500341622917369543342876504219370840216354",
+          "alpha": "0.8",
+          "regression": {
+            "n": 4,
+            "rSquared": "0.998019720566299725697653906155822066819775213103",
+            "slope": "-33993.091939503046495597343512155714583929710875796"
+          }
+        }
+      ]
+    }
+  },
+  "publicationAdjudication": {
+    "classification": "manual_review_expected_publication_row_swap",
+    "crossComparison": {
+      "hbpi01PaperVersusHbpi03Observed": {
+        "observed": {
+          "peakTemperatureC": "444.48",
+          "residueAt580CPercent": "1.33428",
+          "temperatureAt20PercentMassLossC": "388.02",
+          "temperatureAt50PercentMassLossC": "426.70322388059701492537313432835820895522388059701"
+        },
+        "paper": {
+          "peakTemperatureC": "444",
+          "residueAt580CPercent": "1.3",
+          "temperatureAt20PercentMassLossC": "388",
+          "temperatureAt50PercentMassLossC": "427"
+        }
+      },
+      "hbpi03PaperVersusHbpi01Observed": {
+        "observed": {
+          "peakTemperatureC": "444.94",
+          "residueAt580CPercent": "1.135",
+          "temperatureAt20PercentMassLossC": "352.86333333333333333333333333333333333333333333333",
+          "temperatureAt50PercentMassLossC": "416.26849162011173184357541899441340782122905027933"
+        },
+        "paper": {
+          "peakTemperatureC": "446",
+          "residueAt580CPercent": "1.1",
+          "temperatureAt20PercentMassLossC": "353",
+          "temperatureAt50PercentMassLossC": "417"
+        }
+      }
+    },
+    "finding": "Paper Table 3 HBPI-01 and HBPI-03 T20/T50/residue values track the opposite sample's locked 15 K/min trace.",
+    "peakTemperatureColumnParticipatesInSwapFinding": false,
+    "samples": [
+      {
+        "derivativeArchivePath": "Data/HBPI-01/31B 15'C derivative weight (%).txt",
+        "derivativeSha256": "c34448e7f75742ad1f0aa13b1f95f91d448706c134b7952e26b8b90d06782a0d",
+        "heatingRateKPerMin": 15,
+        "observedFromArchive": {
+          "peakTemperatureC": "444.94",
+          "residueAt580CPercent": "1.135",
+          "temperatureAt20PercentMassLossC": "352.86333333333333333333333333333333333333333333333",
+          "temperatureAt50PercentMassLossC": "416.26849162011173184357541899441340782122905027933"
+        },
+        "paperTable3": {
+          "peakTemperatureC": "444",
+          "residueAt580CPercent": "1.3",
+          "temperatureAt20PercentMassLossC": "388",
+          "temperatureAt50PercentMassLossC": "427"
+        },
+        "sample": "HBPI-01",
+        "weightArchivePath": "Data/HBPI-01/31B 15'C weight (%).txt",
+        "weightSha256": "ac5ecf20ec1e49d997ae4b9d6751ec263f97ea3ca4172e6679915c65900c7863"
+      },
+      {
+        "derivativeArchivePath": "Data/HBPI-03/30B 15'C derivative weight (%).txt",
+        "derivativeSha256": "a7e100136ad5f2226ef01f66ef0cc26a3f1975406f96f30207d88b8fa2d46814",
+        "heatingRateKPerMin": 15,
+        "observedFromArchive": {
+          "peakTemperatureC": "444.48",
+          "residueAt580CPercent": "1.33428",
+          "temperatureAt20PercentMassLossC": "388.02",
+          "temperatureAt50PercentMassLossC": "426.70322388059701492537313432835820895522388059701"
+        },
+        "paperTable3": {
+          "peakTemperatureC": "446",
+          "residueAt580CPercent": "1.1",
+          "temperatureAt20PercentMassLossC": "353",
+          "temperatureAt50PercentMassLossC": "417"
+        },
+        "sample": "HBPI-03",
+        "weightArchivePath": "Data/HBPI-03/30B 15'C weight (%).txt",
+        "weightSha256": "e46e568728ae600afa0d21a9a8f90f7f94a29c302f1a6081e1b2e295306e16b1"
+      }
+    ]
+  },
+  "recipe": {
+    "alphaValues": [
+      "0.2",
+      "0.3",
+      "0.4",
+      "0.5",
+      "0.6",
+      "0.7",
+      "0.8"
+    ],
+    "conversion": "alpha=(w0-wt)/(w0-wf)",
+    "crossing": "first downward target-weight crossing with left T_C>=250; piecewise-linear interpolation",
+    "finalWeight": "last weight-percent row per run",
+    "friedmanDerivative": "piecewise-linear deposited DTG at the same crossing; dalpha/dt=-DTG/(w0-wf)",
+    "fwoCoefficient": "1.052",
+    "gasConstantJPerMolK": "8.3142",
+    "initialWeight": "first weight-percent row per run",
+    "noSmoothingSortingExtrapolationOrRepair": true,
+    "preserveAcquisitionOrder": true,
+    "regression": "unweighted ordinary least squares across four rates",
+    "temperature": "T_K=T_C+273.15"
+  },
+  "schema": "activation-energy-studio/dryad-polyisoprene-real-reference/v1",
+  "source": {
+    "articleDoi": "10.1098/rsos.190869",
+    "atmosphere": "N2",
+    "datasetDoi": "10.5061/dryad.0cfxpnvx2",
+    "datasetVersion": 2,
+    "dryadVersionId": 42617,
+    "heatingRatesKPerMin": [
+      2,
+      5,
+      10,
+      15
+    ],
+    "license": "CC0-1.0",
+    "sample": "LPI-01"
+  },
+  "sourceAudits": [
+    {
+      "derivative": {
+        "archivePath": "Data/LPI-01/33L_2'C Derivative Weight (%).txt",
+        "bytes": 274577,
+        "equalsOfficialArchiveEntry": true,
+        "file": "33L_2'C Derivative Weight (%).txt",
+        "firstTemperatureC": "30.1",
+        "firstValue": "-0.506",
+        "lastTemperatureC": "605.66",
+        "lastValue": "0",
+        "maximumValue": "0.004529",
+        "minimumValue": "-2.818",
+        "nonIncreasingTemperatureStepCount": 142,
+        "sha256": "2a8e3024dce9b4f37fdc5a32dd664d9b57ff3862b4e7eab21281e2eba9c25bac"
+      },
+      "heatingRateKPerMin": 2,
+      "rowCount": 17100,
+      "weight": {
+        "archivePath": "Data/LPI-01/33L_2'C Weight (%).txt",
+        "bytes": 252172,
+        "equalsOfficialArchiveEntry": true,
+        "file": "33L_2'C Weight (%).txt",
+        "firstTemperatureC": "30.1",
+        "firstValue": "99.993",
+        "lastTemperatureC": "605.66",
+        "lastValue": "-0.121",
+        "maximumValue": "99.996",
+        "minimumValue": "-0.123",
+        "nonIncreasingTemperatureStepCount": 142,
+        "sha256": "abf2c56ccec7b7e3989ad0357edb5a897e527fda367925330f05ff7c1ad425af"
+      }
+    },
+    {
+      "derivative": {
+        "archivePath": "Data/LPI-01/33L_5'C Derivative Weight (%).txt",
+        "bytes": 106238,
+        "equalsOfficialArchiveEntry": true,
+        "file": "33L_5'C Derivative Weight (%).txt",
+        "firstTemperatureC": "30.18",
+        "firstValue": "-0.621",
+        "lastTemperatureC": "605.28",
+        "lastValue": "0.369",
+        "maximumValue": "0.369",
+        "minimumValue": "-6.371",
+        "nonIncreasingTemperatureStepCount": 14,
+        "sha256": "d858215e949e3d5dc09c53cf2243ab356eca447a2b6132da954da7add32acce5"
+      },
+      "heatingRateKPerMin": 5,
+      "rowCount": 6840,
+      "weight": {
+        "archivePath": "Data/LPI-01/33L_5'C Weight (%).txt",
+        "bytes": 100246,
+        "equalsOfficialArchiveEntry": true,
+        "file": "33L_5'C Weight (%).txt",
+        "firstTemperatureC": "30.18",
+        "firstValue": "99.956",
+        "lastTemperatureC": "605.28",
+        "lastValue": "-0.004531",
+        "maximumValue": "99.999",
+        "minimumValue": "-0.004531",
+        "nonIncreasingTemperatureStepCount": 14,
+        "sha256": "7ce0576b2d33be7fb8ad8a25c242b83d42ba578324a51db4906f3ae09b7c583d"
+      }
+    },
+    {
+      "derivative": {
+        "archivePath": "Data/LPI-01/33L_10'C Derivative Weight (%).txt",
+        "bytes": 51132,
+        "equalsOfficialArchiveEntry": true,
+        "file": "33L_10'C Derivative Weight (%).txt",
+        "firstTemperatureC": "30.01",
+        "firstValue": "-0.31",
+        "lastTemperatureC": "601.7",
+        "lastValue": "-0.338",
+        "maximumValue": "0.081",
+        "minimumValue": "-11.4",
+        "nonIncreasingTemperatureStepCount": 6,
+        "sha256": "2bd08267207c857f50930273e3791c37e444afd3d3583d2d9f215cf2e351c3ae"
+      },
+      "heatingRateKPerMin": 10,
+      "rowCount": 3420,
+      "weight": {
+        "archivePath": "Data/LPI-01/33L_10'C Weight (%).txt",
+        "bytes": 50044,
+        "equalsOfficialArchiveEntry": true,
+        "file": "33L_10'C Weight (%).txt",
+        "firstTemperatureC": "30.01",
+        "firstValue": "99.913",
+        "lastTemperatureC": "601.7",
+        "lastValue": "0.19",
+        "maximumValue": "99.999",
+        "minimumValue": "0.19",
+        "nonIncreasingTemperatureStepCount": 6,
+        "sha256": "f94cc7a6457b307e18eb2fbb6ca26147c8af982953385786dc90853127467eea"
+      }
+    },
+    {
+      "derivative": {
+        "archivePath": "Data/LPI-01/33L_15'C Derivative Weight (%).txt",
+        "bytes": 34185,
+        "equalsOfficialArchiveEntry": true,
+        "file": "33L_15'C Derivative Weight (%).txt",
+        "firstTemperatureC": "29.93",
+        "firstValue": "0.018",
+        "lastTemperatureC": "602.03",
+        "lastValue": "0.14",
+        "maximumValue": "0.14",
+        "minimumValue": "-15.508",
+        "nonIncreasingTemperatureStepCount": 4,
+        "sha256": "72555dfdfdd19de144cc66003ccf3ff9c05cb1132acf8b4eb6280c84deeb9ca7"
+      },
+      "heatingRateKPerMin": 15,
+      "rowCount": 2280,
+      "weight": {
+        "archivePath": "Data/LPI-01/33L_15'C Weight (%).txt",
+        "bytes": 33407,
+        "equalsOfficialArchiveEntry": true,
+        "file": "33L_15'C Weight (%).txt",
+        "firstTemperatureC": "29.93",
+        "firstValue": "99.869",
+        "lastTemperatureC": "602.03",
+        "lastValue": "0.042",
+        "maximumValue": "99.998",
+        "minimumValue": "0.042",
+        "nonIncreasingTemperatureStepCount": 4,
+        "sha256": "eada2b303bf40f5b431f032657bdb71794f3984540df54e649a38a43db3a5c18"
+      }
+    }
+  ]
+}

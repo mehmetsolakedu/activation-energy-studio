@@ -90,15 +90,32 @@ async function runOnBrowser(label, launcher, launchOpts, captureFigure2 = false)
   // 3. Verify direct XLSX binary upload via file input (exercises read-excel-file + fflate in real browser!)
   await page.click('[data-testid="clear-files"]');
   await page.setInputFiles('[data-testid="thermal-file-input"]', RHUBARB_XLSX);
+  await page.waitForSelector('section.mapping-wizard', { timeout: 15000 });
   await page.waitForFunction(
-    () => (document.body.textContent || '').includes('pone.0173946.s002.xlsx'),
+    () => {
+      const body = document.body.textContent || '';
+      return body.includes('pone.0173946.s002.xlsx') && body.includes('Mapping required');
+    },
     { timeout: 15000 },
   );
+  await page.waitForSelector('[data-testid="header-row-input"]', { timeout: 15000 });
+  await page.fill('[data-testid="header-row-input"]', '3');
+  await page.click('[data-testid="apply-mapping"]');
+  await page.waitForFunction(
+    () => (document.body.textContent || '').includes('2. weight'),
+    { timeout: 15000 },
+  );
+  await page.waitForSelector('[data-testid="table-layout"]', { timeout: 15000 });
   const xlsxDetected = await page.evaluate(() => {
     const body = document.body.textContent || '';
+    const layoutSelect = document.querySelector('[data-testid="table-layout"]');
+    const wideOption = Array.from(layoutSelect?.querySelectorAll('option') || []).some(
+      (opt) => opt.value === 'wide-series',
+    );
     return {
       hasFilename: body.includes('pone.0173946.s002.xlsx'),
-      hasSheetName: body.includes('Fig.2.'),
+      mappingWizardOpened: Boolean(document.querySelector('section.mapping-wizard')),
+      headerRow3RereadVerified: Boolean(layoutSelect) && wideOption && body.includes('2. weight'),
     };
   });
 
@@ -234,7 +251,7 @@ async function main() {
   const rhCsvHashes = new Set(results.map((r) => r.rhubarb.csvSha256));
 
   const summary = {
-    htmlPath: HTML_PATH,
+    htmlPath: 'release/v0.4.1/Activation-Energy-Studio-v0.4.1.html',
     htmlSha256: sha256(readFileSync(HTML_PATH)),
     executedAt: new Date().toISOString(),
     os: `${process.platform} ${process.arch}`,

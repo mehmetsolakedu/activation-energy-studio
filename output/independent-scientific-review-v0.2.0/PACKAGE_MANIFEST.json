@@ -1,0 +1,1174 @@
+{
+  "schema": "activation-energy-studio/independent-scientific-review-package/v1",
+  "packageVersion": "0.2.0",
+  "reviewState": "UNSIGNED_AWAITING_INDEPENDENT_REVIEW",
+  "acceptanceGates": {
+    "AC-SCI-03": "PARTIAL_AWAITING_INDEPENDENT_REVIEW",
+    "AC-VAL-05": "PARTIAL_AWAITING_INDEPENDENT_REVIEW"
+  },
+  "boundary": "This package is an unsigned review input. Integrity PASS is not scientific sign-off and cannot close either acceptance gate.",
+  "lockedRelease": {
+    "name": "Activation Energy Studio",
+    "version": "0.2.0",
+    "artifact": "release/Activation-Energy-Studio-v0.2.0.html",
+    "bytes": 1261018,
+    "sha256": "ce716471586b098806007853992bed6601dfa359d53e59fe1b50c849d911dbb7",
+    "releaseManifestPath": "release/MANIFEST.v0.2.0.json",
+    "releaseManifestSha256": "c5af42f4d9acc6aaca507cc3037cd1a1b5be76892da78211493e5e178cac843a",
+    "checksumIndexPath": "release/SHA256SUMS.txt",
+    "checksumIndexSha256": "e2f9276bb5dab504ed9f73ae3e19185c3a7243ac6b38ea104ff0caab0ea41ec1",
+    "realFixtureManifestPath": "tests/fixtures/real/manifest.json",
+    "realFixtureManifestSha256": "48236d198269ba75bce5330d406c2b6168fad0a6f8d16771bbc544e1623faa5e"
+  },
+  "reviewerEligibility": {
+    "required": true,
+    "humanReviewerRequired": true,
+    "currentRelevantExperienceRequired": true,
+    "independentFromCoreImplementation": true,
+    "independentFromValidationFixtureAuthorship": true,
+    "independentFromProductOwnershipAndAuthorship": true,
+    "noProjectEmploymentOrSupervisoryDependency": true,
+    "noRecentCoauthorshipWithProjectTeam": true,
+    "noFinancialOrIntellectualPropertyInterest": true,
+    "noUndisclosedPaidConsultingOrReviewInfluence": true,
+    "noOtherUndisclosedConflictOfInterest": true,
+    "aiAgentMaySign": false,
+    "requiredIdentityFields": [
+      "name",
+      "affiliation",
+      "professionalProfile",
+      "relevantExpertise",
+      "expertiseEvidence",
+      "independenceStatement",
+      "conflictOfInterestStatement",
+      "eligibilityDeclarations",
+      "reviewStartUtc",
+      "reviewEndUtc",
+      "reviewEnvironment",
+      "signature",
+      "signatureMethod",
+      "signatureVerificationReference",
+      "signatureUtc"
+    ]
+  },
+  "checklist": {
+    "acSci03": {
+      "surfaces": [
+        "UI",
+        "PDF",
+        "CSV",
+        "JSON"
+      ],
+      "itemsPerSurface": 7,
+      "requiredDecisions": 28
+    },
+    "acVal05": {
+      "scopes": [
+        "locked synthetic report",
+        "Paper 010 real-data validation path"
+      ],
+      "requiredDecisions": 7
+    },
+    "totalRequiredDecisions": 35,
+    "initialDecision": "NOT_REVIEWED",
+    "allowedCompletedItemDecisions": [
+      "PASS",
+      "FAIL"
+    ],
+    "allowedGateDispositions": [
+      "PASS",
+      "FAIL",
+      "REVISION_REQUIRED"
+    ],
+    "allowedOverallVerdicts": [
+      "PASS",
+      "FAIL",
+      "REVISION_REQUIRED"
+    ],
+    "structuredInputSchema": "activation-energy-studio/scientific-review-input/v1",
+    "structuredEvidenceSchema": "activation-energy-studio/scientific-review-evidence-record/v1"
+  },
+  "artifacts": [
+    {
+      "role": "release_html",
+      "sourcePath": "release/Activation-Energy-Studio-v0.2.0.html",
+      "packagePath": "evidence/release/Activation-Energy-Studio-v0.2.0.html",
+      "purpose": "Executable one-file application used for the UI and export review.",
+      "sourceLock": "release_manifest",
+      "bytes": 1261018,
+      "sha256": "ce716471586b098806007853992bed6601dfa359d53e59fe1b50c849d911dbb7"
+    },
+    {
+      "role": "release_checksum_index",
+      "sourcePath": "release/SHA256SUMS.txt",
+      "packagePath": "evidence/release/SHA256SUMS.txt",
+      "purpose": "Published release-artifact checksum ledger.",
+      "sourceLock": "release_manifest",
+      "bytes": 505,
+      "sha256": "e2f9276bb5dab504ed9f73ae3e19185c3a7243ac6b38ea104ff0caab0ea41ec1"
+    },
+    {
+      "role": "release_evidence_manifest",
+      "sourcePath": "release/MANIFEST.v0.2.0.json",
+      "packagePath": "evidence/release/MANIFEST.v0.2.0.json",
+      "purpose": "Source release evidence manifest whose exact hash must be cited by the reviewer.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 78199,
+      "sha256": "c5af42f4d9acc6aaca507cc3037cd1a1b5be76892da78211493e5e178cac843a"
+    },
+    {
+      "role": "mission_lock",
+      "sourcePath": "00_MISSION_LOCK.md",
+      "packagePath": "evidence/00_MISSION_LOCK.md",
+      "purpose": "Product and scientific claim boundary.",
+      "sourceLock": "release_manifest",
+      "bytes": 10390,
+      "sha256": "684f7148f8977327af64da4d0b35f9e8a275fd8bf2e804cb582be8fff29146f5"
+    },
+    {
+      "role": "scientific_specification",
+      "sourcePath": "01_SCIENTIFIC_SPEC_V1.md",
+      "packagePath": "evidence/01_SCIENTIFIC_SPEC_V1.md",
+      "purpose": "Implemented equations, inputs, outputs, and method conditions.",
+      "sourceLock": "release_manifest",
+      "bytes": 24232,
+      "sha256": "d1679dfaf20b6d1ea8e2889abe88c4357fa1854d2172f42eeb90a8af2ad022e4"
+    },
+    {
+      "role": "acceptance_criteria",
+      "sourcePath": "02_ACCEPTANCE_CRITERIA.md",
+      "packagePath": "evidence/02_ACCEPTANCE_CRITERIA.md",
+      "purpose": "Normative AC-SCI-03 and AC-VAL-05 gate definitions.",
+      "sourceLock": "release_manifest",
+      "bytes": 23742,
+      "sha256": "82225e00f74fd96b1c346ed5c144864bc1b71f41d49e564bb743e17ce27c1797"
+    },
+    {
+      "role": "scientific_review_protocol",
+      "sourcePath": "SCIENTIFIC_REVIEW_SIGNOFF_PROTOCOL.md",
+      "packagePath": "evidence/SCIENTIFIC_REVIEW_SIGNOFF_PROTOCOL.md",
+      "purpose": "Independent reviewer eligibility, checklist, and verdict rules.",
+      "sourceLock": "release_manifest",
+      "bytes": 8314,
+      "sha256": "afda35862a1a336e8a3a97bd9a0d6633a42deecad7f889d5ab5791b47d85fb17"
+    },
+    {
+      "role": "scientific_review_runbook",
+      "sourcePath": "SCIENTIFIC_REVIEW_RUNBOOK.md",
+      "packagePath": "evidence/SCIENTIFIC_REVIEW_RUNBOOK.md",
+      "purpose": "Locked case-to-decision execution and retained-evidence runbook.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 6653,
+      "sha256": "1ed6e7fd8e1d6ab207e42a7b0829ff7e68ccf30e151e5279d8932cb7d36fcef3"
+    },
+    {
+      "role": "scientific_review_record_generator",
+      "sourcePath": "scripts/record-scientific-review.mjs",
+      "packagePath": "evidence/scripts/record-scientific-review.mjs",
+      "purpose": "Fail-closed structured signed-review evidence recorder.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 28697,
+      "sha256": "136152a4a394ef5335067a7974e677cba7e8b7d8481efc605773226d92d44147"
+    },
+    {
+      "role": "scientific_review_record_verification",
+      "sourcePath": "tests/scientific-review-evidence-record.test.mjs",
+      "packagePath": "evidence/tests/scientific-review-evidence-record.test.mjs",
+      "purpose": "Decision-set, hash, eligibility, path, time, signature, and disposition rejection tests.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 15061,
+      "sha256": "64874f7dce536e53aa8c7e1eeb795e776b72e10785460e2c7375ad858a6b2b11"
+    },
+    {
+      "role": "scientific_review_package_generator",
+      "sourcePath": "scripts/generate-scientific-review-package.mjs",
+      "packagePath": "evidence/scripts/generate-scientific-review-package.mjs",
+      "purpose": "Deterministic package generator and fail-closed integrity checker.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 66011,
+      "sha256": "8c85418b22fd9e05280b804fa157bbc6cbd52971e3139b189e29423560a1bae3"
+    },
+    {
+      "role": "scientific_review_package_verification",
+      "sourcePath": "tests/scientific-review-package.test.mjs",
+      "packagePath": "evidence/tests/scientific-review-package.test.mjs",
+      "purpose": "Determinism, unsigned-state, source-lock, and tamper-rejection tests.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 13055,
+      "sha256": "43afe62f64398250b22d6369e641af6c8c5642b90505e169a90db724b6d33114"
+    },
+    {
+      "role": "scientific_traceability_report",
+      "sourcePath": "SCIENTIFIC_TRACEABILITY_REPORT.md",
+      "packagePath": "evidence/SCIENTIFIC_TRACEABILITY_REPORT.md",
+      "purpose": "Paper-to-method evidence-chain audit.",
+      "sourceLock": "release_manifest",
+      "bytes": 2232,
+      "sha256": "ec389ea78e080eeafe6984ddaff53a375a44dcdd6962b743882831d5ef76da5b"
+    },
+    {
+      "role": "corpus_integrity_ledger",
+      "sourcePath": "evidence/corpus/CORPUS_INTEGRITY_LEDGER.json",
+      "packagePath": "evidence/evidence/corpus/CORPUS_INTEGRITY_LEDGER.json",
+      "purpose": "231 PDF-file accounting, source hashes, supplementary boundary, matrix-ID correction ledger, and unverified-Q1/Q2 boundary.",
+      "sourceLock": "release_manifest",
+      "bytes": 97549,
+      "sha256": "2ecbe617bf988aeb58bc30a599b2ed3f81e0be70b045521f1fe0e5e9a5f0260e"
+    },
+    {
+      "role": "corpus_integrity_ledger_generator",
+      "sourcePath": "scripts/generate-corpus-integrity-ledger.mjs",
+      "packagePath": "evidence/scripts/generate-corpus-integrity-ledger.mjs",
+      "purpose": "Deterministic fail-closed corpus accounting and source-lock generator.",
+      "sourceLock": "release_manifest",
+      "bytes": 18257,
+      "sha256": "883df70ebbf160c1efc7ab4063ef0ae7f71502febe50784bf80b626edabbafe0"
+    },
+    {
+      "role": "corpus_integrity_ledger_verification",
+      "sourcePath": "tests/corpus-integrity-ledger.test.mjs",
+      "packagePath": "evidence/tests/corpus-integrity-ledger.test.mjs",
+      "purpose": "Corpus unit-boundary, 001-231 coverage, blank-ID correction, and Q1/Q2 refusal tests.",
+      "sourceLock": "release_manifest",
+      "bytes": 5122,
+      "sha256": "d7b8be202dc36939532da6f8af8ee18386e8ae0c62ea6f677286a2368d5e4f31"
+    },
+    {
+      "role": "numerical_validation_report",
+      "sourcePath": "NUMERICAL_VALIDATION_REPORT.md",
+      "packagePath": "evidence/NUMERICAL_VALIDATION_REPORT.md",
+      "purpose": "Independent hand-calculation and numerical validation record.",
+      "sourceLock": "release_manifest",
+      "bytes": 3894,
+      "sha256": "bf86a8f311a5e665dea4bd26bee3f1ef6861f48c543da4d7cb30d93f5dc4ee59"
+    },
+    {
+      "role": "pdf_visual_qa_report",
+      "sourcePath": "PDF_REPORT_VISUAL_QA.md",
+      "packagePath": "evidence/PDF_REPORT_VISUAL_QA.md",
+      "purpose": "Visual inspection record for the deterministic QA PDF.",
+      "sourceLock": "release_manifest",
+      "bytes": 4480,
+      "sha256": "faf7fad9a07f85a9070508b19c9be6298c9bcc6d6e9bc71b7a1cae03b69838ea"
+    },
+    {
+      "role": "real_data_validation_status",
+      "sourcePath": "REAL_DATA_VALIDATION_STATUS.md",
+      "packagePath": "evidence/REAL_DATA_VALIDATION_STATUS.md",
+      "purpose": "Real-data validation and retained publication-reproduction negative result.",
+      "sourceLock": "release_manifest",
+      "bytes": 19024,
+      "sha256": "6eeddb142d31ad158faa2f573721da2560d0d060003104556cf52a9d09915a09"
+    },
+    {
+      "role": "real_data_validation_goal",
+      "sourcePath": "REAL_DATA_VALIDATION_GOAL.md",
+      "packagePath": "evidence/REAL_DATA_VALIDATION_GOAL.md",
+      "purpose": "Bounded five-lane official-real-data validation objective and acceptance criteria.",
+      "sourceLock": "release_manifest",
+      "bytes": 3085,
+      "sha256": "8a0fa045b80a5e8b38f906733ef34479dabf57891b08aadcca84f67c942cfcc6"
+    },
+    {
+      "role": "real_data_validation_final_report",
+      "sourcePath": "evidence/validation/REAL_DATA_VALIDATION_FINAL_REPORT.md",
+      "packagePath": "evidence/evidence/validation/REAL_DATA_VALIDATION_FINAL_REPORT.md",
+      "purpose": "Final five-lane decision matrix, quantitative summary, adjudications, and open external gates.",
+      "sourceLock": "release_manifest",
+      "bytes": 6839,
+      "sha256": "9e80d3b6f67e46177eee5ac9c9091794bb612d54d4541d81bb5962caa8b4f052"
+    },
+    {
+      "role": "second_raw_dataset_acquisition_audit",
+      "sourcePath": "SECOND_RAW_DATASET_SEARCH.md",
+      "packagePath": "evidence/SECOND_RAW_DATASET_SEARCH.md",
+      "purpose": "Negative acquisition audit and explicit P1 boundary for a second machine-readable multi-rate raw-curve dataset.",
+      "sourceLock": "release_manifest",
+      "bytes": 9030,
+      "sha256": "39d8114c6e7b3906c36c98b1b1e47e887e5325b9bb2713afe83dd1fc3f4cf705"
+    },
+    {
+      "role": "severity_tagged_known_issues_ledger",
+      "sourcePath": "governance/KNOWN_ISSUES.json",
+      "packagePath": "evidence/governance/KNOWN_ISSUES.json",
+      "purpose": "Severity-tagged open issues, external review blocker, and validated-MVP eligibility boundary.",
+      "sourceLock": "release_manifest",
+      "bytes": 9137,
+      "sha256": "a5d795b57ad81f5d987b483c7fb997fad8ee65f0a111e79261ee40ca7bd774b4"
+    },
+    {
+      "role": "review_input_fixture",
+      "sourcePath": "examples/synthetic_kas_150.csv",
+      "packagePath": "evidence/examples/synthetic_kas_150.csv",
+      "purpose": "Deterministic input used to exercise UI, PDF, CSV, and JSON surfaces.",
+      "sourceLock": "release_manifest",
+      "bytes": 1872,
+      "sha256": "eeafd2d8a1dc11c385bc2906800b9b1d5647451a64cd400eafd50a83579f8b19"
+    },
+    {
+      "role": "review_case_manifest",
+      "sourcePath": "evidence/usability/v0.2.0/UX_FIXTURE_MANIFEST.json",
+      "packagePath": "evidence/evidence/usability/v0.2.0/UX_FIXTURE_MANIFEST.json",
+      "purpose": "Hash-locked R1-R5, W1-W4, C1, and UX01 review case inventory.",
+      "sourceLock": "release_manifest",
+      "bytes": 4239,
+      "sha256": "d2b5bf519eadc4ddeb21f9f5a568bc7e4d8f673a5bce0302e0420c66e7d67504"
+    },
+    {
+      "role": "complete_fixture_manifest",
+      "sourcePath": "evidence/validation/FIXTURE_MANIFEST.v0.2.0.json",
+      "packagePath": "evidence/evidence/validation/FIXTURE_MANIFEST.v0.2.0.json",
+      "purpose": "Recursive SHA-256 lock for every retained tests/fixtures input and expected output.",
+      "sourceLock": "release_manifest",
+      "bytes": 16151,
+      "sha256": "653b31963c038aec58062b8c3b8605a7242353f2ad8d8dba4af36765cdb02666"
+    },
+    {
+      "role": "review_case_ux01_four_run_mass_ambiguous",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/UX01_four_run_mass_ambiguous.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/UX01_four_run_mass_ambiguous.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case UX01_four_run_mass_ambiguous.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 2018,
+      "sha256": "da30cd9984b4f1a972bd6fa68726010f4b2a2ff0720b0c091bcf064bcdd0c251"
+    },
+    {
+      "role": "review_case_r1_two_rates",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/R1_two_rates.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/R1_two_rates.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case R1_two_rates.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 972,
+      "sha256": "43043dd64dc58c28c41ccd689433408b2115bd603130b7b831119f10261d68f0"
+    },
+    {
+      "role": "review_case_r2_no_common_alpha",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/R2_no_common_alpha.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/R2_no_common_alpha.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case R2_no_common_alpha.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 672,
+      "sha256": "4c329319515a39cf81f5e75dcbcc9d8ee4a4294ca271b151797ede61feee51a0"
+    },
+    {
+      "role": "review_case_r3_nonmonotonic_alpha",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/R3_nonmonotonic_alpha.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/R3_nonmonotonic_alpha.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case R3_nonmonotonic_alpha.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 1871,
+      "sha256": "929521b102bf060e5f37af8d5fa9250db3e7a7d8262e0ccddd8810c447dbdf32"
+    },
+    {
+      "role": "review_case_r4_context_conflict",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/R4_context_conflict.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/R4_context_conflict.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case R4_context_conflict.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 1890,
+      "sha256": "ad7544e05b823cbad2f608f226fd995e2deff35866c77d6e64e9597cbd89dbde"
+    },
+    {
+      "role": "review_case_r5_nonlinear_time",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/R5_nonlinear_time.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/R5_nonlinear_time.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case R5_nonlinear_time.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 1955,
+      "sha256": "126b965a0c3de030a3b0d5ff14cd9d2039770d6c3bb607b68692b1944097446d"
+    },
+    {
+      "role": "review_case_c1_peaks",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/C1_peaks.tsv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/C1_peaks.tsv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case C1_peaks.tsv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 196,
+      "sha256": "7b1777bed6c71d2e93fd9725f36dea3ffbe46cbe166d8f11ddb27b803e1adfe6"
+    },
+    {
+      "role": "review_case_w1_three_rates",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/W1_three_rates.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/W1_three_rates.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case W1_three_rates.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 1422,
+      "sha256": "125956a27dbba08657a35d3113cd7a79a02ebfdd6d601b47c6663e061d990185"
+    },
+    {
+      "role": "review_case_w2_synthetic_kas_150",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/W2_synthetic_kas_150.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/W2_synthetic_kas_150.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case W2_synthetic_kas_150.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 1872,
+      "sha256": "eeafd2d8a1dc11c385bc2906800b9b1d5647451a64cd400eafd50a83579f8b19"
+    },
+    {
+      "role": "review_case_w3_low_r2",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/W3_low_r2.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/W3_low_r2.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case W3_low_r2.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 521,
+      "sha256": "2757e2d015acf62b9d75ff39058a01482ece2e1b3c464aaf09fcb377bd0a07ae"
+    },
+    {
+      "role": "review_case_w4_multistep",
+      "sourcePath": "evidence/usability/v0.2.0/study_bundle/W4_multistep.csv",
+      "packagePath": "evidence/evidence/usability/v0.2.0/study_bundle/W4_multistep.csv",
+      "purpose": "Reviewer-loadable warning/refusal/comprehension case W4_multistep.csv.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 1872,
+      "sha256": "ec51efdf53db199f66582f0a075fc25460bad3fcc1d83f608562e9f1a0cb043f"
+    },
+    {
+      "role": "schema_v4_pdf_qa_artifact",
+      "sourcePath": "output/pdf/activation-energy-report-schema-v4-qa.pdf",
+      "packagePath": "evidence/output/pdf/activation-energy-report-schema-v4-qa.pdf",
+      "purpose": "Deterministic PDF surface for claim-boundary inspection.",
+      "sourceLock": "release_manifest",
+      "bytes": 120117,
+      "sha256": "fa04ca87dab3b7170a14eaabfdc925aa3f1cfeb7d088db9f0fd03f68469b1e49"
+    },
+    {
+      "role": "project_report_json_schema",
+      "sourcePath": "src/report/project-report.schema.json",
+      "packagePath": "evidence/src/report/project-report.schema.json",
+      "purpose": "Machine-readable JSON report contract.",
+      "sourceLock": "release_manifest",
+      "bytes": 44408,
+      "sha256": "33c1964034a943a340fa22892a45fccba33158b994d9b136bdbf9e8d1d7cdbe7"
+    },
+    {
+      "role": "report_contract_verification",
+      "sourcePath": "tests/report-contract.test.ts",
+      "packagePath": "evidence/tests/report-contract.test.ts",
+      "purpose": "JSON, CSV, audit, and schema contract verification.",
+      "sourceLock": "release_manifest",
+      "bytes": 13358,
+      "sha256": "4ca229afa756c11a80cb4ee30a0ff05e636d431145fb1554176a4baa22d91cd9"
+    },
+    {
+      "role": "pdf_report_verification",
+      "sourcePath": "tests/report.test.ts",
+      "packagePath": "evidence/tests/report.test.ts",
+      "purpose": "PDF pagination, scientific content, warning, and traceability checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 3654,
+      "sha256": "ccd118cba9a4391d1bab56cac790e31c05836a2e1d7a1973ec428ea6f3f00315"
+    },
+    {
+      "role": "warning_visibility_contract_verification",
+      "sourcePath": "tests/warning-visibility-contract.test.tsx",
+      "packagePath": "evidence/tests/warning-visibility-contract.test.tsx",
+      "purpose": "Result-panel and PDF warning-code visibility checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 10360,
+      "sha256": "dfdc79e141cdac090d3648133a87b504f942f9a5bcbadba3951f94b9a0fea48c"
+    },
+    {
+      "role": "regression_ci_boundary_contract_verification",
+      "sourcePath": "tests/regression-ci-boundary-contract.test.tsx",
+      "packagePath": "evidence/tests/regression-ci-boundary-contract.test.tsx",
+      "purpose": "Regression-only confidence-interval boundary checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 3607,
+      "sha256": "79c071521cf76f1d4dd963c0f97416c555651d5481473b6fede8980021c96a66"
+    },
+    {
+      "role": "global_refusal_contract_verification",
+      "sourcePath": "tests/global-refusal-contract.test.ts",
+      "packagePath": "evidence/tests/global-refusal-contract.test.ts",
+      "purpose": "Fail-closed global refusal and no-partial-result contract checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 4055,
+      "sha256": "fe85332aa6b4b64358e212afa3abe0ba5772cd2fbba14be51a749ba93438bfd3"
+    },
+    {
+      "role": "provided_derivative_failclosed_verification",
+      "sourcePath": "tests/provided-derivative-failclosed.test.ts",
+      "packagePath": "evidence/tests/provided-derivative-failclosed.test.ts",
+      "purpose": "Partial or non-finite supplied derivative refusal and no-silent-fallback checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 4777,
+      "sha256": "c2b7d4f7a3017926a9d8e2aa849024a95a70db40bdcd851c59376724ffaf4d48"
+    },
+    {
+      "role": "replicate_regression_contract_verification",
+      "sourcePath": "tests/replicate-regression-contract.test.ts",
+      "packagePath": "evidence/tests/replicate-regression-contract.test.ts",
+      "purpose": "Equal-weight heating-rate grouping, raw-n, n-beta, degrees-of-freedom, and provenance checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 8990,
+      "sha256": "bdc5b93197aadb998db31e6aee8f39f2dc64d88fd0f1ec3150567acd5bc802ef"
+    },
+    {
+      "role": "schema_v4_report_fixture",
+      "sourcePath": "tests/helpers/report-fixture.ts",
+      "packagePath": "evidence/tests/helpers/report-fixture.ts",
+      "purpose": "Fixed report fixture used to generate the QA artifact.",
+      "sourceLock": "release_manifest",
+      "bytes": 2875,
+      "sha256": "3b6ec7f486f2f4d97661dd34de89215ca49fd68344a4fb0909d1ed21c7979088"
+    },
+    {
+      "role": "pdf_qa_generator",
+      "sourcePath": "scripts/generate-report-qa.mjs",
+      "packagePath": "evidence/scripts/generate-report-qa.mjs",
+      "purpose": "Deterministic QA PDF generator.",
+      "sourceLock": "release_manifest",
+      "bytes": 408,
+      "sha256": "a86009d1dccbaa7df6ae49552f40fda104c9785279447ccd3737341cf5e8275f"
+    },
+    {
+      "role": "pdf_qa_artifact_verification",
+      "sourcePath": "tests/report-qa-artifact.test.ts",
+      "packagePath": "evidence/tests/report-qa-artifact.test.ts",
+      "purpose": "QA PDF byte, metadata, pagination, and content checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 1219,
+      "sha256": "4abbb01505d2f769f13bd08154f927ce6de3449513f303dc0a380cbb182165d5"
+    },
+    {
+      "role": "independent_hand_worksheet_fixture",
+      "sourcePath": "tests/fixtures/hand/activation_energy_hand_worksheet.json",
+      "packagePath": "evidence/tests/fixtures/hand/activation_energy_hand_worksheet.json",
+      "purpose": "Application-independent Decimal worksheet values.",
+      "sourceLock": "release_manifest",
+      "bytes": 5650,
+      "sha256": "faf3418de6b79ba23f384f32479d68100383422d26bcc7a8f70a1fc025456a6d"
+    },
+    {
+      "role": "independent_hand_worksheet_verification",
+      "sourcePath": "tests/hand-worksheet-validation.test.ts",
+      "packagePath": "evidence/tests/hand-worksheet-validation.test.ts",
+      "purpose": "Application-versus-independent-worksheet acceptance checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 7924,
+      "sha256": "5fef0b6c541513763a0bbeeb98d70973a7025ff967e946b10d1ec7f99328319e"
+    },
+    {
+      "role": "synthetic_layer2_fixture",
+      "sourcePath": "tests/fixtures/synthetic/layer2_validation.json",
+      "packagePath": "evidence/tests/fixtures/synthetic/layer2_validation.json",
+      "purpose": "Synthetic known-Ea and noise/stage test definitions.",
+      "sourceLock": "release_manifest",
+      "bytes": 619,
+      "sha256": "346a58f37b2889b8f0c06cb95ec884e1813d200a092755baadd640341d7a4e08"
+    },
+    {
+      "role": "synthetic_layer2_verification",
+      "sourcePath": "tests/synthetic-layer2-validation.test.ts",
+      "packagePath": "evidence/tests/synthetic-layer2-validation.test.ts",
+      "purpose": "Layer-2 known-Ea, noise, and multistage checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 4277,
+      "sha256": "35795873227c70adbae5f127e140dccab89e20c09440c0e96593071abdf53a84"
+    },
+    {
+      "role": "real_fixture_manifest",
+      "sourcePath": "tests/fixtures/real/manifest.json",
+      "packagePath": "evidence/tests/fixtures/real/manifest.json",
+      "purpose": "Nested immutable real-data source/derivation/reference lock.",
+      "sourceLock": "release_manifest",
+      "bytes": 4215,
+      "sha256": "48236d198269ba75bce5330d406c2b6168fad0a6f8d16771bbc544e1623faa5e"
+    },
+    {
+      "role": "complete_fixture_manifest_generator",
+      "sourcePath": "scripts/generate-fixture-manifest.mjs",
+      "packagePath": "evidence/scripts/generate-fixture-manifest.mjs",
+      "purpose": "Deterministic recursive fixture inventory and fail-closed checker.",
+      "sourceLock": "release_manifest",
+      "bytes": 10188,
+      "sha256": "643ee9a0d0fbb3f031c87ce91894746c66a15265cbad26b4775a518ae31d907c"
+    },
+    {
+      "role": "complete_fixture_manifest_verification",
+      "sourcePath": "tests/fixture-manifest.test.mjs",
+      "packagePath": "evidence/tests/fixture-manifest.test.mjs",
+      "purpose": "Changed, missing, added, symlink, and deterministic fixture-lock tests.",
+      "sourceLock": "release_manifest",
+      "bytes": 7906,
+      "sha256": "4f10a88275a89a510e07e04f7b1a6501eea3e099779e3feb2a7d6bdb9bc22bbc"
+    },
+    {
+      "role": "real_fixture_provenance",
+      "sourcePath": "tests/fixtures/real/README.md",
+      "packagePath": "evidence/tests/fixtures/real/README.md",
+      "purpose": "Paper 010 DOI, licence, worksheet/range, reduction rule, hashes, and bounded claim.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 13986,
+      "sha256": "40f99359da4713049628634a3d457bdee3027812af988af4aad24512421bee6f"
+    },
+    {
+      "role": "real_fixture_derivation",
+      "sourcePath": "scripts/derive_paper010_fixture.mjs",
+      "packagePath": "evidence/scripts/derive_paper010_fixture.mjs",
+      "purpose": "Hash-refusing deterministic Paper 010 raw-XLSX to T-alpha-dAlpha/dt-beta derivation.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 5499,
+      "sha256": "a18fd46560c610081dab5b6632ab46c5b051cc2404c8c1ea8588d738a2357d54"
+    },
+    {
+      "role": "independent_real_oracle_launcher",
+      "sourcePath": "scripts/run-paper010-oracle.mjs",
+      "packagePath": "evidence/scripts/run-paper010-oracle.mjs",
+      "purpose": "Parallels-free Python runtime discovery and isolated stdlib oracle launcher.",
+      "sourceLock": "release_manifest",
+      "bytes": 4619,
+      "sha256": "655a4705b56d3d42637fb8bb2eee947b7ab9d42d24714e923c1e29fde37d4945"
+    },
+    {
+      "role": "independent_real_oracle_implementation",
+      "sourcePath": "tests/fixtures/real/oracle/paper010_decimal_oracle.py",
+      "packagePath": "evidence/tests/fixtures/real/oracle/paper010_decimal_oracle.py",
+      "purpose": "Independent stdlib-only Decimal(50) XLSX extraction and KAS/FWO/Starink/equation-correct Friedman reference implementation.",
+      "sourceLock": "real_fixture_manifest",
+      "bytes": 81294,
+      "sha256": "d9ae629d26d183bda53c11875dfe3e8a5bd1e59150a2fb149864f8df31f8eeb2"
+    },
+    {
+      "role": "independent_real_oracle_reproducibility_verification",
+      "sourcePath": "tests/paper010-oracle-reproducibility.test.mjs",
+      "packagePath": "evidence/tests/paper010-oracle-reproducibility.test.mjs",
+      "purpose": "Determinism, exact canonical-v2 verification, runtime discovery, and tamper-refusal tests.",
+      "sourceLock": "release_manifest",
+      "bytes": 17612,
+      "sha256": "56993b7b947f4704b64ef10a038fef594c1298909f35ec27aa152e2f8660a7b5"
+    },
+    {
+      "role": "immutable_real_raw_source",
+      "sourcePath": "tests/fixtures/real/source/paper010/pone.0173946.s002.xlsx",
+      "packagePath": "evidence/tests/fixtures/real/source/paper010/pone.0173946.s002.xlsx",
+      "purpose": "Official Paper 010 raw supplementary workbook used for the RH validation path.",
+      "sourceLock": "real_fixture_manifest",
+      "bytes": 184544,
+      "sha256": "d24e218dd8da9646312b122ddc892d1d338783ce2829877145fa298491d99b57"
+    },
+    {
+      "role": "official_publication_transform_source",
+      "sourcePath": "tests/fixtures/real/source/paper010/pone.0173946.s004.xlsx",
+      "packagePath": "evidence/tests/fixtures/real/source/paper010/pone.0173946.s004.xlsx",
+      "purpose": "Official Paper 010 S4 transformed-coordinate workbook used only for the negative Friedman label/value diagnostic.",
+      "sourceLock": "real_fixture_manifest",
+      "bytes": 23205,
+      "sha256": "0bed9425e3b8a6195a540d0461f3fca5451d0039db5ccee7c1b7bfcaebaaabdd"
+    },
+    {
+      "role": "official_publication_result_source",
+      "sourcePath": "tests/fixtures/real/source/paper010/pone.0173946.s005.xlsx",
+      "packagePath": "evidence/tests/fixtures/real/source/paper010/pone.0173946.s005.xlsx",
+      "purpose": "Official Paper 010 S5 result workbook used as the publication-comparison reference, not as oracle input truth.",
+      "sourceLock": "real_fixture_manifest",
+      "bytes": 10071,
+      "sha256": "f74bc21563263ef43669c41937d842065683e615a4b8d30a6df422caadf89463"
+    },
+    {
+      "role": "deterministic_real_derived_fixture",
+      "sourcePath": "tests/fixtures/real/paper010_rh_t_alpha_beta.csv",
+      "packagePath": "evidence/tests/fixtures/real/paper010_rh_t_alpha_beta.csv",
+      "purpose": "Deterministically derived T-alpha-dAlpha/dt-beta fixture.",
+      "sourceLock": "real_fixture_manifest",
+      "bytes": 4732,
+      "sha256": "a913d8111af91a4fa8a2fc3d1c8dd02ec0e216795dad9bfd77cff4912e76b27d"
+    },
+    {
+      "role": "independent_real_expected_output",
+      "sourcePath": "tests/fixtures/real/paper010_rh_reference.json",
+      "packagePath": "evidence/tests/fixtures/real/paper010_rh_reference.json",
+      "purpose": "Independent four-method real-data reference with supplied-DTG provenance and explicit publication-method negative finding.",
+      "sourceLock": "real_fixture_manifest",
+      "bytes": 177474,
+      "sha256": "956617949a4f2b1ddf29d672c946fda6fea48dd33a0536d69fbf24f5aa863e68"
+    },
+    {
+      "role": "real_data_validation_verification",
+      "sourcePath": "tests/real-data-validation.test.ts",
+      "packagePath": "evidence/tests/real-data-validation.test.ts",
+      "purpose": "Immutable-source, derivation, expected-output, and negative-result checks.",
+      "sourceLock": "review_package_manifest",
+      "bytes": 11748,
+      "sha256": "953a63528a4682eb04d202dea2223a201fd8adeaea1dbaebf97fb95ec3d31afb"
+    },
+    {
+      "role": "nr_cels_official_tg_dtg_dta_archive",
+      "sourcePath": "tests/fixtures/real/nr-cels/source/TG_DTG_DTA_data.zip",
+      "packagePath": "evidence/tests/fixtures/real/nr-cels/source/TG_DTG_DTA_data.zip",
+      "purpose": "Pinned official Zenodo v1 NR-CELS TG/dTG/DTA source archive.",
+      "sourceLock": "release_manifest",
+      "bytes": 293756,
+      "sha256": "7894a691297b9b8626ac40e73cd128d066820e64b884b82b59d121b0ccb7a26a"
+    },
+    {
+      "role": "nr_cels_official_kinetic_archive",
+      "sourcePath": "tests/fixtures/real/nr-cels/source/Kinetic_data.zip",
+      "packagePath": "evidence/tests/fixtures/real/nr-cels/source/Kinetic_data.zip",
+      "purpose": "Pinned official Zenodo v1 NR-CELS Kinetics Neo export archive.",
+      "sourceLock": "release_manifest",
+      "bytes": 9668,
+      "sha256": "021c2de122021dcab547af0fe5f27910b22a383e99fff6c58441af110d8756e0"
+    },
+    {
+      "role": "nr_cels_validation_manifest",
+      "sourcePath": "tests/fixtures/real/nr-cels/manifest/nr-cels-validation-manifest.json",
+      "packagePath": "evidence/tests/fixtures/real/nr-cels/manifest/nr-cels-validation-manifest.json",
+      "purpose": "Source, header-semantics, oracle, manual-adjudication, and production-comparison lock.",
+      "sourceLock": "release_manifest",
+      "bytes": 15343,
+      "sha256": "74294f0eb21b188826617e859a445f330cc45331efa3a137d47bcbc7286aacca"
+    },
+    {
+      "role": "nr_cels_independent_decimal_oracle",
+      "sourcePath": "tests/fixtures/real/nr-cels/oracle/nr_cels_friedman_oracle.py",
+      "packagePath": "evidence/tests/fixtures/real/nr-cels/oracle/nr_cels_friedman_oracle.py",
+      "purpose": "Independent stdlib Decimal Friedman reconstruction oracle.",
+      "sourceLock": "release_manifest",
+      "bytes": 40782,
+      "sha256": "4583a9f39a1927d854a10b7c1bc0520480ee800fa8d98b68ccdbe61f60c0e81e"
+    },
+    {
+      "role": "nr_cels_independent_expected_output",
+      "sourcePath": "tests/fixtures/real/nr-cels/oracle/expected-output.json",
+      "packagePath": "evidence/tests/fixtures/real/nr-cels/oracle/expected-output.json",
+      "purpose": "Locked 91-alpha deposited-dTG and seven-point reconstruction results.",
+      "sourceLock": "release_manifest",
+      "bytes": 470340,
+      "sha256": "4454de4b557b47efec5ec4a7ce5c662f5284df9927fa82cf5abfaaf9e08db2d4"
+    },
+    {
+      "role": "nr_cels_manual_adjudication",
+      "sourcePath": "tests/fixtures/real/nr-cels/manual/nr-cels-adjudication.json",
+      "packagePath": "evidence/tests/fixtures/real/nr-cels/manual/nr-cels-adjudication.json",
+      "purpose": "Concept-DOI trap, source semantics, publication discrepancies, and production-boundary adjudication.",
+      "sourceLock": "release_manifest",
+      "bytes": 5310,
+      "sha256": "ec8d0264bc4b4c90306d7063f44c55f3a4029b8d35267fe74a5c68972f4b1a4f"
+    },
+    {
+      "role": "nr_cels_validation_report",
+      "sourcePath": "evidence/validation/nr-cels/NR_CELS_VALIDATION.md",
+      "packagePath": "evidence/evidence/validation/nr-cels/NR_CELS_VALIDATION.md",
+      "purpose": "Bounded NR-CELS protocol, quantitative comparison, and reproduction commands.",
+      "sourceLock": "release_manifest",
+      "bytes": 4207,
+      "sha256": "fb3c0413bdfaa3e8643d9e2f2dd078f7b9259e48583e55a293676a041fa9b56d"
+    },
+    {
+      "role": "nr_cels_independent_oracle_launcher",
+      "sourcePath": "scripts/run-nr-cels-friedman-oracle.mjs",
+      "packagePath": "evidence/scripts/run-nr-cels-friedman-oracle.mjs",
+      "purpose": "Portable isolated launcher for the NR-CELS Decimal oracle.",
+      "sourceLock": "release_manifest",
+      "bytes": 2444,
+      "sha256": "eb9527080d5d640d8b9467aab14593f1f7b9518eb156f15208291ba46fc85a33"
+    },
+    {
+      "role": "nr_cels_oracle_reproducibility_verification",
+      "sourcePath": "tests/nr-cels-oracle-reproducibility.test.mjs",
+      "packagePath": "evidence/tests/nr-cels-oracle-reproducibility.test.mjs",
+      "purpose": "Byte reproducibility, independence, all-alpha, and adjudication checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 4333,
+      "sha256": "a471051f25230d34247ce4ae46f674b17cf5cdd7483cae6d2a4b463ad41376bd"
+    },
+    {
+      "role": "nr_cels_wide_production_oracle_verification",
+      "sourcePath": "tests/nr-cels-wide-production-oracle.test.ts",
+      "packagePath": "evidence/tests/nr-cels-wide-production-oracle.test.ts",
+      "purpose": "All-273-Ea and regression comparison through the public wide-series production path.",
+      "sourceLock": "release_manifest",
+      "bytes": 9414,
+      "sha256": "6794b79c9492f6e2feadaaea3460439436d90862d9ef428049a4f83f491aec9e"
+    },
+    {
+      "role": "dryad_polyisoprene_official_archive",
+      "sourcePath": "tests/fixtures/real/dryad-polyisoprene/source/Data.zip",
+      "packagePath": "evidence/tests/fixtures/real/dryad-polyisoprene/source/Data.zip",
+      "purpose": "Official Dryad v2 archive containing the retained LPI-01 Weight and DTG traces.",
+      "sourceLock": "release_manifest",
+      "bytes": 1947167,
+      "sha256": "6f98106f149567647b58edd8667cc899438a1ac5642c24b9a294655115e3295c"
+    },
+    {
+      "role": "dryad_polyisoprene_validation_manifest",
+      "sourcePath": "tests/fixtures/real/dryad-polyisoprene/manifest.json",
+      "packagePath": "evidence/tests/fixtures/real/dryad-polyisoprene/manifest.json",
+      "purpose": "Dryad source, recipe, oracle, publication-adjudication, and evidence lock.",
+      "sourceLock": "release_manifest",
+      "bytes": 8402,
+      "sha256": "eb0195461d32ab2c57025b1bfff6149ecdec1f25c7ccf184b62fec5a9588fc80"
+    },
+    {
+      "role": "dryad_polyisoprene_independent_decimal_oracle",
+      "sourcePath": "tests/fixtures/real/dryad-polyisoprene/oracle/dryad_polyisoprene_decimal_oracle.py",
+      "packagePath": "evidence/tests/fixtures/real/dryad-polyisoprene/oracle/dryad_polyisoprene_decimal_oracle.py",
+      "purpose": "Independent stdlib Decimal FWO/KAS/Friedman reference implementation.",
+      "sourceLock": "release_manifest",
+      "bytes": 29553,
+      "sha256": "55d1841373085fe0c7f240239517647dc3c43468fb23a013a3398956f10e862b"
+    },
+    {
+      "role": "dryad_polyisoprene_independent_expected_output",
+      "sourcePath": "tests/fixtures/real/dryad-polyisoprene/expected-output.json",
+      "packagePath": "evidence/tests/fixtures/real/dryad-polyisoprene/expected-output.json",
+      "purpose": "Locked seven-alpha Dryad LPI-01 reference results.",
+      "sourceLock": "release_manifest",
+      "bytes": 18917,
+      "sha256": "3e0007d5c7892c42ebff531e72f2f20a295177a1362b49798621c6c01abcbc2d"
+    },
+    {
+      "role": "dryad_polyisoprene_manual_adjudication",
+      "sourcePath": "tests/fixtures/real/dryad-polyisoprene/manual/hbpi-table3-swap-adjudication.json",
+      "packagePath": "evidence/tests/fixtures/real/dryad-polyisoprene/manual/hbpi-table3-swap-adjudication.json",
+      "purpose": "Manual HBPI-01/HBPI-03 Table 3 cross-sample adjudication.",
+      "sourceLock": "release_manifest",
+      "bytes": 3632,
+      "sha256": "002db8f420e747821c6f6b07b9ca39d6967d01fe915a8828773286a236b0e9dd"
+    },
+    {
+      "role": "dryad_polyisoprene_validation_report",
+      "sourcePath": "evidence/validation/dryad-polyisoprene/DRYAD_POLYISOPRENE_VALIDATION.md",
+      "packagePath": "evidence/evidence/validation/dryad-polyisoprene/DRYAD_POLYISOPRENE_VALIDATION.md",
+      "purpose": "Dryad validation protocol, results, limitations, and publication quarantine.",
+      "sourceLock": "release_manifest",
+      "bytes": 6231,
+      "sha256": "9bbbce0f6decc8bd9167d98d925ffe06ac36f21304d8870244969acdc9977dab"
+    },
+    {
+      "role": "dryad_polyisoprene_independent_oracle_launcher",
+      "sourcePath": "scripts/run-dryad-polyisoprene-oracle.mjs",
+      "packagePath": "evidence/scripts/run-dryad-polyisoprene-oracle.mjs",
+      "purpose": "Portable isolated launcher for the Dryad Decimal oracle.",
+      "sourceLock": "release_manifest",
+      "bytes": 2492,
+      "sha256": "69fb1f930a1fea8cc11c3b739070b4cae74b47a9977ecc9356440e1851cd2096"
+    },
+    {
+      "role": "dryad_polyisoprene_oracle_reproducibility_verification",
+      "sourcePath": "tests/dryad-polyisoprene-oracle-reproducibility.test.mjs",
+      "packagePath": "evidence/tests/dryad-polyisoprene-oracle-reproducibility.test.mjs",
+      "purpose": "Dryad oracle, manifest, and manual-adjudication reproducibility checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 4686,
+      "sha256": "a61024e9489d109aad5ed61552f874175fc55d4bef37da25801cb9e9f0b13bd9"
+    },
+    {
+      "role": "dryad_polyisoprene_production_core_verification",
+      "sourcePath": "tests/dryad-polyisoprene-production-core.test.ts",
+      "packagePath": "evidence/tests/dryad-polyisoprene-production-core.test.ts",
+      "purpose": "Production-core comparison for all 21 Dryad alpha-method records.",
+      "sourceLock": "release_manifest",
+      "bytes": 7344,
+      "sha256": "472c55ffdffbeae110c2c8446dcb3dd6b77fa8066bcf2f2b55fb9b91e39260c3"
+    },
+    {
+      "role": "coal_spt_paraffin_official_archive",
+      "sourcePath": "tests/fixtures/real/coal-spt-paraffin/source/TGA raw data of coal, SPT and paraffin at different masses.xlsx",
+      "packagePath": "evidence/tests/fixtures/real/coal-spt-paraffin/source/TGA raw data of coal, SPT and paraffin at different masses.xlsx",
+      "purpose": "Official complete Mendeley v1 Coal-SPT-paraffin workbook.",
+      "sourceLock": "release_manifest",
+      "bytes": 1535050,
+      "sha256": "0226a9f6eaa1fb1bdfc7e5713d2a5faed95d3ac2e8fd3154a66e981bbc4ead21"
+    },
+    {
+      "role": "coal_spt_paraffin_validation_manifest",
+      "sourcePath": "tests/fixtures/real/coal-spt-paraffin/manifest.json",
+      "packagePath": "evidence/tests/fixtures/real/coal-spt-paraffin/manifest.json",
+      "purpose": "Coal source, projection, oracle, tolerance, and version-adjudication lock.",
+      "sourceLock": "release_manifest",
+      "bytes": 6325,
+      "sha256": "51d432e24ca28782a24226471be8bd5e57b676b2fc9bfda118359a7864ccb2af"
+    },
+    {
+      "role": "coal_spt_paraffin_independent_decimal_oracle",
+      "sourcePath": "tests/fixtures/real/coal-spt-paraffin/oracle/coal_spt_paraffin_decimal_oracle.py",
+      "packagePath": "evidence/tests/fixtures/real/coal-spt-paraffin/oracle/coal_spt_paraffin_decimal_oracle.py",
+      "purpose": "Independent stdlib Decimal workbook extraction and grouped-regression oracle.",
+      "sourceLock": "release_manifest",
+      "bytes": 46586,
+      "sha256": "8072703fb4188e6dc7ee0c6a68bddb91f372dc7812dffb2dee3bbadeac2a5604"
+    },
+    {
+      "role": "coal_spt_paraffin_independent_expected_output",
+      "sourcePath": "tests/fixtures/real/coal-spt-paraffin/expected-output.json",
+      "packagePath": "evidence/tests/fixtures/real/coal-spt-paraffin/expected-output.json",
+      "purpose": "Locked physical observations, group reductions, regressions, GA, and Ea results.",
+      "sourceLock": "release_manifest",
+      "bytes": 184716,
+      "sha256": "65731e5bc8b620bcac9b99d7b1944df9b4e00a5e31744a55c2a3de1b4fd28b3a"
+    },
+    {
+      "role": "coal_spt_paraffin_manual_adjudication",
+      "sourcePath": "evidence/validation/coal-spt-paraffin/MANUAL_ADJUDICATION.md",
+      "packagePath": "evidence/evidence/validation/coal-spt-paraffin/MANUAL_ADJUDICATION.md",
+      "purpose": "Manual v1/v2 workbook-topology and publication-copy adjudication.",
+      "sourceLock": "release_manifest",
+      "bytes": 5597,
+      "sha256": "dabf33e56dc90d4e93b430848235e2a60d7de60be489a263906475feaa9193bb"
+    },
+    {
+      "role": "coal_spt_paraffin_validation_report",
+      "sourcePath": "evidence/validation/coal-spt-paraffin/VALIDATION_REPORT.md",
+      "packagePath": "evidence/evidence/validation/coal-spt-paraffin/VALIDATION_REPORT.md",
+      "purpose": "Bounded paraffin validation result and publication-comparison report.",
+      "sourceLock": "release_manifest",
+      "bytes": 3770,
+      "sha256": "e5baacb6ab9ae7fd584e3f66b59a3eb6138501d988a55149adc81b2185232ec1"
+    },
+    {
+      "role": "coal_spt_paraffin_independent_oracle_launcher",
+      "sourcePath": "scripts/run-coal-spt-paraffin-oracle.mjs",
+      "packagePath": "evidence/scripts/run-coal-spt-paraffin-oracle.mjs",
+      "purpose": "Portable isolated launcher for the Coal-SPT-paraffin Decimal oracle.",
+      "sourceLock": "release_manifest",
+      "bytes": 4797,
+      "sha256": "418fde84fb4d0d47e77e2df8e8f3f97adc1c0aa328dd498e293ee225581ede3f"
+    },
+    {
+      "role": "coal_spt_paraffin_oracle_reproducibility_verification",
+      "sourcePath": "tests/coal-spt-paraffin-oracle-reproducibility.test.mjs",
+      "packagePath": "evidence/tests/coal-spt-paraffin-oracle-reproducibility.test.mjs",
+      "purpose": "Oracle byte reproducibility, source lock, and v1/v2 adjudication checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 4755,
+      "sha256": "1418f0c346eccf98886675bb565c2cdd20e58029ca9cb3dba69d3e20832e5e3f"
+    },
+    {
+      "role": "coal_spt_paraffin_production_validation_verification",
+      "sourcePath": "tests/coal-spt-paraffin-validation.test.ts",
+      "packagePath": "evidence/tests/coal-spt-paraffin-validation.test.ts",
+      "purpose": "Production-core comparison of physical groups, regressions, GA, confidence bounds, and Ea.",
+      "sourceLock": "release_manifest",
+      "bytes": 16613,
+      "sha256": "6f51406d8bc8ce359bbf6862fab3ea429b4a0f7e21c6d2e094a626973f53931c"
+    },
+    {
+      "role": "paper010_locked_release_raw_to_report_protocol",
+      "sourcePath": "evidence/validation/PAPER010_RAW_TO_REPORT_PROTOCOL.md",
+      "packagePath": "evidence/evidence/validation/PAPER010_RAW_TO_REPORT_PROTOCOL.md",
+      "purpose": "Bounded direct-macOS real-Chrome protocol for the locked release and Paper 010 data.",
+      "sourceLock": "release_manifest",
+      "bytes": 6098,
+      "sha256": "e02fe2322b5f84b090149c5ab70e1d9aea3d27d67de3b3a662fbb9e18ddb114b"
+    },
+    {
+      "role": "paper010_locked_release_raw_to_report_runner",
+      "sourcePath": "scripts/run-paper010-raw-to-report.mjs",
+      "packagePath": "evidence/scripts/run-paper010-raw-to-report.mjs",
+      "purpose": "Fail-closed two-pass browser runner and read-only retained-bundle verifier.",
+      "sourceLock": "release_manifest",
+      "bytes": 98530,
+      "sha256": "6cb376b36db46b2846a8e29d86bfad56beae1c7cc5c04fb86bb667d0d046cf82"
+    },
+    {
+      "role": "paper010_locked_release_raw_to_report_verification",
+      "sourcePath": "tests/paper010-raw-to-report.test.mjs",
+      "packagePath": "evidence/tests/paper010-raw-to-report.test.mjs",
+      "purpose": "Oracle, report, CSV, HAR, Kissinger refusal, tamper, missing-file and extra-file verification.",
+      "sourceLock": "release_manifest",
+      "bytes": 29099,
+      "sha256": "bc2a8cc75503c5ab0e4e78ab13a012c035f89b2a114cef81c116633e2e7b7d14"
+    },
+    {
+      "role": "paper010_raw_to_report_evidence_manifest",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/PAPER010_RAW_TO_REPORT_MANIFEST.json",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/PAPER010_RAW_TO_REPORT_MANIFEST.json",
+      "purpose": "Hash-bound two-pass local technical evidence with explicit not-independent-review status.",
+      "sourceLock": "release_manifest",
+      "bytes": 33359,
+      "sha256": "37714db3f3d091bf4f581dacff2d03e9451786cdb3f7472ddd45c66d58029644"
+    },
+    {
+      "role": "paper010_kissinger_stage_ambiguity_negative_evidence",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/paper010-kissinger-negative-evidence.json",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/paper010-kissinger-negative-evidence.json",
+      "purpose": "Retained refusal to construct a same-stage Kissinger series from stage-switching global maxima.",
+      "sourceLock": "release_manifest",
+      "bytes": 1288,
+      "sha256": "a614830820411a281822dd6810c1a5c398c27b7c11bd806b68eb3a69f5fe9502"
+    },
+    {
+      "role": "paper010_pass1_reproducible_json",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-raw-to-report.json",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-raw-to-report.json",
+      "purpose": "First real-Chrome full-precision report used for Decimal-oracle comparison.",
+      "sourceLock": "release_manifest",
+      "bytes": 1144132,
+      "sha256": "0a524a45da2c66229bfeb0d5a14731b8a3af9f0a84121a1ad39f7acfa45cf2c8"
+    },
+    {
+      "role": "paper010_pass1_results_csv",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-raw-to-report-results.csv",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-raw-to-report-results.csv",
+      "purpose": "First real-Chrome strict CSV projection of the 64 JSON result rows.",
+      "sourceLock": "release_manifest",
+      "bytes": 59518,
+      "sha256": "a01dbb6713b3b191442133148755fb6a917adeaeb041e4d75a75e2fd0dec1359"
+    },
+    {
+      "role": "paper010_pass1_report_pdf",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-raw-to-report-report.pdf",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-raw-to-report-report.pdf",
+      "purpose": "First real-Chrome five-page report retained for visual and cross-export review.",
+      "sourceLock": "release_manifest",
+      "bytes": 167606,
+      "sha256": "10a516e5adc0f7ccc2bafb8d966c3c4d66d89840d38ce1d4bfc896496669b994"
+    },
+    {
+      "role": "paper010_pass1_final_ui_screenshot",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-final-state.png",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-final-state.png",
+      "purpose": "First real-Chrome full-page UI state showing the explicit 16-point grid and 64 results.",
+      "sourceLock": "release_manifest",
+      "bytes": 1235765,
+      "sha256": "4de64d435fa4a6d0bd3817e13765a05bfbb91f38d04f50c5f91a1054d61619e0"
+    },
+    {
+      "role": "paper010_pass1_raw_network_capture",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-network-capture.json",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-network-capture.json",
+      "purpose": "First real-Chrome request ledger retained before offline-HAR adjudication.",
+      "sourceLock": "release_manifest",
+      "bytes": 786,
+      "sha256": "794052d06865e7f89498d4ac052a8e888d920531ad18f84d8a45775a2b2a4d65"
+    },
+    {
+      "role": "paper010_pass1_offline_har",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-offline.har",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-offline.har",
+      "purpose": "First real-Chrome file-only HAR with zero external requests.",
+      "sourceLock": "release_manifest",
+      "bytes": 1515,
+      "sha256": "4ec92064d4d60e7c4a01381b980e74f932039233137263520477d1eaa66c2dc8"
+    },
+    {
+      "role": "paper010_pass2_reproducible_json",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-raw-to-report.json",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-raw-to-report.json",
+      "purpose": "Second real-Chrome report used for canonical scientific determinism.",
+      "sourceLock": "release_manifest",
+      "bytes": 1144132,
+      "sha256": "bae308b2fb349146a816614bfd42d6e0921c7352c0208b82b8861a3f4ffed40f"
+    },
+    {
+      "role": "paper010_pass2_results_csv",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-raw-to-report-results.csv",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-raw-to-report-results.csv",
+      "purpose": "Second real-Chrome CSV used for exact byte determinism.",
+      "sourceLock": "release_manifest",
+      "bytes": 59518,
+      "sha256": "a01dbb6713b3b191442133148755fb6a917adeaeb041e4d75a75e2fd0dec1359"
+    },
+    {
+      "role": "paper010_pass2_report_pdf",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-raw-to-report-report.pdf",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-raw-to-report-report.pdf",
+      "purpose": "Second real-Chrome five-page report retained and individually hash-locked.",
+      "sourceLock": "release_manifest",
+      "bytes": 167606,
+      "sha256": "51604fc1fa2bb1e5afa4f7b68c00c61696053adccd6626a9c8d949d497bd31be"
+    },
+    {
+      "role": "paper010_pass2_final_ui_screenshot",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-final-state.png",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-final-state.png",
+      "purpose": "Second real-Chrome full-page UI state retained and individually hash-locked.",
+      "sourceLock": "release_manifest",
+      "bytes": 1235765,
+      "sha256": "4de64d435fa4a6d0bd3817e13765a05bfbb91f38d04f50c5f91a1054d61619e0"
+    },
+    {
+      "role": "paper010_pass2_raw_network_capture",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-network-capture.json",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-network-capture.json",
+      "purpose": "Second real-Chrome request ledger retained before offline-HAR adjudication.",
+      "sourceLock": "release_manifest",
+      "bytes": 786,
+      "sha256": "515b4f3105e941a0d95685cf26beb086f6179b8a0288afda2a68d9737819e434"
+    },
+    {
+      "role": "paper010_pass2_offline_har",
+      "sourcePath": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-offline.har",
+      "packagePath": "evidence/evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-offline.har",
+      "purpose": "Second real-Chrome file-only HAR with zero external requests.",
+      "sourceLock": "release_manifest",
+      "bytes": 1515,
+      "sha256": "6358a18034650ee003e1c4c862e8d5a2cf0faab45e0dccca2ecfe3d5576acdfe"
+    },
+    {
+      "role": "publication_peak_fixture",
+      "sourcePath": "tests/fixtures/real/paper063/paper063_kissinger_peaks.csv",
+      "packagePath": "evidence/tests/fixtures/real/paper063/paper063_kissinger_peaks.csv",
+      "purpose": "Paper 063 publication-derived beta–Tp pairs, explicitly not raw instrument curves.",
+      "sourceLock": "release_manifest",
+      "bytes": 314,
+      "sha256": "937acf48dea0d75b113c0d5b8aac0d5e3fc9d2880b370668458a80fcc2d612c6"
+    },
+    {
+      "role": "publication_peak_fixture_provenance",
+      "sourcePath": "tests/fixtures/real/paper063/provenance.json",
+      "packagePath": "evidence/tests/fixtures/real/paper063/provenance.json",
+      "purpose": "DOI, corpus-PDF hash, article licence, transcription rule, and non-raw claim boundary.",
+      "sourceLock": "release_manifest",
+      "bytes": 2010,
+      "sha256": "ac50313014cfc2f6a40e652638e64cc6bab8945cc79b70b5c29c954b0c30732e"
+    },
+    {
+      "role": "publication_peak_kissinger_reference",
+      "sourcePath": "tests/fixtures/real/paper063/expected-output.json",
+      "packagePath": "evidence/tests/fixtures/real/paper063/expected-output.json",
+      "purpose": "Independent retained standalone Kissinger regression reference for the printed peaks.",
+      "sourceLock": "release_manifest",
+      "bytes": 1077,
+      "sha256": "e7cb2664953b4080008a760eb3d604b81d6f474a27c01cb32dbb21c8994defb7"
+    },
+    {
+      "role": "publication_peak_kissinger_verification",
+      "sourcePath": "tests/paper063-kissinger-validation.test.ts",
+      "packagePath": "evidence/tests/paper063-kissinger-validation.test.ts",
+      "purpose": "Production Kissinger comparison and fail-closed publication-derived-data boundary checks.",
+      "sourceLock": "release_manifest",
+      "bytes": 7839,
+      "sha256": "31a6fca35c594eff10c20fa0448cb40e8d8acf16598f6e9420d759a6eb1e6f86"
+    }
+  ],
+  "generatedFiles": [
+    {
+      "role": "package_readme",
+      "packagePath": "README.md",
+      "bytes": 2995,
+      "sha256": "437c54a5b28a05bad3f68e1ffd3684a8a5661626c7bb20235c10dd0eaa9d6823"
+    },
+    {
+      "role": "unsigned_verdict_template",
+      "packagePath": "INDEPENDENT_REVIEW_VERDICT_TEMPLATE.md",
+      "bytes": 10986,
+      "sha256": "97d9d07064557519865c4779517122472465c2ca9a01e6a6d58f059eeea9c874"
+    },
+    {
+      "role": "unsigned_structured_review_input_template",
+      "packagePath": "SCIENTIFIC_REVIEW_INPUT_TEMPLATE.json",
+      "bytes": 12702,
+      "sha256": "0d0af79cea58df15e234f10df0863b345b0fe5f10d35f0ebbbd110f0c616ba88"
+    }
+  ],
+  "generation": {
+    "generator": "scripts/generate-scientific-review-package.mjs",
+    "command": "node scripts/generate-scientific-review-package.mjs",
+    "checkCommand": "node scripts/generate-scientific-review-package.mjs --check",
+    "deterministic": true,
+    "generatedAtOmitted": true,
+    "hashAlgorithm": "sha256",
+    "hashInput": "raw_file_bytes",
+    "artifactOrdering": "fixed_by_generator",
+    "manifestPath": "PACKAGE_MANIFEST.json",
+    "manifestHashSidecarPath": "PACKAGE_MANIFEST.sha256",
+    "manifestSelfHashExcluded": true,
+    "signedDecisionExcluded": true,
+    "signedDecisionRule": "The eligible reviewer returns a completed signed record outside this immutable package.",
+    "structuredRecordCommand": "node evidence/scripts/record-scientific-review.mjs --package . --input <review-input.json> --output <evidence-record.json>",
+    "structuredRecordBoundary": "Structural validation cannot authenticate reviewer identity, declarations, observations, or signature validity and cannot automatically close either gate."
+  }
+}

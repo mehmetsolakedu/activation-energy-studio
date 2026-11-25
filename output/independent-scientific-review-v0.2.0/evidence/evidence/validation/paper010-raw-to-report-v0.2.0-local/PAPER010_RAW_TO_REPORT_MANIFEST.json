@@ -1,0 +1,883 @@
+{
+  "schema": "activation-energy-studio/paper010-raw-to-report-evidence/v1",
+  "status": "LOCAL_TECHNICAL_REAL_DATA_REPRODUCTION_NOT_INDEPENDENT_REVIEW",
+  "generatedAt": "2026-07-29T20:11:47.237Z",
+  "scope": "Locked offline release, official raw Paper010 S2 XLSX wide-series UI mapping, two direct local macOS Google Chrome raw-to-report passes.",
+  "release": {
+    "path": "release/Activation-Energy-Studio-v0.2.0.html",
+    "bytes": 1261018,
+    "sha256": "ce716471586b098806007853992bed6601dfa359d53e59fe1b50c849d911dbb7",
+    "checksumFile": "release/SHA256SUMS.txt"
+  },
+  "lockedInputs": [
+    {
+      "role": "immutable_official_raw_source",
+      "path": "tests/fixtures/real/source/paper010/pone.0173946.s002.xlsx",
+      "bytes": 184544,
+      "sha256": "d24e218dd8da9646312b122ddc892d1d338783ce2829877145fa298491d99b57"
+    },
+    {
+      "role": "official_publication_transform_source",
+      "path": "tests/fixtures/real/source/paper010/pone.0173946.s004.xlsx",
+      "bytes": 23205,
+      "sha256": "0bed9425e3b8a6195a540d0461f3fca5451d0039db5ccee7c1b7bfcaebaaabdd"
+    },
+    {
+      "role": "official_publication_result_source",
+      "path": "tests/fixtures/real/source/paper010/pone.0173946.s005.xlsx",
+      "bytes": 10071,
+      "sha256": "f74bc21563263ef43669c41937d842065683e615a4b8d30a6df422caadf89463"
+    },
+    {
+      "role": "deterministic_derived_fixture",
+      "path": "tests/fixtures/real/paper010_rh_t_alpha_beta.csv",
+      "bytes": 4732,
+      "sha256": "a913d8111af91a4fa8a2fc3d1c8dd02ec0e216795dad9bfd77cff4912e76b27d"
+    },
+    {
+      "role": "independent_expected_output",
+      "path": "tests/fixtures/real/paper010_rh_reference.json",
+      "bytes": 177474,
+      "sha256": "956617949a4f2b1ddf29d672c946fda6fea48dd33a0536d69fbf24f5aa863e68"
+    },
+    {
+      "role": "independent_reference_implementation",
+      "path": "tests/fixtures/real/oracle/paper010_decimal_oracle.py",
+      "bytes": 81294,
+      "sha256": "d9ae629d26d183bda53c11875dfe3e8a5bd1e59150a2fb149864f8df31f8eeb2"
+    }
+  ],
+  "implementationSources": [
+    {
+      "role": "paper010_runner",
+      "path": "scripts/run-paper010-raw-to-report.mjs",
+      "bytes": 98530,
+      "sha256": "6cb376b36db46b2846a8e29d86bfad56beae1c7cc5c04fb86bb667d0d046cf82"
+    },
+    {
+      "role": "paper010_focused_tests",
+      "path": "tests/paper010-raw-to-report.test.mjs",
+      "bytes": 29099,
+      "sha256": "bc2a8cc75503c5ab0e4e78ab13a012c035f89b2a114cef81c116633e2e7b7d14"
+    },
+    {
+      "role": "paper010_protocol",
+      "path": "evidence/validation/PAPER010_RAW_TO_REPORT_PROTOCOL.md",
+      "bytes": 6098,
+      "sha256": "e02fe2322b5f84b090149c5ab70e1d9aea3d27d67de3b3a662fbb9e18ddb114b"
+    },
+    {
+      "role": "chrome_identity_helper",
+      "path": "scripts/run-hosted-platform-validation.mjs",
+      "bytes": 90386,
+      "sha256": "629a64e83b618654106428a44033611421046fe392fcb39f2936e59e89f008f6"
+    },
+    {
+      "role": "offline_har_contract",
+      "path": "scripts/platform-hosted-ci.mjs",
+      "bytes": 57467,
+      "sha256": "6fcf91e1207833e6b2bd42cb3ab9c909ed4cfef543a7cec4b85185763d6aa07d"
+    },
+    {
+      "role": "canonical_scientific_comparator",
+      "path": "scripts/compare-scientific-reports.mjs",
+      "bytes": 3967,
+      "sha256": "b6a57c80a74ae22800f15a6fd9a3b92a0ffb41844878f9e178370735c210e954"
+    }
+  ],
+  "execution": {
+    "requiredPasses": 2,
+    "completedPasses": 2,
+    "browser": {
+      "name": "Google Chrome (headless)",
+      "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+      "product": "Chrome/150.0.7871.187",
+      "version": "150.0.7871.187",
+      "major": 150
+    },
+    "directLocalMacOS": true,
+    "parallelsUsed": false,
+    "windowsOrUbuntuEvidenceClaimed": false
+  },
+  "scientificContract": {
+    "sample": "Rhubarb (RH)",
+    "atmosphere": "Simulated air (N2:O2=4:1)",
+    "alphaGrid": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.25,
+      0.3,
+      0.35,
+      0.4,
+      0.45,
+      0.5,
+      0.55,
+      0.6,
+      0.65,
+      0.7,
+      0.75,
+      0.8
+    ],
+    "methods": [
+      "FWO",
+      "KAS",
+      "STARINK",
+      "FRIEDMAN"
+    ],
+    "expectedResultCount": 64,
+    "resultType": "isoconversional",
+    "suppliedDerivativeRequiredForFriedman": true,
+    "rawWideSeriesInput": {
+      "source": {
+        "role": "immutable_official_raw_source",
+        "path": "tests/fixtures/real/source/paper010/pone.0173946.s002.xlsx",
+        "bytes": 184544,
+        "sha256": "d24e218dd8da9646312b122ddc892d1d338783ce2829877145fa298491d99b57"
+      },
+      "sheet": "Fig.2.",
+      "headerSourceRow": 3,
+      "rawObservationCount": 1716,
+      "projectedPointCount": 48,
+      "derivativeSemantic": "massLossRate",
+      "derivativeUnit": "%/min",
+      "scopeConfirmed": true
+    },
+    "independentOracle": {
+      "role": "independent_reference_implementation",
+      "path": "tests/fixtures/real/oracle/paper010_decimal_oracle.py",
+      "bytes": 81294,
+      "sha256": "d9ae629d26d183bda53c11875dfe3e8a5bd1e59150a2fb149864f8df31f8eeb2"
+    },
+    "comparisonTolerances": {
+      "alphaAbs": "5e-13",
+      "derivativeAbsPerMinute": "1e-12",
+      "transformedXYAbs": "5e-10",
+      "slopeAbsK": "1e-3",
+      "interceptAbs": "1e-6",
+      "rSquaredAbs": "6e-11",
+      "energyAbsKJPerMol": "5e-6",
+      "energyCiEndpointAbsKJPerMol": "5e-6",
+      "meanEnergyAbsKJPerMol": "5e-6",
+      "justification": "Direct raw-XLSX projection bounds: independent raw-to-rounded-fixture tests lock temperature at <=6e-10 C and dAlpha/dt at <=1e-12 min^-1; transformed regression quantities use a conservative 5e-10 absolute bound and R2 uses 6e-11. All other Decimal-oracle tolerances remain unchanged."
+    },
+    "publicationComparison": {
+      "status": "not_reproduced_from_raw_without_undocumented_preprocessing",
+      "valuesAreContextNotOracle": true
+    }
+  },
+  "determinism": {
+    "status": "PASS",
+    "volatileFieldsExcluded": [
+      "generatedAt"
+    ],
+    "scientificReportSha256": "9d9788c5ceb7ddfea8189b4030520bd4718694feca32b73cba7536077f2c08ec",
+    "csvSha256": "a01dbb6713b3b191442133148755fb6a917adeaeb041e4d75a75e2fd0dec1359",
+    "exactCanonicalJsonEqual": true,
+    "exactCsvEqual": true
+  },
+  "kissinger": {
+    "status": "REFUSED_NO_SAME_STAGE_PEAK_SERIES",
+    "resultEmitted": false,
+    "negativeEvidence": {
+      "role": "kissinger_negative_evidence",
+      "path": "paper010-kissinger-negative-evidence.json",
+      "bytes": 1288,
+      "sha256": "a614830820411a281822dd6810c1a5c398c27b7c11bd806b68eb3a69f5fe9502"
+    }
+  },
+  "passes": [
+    {
+      "passId": "pass-1",
+      "startedAt": "2026-07-29T20:11:43.862Z",
+      "endedAt": "2026-07-29T20:11:45.492Z",
+      "browser": {
+        "name": "Google Chrome (headless)",
+        "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "product": "Chrome/150.0.7871.187",
+        "version": "150.0.7871.187",
+        "major": 150
+      },
+      "runtime": {
+        "executionPath": "direct-local-macos-google-chrome",
+        "platform": "darwin",
+        "architecture": "arm64",
+        "documentProtocol": "file:",
+        "navigatorOnLine": false,
+        "parallelsUsed": false,
+        "virtualizationOrCrossPlatformClaim": false
+      },
+      "visibleState": {
+        "protocol": "file:",
+        "navigatorOnLine": false,
+        "refused": false,
+        "totalRows": 64,
+        "isoconversionalRows": 64,
+        "peakRows": 0,
+        "methodCounts": {
+          "FWO": 16,
+          "KAS": 16,
+          "STARINK": 16,
+          "FRIEDMAN": 16
+        },
+        "alphasByMethod": {
+          "FWO": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ],
+          "KAS": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ],
+          "STARINK": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ],
+          "FRIEDMAN": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ]
+        },
+        "alphaGridSummary": "16 α noktası hesaplanacak: 0.05–0.80",
+        "wideMapping": {
+          "sheet": "Fig.2.",
+          "headerSourceRow": 3,
+          "layout": "wide-series",
+          "seriesCount": 3,
+          "scopeConfirmed": true,
+          "scopeProfileText": "Analiz kapsamı onayıKaynak tablonun tamamında görülen ve seçilmeyen dolu sütunlar: 13. temperature (575 satır; kaynak satırları 4–578), 14. weight (575 satır; kaynak satırları 4–578), 15. temperature (574 satır; kaynak satırları 4–577), 16. weight (574 satır; kaynak satırları 4–577), 17. temperature (567 satır; kaynak satırları 4–570), 18. weight (567 satır; kaynak satırları 4–570), 19. temperature (575 satır; kaynak satırları 4–578), 20. DTG (575 satır; kaynak satırları 4–578), 21. temperature (574 satır; kaynak satırları 4–577), 22. DTG (574 satır; kaynak satırları 4–577), 23. temperature (567 satır; kaynak satırları 4–570), 24. DTG (567 satır; kaynak satırları 4–570), 25. temperature (574 satır; kaynak satırları 4–577), 26. DTG (574 satır; kaynak satırları 4–577), 27. temperature (570 satır; kaynak satırları 4–573), 28. DTG (570 satır; kaynak satırları 4–573), 29. temperature (567 satır; kaynak satırları 4–570), 30. DTG (567 satır; kaynak satırları 4–570), 31. temperature (574 satır; kaynak satırları 4–577), 32. DTG (574 satır; kaynak satırları 4–577), 33. temperature (570 satır; kaynak satırları 4–573), 34. DTG (570 satır; kaynak satırları 4–573), 35. temperature (567 satır; kaynak satırları 4–570), 36. DTG (567 satır; kaynak satırları 4–570)Seçmediğim dolu sütunların bu analiz kapsamı dışında olduğunu açıkça onaylıyorum.",
+          "fullTableScopeProfileVisible": true,
+          "firstExcludedColumnVisible": true,
+          "lastExcludedColumnVisible": true,
+          "uploadedFileName": "pone.0173946.s002.xlsx"
+        }
+      },
+      "downloads": {
+        "json": {
+          "guid": "84117af9-9093-4aad-bf65-9ce18a12d2ea",
+          "suggestedFilename": "paper010-raw-to-report.json",
+          "url": "blob:null/485c0182-0ba1-41e0-ab18-09038a0f93f0",
+          "willBeginAt": "2026-07-29T20:11:45.085Z",
+          "state": "completed",
+          "receivedBytes": 1144132,
+          "totalBytes": 1144132,
+          "progressAt": "2026-07-29T20:11:45.091Z",
+          "retainedBytes": 1144132
+        },
+        "csv": {
+          "guid": "78620038-568a-46ce-a6d5-fa281c03db88",
+          "suggestedFilename": "paper010-raw-to-report-results.csv",
+          "url": "blob:null/a42ca4ce-176d-42d8-b0c9-cf1182b973e1",
+          "willBeginAt": "2026-07-29T20:11:45.146Z",
+          "state": "completed",
+          "receivedBytes": 59518,
+          "totalBytes": 59518,
+          "progressAt": "2026-07-29T20:11:45.149Z",
+          "retainedBytes": 59518
+        },
+        "pdf": {
+          "guid": "f2a6a0aa-3d82-49c1-88a2-da84327bea3d",
+          "suggestedFilename": "paper010-raw-to-report-report.pdf",
+          "url": "blob:null/ef177459-ea5a-4079-8b5e-61d4bd73ecd7",
+          "willBeginAt": "2026-07-29T20:11:45.231Z",
+          "state": "completed",
+          "receivedBytes": 167606,
+          "totalBytes": 167606,
+          "progressAt": "2026-07-29T20:11:45.234Z",
+          "retainedBytes": 167606
+        }
+      },
+      "verification": {
+        "report": {
+          "status": "PASS",
+          "resultCount": 64,
+          "methodCounts": {
+            "FWO": 16,
+            "KAS": 16,
+            "STARINK": 16,
+            "FRIEDMAN": 16
+          },
+          "alphaGrid": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ],
+          "oracleComparison": {
+            "comparisons": 1604,
+            "maximumAbsoluteDifferences": {
+              "FRIEDMAN.activationEnergy": 1.0652129844856972e-8,
+              "FRIEDMAN.alpha": 0,
+              "FRIEDMAN.energyConfidence95": 1.59035153046716e-7,
+              "FRIEDMAN.fitted": 1.2679635119638988e-10,
+              "FRIEDMAN.intercept": 2.9541560309098713e-9,
+              "FRIEDMAN.meanEnergy": 1.5819807686057175e-9,
+              "FRIEDMAN.residuals": 4.984251900097547e-11,
+              "FRIEDMAN.residualStandardError": 6.225653326197289e-11,
+              "FRIEDMAN.rowActivationEnergy": 1.0652129844856972e-8,
+              "FRIEDMAN.rSquared": 5.1140980339425823e-11,
+              "FRIEDMAN.slope": 0.0000012811542546842247,
+              "FRIEDMAN.slopeConfidence95": 0.000019127532141283154,
+              "FRIEDMAN.slopeStandardError": 0.0000014499873941531405,
+              "FRIEDMAN.sse": 7.288314396447504e-11,
+              "FRIEDMAN.x": 2.2746561578745883e-15,
+              "FRIEDMAN.y": 1.1246648057294806e-10,
+              "FWO.activationEnergy": 1.1148387102366542e-8,
+              "FWO.alpha": 0,
+              "FWO.energyConfidence95": 1.4320903574116528e-7,
+              "FWO.fitted": 3.510791657390655e-11,
+              "FWO.intercept": 2.5238762191293063e-9,
+              "FWO.meanEnergy": 1.0990959253831534e-9,
+              "FWO.residuals": 3.5108083107360244e-11,
+              "FWO.residualStandardError": 3.581968055499374e-11,
+              "FWO.rowActivationEnergy": 1.1148387102366542e-8,
+              "FWO.rSquared": 4.168898559697709e-11,
+              "FWO.slope": 0.0000014105644368100911,
+              "FWO.slopeConfidence95": 0.000018119753804057837,
+              "FWO.slopeStandardError": 0.0000014256802387535572,
+              "FWO.sse": 4.005923370797859e-11,
+              "FWO.x": 2.2746561578745883e-15,
+              "FWO.y": 0,
+              "KAS.activationEnergy": 1.1727848914233618e-8,
+              "KAS.alpha": 0,
+              "KAS.energyConfidence95": 1.5069122127897572e-7,
+              "KAS.fitted": 3.412381488487881e-11,
+              "KAS.intercept": 2.523844244706197e-9,
+              "KAS.meanEnergy": 1.1544614153535804e-9,
+              "KAS.residuals": 3.5123071118192684e-11,
+              "KAS.residualStandardError": 3.583267016438185e-11,
+              "KAS.rowActivationEnergy": 1.1727848914233618e-8,
+              "KAS.rSquared": 4.30839808274186e-11,
+              "KAS.slope": 0.0000014105353329796344,
+              "KAS.slopeConfidence95": 0.000018123973859474063,
+              "KAS.slopeStandardError": 0.0000014260604075388983,
+              "KAS.sse": 4.0076553187162745e-11,
+              "KAS.x": 2.2746561578745883e-15,
+              "KAS.y": 1.9664270212160773e-12,
+              "STARINK.activationEnergy": 1.1718526593540446e-8,
+              "STARINK.alpha": 0,
+              "STARINK.energyConfidence95": 1.5057321434142068e-7,
+              "STARINK.fitted": 3.416822380586382e-11,
+              "STARINK.intercept": 2.5238549028472335e-9,
+              "STARINK.meanEnergy": 1.1536087640706683e-9,
+              "STARINK.residuals": 3.5127956099501034e-11,
+              "STARINK.residualStandardError": 3.583378038740648e-11,
+              "STARINK.rowActivationEnergy": 1.1718526593540446e-8,
+              "STARINK.rSquared": 4.3032133412168605e-11,
+              "STARINK.slope": 0.0000014105426089372486,
+              "STARINK.slopeConfidence95": 0.000018124323105439544,
+              "STARINK.slopeStandardError": 0.000001426089511369355,
+              "STARINK.sse": 4.007766341018737e-11,
+              "STARINK.x": 2.2746561578745883e-15,
+              "STARINK.y": 1.8882673202824662e-12
+            }
+          },
+          "publicationComparison": {
+            "status": "not_reproduced_from_raw_without_undocumented_preprocessing",
+            "valuesAreContextNotOracle": true
+          },
+          "scientificReportSha256": "9d9788c5ceb7ddfea8189b4030520bd4718694feca32b73cba7536077f2c08ec",
+          "wideSeries": {
+            "status": "PASS",
+            "source": {
+              "fileName": "pone.0173946.s002.xlsx",
+              "fileType": "xlsx",
+              "sheetName": "Fig.2."
+            },
+            "headerSourceRow": 3,
+            "rawObservationCount": 1716,
+            "projectedPointCount": 48,
+            "branchCount": 3,
+            "excludedPopulatedColumnCount": 24,
+            "pointAuditSha256": "a9d927aa416168a95125e12f11b607e94e9cd38fee63b671fa5e368305c2ac5d"
+          }
+        },
+        "csv": {
+          "status": "PASS",
+          "rows": 64,
+          "headers": 25
+        },
+        "pdf": {
+          "status": "PASS",
+          "pageCount": 5,
+          "bytes": 167606
+        },
+        "screenshot": {
+          "status": "PASS",
+          "width": 1440,
+          "height": 6554,
+          "bytes": 1235765
+        },
+        "network": {
+          "totalRequests": 1,
+          "fileRequests": [
+            "file:///Users/mehmetprom4/Desktop/Activation_Energy_Method/02_Activation_Energy_Software/release/Activation-Energy-Studio-v0.2.0.html"
+          ],
+          "localRequests": [],
+          "externalRequests": [],
+          "unsupportedRequests": []
+        }
+      },
+      "scientificReportSha256": "9d9788c5ceb7ddfea8189b4030520bd4718694feca32b73cba7536077f2c08ec",
+      "csvSha256": "a01dbb6713b3b191442133148755fb6a917adeaeb041e4d75a75e2fd0dec1359",
+      "artifacts": [
+        {
+          "role": "report_json",
+          "path": "pass-1/paper010-raw-to-report.json",
+          "bytes": 1144132,
+          "sha256": "0a524a45da2c66229bfeb0d5a14731b8a3af9f0a84121a1ad39f7acfa45cf2c8"
+        },
+        {
+          "role": "report_csv",
+          "path": "pass-1/paper010-raw-to-report-results.csv",
+          "bytes": 59518,
+          "sha256": "a01dbb6713b3b191442133148755fb6a917adeaeb041e4d75a75e2fd0dec1359"
+        },
+        {
+          "role": "report_pdf",
+          "path": "pass-1/paper010-raw-to-report-report.pdf",
+          "bytes": 167606,
+          "sha256": "10a516e5adc0f7ccc2bafb8d966c3c4d66d89840d38ce1d4bfc896496669b994"
+        },
+        {
+          "role": "final_state_screenshot",
+          "path": "pass-1/paper010-final-state.png",
+          "bytes": 1235765,
+          "sha256": "4de64d435fa4a6d0bd3817e13765a05bfbb91f38d04f50c5f91a1054d61619e0"
+        },
+        {
+          "role": "raw_network_capture",
+          "path": "pass-1/paper010-network-capture.json",
+          "bytes": 786,
+          "sha256": "794052d06865e7f89498d4ac052a8e888d920531ad18f84d8a45775a2b2a4d65"
+        },
+        {
+          "role": "offline_har",
+          "path": "pass-1/paper010-offline.har",
+          "bytes": 1515,
+          "sha256": "4ec92064d4d60e7c4a01381b980e74f932039233137263520477d1eaa66c2dc8"
+        }
+      ]
+    },
+    {
+      "passId": "pass-2",
+      "startedAt": "2026-07-29T20:11:45.571Z",
+      "endedAt": "2026-07-29T20:11:47.156Z",
+      "browser": {
+        "name": "Google Chrome (headless)",
+        "executable": "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome",
+        "product": "Chrome/150.0.7871.187",
+        "version": "150.0.7871.187",
+        "major": 150
+      },
+      "runtime": {
+        "executionPath": "direct-local-macos-google-chrome",
+        "platform": "darwin",
+        "architecture": "arm64",
+        "documentProtocol": "file:",
+        "navigatorOnLine": false,
+        "parallelsUsed": false,
+        "virtualizationOrCrossPlatformClaim": false
+      },
+      "visibleState": {
+        "protocol": "file:",
+        "navigatorOnLine": false,
+        "refused": false,
+        "totalRows": 64,
+        "isoconversionalRows": 64,
+        "peakRows": 0,
+        "methodCounts": {
+          "FWO": 16,
+          "KAS": 16,
+          "STARINK": 16,
+          "FRIEDMAN": 16
+        },
+        "alphasByMethod": {
+          "FWO": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ],
+          "KAS": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ],
+          "STARINK": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ],
+          "FRIEDMAN": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ]
+        },
+        "alphaGridSummary": "16 α noktası hesaplanacak: 0.05–0.80",
+        "wideMapping": {
+          "sheet": "Fig.2.",
+          "headerSourceRow": 3,
+          "layout": "wide-series",
+          "seriesCount": 3,
+          "scopeConfirmed": true,
+          "scopeProfileText": "Analiz kapsamı onayıKaynak tablonun tamamında görülen ve seçilmeyen dolu sütunlar: 13. temperature (575 satır; kaynak satırları 4–578), 14. weight (575 satır; kaynak satırları 4–578), 15. temperature (574 satır; kaynak satırları 4–577), 16. weight (574 satır; kaynak satırları 4–577), 17. temperature (567 satır; kaynak satırları 4–570), 18. weight (567 satır; kaynak satırları 4–570), 19. temperature (575 satır; kaynak satırları 4–578), 20. DTG (575 satır; kaynak satırları 4–578), 21. temperature (574 satır; kaynak satırları 4–577), 22. DTG (574 satır; kaynak satırları 4–577), 23. temperature (567 satır; kaynak satırları 4–570), 24. DTG (567 satır; kaynak satırları 4–570), 25. temperature (574 satır; kaynak satırları 4–577), 26. DTG (574 satır; kaynak satırları 4–577), 27. temperature (570 satır; kaynak satırları 4–573), 28. DTG (570 satır; kaynak satırları 4–573), 29. temperature (567 satır; kaynak satırları 4–570), 30. DTG (567 satır; kaynak satırları 4–570), 31. temperature (574 satır; kaynak satırları 4–577), 32. DTG (574 satır; kaynak satırları 4–577), 33. temperature (570 satır; kaynak satırları 4–573), 34. DTG (570 satır; kaynak satırları 4–573), 35. temperature (567 satır; kaynak satırları 4–570), 36. DTG (567 satır; kaynak satırları 4–570)Seçmediğim dolu sütunların bu analiz kapsamı dışında olduğunu açıkça onaylıyorum.",
+          "fullTableScopeProfileVisible": true,
+          "firstExcludedColumnVisible": true,
+          "lastExcludedColumnVisible": true,
+          "uploadedFileName": "pone.0173946.s002.xlsx"
+        }
+      },
+      "downloads": {
+        "json": {
+          "guid": "50bbb730-9c83-4006-b247-5fe3df025d95",
+          "suggestedFilename": "paper010-raw-to-report.json",
+          "url": "blob:null/f26fd169-2a92-4224-aea3-6f359e133f39",
+          "willBeginAt": "2026-07-29T20:11:46.745Z",
+          "state": "completed",
+          "receivedBytes": 1144132,
+          "totalBytes": 1144132,
+          "progressAt": "2026-07-29T20:11:46.753Z",
+          "retainedBytes": 1144132
+        },
+        "csv": {
+          "guid": "d199db94-f957-4d6b-b559-d1d9bbde1679",
+          "suggestedFilename": "paper010-raw-to-report-results.csv",
+          "url": "blob:null/86a0958e-33b5-4a8c-b2d0-d491cc43e3bd",
+          "willBeginAt": "2026-07-29T20:11:46.806Z",
+          "state": "completed",
+          "receivedBytes": 59518,
+          "totalBytes": 59518,
+          "progressAt": "2026-07-29T20:11:46.808Z",
+          "retainedBytes": 59518
+        },
+        "pdf": {
+          "guid": "5491e75b-691b-4221-a90c-c1bdb0817561",
+          "suggestedFilename": "paper010-raw-to-report-report.pdf",
+          "url": "blob:null/bb29c53d-957b-498a-b902-44f387ad7907",
+          "willBeginAt": "2026-07-29T20:11:46.889Z",
+          "state": "completed",
+          "receivedBytes": 167606,
+          "totalBytes": 167606,
+          "progressAt": "2026-07-29T20:11:46.892Z",
+          "retainedBytes": 167606
+        }
+      },
+      "verification": {
+        "report": {
+          "status": "PASS",
+          "resultCount": 64,
+          "methodCounts": {
+            "FWO": 16,
+            "KAS": 16,
+            "STARINK": 16,
+            "FRIEDMAN": 16
+          },
+          "alphaGrid": [
+            0.05,
+            0.1,
+            0.15,
+            0.2,
+            0.25,
+            0.3,
+            0.35,
+            0.4,
+            0.45,
+            0.5,
+            0.55,
+            0.6,
+            0.65,
+            0.7,
+            0.75,
+            0.8
+          ],
+          "oracleComparison": {
+            "comparisons": 1604,
+            "maximumAbsoluteDifferences": {
+              "FRIEDMAN.activationEnergy": 1.0652129844856972e-8,
+              "FRIEDMAN.alpha": 0,
+              "FRIEDMAN.energyConfidence95": 1.59035153046716e-7,
+              "FRIEDMAN.fitted": 1.2679635119638988e-10,
+              "FRIEDMAN.intercept": 2.9541560309098713e-9,
+              "FRIEDMAN.meanEnergy": 1.5819807686057175e-9,
+              "FRIEDMAN.residuals": 4.984251900097547e-11,
+              "FRIEDMAN.residualStandardError": 6.225653326197289e-11,
+              "FRIEDMAN.rowActivationEnergy": 1.0652129844856972e-8,
+              "FRIEDMAN.rSquared": 5.1140980339425823e-11,
+              "FRIEDMAN.slope": 0.0000012811542546842247,
+              "FRIEDMAN.slopeConfidence95": 0.000019127532141283154,
+              "FRIEDMAN.slopeStandardError": 0.0000014499873941531405,
+              "FRIEDMAN.sse": 7.288314396447504e-11,
+              "FRIEDMAN.x": 2.2746561578745883e-15,
+              "FRIEDMAN.y": 1.1246648057294806e-10,
+              "FWO.activationEnergy": 1.1148387102366542e-8,
+              "FWO.alpha": 0,
+              "FWO.energyConfidence95": 1.4320903574116528e-7,
+              "FWO.fitted": 3.510791657390655e-11,
+              "FWO.intercept": 2.5238762191293063e-9,
+              "FWO.meanEnergy": 1.0990959253831534e-9,
+              "FWO.residuals": 3.5108083107360244e-11,
+              "FWO.residualStandardError": 3.581968055499374e-11,
+              "FWO.rowActivationEnergy": 1.1148387102366542e-8,
+              "FWO.rSquared": 4.168898559697709e-11,
+              "FWO.slope": 0.0000014105644368100911,
+              "FWO.slopeConfidence95": 0.000018119753804057837,
+              "FWO.slopeStandardError": 0.0000014256802387535572,
+              "FWO.sse": 4.005923370797859e-11,
+              "FWO.x": 2.2746561578745883e-15,
+              "FWO.y": 0,
+              "KAS.activationEnergy": 1.1727848914233618e-8,
+              "KAS.alpha": 0,
+              "KAS.energyConfidence95": 1.5069122127897572e-7,
+              "KAS.fitted": 3.412381488487881e-11,
+              "KAS.intercept": 2.523844244706197e-9,
+              "KAS.meanEnergy": 1.1544614153535804e-9,
+              "KAS.residuals": 3.5123071118192684e-11,
+              "KAS.residualStandardError": 3.583267016438185e-11,
+              "KAS.rowActivationEnergy": 1.1727848914233618e-8,
+              "KAS.rSquared": 4.30839808274186e-11,
+              "KAS.slope": 0.0000014105353329796344,
+              "KAS.slopeConfidence95": 0.000018123973859474063,
+              "KAS.slopeStandardError": 0.0000014260604075388983,
+              "KAS.sse": 4.0076553187162745e-11,
+              "KAS.x": 2.2746561578745883e-15,
+              "KAS.y": 1.9664270212160773e-12,
+              "STARINK.activationEnergy": 1.1718526593540446e-8,
+              "STARINK.alpha": 0,
+              "STARINK.energyConfidence95": 1.5057321434142068e-7,
+              "STARINK.fitted": 3.416822380586382e-11,
+              "STARINK.intercept": 2.5238549028472335e-9,
+              "STARINK.meanEnergy": 1.1536087640706683e-9,
+              "STARINK.residuals": 3.5127956099501034e-11,
+              "STARINK.residualStandardError": 3.583378038740648e-11,
+              "STARINK.rowActivationEnergy": 1.1718526593540446e-8,
+              "STARINK.rSquared": 4.3032133412168605e-11,
+              "STARINK.slope": 0.0000014105426089372486,
+              "STARINK.slopeConfidence95": 0.000018124323105439544,
+              "STARINK.slopeStandardError": 0.000001426089511369355,
+              "STARINK.sse": 4.007766341018737e-11,
+              "STARINK.x": 2.2746561578745883e-15,
+              "STARINK.y": 1.8882673202824662e-12
+            }
+          },
+          "publicationComparison": {
+            "status": "not_reproduced_from_raw_without_undocumented_preprocessing",
+            "valuesAreContextNotOracle": true
+          },
+          "scientificReportSha256": "9d9788c5ceb7ddfea8189b4030520bd4718694feca32b73cba7536077f2c08ec",
+          "wideSeries": {
+            "status": "PASS",
+            "source": {
+              "fileName": "pone.0173946.s002.xlsx",
+              "fileType": "xlsx",
+              "sheetName": "Fig.2."
+            },
+            "headerSourceRow": 3,
+            "rawObservationCount": 1716,
+            "projectedPointCount": 48,
+            "branchCount": 3,
+            "excludedPopulatedColumnCount": 24,
+            "pointAuditSha256": "a9d927aa416168a95125e12f11b607e94e9cd38fee63b671fa5e368305c2ac5d"
+          }
+        },
+        "csv": {
+          "status": "PASS",
+          "rows": 64,
+          "headers": 25
+        },
+        "pdf": {
+          "status": "PASS",
+          "pageCount": 5,
+          "bytes": 167606
+        },
+        "screenshot": {
+          "status": "PASS",
+          "width": 1440,
+          "height": 6554,
+          "bytes": 1235765
+        },
+        "network": {
+          "totalRequests": 1,
+          "fileRequests": [
+            "file:///Users/mehmetprom4/Desktop/Activation_Energy_Method/02_Activation_Energy_Software/release/Activation-Energy-Studio-v0.2.0.html"
+          ],
+          "localRequests": [],
+          "externalRequests": [],
+          "unsupportedRequests": []
+        }
+      },
+      "scientificReportSha256": "9d9788c5ceb7ddfea8189b4030520bd4718694feca32b73cba7536077f2c08ec",
+      "csvSha256": "a01dbb6713b3b191442133148755fb6a917adeaeb041e4d75a75e2fd0dec1359",
+      "artifacts": [
+        {
+          "role": "report_json",
+          "path": "pass-2/paper010-raw-to-report.json",
+          "bytes": 1144132,
+          "sha256": "bae308b2fb349146a816614bfd42d6e0921c7352c0208b82b8861a3f4ffed40f"
+        },
+        {
+          "role": "report_csv",
+          "path": "pass-2/paper010-raw-to-report-results.csv",
+          "bytes": 59518,
+          "sha256": "a01dbb6713b3b191442133148755fb6a917adeaeb041e4d75a75e2fd0dec1359"
+        },
+        {
+          "role": "report_pdf",
+          "path": "pass-2/paper010-raw-to-report-report.pdf",
+          "bytes": 167606,
+          "sha256": "51604fc1fa2bb1e5afa4f7b68c00c61696053adccd6626a9c8d949d497bd31be"
+        },
+        {
+          "role": "final_state_screenshot",
+          "path": "pass-2/paper010-final-state.png",
+          "bytes": 1235765,
+          "sha256": "4de64d435fa4a6d0bd3817e13765a05bfbb91f38d04f50c5f91a1054d61619e0"
+        },
+        {
+          "role": "raw_network_capture",
+          "path": "pass-2/paper010-network-capture.json",
+          "bytes": 786,
+          "sha256": "515b4f3105e941a0d95685cf26beb086f6179b8a0288afda2a68d9737819e434"
+        },
+        {
+          "role": "offline_har",
+          "path": "pass-2/paper010-offline.har",
+          "bytes": 1515,
+          "sha256": "6358a18034650ee003e1c4c862e8d5a2cf0faab45e0dccca2ecfe3d5576acdfe"
+        }
+      ]
+    }
+  ],
+  "claimBoundary": {
+    "technicalCheckOnly": true,
+    "realDataReproduction": true,
+    "independentScientificReviewComplete": false,
+    "platformGateClosed": false,
+    "windows11Tested": false,
+    "ubuntuTested": false,
+    "usabilityGateClosed": false,
+    "externalScientificGatesClosed": false,
+    "nextRequiredAction": "Independent scientific reviewer adjudication remains required. Separate directly observed Windows 11, Ubuntu, and usability gates remain open."
+  }
+}

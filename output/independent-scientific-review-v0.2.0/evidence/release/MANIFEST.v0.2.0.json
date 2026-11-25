@@ -1,0 +1,1861 @@
+{
+  "schema": "activation-energy-studio/release-evidence-manifest/v1",
+  "release": {
+    "name": "Activation Energy Studio",
+    "version": "0.2.0",
+    "artifact": "release/Activation-Energy-Studio-v0.2.0.html",
+    "bytes": 1261018,
+    "sha256": "ce716471586b098806007853992bed6601dfa359d53e59fe1b50c849d911dbb7"
+  },
+  "status": {
+    "releaseClassification": "PARTIAL_RESEARCH_MVP",
+    "fullyP0ValidatedScientificRelease": false,
+    "currentValidation": {
+      "auditDate": "2026-07-29",
+      "verdict": "PARTIAL — teknik MVP adayı çalışıyor; bilimsel release henüz P0 doğrulanmış değildir.",
+      "p0Gates": {
+        "pass": 64,
+        "partial": 6,
+        "notTested": 2,
+        "total": 72
+      },
+      "source": "CURRENT_VALIDATION_STATUS.md"
+    },
+    "realData": {
+      "decision": "FIVE OFFICIAL REAL-DATA EVIDENCE LANES PASS THEIR BOUNDED SOFTWARE/CORE CONTRACTS; PUBLICATION AND DATASET DISCREPANCIES ARE RETAINED AS NEGATIVE EVIDENCE.",
+      "softwareValidation": "PASS",
+      "exactPublicationTableReproduction": "NOT_ACHIEVED",
+      "source": "REAL_DATA_VALIDATION_STATUS.md"
+    },
+    "offline": {
+      "staticBundle": "PASS",
+      "jsdomAppPathGuard": "PRESENT_NOT_REAL_BROWSER_PROOF",
+      "runtimeZeroRequest": "PROVEN_LOCAL_AUTOMATED_MACOS_NOT_HUMAN_REVIEWED",
+      "sources": [
+        "OFFLINE_BUNDLE_VERIFICATION.md",
+        "BROWSER_VALIDATION_ATTEMPT.md",
+        "evidence/platform/local-macos/v0.2.0-current-release/LOCAL_MACOS_DIAGNOSTIC_MANIFEST.json"
+      ]
+    },
+    "platforms": {
+      "protocol": "PREPARED_HOSTED_MATRIX_NOT_YET_RUN",
+      "macOS": "LOCAL_AUTOMATED_DIAGNOSTIC_NOT_PLATFORM_PASS",
+      "windows11": "NOT_TESTED",
+      "ubuntu24_04": "NOT_TESTED",
+      "sources": [
+        "CURRENT_VALIDATION_STATUS.md",
+        "PLATFORM_VALIDATION_PROTOCOL.md"
+      ]
+    },
+    "independentUsability": {
+      "status": "PROTOCOL_APPROVED_NOT_YET_RUN",
+      "sources": [
+        "CURRENT_VALIDATION_STATUS.md",
+        "USABILITY_VALIDATION_PROTOCOL.md"
+      ]
+    }
+  },
+  "claimBoundaries": [
+    {
+      "id": "apparent_activation_energy",
+      "statement": "Outputs are sample-, process/stage-, atmosphere-, method-, and conversion-range-specific apparent activation energies; they are not a single immutable material constant or proof of a one-step mechanism.",
+      "evidence": [
+        "00_MISSION_LOCK.md",
+        "01_SCIENTIFIC_SPEC_V1.md",
+        "02_ACCEPTANCE_CRITERIA.md",
+        "src/report/project-report.schema.json",
+        "tests/report-contract.test.ts"
+      ]
+    },
+    {
+      "id": "regression_only_uncertainty",
+      "statement": "Reported confidence intervals cover post-aggregation regression scatter only and exclude within-heating-rate replicate variability, calibration, anchor, baseline, derivative-method, and other experimental or model-form uncertainty.",
+      "evidence": [
+        "01_SCIENTIFIC_SPEC_V1.md",
+        "02_ACCEPTANCE_CRITERIA.md",
+        "src/report/project-report.schema.json",
+        "tests/regression-ci-boundary-contract.test.tsx",
+        "PDF_REPORT_VISUAL_QA.md"
+      ]
+    },
+    {
+      "id": "real_data_reproduction",
+      "statement": "Five official real-data lanes now match application-independent high-precision references within declared method and preprocessing boundaries. Paper 010 raw XLSX reproduces its Decimal(50) software oracle while retaining the unreproduced publication Table 4/S4 Friedman inconsistency. Chilean Oak Mendeley v2 raw CSV reproduces a separate Decimal(50) oracle plus an independently entered alpha=0.50 hand check; Oak FWO matches Table 3, KAS strongly indicates misapplication of the FWO-only 1.052 coefficient, and Friedman retains an unresolved publication/preprocessing discrepancy. NR-CELS pinned Zenodo v1 TG/dTG archives reproduce the deposited-dTG Friedman oracle through the production wide-series path while proprietary Kinetics Neo preprocessing remains diagnostic only. Dryad LPI-01 official traces reproduce FWO/KAS/Friedman references while the HBPI-01/HBPI-03 Table 3 cross-sample cells are quarantined. Coal-SPT-paraffin Mendeley v1 nominal-10 mg replicates reproduce grouped FWO/KAS/Friedman references while incomplete/mislabeled v2 and copied publication cells remain quarantined. Publication values are comparison evidence, never hard-coded truth, and these bounded lanes do not establish universal material or preprocessing validity.",
+      "evidence": [
+        "REAL_DATA_VALIDATION_GOAL.md",
+        "evidence/validation/REAL_DATA_VALIDATION_FINAL_REPORT.md",
+        "REAL_DATA_VALIDATION_STATUS.md",
+        "evidence/validation/oak-local/OAK_LOCAL_VALIDATION_REPORT.md",
+        "evidence/validation/oak-publication-audit/OAK_PUBLICATION_AUDIT.md",
+        "SECOND_RAW_DATASET_SEARCH.md",
+        "tests/fixtures/real/manifest.json",
+        "tests/fixtures/real/oracle/paper010_decimal_oracle.py",
+        "tests/paper010-oracle-reproducibility.test.mjs",
+        "tests/real-data-validation.test.ts",
+        "tests/fixtures/real/oak/manifest.json",
+        "tests/fixtures/real/oak/oracle/oak_decimal_oracle.py",
+        "tests/oak-oracle-reproducibility.test.mjs",
+        "tests/oak-raw-wide-series.test.ts",
+        "tests/oak-manual-adjudication.test.ts",
+        "tests/fixtures/real/nr-cels/source/TG_DTG_DTA_data.zip",
+        "tests/fixtures/real/nr-cels/source/Kinetic_data.zip",
+        "tests/fixtures/real/nr-cels/manifest/nr-cels-validation-manifest.json",
+        "tests/fixtures/real/nr-cels/oracle/nr_cels_friedman_oracle.py",
+        "tests/fixtures/real/nr-cels/oracle/expected-output.json",
+        "tests/fixtures/real/nr-cels/manual/nr-cels-adjudication.json",
+        "evidence/validation/nr-cels/NR_CELS_VALIDATION.md",
+        "tests/nr-cels-oracle-reproducibility.test.mjs",
+        "tests/nr-cels-wide-production-oracle.test.ts",
+        "tests/fixtures/real/dryad-polyisoprene/source/Data.zip",
+        "tests/fixtures/real/dryad-polyisoprene/manifest.json",
+        "tests/fixtures/real/dryad-polyisoprene/oracle/dryad_polyisoprene_decimal_oracle.py",
+        "tests/fixtures/real/dryad-polyisoprene/expected-output.json",
+        "tests/fixtures/real/dryad-polyisoprene/manual/hbpi-table3-swap-adjudication.json",
+        "evidence/validation/dryad-polyisoprene/DRYAD_POLYISOPRENE_VALIDATION.md",
+        "tests/dryad-polyisoprene-oracle-reproducibility.test.mjs",
+        "tests/dryad-polyisoprene-production-core.test.ts",
+        "tests/fixtures/real/coal-spt-paraffin/source/TGA raw data of coal, SPT and paraffin at different masses.xlsx",
+        "tests/fixtures/real/coal-spt-paraffin/manifest.json",
+        "tests/fixtures/real/coal-spt-paraffin/oracle/coal_spt_paraffin_decimal_oracle.py",
+        "tests/fixtures/real/coal-spt-paraffin/expected-output.json",
+        "evidence/validation/coal-spt-paraffin/MANUAL_ADJUDICATION.md",
+        "evidence/validation/coal-spt-paraffin/VALIDATION_REPORT.md",
+        "tests/coal-spt-paraffin-oracle-reproducibility.test.mjs",
+        "tests/coal-spt-paraffin-validation.test.ts"
+      ]
+    },
+    {
+      "id": "offline_scope",
+      "statement": "Static one-file verification and jsdom guards are supplemented by a current direct-macOS real-Chrome automated run: file: document load, navigator.onLine=false, one retained local document request, zero external requests, and JSON/CSV/PDF/PNG artifacts are hash-locked. This is local automated technical evidence only; it is not a human-reviewed platform record and does not prove Windows 11 or Ubuntu behavior.",
+      "evidence": [
+        "OFFLINE_BUNDLE_VERIFICATION.md",
+        "scripts/verify-offline-bundle.mjs",
+        "tests/runtime-offline-app.test.tsx",
+        "BROWSER_VALIDATION_ATTEMPT.md",
+        "evidence/platform/local-macos/v0.2.0-current-release/LOCAL_MACOS_DIAGNOSTIC_MANIFEST.json",
+        "scripts/verify-local-macos-diagnostic.mjs",
+        "tests/local-macos-platform-diagnostic.test.mjs"
+      ]
+    },
+    {
+      "id": "platform_scope",
+      "statement": "The current release completed the separately labelled direct-macOS/Chrome automated golden flow with retained self-test, exports, CDP-derived HAR, screenshot, and an exact integrity manifest. The human-review recorder, comparator, three-OS matrix recorder, and fixed GitHub-hosted workflow remain prepared but NOT YET RUN across all target systems; the local diagnostic does not replace human HAR/image/PDF review and does not establish Windows 11, macOS, or Ubuntu platform PASS.",
+      "evidence": [
+        "CURRENT_VALIDATION_STATUS.md",
+        "PLATFORM_VALIDATION_PROTOCOL.md",
+        "HOSTED_PLATFORM_VALIDATION.md",
+        ".github/workflows/platform-validation.yml",
+        "BROWSER_VALIDATION_ATTEMPT.md",
+        "scripts/compare-scientific-reports.mjs",
+        "scripts/platform-hosted-ci.mjs",
+        "scripts/run-hosted-platform-validation.mjs",
+        "scripts/write-hosted-workflow-preflight.mjs",
+        "scripts/run-local-macos-platform-diagnostic.mjs",
+        "scripts/verify-local-macos-diagnostic.mjs",
+        "scripts/create-platform-evidence-record.mjs",
+        "scripts/create-platform-matrix-record.mjs",
+        "scripts/record-platform-human-review.mjs",
+        "tests/platform-evidence-record.test.mjs",
+        "tests/platform-matrix-record.test.mjs",
+        "tests/platform-human-review-record.test.ts",
+        "tests/hosted-platform-validation.test.mjs",
+        "tests/local-macos-platform-diagnostic.test.mjs",
+        "tests/platform-evidence-app-integration.test.ts",
+        "src/platformSelfTest.ts",
+        "tests/platform-self-test.test.ts",
+        "tests/platform-self-test-ui.test.tsx",
+        "evidence/platform/local-macos/v0.2.0-current-release/LOCAL_MACOS_DIAGNOSTIC_MANIFEST.json",
+        "release/Platform-Golden-synthetic_kas_150.csv",
+        "release/Platform-Locale-English-dot.csv",
+        "release/Platform-Locale-Turkish-comma.csv",
+        "release/Platform-Locale-Mixed-invalid.csv"
+      ]
+    },
+    {
+      "id": "usability_scope",
+      "statement": "The 11-fixture study bundle, 11-activation guided PDF path, full Turkish diagnostic copy, warning visibility, separate Ea(alpha)/Kissinger surface, exact 100% zoom, screen/audio recording hashes, task timecodes, and seeded blind second-rating selection are contract-tested, but the independent n=5 protocol is NOT YET RUN; media structure checks are not observed human comprehension or recording-content evidence.",
+      "evidence": [
+        "CURRENT_VALIDATION_STATUS.md",
+        "USABILITY_VALIDATION_PROTOCOL.md",
+        "evidence/usability/v0.2.0/UX_FIXTURE_MANIFEST.json",
+        "scripts/generate-usability-fixtures.mjs",
+        "scripts/record-usability-study.mjs",
+        "tests/usability-fixture-bundle.test.ts",
+        "tests/result-type-comprehension.test.tsx",
+        "tests/diagnostic-copy-coverage.test.ts",
+        "tests/runtime-offline-app.test.tsx",
+        "tests/warning-visibility-contract.test.tsx",
+        "tests/usability-study-evidence-record.test.mjs"
+      ]
+    },
+    {
+      "id": "scientific_review_scope",
+      "statement": "The independent sign-off protocol, runbook, hash-locked unsigned package, exact 35-decision structured template, and fail-closed review recorder verify evidence hashes, decision completeness, COI declarations, dispositions, and signed-artifact structure. They do not authenticate reviewer identity or signature; no qualified external reviewer has signed it, so AC-SCI-03 and AC-VAL-05 remain PARTIAL.",
+      "evidence": [
+        "CURRENT_VALIDATION_STATUS.md",
+        "SCIENTIFIC_REVIEW_SIGNOFF_PROTOCOL.md",
+        "SCIENTIFIC_REVIEW_RUNBOOK.md",
+        "scripts/record-scientific-review.mjs",
+        "tests/scientific-review-evidence-record.test.mjs",
+        "scripts/generate-scientific-review-package.mjs",
+        "tests/scientific-review-package.test.mjs"
+      ]
+    },
+    {
+      "id": "release_governance_scope",
+      "statement": "The release-governance layer deterministically maps all 72 P0 criteria to current hash-bound technical evidence, preserves 64 PROVEN and eight EXTERNAL_OPEN dispositions, records severity-tagged known issues, captures the exact npm run check log, and requires five role-specific signatures. A separate fail-closed adjudication recorder now binds the three returned external-evidence lanes and exactly eight human gate decisions without authenticating identity, applying gates, editing known issues, or declaring a validated MVP. Open platform, reviewer, and usability evidence still blocks validated-MVP eligibility.",
+      "evidence": [
+        "02_ACCEPTANCE_CRITERIA.md",
+        "CURRENT_VALIDATION_STATUS.md",
+        "EXTERNAL_EVIDENCE_ADJUDICATION_PROTOCOL.md",
+        "evidence/governance/P0_EVIDENCE_MAP.v0.2.0.json",
+        "governance/KNOWN_ISSUES.json",
+        "governance/KNOWN_ISSUES.schema.json",
+        "governance/RELEASE_SIGNOFF_INPUT.schema.json",
+        "governance/EXTERNAL_EVIDENCE_ADJUDICATION_INPUT.schema.json",
+        "scripts/p0-evidence-ledger.mjs",
+        "scripts/record-release-verification.mjs",
+        "scripts/generate-known-issues.mjs",
+        "scripts/record-release-signoff.mjs",
+        "scripts/adjudicate-external-evidence.mjs",
+        "tests/p0-evidence-ledger.test.mjs",
+        "tests/release-verification-record.test.mjs",
+        "tests/known-issues-governance.test.mjs",
+        "tests/release-signoff-record.test.mjs",
+        "tests/external-evidence-adjudication.test.mjs"
+      ]
+    },
+    {
+      "id": "external_validation_handoff_scope",
+      "statement": "The deterministic external-validation ZIP packages locked inputs, protocols, fail-closed templates, native hash helpers, recorders, and the unsigned review package. Generating or structurally verifying the kit is logistics evidence only; it does not prove that any OS run, human session, or independent review occurred.",
+      "evidence": [
+        "CURRENT_VALIDATION_STATUS.md",
+        "scripts/generate-external-validation-kit.mjs",
+        "tests/external-validation-kit.test.mjs",
+        "PLATFORM_VALIDATION_PROTOCOL.md",
+        "USABILITY_VALIDATION_PROTOCOL.md",
+        "SCIENTIFIC_REVIEW_SIGNOFF_PROTOCOL.md",
+        "EXTERNAL_EVIDENCE_ADJUDICATION_PROTOCOL.md"
+      ]
+    },
+    {
+      "id": "corpus_scope",
+      "statement": "The local evidence base contains 231 hash-locked source PDF records: 230 primary PDFs and one supplementary PDF. Exact 001-231 extraction accounting and a non-destructive repair ledger for 30 blank method-matrix IDs are verified; 231 distinct articles and per-item Q1/Q2 status are NOT locally verified.",
+      "evidence": [
+        "00_MISSION_LOCK.md",
+        "SCIENTIFIC_TRACEABILITY_REPORT.md",
+        "evidence/corpus/CORPUS_INTEGRITY_LEDGER.json",
+        "../01_PDF_Evidence_Extraction/00_Start_Here/paper_processing_order.csv",
+        "../01_PDF_Evidence_Extraction/05_Canonical_Evidence_Table/activation_energy_evidence.csv",
+        "../01_PDF_Evidence_Extraction/06_Method_Evidence_Matrix/method_evidence_matrix.csv",
+        "scripts/generate-corpus-integrity-ledger.mjs",
+        "tests/corpus-integrity-ledger.test.mjs",
+        "scripts/verify-scientific-traceability.mjs",
+        "tests/scientific-traceability.test.mjs"
+      ]
+    },
+    {
+      "id": "release_completion_scope",
+      "statement": "This artifact is a serious working research MVP, not a fully P0-validated scientific release and not evidence that it works on every computer.",
+      "evidence": [
+        "00_MISSION_LOCK.md",
+        "02_ACCEPTANCE_CRITERIA.md",
+        "CURRENT_VALIDATION_STATUS.md",
+        "governance/KNOWN_ISSUES.json"
+      ]
+    }
+  ],
+  "evidence": [
+    {
+      "path": "release/Activation-Energy-Studio-v0.2.0.html",
+      "role": "release_html",
+      "category": "release_artifact",
+      "bytes": 1261018,
+      "sha256": "ce716471586b098806007853992bed6601dfa359d53e59fe1b50c849d911dbb7"
+    },
+    {
+      "path": "00_MISSION_LOCK.md",
+      "role": "mission_lock",
+      "category": "normative_document",
+      "bytes": 10390,
+      "sha256": "684f7148f8977327af64da4d0b35f9e8a275fd8bf2e804cb582be8fff29146f5"
+    },
+    {
+      "path": "01_SCIENTIFIC_SPEC_V1.md",
+      "role": "scientific_specification",
+      "category": "normative_document",
+      "bytes": 24232,
+      "sha256": "d1679dfaf20b6d1ea8e2889abe88c4357fa1854d2172f42eeb90a8af2ad022e4"
+    },
+    {
+      "path": "02_ACCEPTANCE_CRITERIA.md",
+      "role": "acceptance_criteria",
+      "category": "normative_document",
+      "bytes": 23742,
+      "sha256": "82225e00f74fd96b1c346ed5c144864bc1b71f41d49e564bb743e17ce27c1797"
+    },
+    {
+      "path": "../ULTIMATE_GOAL.md",
+      "role": "parent_goal",
+      "category": "governance",
+      "bytes": 4158,
+      "sha256": "da2bba901695fb460a481bc8975f0e84d003c22da5e7ff5e2e178769c6c7c048"
+    },
+    {
+      "path": "REAL_DATA_VALIDATION_GOAL.md",
+      "role": "real_data_validation_goal",
+      "category": "governance",
+      "bytes": 3085,
+      "sha256": "8a0fa045b80a5e8b38f906733ef34479dabf57891b08aadcca84f67c942cfcc6"
+    },
+    {
+      "path": "CURRENT_VALIDATION_STATUS.md",
+      "role": "current_validation_status",
+      "category": "validation_report",
+      "bytes": 46677,
+      "sha256": "62407952118c731f35e1a3d35865a6900d772f9e49ed18a749996fe60e4f34ea"
+    },
+    {
+      "path": "SCIENTIFIC_TRACEABILITY_REPORT.md",
+      "role": "scientific_traceability_report",
+      "category": "validation_report",
+      "bytes": 2232,
+      "sha256": "ec389ea78e080eeafe6984ddaff53a375a44dcdd6962b743882831d5ef76da5b"
+    },
+    {
+      "path": "evidence/corpus/CORPUS_INTEGRITY_LEDGER.json",
+      "role": "corpus_integrity_ledger",
+      "category": "corpus_source_lock",
+      "bytes": 97549,
+      "sha256": "2ecbe617bf988aeb58bc30a599b2ed3f81e0be70b045521f1fe0e5e9a5f0260e"
+    },
+    {
+      "path": "../01_PDF_Evidence_Extraction/00_Start_Here/paper_processing_order.csv",
+      "role": "corpus_processing_order",
+      "category": "corpus_source_lock",
+      "bytes": 110595,
+      "sha256": "3d3920e7cdb4ae16143c846ae7e80a6393e96fd4fd8f2b360c0c60d3153267e6"
+    },
+    {
+      "path": "../01_PDF_Evidence_Extraction/05_Canonical_Evidence_Table/activation_energy_evidence.csv",
+      "role": "corpus_canonical_evidence_table",
+      "category": "corpus_source_lock",
+      "bytes": 3236442,
+      "sha256": "41f15e575b2bab6d4aa82ce14394c877c4f449435c1fb2c0396ea86ae2056691"
+    },
+    {
+      "path": "../01_PDF_Evidence_Extraction/06_Method_Evidence_Matrix/method_evidence_matrix.csv",
+      "role": "corpus_method_evidence_matrix",
+      "category": "corpus_source_lock",
+      "bytes": 929400,
+      "sha256": "68e0ca2f401452ddd5ab5487f35a8ef60f0e990930f5ef5f0c912b8e6705d23a"
+    },
+    {
+      "path": "NUMERICAL_VALIDATION_REPORT.md",
+      "role": "independent_numerical_validation_report",
+      "category": "validation_report",
+      "bytes": 3894,
+      "sha256": "bf86a8f311a5e665dea4bd26bee3f1ef6861f48c543da4d7cb30d93f5dc4ee59"
+    },
+    {
+      "path": "SCIENTIFIC_REVIEW_SIGNOFF_PROTOCOL.md",
+      "role": "scientific_review_signoff_protocol",
+      "category": "validation_protocol",
+      "bytes": 8314,
+      "sha256": "afda35862a1a336e8a3a97bd9a0d6633a42deecad7f889d5ab5791b47d85fb17"
+    },
+    {
+      "path": "SCIENTIFIC_REVIEW_RUNBOOK.md",
+      "role": "scientific_review_runbook",
+      "category": "validation_protocol",
+      "bytes": 6653,
+      "sha256": "1ed6e7fd8e1d6ab207e42a7b0829ff7e68ccf30e151e5279d8932cb7d36fcef3"
+    },
+    {
+      "path": "PDF_REPORT_VISUAL_QA.md",
+      "role": "pdf_visual_qa_report",
+      "category": "validation_report",
+      "bytes": 4480,
+      "sha256": "faf7fad9a07f85a9070508b19c9be6298c9bcc6d6e9bc71b7a1cae03b69838ea"
+    },
+    {
+      "path": "REAL_DATA_VALIDATION_STATUS.md",
+      "role": "real_data_validation_status",
+      "category": "validation_report",
+      "bytes": 19024,
+      "sha256": "6eeddb142d31ad158faa2f573721da2560d0d060003104556cf52a9d09915a09"
+    },
+    {
+      "path": "evidence/validation/REAL_DATA_VALIDATION_FINAL_REPORT.md",
+      "role": "real_data_validation_final_report",
+      "category": "validation_report",
+      "bytes": 6839,
+      "sha256": "9e80d3b6f67e46177eee5ac9c9091794bb612d54d4541d81bb5962caa8b4f052"
+    },
+    {
+      "path": "evidence/validation/oak-local/OAK_LOCAL_VALIDATION_REPORT.md",
+      "role": "oak_real_data_validation_report",
+      "category": "validation_report",
+      "bytes": 8907,
+      "sha256": "0601534eba56e81aef1225abfe5586a6439fed68677e8bcb455f6d37af71d3b5"
+    },
+    {
+      "path": "evidence/validation/oak-publication-audit/OAK_PUBLICATION_AUDIT.md",
+      "role": "oak_publication_forensic_audit",
+      "category": "scientific_negative_evidence",
+      "bytes": 13417,
+      "sha256": "beb3036275c54b6fd37022864d2ac4fdc56a08ca140f02de72f7fd212337a922"
+    },
+    {
+      "path": "evidence/validation/oak-publication-audit/publication_table3_targets.csv",
+      "role": "oak_publication_table3_transcription",
+      "category": "scientific_negative_evidence",
+      "bytes": 760,
+      "sha256": "5656154c7420310f17719c80b3115546320d05a827a4894e3d1641a475beda72"
+    },
+    {
+      "path": "evidence/validation/oak-publication-audit/independent_standard_reproduction.csv",
+      "role": "oak_independent_standard_reproduction",
+      "category": "scientific_negative_evidence",
+      "bytes": 2923,
+      "sha256": "c0691f0b8999da34ef0d8d1524c1c04557cbb958918f524b8e8fef7e68d2ae76"
+    },
+    {
+      "path": "evidence/validation/oak-publication-audit/factor_1_052_forensic_test.csv",
+      "role": "oak_fwo_coefficient_forensic_test",
+      "category": "scientific_negative_evidence",
+      "bytes": 1095,
+      "sha256": "91f17fa8d091f2223bc2ca01d1c4c0d9876e2a061d9b0ffad6be4cc7522ef774"
+    },
+    {
+      "path": "evidence/validation/oak-publication-audit/source_file_manifest.csv",
+      "role": "oak_publication_source_file_manifest",
+      "category": "scientific_fixture_lock",
+      "bytes": 3036,
+      "sha256": "f23c24c30aa458c9a57c2b47e5a7ac75a54f25a2a8a75c6d68494cbce2719505"
+    },
+    {
+      "path": "SECOND_RAW_DATASET_SEARCH.md",
+      "role": "second_raw_dataset_acquisition_audit",
+      "category": "validation_report",
+      "bytes": 9030,
+      "sha256": "39d8114c6e7b3906c36c98b1b1e47e887e5325b9bb2713afe83dd1fc3f4cf705"
+    },
+    {
+      "path": "OFFLINE_BUNDLE_VERIFICATION.md",
+      "role": "offline_bundle_verification_report",
+      "category": "validation_report",
+      "bytes": 2395,
+      "sha256": "c37491d8c3a014a63a830a394c324e9acd90c3e87f277e4cef32362fee6c628e"
+    },
+    {
+      "path": "BROWSER_VALIDATION_ATTEMPT.md",
+      "role": "real_browser_validation_attempt",
+      "category": "validation_report",
+      "bytes": 5520,
+      "sha256": "d2b49953a73b207b00c2b5ac21f08a3581cfb334687ba72963aaf44753fad2ce"
+    },
+    {
+      "path": "PLATFORM_VALIDATION_PROTOCOL.md",
+      "role": "platform_validation_protocol",
+      "category": "validation_protocol",
+      "bytes": 27563,
+      "sha256": "dda194679532a324bc8b4af96ae7cb60f8c10c5420012efe2ecf2d0f677a038c"
+    },
+    {
+      "path": "HOSTED_PLATFORM_VALIDATION.md",
+      "role": "hosted_platform_validation_runbook",
+      "category": "validation_protocol",
+      "bytes": 13862,
+      "sha256": "33b4fb133a76c211641943f3dd5fd192b1bf4fc40f6b088f29b5beb0a3cd3453"
+    },
+    {
+      "path": "EXTERNAL_EVIDENCE_ADJUDICATION_PROTOCOL.md",
+      "role": "external_evidence_adjudication_protocol",
+      "category": "validation_protocol",
+      "bytes": 4685,
+      "sha256": "b885a50c6753f2aa62e8dd4fec91e65dd5a744c06f46f70af21d6f037341ab30"
+    },
+    {
+      "path": ".github/workflows/platform-validation.yml",
+      "role": "hosted_platform_validation_workflow",
+      "category": "validation_automation",
+      "bytes": 3638,
+      "sha256": "c0c606bc8d423ca908a5a8c2b0d09249452b282d70bc559b5aa0714e085339a4"
+    },
+    {
+      "path": "USABILITY_VALIDATION_PROTOCOL.md",
+      "role": "usability_validation_protocol",
+      "category": "validation_protocol",
+      "bytes": 21038,
+      "sha256": "747437fdf8890823885959b74409a668e5e88e1531314e60d48115ce41b917ea"
+    },
+    {
+      "path": "WARNING_VISIBILITY_VISUAL_QA.md",
+      "role": "warning_visibility_visual_qa_report",
+      "category": "validation_report",
+      "bytes": 2893,
+      "sha256": "f4b191acb4ebe8a548c7fb81e5a120d76c42811b6edaff360c46dd317dd4a639"
+    },
+    {
+      "path": "evidence/usability/v0.2.0/UX_FIXTURE_MANIFEST.json",
+      "role": "usability_fixture_manifest",
+      "category": "validation_fixture_lock",
+      "bytes": 4239,
+      "sha256": "d2b5bf519eadc4ddeb21f9f5a568bc7e4d8f673a5bce0302e0420c66e7d67504"
+    },
+    {
+      "path": "evidence/usability/v0.2.0/warning-visibility-current/WARNING_VISIBILITY_EVIDENCE.json",
+      "role": "warning_visibility_evidence_manifest",
+      "category": "usability_runtime_evidence_lock",
+      "bytes": 9124,
+      "sha256": "7fb4e899b71ee5009626a0e053d06a9a66b58ea01dc866db33f616c9d79bc02f"
+    },
+    {
+      "path": "evidence/usability/v0.2.0/warning-visibility-current/WARNING_VISIBILITY_EVIDENCE.sha256",
+      "role": "warning_visibility_evidence_sidecar",
+      "category": "usability_runtime_evidence_lock",
+      "bytes": 99,
+      "sha256": "c5ac409d47e066b102dadab5a76bd3e08df12d804b545a957260bcb7a407a5f0"
+    },
+    {
+      "path": "evidence/validation/FIXTURE_MANIFEST.v0.2.0.json",
+      "role": "complete_fixture_manifest",
+      "category": "validation_fixture_lock",
+      "bytes": 16151,
+      "sha256": "653b31963c038aec58062b8c3b8605a7242353f2ad8d8dba4af36765cdb02666"
+    },
+    {
+      "path": "evidence/governance/P0_EVIDENCE_MAP.v0.2.0.json",
+      "role": "p0_evidence_mapping_contract",
+      "category": "governance_contract",
+      "bytes": 6580,
+      "sha256": "b566764586e496b03e483ad2689cd71183a8500110e9aa0bc7543796856e2759"
+    },
+    {
+      "path": "governance/KNOWN_ISSUES.json",
+      "role": "severity_tagged_known_issues_ledger",
+      "category": "governance_ledger",
+      "bytes": 9137,
+      "sha256": "a5d795b57ad81f5d987b483c7fb997fad8ee65f0a111e79261ee40ca7bd774b4"
+    },
+    {
+      "path": "governance/KNOWN_ISSUES.schema.json",
+      "role": "known_issues_json_schema",
+      "category": "governance_contract",
+      "bytes": 7034,
+      "sha256": "1b62229f802d1b4ab59ebd75341508253cd5f21c55ec14595e55db65574c5855"
+    },
+    {
+      "path": "governance/RELEASE_SIGNOFF_INPUT.schema.json",
+      "role": "five_role_release_signoff_input_schema",
+      "category": "governance_contract",
+      "bytes": 5324,
+      "sha256": "d11b0e5fd3ed747d3a027d8547308c5bf1bb192e6c0e0713805b1694ebf387af"
+    },
+    {
+      "path": "governance/EXTERNAL_EVIDENCE_ADJUDICATION_INPUT.schema.json",
+      "role": "external_evidence_adjudication_input_schema",
+      "category": "governance_contract",
+      "bytes": 10621,
+      "sha256": "026e5f69c1506346da22bac9ebc447af27e3cfa80a93d676b9bc87199a66b88c"
+    },
+    {
+      "path": "evidence/platform/local-macos/v0.2.0-current-release/LOCAL_MACOS_DIAGNOSTIC_MANIFEST.json",
+      "role": "local_macos_diagnostic_integrity_manifest",
+      "category": "platform_runtime_evidence_lock",
+      "bytes": 2572,
+      "sha256": "e4e0211f3f2137396e84aff7f07f94663dc60316d0ad0c66ba6f9fa008fc4c4e"
+    },
+    {
+      "path": "tests/fixtures/real/manifest.json",
+      "role": "real_fixture_manifest",
+      "category": "scientific_fixture_lock",
+      "bytes": 4215,
+      "sha256": "48236d198269ba75bce5330d406c2b6168fad0a6f8d16771bbc544e1623faa5e"
+    },
+    {
+      "path": "tests/fixtures/real/oracle/paper010_decimal_oracle.py",
+      "role": "independent_real_oracle_implementation",
+      "category": "scientific_fixture_lock",
+      "bytes": 81294,
+      "sha256": "d9ae629d26d183bda53c11875dfe3e8a5bd1e59150a2fb149864f8df31f8eeb2"
+    },
+    {
+      "path": "tests/fixtures/real/README.md",
+      "role": "real_fixture_provenance",
+      "category": "scientific_fixture_lock",
+      "bytes": 13986,
+      "sha256": "40f99359da4713049628634a3d457bdee3027812af988af4aad24512421bee6f"
+    },
+    {
+      "path": "tests/fixtures/real/oak/manifest.json",
+      "role": "oak_real_fixture_manifest",
+      "category": "scientific_fixture_lock",
+      "bytes": 7186,
+      "sha256": "c895832f88ee49d45290b120201dd338105a792bd8b9ca1598018360c83c0e97"
+    },
+    {
+      "path": "tests/fixtures/real/oak/oracle/oak_decimal_oracle.py",
+      "role": "oak_independent_decimal_oracle",
+      "category": "scientific_fixture_lock",
+      "bytes": 31440,
+      "sha256": "72f6ca9255a2effa83bf305882467c1e5341d6356c7f7a1359ea2a4636f6f79e"
+    },
+    {
+      "path": "tests/fixtures/real/oak/expected-output.json",
+      "role": "oak_independent_expected_output",
+      "category": "scientific_fixture_lock",
+      "bytes": 187786,
+      "sha256": "3789b266c58393d94cba0a58d1a738cd03a98600417082aeedc2e2f5f8ff331f"
+    },
+    {
+      "path": "tests/fixtures/real/oak/manual/alpha-0.50-hand-check.json",
+      "role": "oak_independent_manual_check",
+      "category": "scientific_fixture_lock",
+      "bytes": 6553,
+      "sha256": "12a4aef4a538ec5d870a10c75bba0e148fb5d932ae18d97f789392669b5fc514"
+    },
+    {
+      "path": "tests/fixtures/real/oak/source/TGA-Oak-5Kmin-1.csv",
+      "role": "oak_5kmin_official_raw_source",
+      "category": "scientific_fixture_lock",
+      "bytes": 531531,
+      "sha256": "cdefb2f643e26562400d6313ed5bc2cfe02a500e36242651c42cdcccbd014608"
+    },
+    {
+      "path": "tests/fixtures/real/oak/source/TGA-Oak-10Kmin-1.csv",
+      "role": "oak_10kmin_official_raw_source",
+      "category": "scientific_fixture_lock",
+      "bytes": 309500,
+      "sha256": "ddf80f5e2252d77732207768be7c245a6e319349216d32eda7c208b6f6aed9a9"
+    },
+    {
+      "path": "tests/fixtures/real/oak/source/TGA-Oak-20Kmin-1.csv",
+      "role": "oak_20kmin_official_raw_source",
+      "category": "scientific_fixture_lock",
+      "bytes": 137848,
+      "sha256": "37f8e355b086479c62e74181d0b2ade298c7bdd63bdb10238dcf566ed0ef8fa1"
+    },
+    {
+      "path": "tests/fixtures/real/oak/source/TGA-Oak-40Kmin-1.csv",
+      "role": "oak_40kmin_official_raw_source",
+      "category": "scientific_fixture_lock",
+      "bytes": 154524,
+      "sha256": "967ccc4aac128a5a980fd1eea9154220e846cba4b7e853f3046c08fbc22d10a8"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/TG_DTG_DTA_data.zip",
+      "role": "nr_cels_official_tg_dtg_dta_archive",
+      "category": "scientific_fixture_lock",
+      "bytes": 293756,
+      "sha256": "7894a691297b9b8626ac40e73cd128d066820e64b884b82b59d121b0ccb7a26a"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/source/Kinetic_data.zip",
+      "role": "nr_cels_official_kinetic_archive",
+      "category": "scientific_fixture_lock",
+      "bytes": 9668,
+      "sha256": "021c2de122021dcab547af0fe5f27910b22a383e99fff6c58441af110d8756e0"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/manifest/nr-cels-validation-manifest.json",
+      "role": "nr_cels_validation_manifest",
+      "category": "scientific_fixture_lock",
+      "bytes": 15343,
+      "sha256": "74294f0eb21b188826617e859a445f330cc45331efa3a137d47bcbc7286aacca"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/oracle/nr_cels_friedman_oracle.py",
+      "role": "nr_cels_independent_decimal_oracle",
+      "category": "scientific_fixture_lock",
+      "bytes": 40782,
+      "sha256": "4583a9f39a1927d854a10b7c1bc0520480ee800fa8d98b68ccdbe61f60c0e81e"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/oracle/expected-output.json",
+      "role": "nr_cels_independent_expected_output",
+      "category": "scientific_fixture_lock",
+      "bytes": 470340,
+      "sha256": "4454de4b557b47efec5ec4a7ce5c662f5284df9927fa82cf5abfaaf9e08db2d4"
+    },
+    {
+      "path": "tests/fixtures/real/nr-cels/manual/nr-cels-adjudication.json",
+      "role": "nr_cels_manual_adjudication",
+      "category": "scientific_fixture_lock",
+      "bytes": 5310,
+      "sha256": "ec8d0264bc4b4c90306d7063f44c55f3a4029b8d35267fe74a5c68972f4b1a4f"
+    },
+    {
+      "path": "evidence/validation/nr-cels/NR_CELS_VALIDATION.md",
+      "role": "nr_cels_validation_report",
+      "category": "validation_report",
+      "bytes": 4207,
+      "sha256": "fb3c0413bdfaa3e8643d9e2f2dd078f7b9259e48583e55a293676a041fa9b56d"
+    },
+    {
+      "path": "evidence/validation/nr-cels/source_file_manifest.csv",
+      "role": "nr_cels_source_file_manifest",
+      "category": "scientific_fixture_lock",
+      "bytes": 5797,
+      "sha256": "99dfaf480b7080e57a9c4d3e76922aad68f89386535542cefa354b2218bce747"
+    },
+    {
+      "path": "evidence/validation/nr-cels/friedman_reconstruction_summary.csv",
+      "role": "nr_cels_friedman_reconstruction_summary",
+      "category": "validation_report",
+      "bytes": 2579,
+      "sha256": "8d0755cf99a194fc817b26978146c07f6d2bd8b9b657e0b9aa821f8cddffd398"
+    },
+    {
+      "path": "evidence/validation/nr-cels/friedman_all_alpha_comparison.csv",
+      "role": "nr_cels_friedman_all_alpha_comparison",
+      "category": "validation_report",
+      "bytes": 138776,
+      "sha256": "3f206e8583bb0cdd5204e5be065e892d1ae0c22e860846801022743379d128f7"
+    },
+    {
+      "path": "scripts/run-nr-cels-friedman-oracle.mjs",
+      "role": "nr_cels_independent_oracle_launcher",
+      "category": "validation_automation",
+      "bytes": 2444,
+      "sha256": "eb9527080d5d640d8b9467aab14593f1f7b9518eb156f15208291ba46fc85a33"
+    },
+    {
+      "path": "scripts/generate-nr-cels-validation-evidence.mjs",
+      "role": "nr_cels_validation_evidence_generator",
+      "category": "validation_automation",
+      "bytes": 9839,
+      "sha256": "b8af9b7a2105b4fb4e76a73f4428f2462810d586fcfd6f82e9bf7675b38fdcbf"
+    },
+    {
+      "path": "scripts/generate-nr-cels-validation-manifest.mjs",
+      "role": "nr_cels_validation_manifest_generator",
+      "category": "validation_automation",
+      "bytes": 8674,
+      "sha256": "07884822b907a69b2d52f26b5040cff247ea3d5fa712c1eb480ae8f51f170a2b"
+    },
+    {
+      "path": "tests/nr-cels-source-integrity.test.mjs",
+      "role": "nr_cels_source_integrity_verification",
+      "category": "verification_test",
+      "bytes": 7373,
+      "sha256": "20995d8c5ce533ff788a1c28c933214594f84c444a7cc3fd62cf6b649c1b42bb"
+    },
+    {
+      "path": "tests/nr-cels-oracle-reproducibility.test.mjs",
+      "role": "nr_cels_oracle_reproducibility_verification",
+      "category": "verification_test",
+      "bytes": 4333,
+      "sha256": "a471051f25230d34247ce4ae46f674b17cf5cdd7483cae6d2a4b463ad41376bd"
+    },
+    {
+      "path": "tests/nr-cels-wide-production-oracle.test.ts",
+      "role": "nr_cels_wide_production_oracle_verification",
+      "category": "verification_test",
+      "bytes": 9414,
+      "sha256": "6794b79c9492f6e2feadaaea3460439436d90862d9ef428049a4f83f491aec9e"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/source/Data.zip",
+      "role": "dryad_polyisoprene_official_archive",
+      "category": "scientific_fixture_lock",
+      "bytes": 1947167,
+      "sha256": "6f98106f149567647b58edd8667cc899438a1ac5642c24b9a294655115e3295c"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/manifest.json",
+      "role": "dryad_polyisoprene_validation_manifest",
+      "category": "scientific_fixture_lock",
+      "bytes": 8402,
+      "sha256": "eb0195461d32ab2c57025b1bfff6149ecdec1f25c7ccf184b62fec5a9588fc80"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/oracle/dryad_polyisoprene_decimal_oracle.py",
+      "role": "dryad_polyisoprene_independent_decimal_oracle",
+      "category": "scientific_fixture_lock",
+      "bytes": 29553,
+      "sha256": "55d1841373085fe0c7f240239517647dc3c43468fb23a013a3398956f10e862b"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/expected-output.json",
+      "role": "dryad_polyisoprene_independent_expected_output",
+      "category": "scientific_fixture_lock",
+      "bytes": 18917,
+      "sha256": "3e0007d5c7892c42ebff531e72f2f20a295177a1362b49798621c6c01abcbc2d"
+    },
+    {
+      "path": "tests/fixtures/real/dryad-polyisoprene/manual/hbpi-table3-swap-adjudication.json",
+      "role": "dryad_polyisoprene_manual_adjudication",
+      "category": "scientific_fixture_lock",
+      "bytes": 3632,
+      "sha256": "002db8f420e747821c6f6b07b9ca39d6967d01fe915a8828773286a236b0e9dd"
+    },
+    {
+      "path": "evidence/validation/dryad-polyisoprene/DRYAD_POLYISOPRENE_VALIDATION.md",
+      "role": "dryad_polyisoprene_validation_report",
+      "category": "validation_report",
+      "bytes": 6231,
+      "sha256": "9bbbce0f6decc8bd9167d98d925ffe06ac36f21304d8870244969acdc9977dab"
+    },
+    {
+      "path": "evidence/validation/dryad-polyisoprene/independent_oracle_summary.csv",
+      "role": "dryad_polyisoprene_independent_oracle_summary",
+      "category": "validation_report",
+      "bytes": 545,
+      "sha256": "a16a149d10012593d21e4194061af5dcf1f3a72abcb52f5663ff4e534e691e3d"
+    },
+    {
+      "path": "evidence/validation/dryad-polyisoprene/publication_table4_targets.csv",
+      "role": "dryad_polyisoprene_publication_table4_targets",
+      "category": "scientific_negative_evidence",
+      "bytes": 312,
+      "sha256": "4f71ada4e703ef99414900e7b3c46be007904d4ce21d24362fe505e0a957db62"
+    },
+    {
+      "path": "evidence/validation/dryad-polyisoprene/source_file_manifest.csv",
+      "role": "dryad_polyisoprene_source_file_manifest",
+      "category": "scientific_fixture_lock",
+      "bytes": 1888,
+      "sha256": "3e9835a907b524587074ba8e80ec023092be4dcaaa772bcfd1d52d14126846c7"
+    },
+    {
+      "path": "evidence/validation/dryad-polyisoprene/table3_swap_adjudication.csv",
+      "role": "dryad_polyisoprene_table3_swap_adjudication",
+      "category": "scientific_negative_evidence",
+      "bytes": 409,
+      "sha256": "4e0386cd1c72e6edc88691656a89c63d578eed9a1f8c3cb089572f7067b00c25"
+    },
+    {
+      "path": "scripts/run-dryad-polyisoprene-oracle.mjs",
+      "role": "dryad_polyisoprene_independent_oracle_launcher",
+      "category": "validation_automation",
+      "bytes": 2492,
+      "sha256": "69fb1f930a1fea8cc11c3b739070b4cae74b47a9977ecc9356440e1851cd2096"
+    },
+    {
+      "path": "tests/dryad-polyisoprene-oracle-reproducibility.test.mjs",
+      "role": "dryad_polyisoprene_oracle_reproducibility_verification",
+      "category": "verification_test",
+      "bytes": 4686,
+      "sha256": "a61024e9489d109aad5ed61552f874175fc55d4bef37da25801cb9e9f0b13bd9"
+    },
+    {
+      "path": "tests/dryad-polyisoprene-production-core.test.ts",
+      "role": "dryad_polyisoprene_production_core_verification",
+      "category": "verification_test",
+      "bytes": 7344,
+      "sha256": "472c55ffdffbeae110c2c8446dcb3dd6b77fa8066bcf2f2b55fb9b91e39260c3"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/source/TGA raw data of coal, SPT and paraffin at different masses.xlsx",
+      "role": "coal_spt_paraffin_official_archive",
+      "category": "scientific_fixture_lock",
+      "bytes": 1535050,
+      "sha256": "0226a9f6eaa1fb1bdfc7e5713d2a5faed95d3ac2e8fd3154a66e981bbc4ead21"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/manifest.json",
+      "role": "coal_spt_paraffin_validation_manifest",
+      "category": "scientific_fixture_lock",
+      "bytes": 6325,
+      "sha256": "51d432e24ca28782a24226471be8bd5e57b676b2fc9bfda118359a7864ccb2af"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/paraffin10_t_alpha_beta.csv",
+      "role": "coal_spt_paraffin_projected_fixture",
+      "category": "scientific_fixture_lock",
+      "bytes": 6812,
+      "sha256": "146dca7f870e8ab1c0d15449b19b0b1d0754c96c39aa7cbf65922e904a59e782"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/oracle/coal_spt_paraffin_decimal_oracle.py",
+      "role": "coal_spt_paraffin_independent_decimal_oracle",
+      "category": "scientific_fixture_lock",
+      "bytes": 46586,
+      "sha256": "8072703fb4188e6dc7ee0c6a68bddb91f372dc7812dffb2dee3bbadeac2a5604"
+    },
+    {
+      "path": "tests/fixtures/real/coal-spt-paraffin/expected-output.json",
+      "role": "coal_spt_paraffin_independent_expected_output",
+      "category": "scientific_fixture_lock",
+      "bytes": 184716,
+      "sha256": "65731e5bc8b620bcac9b99d7b1944df9b4e00a5e31744a55c2a3de1b4fd28b3a"
+    },
+    {
+      "path": "evidence/validation/coal-spt-paraffin/MANUAL_ADJUDICATION.md",
+      "role": "coal_spt_paraffin_manual_adjudication",
+      "category": "scientific_negative_evidence",
+      "bytes": 5597,
+      "sha256": "dabf33e56dc90d4e93b430848235e2a60d7de60be489a263906475feaa9193bb"
+    },
+    {
+      "path": "evidence/validation/coal-spt-paraffin/v1-v2-adjudication.json",
+      "role": "coal_spt_paraffin_version_adjudication",
+      "category": "scientific_negative_evidence",
+      "bytes": 5332,
+      "sha256": "83d188fba13d53b126f6d5247662efa4685981497003a66f0fcd8f63958667ed"
+    },
+    {
+      "path": "evidence/validation/coal-spt-paraffin/VALIDATION_REPORT.md",
+      "role": "coal_spt_paraffin_validation_report",
+      "category": "validation_report",
+      "bytes": 3770,
+      "sha256": "e5baacb6ab9ae7fd584e3f66b59a3eb6138501d988a55149adc81b2185232ec1"
+    },
+    {
+      "path": "scripts/run-coal-spt-paraffin-oracle.mjs",
+      "role": "coal_spt_paraffin_independent_oracle_launcher",
+      "category": "validation_automation",
+      "bytes": 4797,
+      "sha256": "418fde84fb4d0d47e77e2df8e8f3f97adc1c0aa328dd498e293ee225581ede3f"
+    },
+    {
+      "path": "tests/coal-spt-paraffin-oracle-reproducibility.test.mjs",
+      "role": "coal_spt_paraffin_oracle_reproducibility_verification",
+      "category": "verification_test",
+      "bytes": 4755,
+      "sha256": "1418f0c346eccf98886675bb565c2cdd20e58029ca9cb3dba69d3e20832e5e3f"
+    },
+    {
+      "path": "tests/coal-spt-paraffin-validation.test.ts",
+      "role": "coal_spt_paraffin_production_validation_verification",
+      "category": "verification_test",
+      "bytes": 16613,
+      "sha256": "6f51406d8bc8ce359bbf6862fab3ea429b4a0f7e21c6d2e094a626973f53931c"
+    },
+    {
+      "path": "tests/fixtures/real/paper063/paper063_kissinger_peaks.csv",
+      "role": "publication_peak_fixture",
+      "category": "scientific_fixture_lock",
+      "bytes": 314,
+      "sha256": "937acf48dea0d75b113c0d5b8aac0d5e3fc9d2880b370668458a80fcc2d612c6"
+    },
+    {
+      "path": "tests/fixtures/real/paper063/provenance.json",
+      "role": "publication_peak_fixture_provenance",
+      "category": "scientific_fixture_lock",
+      "bytes": 2010,
+      "sha256": "ac50313014cfc2f6a40e652638e64cc6bab8945cc79b70b5c29c954b0c30732e"
+    },
+    {
+      "path": "tests/fixtures/real/paper063/expected-output.json",
+      "role": "publication_peak_kissinger_reference",
+      "category": "scientific_fixture_lock",
+      "bytes": 1077,
+      "sha256": "e7cb2664953b4080008a760eb3d604b81d6f474a27c01cb32dbb21c8994defb7"
+    },
+    {
+      "path": "tests/fixtures/hand/activation_energy_hand_worksheet.json",
+      "role": "independent_hand_worksheet_fixture",
+      "category": "scientific_fixture_lock",
+      "bytes": 5650,
+      "sha256": "faf3418de6b79ba23f384f32479d68100383422d26bcc7a8f70a1fc025456a6d"
+    },
+    {
+      "path": "tests/fixtures/synthetic/layer2_validation.json",
+      "role": "synthetic_layer2_fixture",
+      "category": "validation_fixture",
+      "bytes": 619,
+      "sha256": "346a58f37b2889b8f0c06cb95ec884e1813d200a092755baadd640341d7a4e08"
+    },
+    {
+      "path": "tests/fixtures/alpha/alpha-safety.ts",
+      "role": "alpha_safety_fixture",
+      "category": "validation_fixture",
+      "bytes": 5020,
+      "sha256": "b67c9c5aeb71f901074e9170674442878f70dc27ac7fb7444fef71d92bc40dd5"
+    },
+    {
+      "path": "examples/synthetic_kas_150.csv",
+      "role": "report_qa_input_fixture",
+      "category": "validation_fixture",
+      "bytes": 1872,
+      "sha256": "eeafd2d8a1dc11c385bc2906800b9b1d5647451a64cd400eafd50a83579f8b19"
+    },
+    {
+      "path": "release/Platform-Locale-English-dot.csv",
+      "role": "platform_locale_english_fixture",
+      "category": "validation_fixture",
+      "bytes": 141,
+      "sha256": "0bf4380cddf82ecc93b0abd16174f9ab8f385dec858a5ed1c226fec9a146faa8"
+    },
+    {
+      "path": "release/Platform-Locale-Turkish-comma.csv",
+      "role": "platform_locale_turkish_fixture",
+      "category": "validation_fixture",
+      "bytes": 162,
+      "sha256": "f43af94d5a805848faecb3a38c57df0252c66677d9bf403b94754ff68fda8c2d"
+    },
+    {
+      "path": "release/Platform-Locale-Mixed-invalid.csv",
+      "role": "platform_locale_mixed_invalid_fixture",
+      "category": "validation_fixture",
+      "bytes": 82,
+      "sha256": "e40e3ba2d2bfed57e9e8165ed187ed032cab8b14e31dab512ef9f22f9efb77ea"
+    },
+    {
+      "path": "tests/runtime-offline-app.test.tsx",
+      "role": "jsdom_runtime_offline_guard",
+      "category": "verification_test",
+      "bytes": 19716,
+      "sha256": "47cc1fa568e1e71cdbcafcf4b459f4eb501e4fa9d4914b15a30c246756748649"
+    },
+    {
+      "path": "tests/helpers/minimal-ooxml.ts",
+      "role": "minimal_ooxml_app_fixture_builder",
+      "category": "validation_fixture_builder",
+      "bytes": 5136,
+      "sha256": "3ef95b3ab35553ad7cd1468da9384942b12b809d05c8d5e55978bd614fcdba95"
+    },
+    {
+      "path": "tests/result-type-comprehension.test.tsx",
+      "role": "result_type_comprehension_surface_verification",
+      "category": "verification_test",
+      "bytes": 12265,
+      "sha256": "1a497935c5dff46d0f9a19bca3b1b3c19ce4bbf67a09f8584983b020e5834553"
+    },
+    {
+      "path": "src/alphaGrid.ts",
+      "role": "explicit_alpha_grid_contract",
+      "category": "scientific_configuration",
+      "bytes": 2849,
+      "sha256": "893e22944c0e733e47dd62e59540f46c8fe39373ad96ea708a3f5912f3ed2aa9"
+    },
+    {
+      "path": "tests/alpha-grid.test.ts",
+      "role": "explicit_alpha_grid_contract_verification",
+      "category": "verification_test",
+      "bytes": 1352,
+      "sha256": "e693b9204c455304db381b4d1e5f7750967b6cdfc7c6e16a4b17bb45f1e33571"
+    },
+    {
+      "path": "tests/app-alpha-grid-flow.test.tsx",
+      "role": "explicit_alpha_grid_app_flow_verification",
+      "category": "verification_test",
+      "bytes": 4578,
+      "sha256": "0158fbd1d77125b8f83ffc31a6d60bc366f5145988da94af2ade5f63b2c9622f"
+    },
+    {
+      "path": "src/components/ScientificResultsTable.tsx",
+      "role": "numeric_results_table_surface",
+      "category": "user_interface_contract",
+      "bytes": 3935,
+      "sha256": "48dcfe212ebcc13e5870852b35633f2339bc5b0379c7593702ad63a9ff100fa1"
+    },
+    {
+      "path": "tests/io-derivative-ingestion.test.ts",
+      "role": "direct_derivative_ingestion_verification",
+      "category": "verification_test",
+      "bytes": 9889,
+      "sha256": "7d46aaf058d4acd1b4449ec183088a6d2b19d4558f5ab0b2b6c7e07a7ef0f75d"
+    },
+    {
+      "path": "tests/app-derivative-mapping-flow.test.tsx",
+      "role": "direct_derivative_app_mapping_verification",
+      "category": "verification_test",
+      "bytes": 3758,
+      "sha256": "245c5cf5afa3369252fe77e02e97aa3e285cc183a3bfc22ed7b9952d3dd5047e"
+    },
+    {
+      "path": "tests/integration.test.ts",
+      "role": "integration_adapter_verification",
+      "category": "verification_test",
+      "bytes": 3228,
+      "sha256": "d9269e0f5fce3d7600f3ef62e04788a25c43fc6d1da4da40041afc57c21738ba"
+    },
+    {
+      "path": "tests/e2e-scientific.test.ts",
+      "role": "end_to_end_scientific_verification",
+      "category": "verification_test",
+      "bytes": 2552,
+      "sha256": "3d2f9f02562aa4020209d9a86f450d44b4ec464dc17062715f5bdd77b0ce9984"
+    },
+    {
+      "path": "tests/diagnostic-copy-coverage.test.ts",
+      "role": "diagnostic_copy_coverage_verification",
+      "category": "verification_test",
+      "bytes": 2009,
+      "sha256": "80202053a141f72e86691def5e35c3fac9b80405309426b3a4da9ba6c094677d"
+    },
+    {
+      "path": "tests/usability-fixture-bundle.test.ts",
+      "role": "usability_fixture_bundle_verification",
+      "category": "verification_test",
+      "bytes": 6001,
+      "sha256": "5ce5fd36dea0cff0af6e932df6448511c70d71c1663cfd1f17d4dbfd4d57a8d8"
+    },
+    {
+      "path": "tests/platform-evidence-app-integration.test.ts",
+      "role": "platform_evidence_app_integration_verification",
+      "category": "verification_test",
+      "bytes": 9990,
+      "sha256": "455b038cdd0a5a4492c33cab648f17795ad0e1a35ae7ecf00a6ad7c015ade37e"
+    },
+    {
+      "path": "src/report/stage.ts",
+      "role": "report_stage_resolution",
+      "category": "report_contract",
+      "bytes": 1305,
+      "sha256": "14a1420641a70e008bfd2fe012353c114805438df3104e20c04e36379bb3e65a"
+    },
+    {
+      "path": "tests/report-stage-label.test.ts",
+      "role": "report_stage_resolution_verification",
+      "category": "verification_test",
+      "bytes": 1243,
+      "sha256": "685b5738fdfe4c80c1dea0c6771c38b568ca2b8a9ec816cb24096b4e5915f332"
+    },
+    {
+      "path": "src/platformSelfTest.ts",
+      "role": "runtime_scientific_self_test",
+      "category": "runtime_verification_tool",
+      "bytes": 17885,
+      "sha256": "2fa547e7c7938434733ffcb62687e6f1042dfaae9a68d25c64f65736a9da8867"
+    },
+    {
+      "path": "src/components/PlatformSelfTestPanel.tsx",
+      "role": "runtime_scientific_self_test_surface",
+      "category": "runtime_verification_tool",
+      "bytes": 4125,
+      "sha256": "06616d2cce4b678b733e6bf19348e7a8e0f803fa26b5ef5c5643deb6ec947cf7"
+    },
+    {
+      "path": "tests/platform-self-test.test.ts",
+      "role": "runtime_scientific_self_test_verification",
+      "category": "verification_test",
+      "bytes": 4953,
+      "sha256": "cd856f41803327e4bf6cdc07146adffd715d16d9e32a56a8805bfcf0aef5b241"
+    },
+    {
+      "path": "tests/platform-self-test-ui.test.tsx",
+      "role": "runtime_scientific_self_test_ui_verification",
+      "category": "verification_test",
+      "bytes": 3728,
+      "sha256": "2d43126a12595f2bfb1aabf34e098f18c4404525ef75e7589f91f451d4c196d3"
+    },
+    {
+      "path": "tests/usability-study-evidence-record.test.mjs",
+      "role": "usability_study_evidence_record_verification",
+      "category": "verification_test",
+      "bytes": 21972,
+      "sha256": "838810a565b96a2a79d375be585ca3b6cf888f376894e6442123e5296a083462"
+    },
+    {
+      "path": "tests/corpus-integrity-ledger.test.mjs",
+      "role": "corpus_integrity_ledger_verification",
+      "category": "verification_test",
+      "bytes": 5122,
+      "sha256": "d7b8be202dc36939532da6f8af8ee18386e8ae0c62ea6f677286a2368d5e4f31"
+    },
+    {
+      "path": "src/report/project-report.schema.json",
+      "role": "project_report_json_schema",
+      "category": "report_contract",
+      "bytes": 44408,
+      "sha256": "33c1964034a943a340fa22892a45fccba33158b994d9b136bdbf9e8d1d7cdbe7"
+    },
+    {
+      "path": "tests/report-contract.test.ts",
+      "role": "report_contract_verification",
+      "category": "verification_test",
+      "bytes": 13358,
+      "sha256": "4ca229afa756c11a80cb4ee30a0ff05e636d431145fb1554176a4baa22d91cd9"
+    },
+    {
+      "path": "tests/helpers/report-fixture.ts",
+      "role": "schema_v4_report_qa_fixture",
+      "category": "report_fixture",
+      "bytes": 2875,
+      "sha256": "3b6ec7f486f2f4d97661dd34de89215ca49fd68344a4fb0909d1ed21c7979088"
+    },
+    {
+      "path": "tests/report.test.ts",
+      "role": "pdf_pagination_verification",
+      "category": "verification_test",
+      "bytes": 3654,
+      "sha256": "ccd118cba9a4391d1bab56cac790e31c05836a2e1d7a1973ec428ea6f3f00315"
+    },
+    {
+      "path": "tests/report-qa-artifact.test.ts",
+      "role": "pdf_qa_artifact_verification",
+      "category": "verification_test",
+      "bytes": 1219,
+      "sha256": "4abbb01505d2f769f13bd08154f927ce6de3449513f303dc0a380cbb182165d5"
+    },
+    {
+      "path": "tests/regression-ci-boundary-contract.test.tsx",
+      "role": "regression_ci_boundary_contract_verification",
+      "category": "verification_test",
+      "bytes": 3607,
+      "sha256": "79c071521cf76f1d4dd963c0f97416c555651d5481473b6fede8980021c96a66"
+    },
+    {
+      "path": "tests/io-locale-matrix.test.ts",
+      "role": "io_unit_locale_verification",
+      "category": "verification_test",
+      "bytes": 12745,
+      "sha256": "58213d6b41689dd867ee024fe50d49f6400eaecb20831baea975ae36e51989e4"
+    },
+    {
+      "path": "tests/io-direct-acceptance.test.ts",
+      "role": "io_direct_acceptance_verification",
+      "category": "verification_test",
+      "bytes": 17614,
+      "sha256": "3eb4adb2ba4c91f74f331255049a29d4d12d0accf76c6f6901ae98271fa84fb4"
+    },
+    {
+      "path": "tests/alpha-safety-acceptance.test.ts",
+      "role": "alpha_safety_acceptance_verification",
+      "category": "verification_test",
+      "bytes": 8940,
+      "sha256": "4e062dba68bc5adcc3a7373fe971f570d21e4d4c9b37a9357866dc0e3b35def2"
+    },
+    {
+      "path": "tests/numerical-acceptance-matrix.test.ts",
+      "role": "numerical_acceptance_verification",
+      "category": "verification_test",
+      "bytes": 15565,
+      "sha256": "de4e3bb7769c71b0611f18f2d451ebdb788807ea3ac1311b46ec711f05964b39"
+    },
+    {
+      "path": "tests/hand-worksheet-validation.test.ts",
+      "role": "independent_hand_worksheet_verification",
+      "category": "verification_test",
+      "bytes": 7924,
+      "sha256": "5fef0b6c541513763a0bbeeb98d70973a7025ff967e946b10d1ec7f99328319e"
+    },
+    {
+      "path": "tests/refusal-matrix.test.ts",
+      "role": "refusal_matrix_verification",
+      "category": "verification_test",
+      "bytes": 10064,
+      "sha256": "c360056e19f3aa57a8873ea752a7231ea8ed2175f2c8fc5613df61b3ad135fda"
+    },
+    {
+      "path": "tests/eligibility-direct-gaps.test.ts",
+      "role": "eligibility_direct_acceptance_verification",
+      "category": "verification_test",
+      "bytes": 10423,
+      "sha256": "88249672c4da9a84ad75c2cf186474cf3b9de537e72ac73c129501b55a27632c"
+    },
+    {
+      "path": "tests/global-refusal-contract.test.ts",
+      "role": "global_refusal_contract_verification",
+      "category": "verification_test",
+      "bytes": 4055,
+      "sha256": "fe85332aa6b4b64358e212afa3abe0ba5772cd2fbba14be51a749ba93438bfd3"
+    },
+    {
+      "path": "tests/synthetic-layer2-validation.test.ts",
+      "role": "synthetic_layer2_verification",
+      "category": "verification_test",
+      "bytes": 4277,
+      "sha256": "35795873227c70adbae5f127e140dccab89e20c09440c0e96593071abdf53a84"
+    },
+    {
+      "path": "tests/real-data-validation.test.ts",
+      "role": "real_data_decimal_reference_verification",
+      "category": "verification_test",
+      "bytes": 11748,
+      "sha256": "953a63528a4682eb04d202dea2223a201fd8adeaea1dbaebf97fb95ec3d31afb"
+    },
+    {
+      "path": "scripts/run-oak-oracle.mjs",
+      "role": "oak_independent_oracle_launcher",
+      "category": "validation_automation",
+      "bytes": 2335,
+      "sha256": "c3cbf05a407f1f5975a2796faa12de683b29c0d15ed676cc63bfc0f464f84d22"
+    },
+    {
+      "path": "tests/oak-oracle-reproducibility.test.mjs",
+      "role": "oak_independent_oracle_reproducibility_verification",
+      "category": "verification_test",
+      "bytes": 1205,
+      "sha256": "6511abd638c6341b3a905cc734098ac48215726979276cfa83acba25d7ea98c3"
+    },
+    {
+      "path": "tests/oak-source-integrity.test.ts",
+      "role": "oak_official_source_integrity_verification",
+      "category": "verification_test",
+      "bytes": 2968,
+      "sha256": "355c03438f2581049bca7b029df86129a2cbe6c5e84e02776be7fac804e0442a"
+    },
+    {
+      "path": "tests/oak-raw-wide-series.test.ts",
+      "role": "oak_raw_production_path_verification",
+      "category": "verification_test",
+      "bytes": 19715,
+      "sha256": "9b3f62df4d033fd276cfea1a0e3440e52d1908f9e4f8bd4af04d17f6cd8add2f"
+    },
+    {
+      "path": "tests/oak-manual-adjudication.test.ts",
+      "role": "oak_manual_adjudication_verification",
+      "category": "verification_test",
+      "bytes": 2748,
+      "sha256": "027ef476a30b4b12db77d02f18fb6aabd4c8fffcdd9cd6a017373bb2788e273e"
+    },
+    {
+      "path": "tests/paper063-kissinger-validation.test.ts",
+      "role": "publication_peak_kissinger_verification",
+      "category": "verification_test",
+      "bytes": 7839,
+      "sha256": "31a6fca35c594eff10c20fa0448cb40e8d8acf16598f6e9420d759a6eb1e6f86"
+    },
+    {
+      "path": "tests/paper010-oracle-reproducibility.test.mjs",
+      "role": "independent_real_oracle_reproducibility_verification",
+      "category": "verification_test",
+      "bytes": 17612,
+      "sha256": "56993b7b947f4704b64ef10a038fef594c1298909f35ec27aa152e2f8660a7b5"
+    },
+    {
+      "path": "evidence/validation/PAPER010_RAW_TO_REPORT_PROTOCOL.md",
+      "role": "paper010_locked_release_raw_to_report_protocol",
+      "category": "validation_protocol",
+      "bytes": 6098,
+      "sha256": "e02fe2322b5f84b090149c5ab70e1d9aea3d27d67de3b3a662fbb9e18ddb114b"
+    },
+    {
+      "path": "scripts/run-paper010-raw-to-report.mjs",
+      "role": "paper010_locked_release_raw_to_report_runner",
+      "category": "validation_automation",
+      "bytes": 98530,
+      "sha256": "6cb376b36db46b2846a8e29d86bfad56beae1c7cc5c04fb86bb667d0d046cf82"
+    },
+    {
+      "path": "tests/paper010-raw-to-report.test.mjs",
+      "role": "paper010_locked_release_raw_to_report_verification",
+      "category": "verification_test",
+      "bytes": 29099,
+      "sha256": "bc2a8cc75503c5ab0e4e78ab13a012c035f89b2a114cef81c116633e2e7b7d14"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/PAPER010_RAW_TO_REPORT_MANIFEST.json",
+      "role": "paper010_raw_to_report_evidence_manifest",
+      "category": "real_browser_validation_evidence",
+      "bytes": 33359,
+      "sha256": "37714db3f3d091bf4f581dacff2d03e9451786cdb3f7472ddd45c66d58029644"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/paper010-kissinger-negative-evidence.json",
+      "role": "paper010_kissinger_stage_ambiguity_negative_evidence",
+      "category": "scientific_negative_evidence",
+      "bytes": 1288,
+      "sha256": "a614830820411a281822dd6810c1a5c398c27b7c11bd806b68eb3a69f5fe9502"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-raw-to-report.json",
+      "role": "paper010_pass1_reproducible_json",
+      "category": "real_browser_validation_evidence",
+      "bytes": 1144132,
+      "sha256": "0a524a45da2c66229bfeb0d5a14731b8a3af9f0a84121a1ad39f7acfa45cf2c8"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-raw-to-report-results.csv",
+      "role": "paper010_pass1_results_csv",
+      "category": "real_browser_validation_evidence",
+      "bytes": 59518,
+      "sha256": "a01dbb6713b3b191442133148755fb6a917adeaeb041e4d75a75e2fd0dec1359"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-raw-to-report-report.pdf",
+      "role": "paper010_pass1_report_pdf",
+      "category": "real_browser_validation_evidence",
+      "bytes": 167606,
+      "sha256": "10a516e5adc0f7ccc2bafb8d966c3c4d66d89840d38ce1d4bfc896496669b994"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-final-state.png",
+      "role": "paper010_pass1_final_ui_screenshot",
+      "category": "real_browser_validation_evidence",
+      "bytes": 1235765,
+      "sha256": "4de64d435fa4a6d0bd3817e13765a05bfbb91f38d04f50c5f91a1054d61619e0"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-network-capture.json",
+      "role": "paper010_pass1_raw_network_capture",
+      "category": "real_browser_validation_evidence",
+      "bytes": 786,
+      "sha256": "794052d06865e7f89498d4ac052a8e888d920531ad18f84d8a45775a2b2a4d65"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-1/paper010-offline.har",
+      "role": "paper010_pass1_offline_har",
+      "category": "real_browser_validation_evidence",
+      "bytes": 1515,
+      "sha256": "4ec92064d4d60e7c4a01381b980e74f932039233137263520477d1eaa66c2dc8"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-raw-to-report.json",
+      "role": "paper010_pass2_reproducible_json",
+      "category": "real_browser_validation_evidence",
+      "bytes": 1144132,
+      "sha256": "bae308b2fb349146a816614bfd42d6e0921c7352c0208b82b8861a3f4ffed40f"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-raw-to-report-results.csv",
+      "role": "paper010_pass2_results_csv",
+      "category": "real_browser_validation_evidence",
+      "bytes": 59518,
+      "sha256": "a01dbb6713b3b191442133148755fb6a917adeaeb041e4d75a75e2fd0dec1359"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-raw-to-report-report.pdf",
+      "role": "paper010_pass2_report_pdf",
+      "category": "real_browser_validation_evidence",
+      "bytes": 167606,
+      "sha256": "51604fc1fa2bb1e5afa4f7b68c00c61696053adccd6626a9c8d949d497bd31be"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-final-state.png",
+      "role": "paper010_pass2_final_ui_screenshot",
+      "category": "real_browser_validation_evidence",
+      "bytes": 1235765,
+      "sha256": "4de64d435fa4a6d0bd3817e13765a05bfbb91f38d04f50c5f91a1054d61619e0"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-network-capture.json",
+      "role": "paper010_pass2_raw_network_capture",
+      "category": "real_browser_validation_evidence",
+      "bytes": 786,
+      "sha256": "515b4f3105e941a0d95685cf26beb086f6179b8a0288afda2a68d9737819e434"
+    },
+    {
+      "path": "evidence/validation/paper010-raw-to-report-v0.2.0-local/pass-2/paper010-offline.har",
+      "role": "paper010_pass2_offline_har",
+      "category": "real_browser_validation_evidence",
+      "bytes": 1515,
+      "sha256": "6358a18034650ee003e1c4c862e8d5a2cf0faab45e0dccca2ecfe3d5576acdfe"
+    },
+    {
+      "path": "tests/fixture-manifest.test.mjs",
+      "role": "complete_fixture_manifest_verification",
+      "category": "verification_test",
+      "bytes": 7906,
+      "sha256": "4f10a88275a89a510e07e04f7b1a6501eea3e099779e3feb2a7d6bdb9bc22bbc"
+    },
+    {
+      "path": "tests/provided-derivative-failclosed.test.ts",
+      "role": "provided_derivative_failclosed_verification",
+      "category": "verification_test",
+      "bytes": 4777,
+      "sha256": "c2b7d4f7a3017926a9d8e2aa849024a95a70db40bdcd851c59376724ffaf4d48"
+    },
+    {
+      "path": "tests/replicate-regression-contract.test.ts",
+      "role": "replicate_regression_contract_verification",
+      "category": "verification_test",
+      "bytes": 8990,
+      "sha256": "bdc5b93197aadb998db31e6aee8f39f2dc64d88fd0f1ec3150567acd5bc802ef"
+    },
+    {
+      "path": "tests/warning-visibility-contract.test.tsx",
+      "role": "warning_visibility_contract_verification",
+      "category": "verification_test",
+      "bytes": 10360,
+      "sha256": "dfdc79e141cdac090d3648133a87b504f942f9a5bcbadba3951f94b9a0fea48c"
+    },
+    {
+      "path": "tests/warning-visibility-evidence.test.mjs",
+      "role": "warning_visibility_evidence_verification",
+      "category": "verification_test",
+      "bytes": 5692,
+      "sha256": "7a7a7bff1e70d5b901b3e722b3d63e84e7ec3c9f2001ce884ed3ffcc9e4ea209"
+    },
+    {
+      "path": "tests/scientific-traceability.test.mjs",
+      "role": "scientific_traceability_test",
+      "category": "verification_test",
+      "bytes": 1279,
+      "sha256": "b0c3839409c907d6898bd86d3125d384ae2b3960d9f4f8fc6e5a761b99e8eb9f"
+    },
+    {
+      "path": "tests/platform-evidence-record.test.mjs",
+      "role": "platform_evidence_record_verification",
+      "category": "verification_test",
+      "bytes": 28334,
+      "sha256": "3bbdb2c40e7df0c36e28470f6c6691704d1c71be5d34e076b59d6e0c7e0289a6"
+    },
+    {
+      "path": "tests/platform-matrix-record.test.mjs",
+      "role": "platform_matrix_record_verification",
+      "category": "verification_test",
+      "bytes": 7780,
+      "sha256": "c64921b420309c3db36c8253c469027ae861c6eb86215be259bc5228f21bdd0a"
+    },
+    {
+      "path": "tests/platform-human-review-record.test.ts",
+      "role": "platform_human_review_record_verification",
+      "category": "verification_test",
+      "bytes": 43725,
+      "sha256": "0a7e683031b34e3fbbdcda5b03fe63f3eda49d6f9eeb40a955f5648d1d74cd3c"
+    },
+    {
+      "path": "tests/hosted-platform-validation.test.mjs",
+      "role": "hosted_platform_validation_verification",
+      "category": "verification_test",
+      "bytes": 76828,
+      "sha256": "eb3a7076de70a681327d4d7d0a1506eb84e80bd09f21eeec0d4e99feb50d2f4b"
+    },
+    {
+      "path": "tests/local-macos-platform-diagnostic.test.mjs",
+      "role": "local_macos_diagnostic_verification",
+      "category": "verification_test",
+      "bytes": 4533,
+      "sha256": "0587453ffe21827e73e6469de3e26ed53212473e46eca7451a1cef6a71d945ac"
+    },
+    {
+      "path": "tests/scientific-review-evidence-record.test.mjs",
+      "role": "scientific_review_record_verification",
+      "category": "verification_test",
+      "bytes": 15061,
+      "sha256": "64874f7dce536e53aa8c7e1eeb795e776b72e10785460e2c7375ad858a6b2b11"
+    },
+    {
+      "path": "tests/external-validation-kit.test.mjs",
+      "role": "external_validation_kit_verification",
+      "category": "verification_test",
+      "bytes": 23839,
+      "sha256": "45722ffa2efb2abe1e6216e59bc178ee9c5959dfd73ecd3fe9fa4f350a889c80"
+    },
+    {
+      "path": "tests/scientific-review-package.test.mjs",
+      "role": "scientific_review_package_verification",
+      "category": "verification_test",
+      "bytes": 13055,
+      "sha256": "43afe62f64398250b22d6369e641af6c8c5642b90505e169a90db724b6d33114"
+    },
+    {
+      "path": "tests/release-manifest.test.mjs",
+      "role": "release_manifest_verification",
+      "category": "verification_test",
+      "bytes": 15847,
+      "sha256": "41edf9b0d2e9c7e33325064733827a3ee601907461407fecbb01be6325702143"
+    },
+    {
+      "path": "tests/p0-evidence-ledger.test.mjs",
+      "role": "p0_evidence_ledger_verification",
+      "category": "verification_test",
+      "bytes": 8694,
+      "sha256": "570b57bcb941dde8699623cb287f563f35e17bd21af1cc164ce4af44971a5b76"
+    },
+    {
+      "path": "tests/release-verification-record.test.mjs",
+      "role": "release_verification_record_verification",
+      "category": "verification_test",
+      "bytes": 7675,
+      "sha256": "6195dcca1c84d1275d110039570c120747ad89273863a291ae5642cd8a3aad88"
+    },
+    {
+      "path": "tests/known-issues-governance.test.mjs",
+      "role": "known_issues_governance_verification",
+      "category": "verification_test",
+      "bytes": 9554,
+      "sha256": "decac40aad1c8def232f63a0bd6d14557eb35a706c550fc6009018447513ed0d"
+    },
+    {
+      "path": "tests/release-signoff-record.test.mjs",
+      "role": "five_role_release_signoff_verification",
+      "category": "verification_test",
+      "bytes": 16622,
+      "sha256": "b02fa99276b146a3b753ec545eb14988d5f349d344c34bbeae567bb4b7fceeec"
+    },
+    {
+      "path": "tests/external-evidence-adjudication.test.mjs",
+      "role": "external_evidence_adjudication_verification",
+      "category": "verification_test",
+      "bytes": 16618,
+      "sha256": "22673ddd3d40e681a6020144ea61a05c970971af668a4b6e0cb1163564c84932"
+    },
+    {
+      "path": "scripts/verify-offline-bundle.mjs",
+      "role": "offline_bundle_verifier",
+      "category": "verification_tool",
+      "bytes": 18125,
+      "sha256": "4f52f939b5007f0ee04bbd36a7a2584a3c7404ecf47946d08b6995a8b7fe494a"
+    },
+    {
+      "path": "scripts/verify-scientific-traceability.mjs",
+      "role": "scientific_traceability_verifier",
+      "category": "verification_tool",
+      "bytes": 7099,
+      "sha256": "1d83357cea21e2824ff647b3706dd67c819b6d6a4b7cf961a5624f03a220ab23"
+    },
+    {
+      "path": "scripts/compare-scientific-reports.mjs",
+      "role": "cross_platform_report_comparator",
+      "category": "verification_tool",
+      "bytes": 3967,
+      "sha256": "b6a57c80a74ae22800f15a6fd9a3b92a0ffb41844878f9e178370735c210e954"
+    },
+    {
+      "path": "scripts/platform-hosted-ci.mjs",
+      "role": "hosted_platform_ci_contract",
+      "category": "verification_tool",
+      "bytes": 57467,
+      "sha256": "6fcf91e1207833e6b2bd42cb3ab9c909ed4cfef543a7cec4b85185763d6aa07d"
+    },
+    {
+      "path": "scripts/run-hosted-platform-validation.mjs",
+      "role": "hosted_platform_browser_harness",
+      "category": "validation_automation",
+      "bytes": 90386,
+      "sha256": "629a64e83b618654106428a44033611421046fe392fcb39f2936e59e89f008f6"
+    },
+    {
+      "path": "scripts/write-hosted-workflow-preflight.mjs",
+      "role": "hosted_platform_early_failure_diagnostic_writer",
+      "category": "validation_automation",
+      "bytes": 14208,
+      "sha256": "a53d1ab90344c7d15b8c882b3109449865fda2f56ec52638d5342d74ede8311c"
+    },
+    {
+      "path": "scripts/run-local-macos-platform-diagnostic.mjs",
+      "role": "local_macos_browser_diagnostic",
+      "category": "validation_automation",
+      "bytes": 2502,
+      "sha256": "1a87bcf3768c34f010bb82e00ecba42d019fa9184d6b8d5e88c922dc1bdeeca0"
+    },
+    {
+      "path": "scripts/verify-local-macos-diagnostic.mjs",
+      "role": "local_macos_diagnostic_verifier",
+      "category": "verification_tool",
+      "bytes": 1406,
+      "sha256": "c276dab5f55d806da1ffe8a984b49f0f430e679fdb71e05a871663a63d468376"
+    },
+    {
+      "path": "scripts/capture-warning-visibility-evidence.mjs",
+      "role": "warning_visibility_evidence_capture",
+      "category": "validation_automation",
+      "bytes": 38347,
+      "sha256": "abc77e75d906e06154a8b4ca5ee3657d194c3b89932f54083b2dca2e0a4b449e"
+    },
+    {
+      "path": "scripts/create-platform-evidence-record.mjs",
+      "role": "platform_evidence_recorder",
+      "category": "provenance_tool",
+      "bytes": 58752,
+      "sha256": "1b415105b371d909a3a70a9a14ccdf18adfea8f7727f12c5081e61bb3cbe7eb2"
+    },
+    {
+      "path": "scripts/create-platform-matrix-record.mjs",
+      "role": "platform_matrix_recorder",
+      "category": "provenance_tool",
+      "bytes": 15573,
+      "sha256": "80e97b600f1ea97aac3dbc7f57717f980213384760046a2a9275083eba86872b"
+    },
+    {
+      "path": "scripts/record-platform-human-review.mjs",
+      "role": "platform_human_review_recorder",
+      "category": "provenance_tool",
+      "bytes": 48794,
+      "sha256": "bfcc227b4e4eab063e1dd5b61e15190f853ec53732d27358cb4222b29f120bd5"
+    },
+    {
+      "path": "scripts/record-platform-human-review.d.mts",
+      "role": "platform_human_review_recorder_types",
+      "category": "governance_contract",
+      "bytes": 3316,
+      "sha256": "d7ea79c7d6ab1df823d836ddafc06b5e3df108377a85aee1866b13387ce3aa24"
+    },
+    {
+      "path": "scripts/record-usability-study.mjs",
+      "role": "usability_study_evidence_recorder",
+      "category": "provenance_tool",
+      "bytes": 37073,
+      "sha256": "051c0a7632ed8c68d86320e7ebfef5606c3cf184bd33b824bedc44accc82f60f"
+    },
+    {
+      "path": "scripts/record-scientific-review.mjs",
+      "role": "scientific_review_record_generator",
+      "category": "provenance_tool",
+      "bytes": 28697,
+      "sha256": "136152a4a394ef5335067a7974e677cba7e8b7d8481efc605773226d92d44147"
+    },
+    {
+      "path": "scripts/p0-evidence-ledger.mjs",
+      "role": "p0_evidence_ledger_generator",
+      "category": "provenance_tool",
+      "bytes": 22169,
+      "sha256": "042bc9b4bf273126650640e321b1a5f522260c7dd872362c9161ec223874c893"
+    },
+    {
+      "path": "scripts/record-release-verification.mjs",
+      "role": "release_verification_run_recorder",
+      "category": "provenance_tool",
+      "bytes": 19503,
+      "sha256": "1e8cd735cd02c676225e621d79cdbd12583939674051b3dd4fc8f3f6d8d05f87"
+    },
+    {
+      "path": "scripts/generate-known-issues.mjs",
+      "role": "known_issues_ledger_generator",
+      "category": "provenance_tool",
+      "bytes": 18339,
+      "sha256": "d3ab9f462955b0dd7521cf631dae3140310a5c4469ea766c5cd88c7fec663e12"
+    },
+    {
+      "path": "scripts/record-release-signoff.mjs",
+      "role": "five_role_release_signoff_recorder",
+      "category": "provenance_tool",
+      "bytes": 25618,
+      "sha256": "a887e56043dedf92190b08b281d651eedfdd6f204602510d1b7b2185cba34b3b"
+    },
+    {
+      "path": "scripts/adjudicate-external-evidence.mjs",
+      "role": "external_evidence_adjudication_recorder",
+      "category": "provenance_tool",
+      "bytes": 29397,
+      "sha256": "e486a6c8fae2579bbdd4197cc6a2851662007a9af0ef20c1d8860b320addffb1"
+    },
+    {
+      "path": "scripts/generate-external-validation-kit.mjs",
+      "role": "external_validation_kit_generator",
+      "category": "provenance_tool",
+      "bytes": 64492,
+      "sha256": "5ce461ba1247a3dc26ea0ba23db51070ea9f3c7d453a5d805aaa1c1cfcc66991"
+    },
+    {
+      "path": "scripts/derive_paper010_fixture.mjs",
+      "role": "real_fixture_derivation",
+      "category": "provenance_tool",
+      "bytes": 5499,
+      "sha256": "a18fd46560c610081dab5b6632ab46c5b051cc2404c8c1ea8588d738a2357d54"
+    },
+    {
+      "path": "scripts/run-paper010-oracle.mjs",
+      "role": "independent_real_oracle_launcher",
+      "category": "verification_tool",
+      "bytes": 4619,
+      "sha256": "655a4705b56d3d42637fb8bb2eee947b7ab9d42d24714e923c1e29fde37d4945"
+    },
+    {
+      "path": "scripts/generate-fixture-manifest.mjs",
+      "role": "complete_fixture_manifest_generator",
+      "category": "provenance_tool",
+      "bytes": 10188,
+      "sha256": "643ee9a0d0fbb3f031c87ce91894746c66a15265cbad26b4775a518ae31d907c"
+    },
+    {
+      "path": "scripts/generate-corpus-integrity-ledger.mjs",
+      "role": "corpus_integrity_ledger_generator",
+      "category": "provenance_tool",
+      "bytes": 18257,
+      "sha256": "883df70ebbf160c1efc7ab4063ef0ae7f71502febe50784bf80b626edabbafe0"
+    },
+    {
+      "path": "scripts/generate-usability-fixtures.mjs",
+      "role": "usability_fixture_generator",
+      "category": "provenance_tool",
+      "bytes": 10879,
+      "sha256": "6a077ad395ba164983c09682b06fa3fc5c79c94987510b98a3a470b7b2045d69"
+    },
+    {
+      "path": "scripts/generate-scientific-review-package.mjs",
+      "role": "scientific_review_package_generator",
+      "category": "provenance_tool",
+      "bytes": 66011,
+      "sha256": "8c85418b22fd9e05280b804fa157bbc6cbd52971e3139b189e29423560a1bae3"
+    },
+    {
+      "path": "scripts/generate-report-qa.mjs",
+      "role": "pdf_qa_artifact_generator",
+      "category": "verification_tool",
+      "bytes": 408,
+      "sha256": "a86009d1dccbaa7df6ae49552f40fda104c9785279447ccd3737341cf5e8275f"
+    },
+    {
+      "path": "output/pdf/activation-energy-report-schema-v4-qa.pdf",
+      "role": "schema_v4_pdf_qa_artifact",
+      "category": "visual_qa_artifact",
+      "bytes": 120117,
+      "sha256": "fa04ca87dab3b7170a14eaabfdc925aa3f1cfeb7d088db9f0fd03f68469b1e49"
+    },
+    {
+      "path": "release/Platform-Golden-synthetic_kas_150.csv",
+      "role": "platform_golden_fixture",
+      "category": "validation_fixture",
+      "bytes": 1872,
+      "sha256": "eeafd2d8a1dc11c385bc2906800b9b1d5647451a64cd400eafd50a83579f8b19"
+    },
+    {
+      "path": "release/SHA256SUMS.txt",
+      "role": "release_checksum_index",
+      "category": "release_integrity",
+      "bytes": 505,
+      "sha256": "e2f9276bb5dab504ed9f73ae3e19185c3a7243ac6b38ea104ff0caab0ea41ec1"
+    },
+    {
+      "path": "release/README.md",
+      "role": "release_readme",
+      "category": "release_documentation",
+      "bytes": 6420,
+      "sha256": "2c03aa5cfeb59cf9082fb484023425e18ff3f86acdb22f2923b13e01647cb6eb"
+    },
+    {
+      "path": "package.json",
+      "role": "npm_package_contract",
+      "category": "build_integrity",
+      "bytes": 8556,
+      "sha256": "559549eea2266853bec461be689131d66b9d255fb8c1ae171797d95305ecbf58"
+    },
+    {
+      "path": "package-lock.json",
+      "role": "npm_dependency_lock",
+      "category": "build_integrity",
+      "bytes": 105296,
+      "sha256": "67628aef616eb95b9934f5e82ea4d9265caa4c5b829bdbd70f9e304dbf490837"
+    },
+    {
+      "path": ".node-version",
+      "role": "node_runtime_lock",
+      "category": "build_integrity",
+      "bytes": 8,
+      "sha256": "9c579c4eab1d526e689fe7cda201a0ab2f39070304043bb55c459a3d90954250"
+    },
+    {
+      "path": ".gitattributes",
+      "role": "source_control_line_ending_policy",
+      "category": "build_integrity",
+      "bytes": 266,
+      "sha256": "17ff666c3b5b8849cfbb286f7f97b2c57a38cd8c636ae1e5d7fc4c385dd06fc4"
+    },
+    {
+      "path": ".gitignore",
+      "role": "source_control_ignore_policy",
+      "category": "build_integrity",
+      "bytes": 108,
+      "sha256": "1b1c014de744713b98a87335de5283d1598ead1e257e352cc4db4682f2ed7ef4"
+    },
+    {
+      "path": "scripts/generate-release-manifest.mjs",
+      "role": "release_manifest_generator",
+      "category": "provenance_tool",
+      "bytes": 58590,
+      "sha256": "75993d32db512081dc2cdefed84d3e8b927be4a36d8ffa1258a711b3897882c0"
+    },
+    {
+      "path": "vite.config.ts",
+      "role": "scientific_build_fingerprint_definition",
+      "category": "build_integrity",
+      "bytes": 2067,
+      "sha256": "225dd58d9ff87a5b20a111436255094c08b7cb761e8ec0f2e8d3dd8954207998"
+    }
+  ],
+  "generation": {
+    "generator": "scripts/generate-release-manifest.mjs",
+    "command": "node scripts/generate-release-manifest.mjs",
+    "checkCommand": "node scripts/generate-release-manifest.mjs --check",
+    "deterministic": true,
+    "generatedAtOmitted": true,
+    "hashAlgorithm": "sha256",
+    "hashInput": "raw_file_bytes",
+    "evidenceOrdering": "fixed_by_generator",
+    "manifestPath": "release/MANIFEST.v0.2.0.json",
+    "selfHashExcluded": true,
+    "excludedFromHashSet": [
+      "release/MANIFEST.v0.2.0.json"
+    ],
+    "circularityRule": "release/SHA256SUMS.txt is hashed by this manifest and therefore must not list this manifest"
+  }
+}

@@ -1,0 +1,1989 @@
+{
+  "schemaVersion": "activation-energy-studio/corpus-integrity-ledger/v1",
+  "sourceLocks": {
+    "processingOrder": {
+      "path": "../01_PDF_Evidence_Extraction/00_Start_Here/paper_processing_order.csv",
+      "bytes": 110595,
+      "sha256": "3d3920e7cdb4ae16143c846ae7e80a6393e96fd4fd8f2b360c0c60d3153267e6"
+    },
+    "canonicalEvidence": {
+      "path": "../01_PDF_Evidence_Extraction/05_Canonical_Evidence_Table/activation_energy_evidence.csv",
+      "bytes": 3236442,
+      "sha256": "41f15e575b2bab6d4aa82ce14394c877c4f449435c1fb2c0396ea86ae2056691"
+    },
+    "methodEvidenceMatrix": {
+      "path": "../01_PDF_Evidence_Extraction/06_Method_Evidence_Matrix/method_evidence_matrix.csv",
+      "bytes": 929400,
+      "sha256": "68e0ca2f401452ddd5ab5487f35a8ef60f0e990930f5ef5f0c912b8e6705d23a"
+    }
+  },
+  "corpusAccounting": {
+    "processingEntryCount": 231,
+    "exactPaperIdRange": "001-231",
+    "uniquePdfPathCount": 231,
+    "primaryPdfEntryCount": 230,
+    "supplementaryPdfEntryCount": 1,
+    "supplementaryEntries": [
+      {
+        "paperId": "009",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2017_10_1038_srep40535_supplementary_information.pdf",
+        "bytes": 1003594,
+        "sha256": "988cfb136558817071ba6c52ebbd703966db6b87f3a4eb95b59881ca98db6b07",
+        "unitType": "supplementary_pdf",
+        "relatedPrimaryPaperId": "008"
+      }
+    ],
+    "processingStatusCounts": {
+      "completed_initial_extraction": 58,
+      "completed": 173
+    },
+    "totalPdfBytes": 803823114,
+    "corpusAggregateSha256": "81538571e9cb095974138e70e84e35681191ed932635b967e2e5647e684eb8c6",
+    "sourcePdfs": [
+      {
+        "paperId": "001",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2010_10_1371_journal_pone_0012641_Comparative_Studies_of_the_Pyrolytic_and_Kinetic_Characteristics_of_Maiz.pdf",
+        "bytes": 235325,
+        "sha256": "bd54da6a5ac133e0faf43a2e0f5bca61bc52071789d0f19879ec3c36ac6dc3bf",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "002",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2012_10_1371_journal_pone_0052597_Pyrolytic_and_Kinetic_Characteristics_of_the_Thermal_Decomposition_of_Pe.pdf",
+        "bytes": 409125,
+        "sha256": "5483b55d95d52ab36f009d6af4c45bffb3fb965b6780e2a378bf016576d5f936",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "003",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2012_10_3390_ijms13044860_Preparation_Characterization_and_Thermal_Degradation_of_Polyimide_4_APS.pdf",
+        "bytes": 758453,
+        "sha256": "df704861b8f90285542df18c34606c6eef7d02c54534817352fbb231596dc86a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "004",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2016_10_1016_j_biortech_2016_01_033_Kinetics_of_co_pyrolysis_of_sawdust_coal_and_tar.pdf",
+        "bytes": 963050,
+        "sha256": "50e0bace6fe83070821c10068cca36d0a7090d41b97cfe5e25e9bdc840d02505",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "005",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2016_10_1016_j_biortech_2016_05_039_Determination_of_kinetic_parameters_for_biomass_combustion.pdf",
+        "bytes": 577616,
+        "sha256": "3d4f41e034ec01c4b8d738234b6004c7572e20c2b3c1522b0f2ef80db2cf414a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "006",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2016_10_3390_polym8100351_Study_of_Non_Isothermal_Crystallization_of_Polydioxanone_and_Analysis_of.pdf",
+        "bytes": 5226338,
+        "sha256": "83444fc4d63702351a8a3f665036ff8002b6ba6287948b9ff9c20eb2ede69e5b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "007",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2017_10_1016_j_biortech_2017_08_162_Pyrolysis_kinetics_analysis_thermodynamics_parameters_and_reaction_mecha.pdf",
+        "bytes": 890060,
+        "sha256": "2cfd4fd6a2b9509c8a26c6b75586ac5aaff89d430172786e4ed6970697fb56a0",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "008",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2017_10_1038_srep40535_Carbon_elimination_from_silicon_kerf_Thermogravimetric_analysis_and_mech.pdf",
+        "bytes": 2864645,
+        "sha256": "38ae798569f30a59fa35f18de61f6299c4d9407949669cd5fcac21549b7b8936",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "009",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2017_10_1038_srep40535_supplementary_information.pdf",
+        "bytes": 1003594,
+        "sha256": "988cfb136558817071ba6c52ebbd703966db6b87f3a4eb95b59881ca98db6b07",
+        "unitType": "supplementary_pdf"
+      },
+      {
+        "paperId": "010",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2017_10_1371_journal_pone_0173946_Thermal_analysis_during_partial_carbonizing_process_of_rhubarb_moutan_an.pdf",
+        "bytes": 4479563,
+        "sha256": "da003a11f1d2e0ebb5316bd8e689edac3b737d2f6baf5c883e56dad2ec152ab1",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "011",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2017_10_3390_ijms18010164_Comparative_Solid_State_Stability_of_Perindopril_Active_Substance_vs_Pha.pdf",
+        "bytes": 2905694,
+        "sha256": "07594b9d144d5f26516aad375445b5a354fcc1f9b75c9b97b177eb20cfa6398f",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "012",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2017_10_3390_ma10111246_Thermal_Degradation_Kinetics_of_Sugarcane_Bagasse_and_Soft_Wood_Cellulos.pdf",
+        "bytes": 1315922,
+        "sha256": "36ef8ae0729395ff52221c82eb472e1a71e90773fd935ecb29eb49266e69f3da",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "013",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2017_10_3390_polym9040145_Synthesis_Characterization_and_Thermal_Properties_of_Poly_ethylene_oxide.pdf",
+        "bytes": 2191690,
+        "sha256": "f8924a957fee9a31799360286f82b0677a7a2d851b00afecd7e6193f5c0a5c6c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "014",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2017_10_3390_polym9050170_5000_h_Multi_Factor_Accelerated_Aging_Test_of_FRP_Made_Transmission_Towe.pdf",
+        "bytes": 42643899,
+        "sha256": "783bb55f86365be7a2a2306322a2c98f484b643c4a7a9da8d5b8fba48d5c4d12",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "015",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1038_s41598_018_21208_0_A_Study_on_Curing_Kinetics_of_Nano_Phase_Modified_Epoxy_Resin.pdf",
+        "bytes": 2290049,
+        "sha256": "667b63e4633e23f21a5118b6a12bd4155f5d5b02fd5dc5c628843c1839e704a9",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "016",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1039_c7ra12187c_Thermal_decomposition_behavior_and_kinetics_for_pyrolysis_and_catalytic.pdf",
+        "bytes": 960060,
+        "sha256": "06d119f81ca2ac520725dce2932ad417da492aa7411ac8489c516f47212ef632",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "017",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1039_c8ra01515e_Environmentally_safe_chlorine_free_new_green_propellant_formulation_base.pdf",
+        "bytes": 1418831,
+        "sha256": "013d49f3031b114f19a839387bbec1e16cbe39ad7d70c92ece05b57d7203287c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "018",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1039_c8ra02618a_Non_isothermal_TGA_study_on_the_combustion_reaction_kinetics_and_mechani.pdf",
+        "bytes": 792373,
+        "sha256": "8932319b914e1e963b341f7f59e74627d58acf0b5869516920acd0422ea61ff2",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "019",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1039_c8ra04412k_Facile_preparation_of_rGO_MFe2O4_M_Cu_Co_Ni_nanohybrids_and_its_catalyti.pdf",
+        "bytes": 2083652,
+        "sha256": "9435eb64cb8b7ab0cae782766be598e545335ac66e2b652cd578404ebd59e357",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "020",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1039_c8ra04525a_Investigation_on_cure_kinetics_of_epoxy_resin_containing_carbon_nanotube.pdf",
+        "bytes": 1430104,
+        "sha256": "aa4390dd16231441b8ade5436f8bff77fae5dbde15647a33fb501c972d75cfda",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "021",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1039_c8ra05429k_An_investigation_of_gaseous_hydrogen_storage_characterizations_of_Mg_Y_N.pdf",
+        "bytes": 2442235,
+        "sha256": "5722938f635438b3bfe38ef7123919bd1ed260c69d83de26428d8507be630bba",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "022",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1039_c8ra06143b_Nonisothermal_decomposition_and_safety_parameters_of_HNIW_TNT_cocrystal.pdf",
+        "bytes": 426098,
+        "sha256": "a1d5855240c4bf2e0a9e82c00a273d64e9422b52cd8116a53297fd07bb937b13",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "023",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1039_c8ra07243d_Non_isothermal_crystallization_kinetics_of_polypropylene_short_glass_fib.pdf",
+        "bytes": 1230700,
+        "sha256": "121d402b97cf39e9f6234970178fe5fb74211329dd0f43e36bb6f3d9f4b825aa",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "024",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_1371_journal_pone_0206657_Comparative_pyrolysis_kinetics_of_various_biomasses_based_on_model_free.pdf",
+        "bytes": 2053036,
+        "sha256": "d9208bf9fde6c7e740a5940200dd3e6f4897f2c7449001a71e6db56a01ebc290",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "025",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_3390_ijms19123723_Study_on_Thermal_Decomposition_Behaviors_of_Terpolymers_of_Carbon_Dioxid.pdf",
+        "bytes": 3870358,
+        "sha256": "fdce09592fa697ef276dcbd872a3d951a241277bbe758d468cc432169d00f641",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "026",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_3390_ma11060921_Improving_Thermo_Oxidative_Stability_of_Nitrile_Rubber_Composites_by_Fun.pdf",
+        "bytes": 5369228,
+        "sha256": "e1d5a5eed9959e772efe5c18c635fc1191e957135d7dbebc6d1f0f90b1eac95b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "027",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_3390_ma11112094_Non_Isothermal_Crystallization_Kinetics_of_Short_Glass_Fiber_Reinforced.pdf",
+        "bytes": 5946250,
+        "sha256": "0cb923a2d1eeab1a9f0c740ce326e33c8d421293475934d54a52fc64dcb4c37c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "028",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_3390_molecules23020404_Thermal_Decomposition_Behavior_of_Hydroxytyrosol_HT_in_Nitrogen_Atmosphe.pdf",
+        "bytes": 2115961,
+        "sha256": "d215854d2e77e910fdfea34bb629206c8ee778e6b456f0ed6e7701bcf6291474",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "029",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_3390_polym10040382_The_Effect_of_Maleated_Polypropylene_on_the_Non_Isothermal_Crystallizati.pdf",
+        "bytes": 1732849,
+        "sha256": "de9795af0845a9e35e21715fb462a92c8becb3b8d6a8e4a5a91f0bcec3e6063f",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "030",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_3390_polym10050491_Thermal_Degradation_Kinetics_and_Viscoelastic_Behavior_of_Poly_Methyl_Me.pdf",
+        "bytes": 3212731,
+        "sha256": "ee9fee1b24846e998cdcb8990561a7a1717227b3496739391663fbe4a8af380f",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "031",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2018_10_3390_polym10060640_Post_Self_Crosslinking_of_Phthalonitrile_Terminated_Polyarylene_Ether_Ni.pdf",
+        "bytes": 2355071,
+        "sha256": "2e89420712e25cd0775c1507cc508bc9454d38f4404f09b648b144c3f32d4272",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "032",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_1016_j_biortech_2019_121485_Pyrolysis_kinetics_of_biomass_wastes_using_isoconversional_methods_and_t.pdf",
+        "bytes": 2243946,
+        "sha256": "cbea21425179a73bbd79002dd3fa82217b33fac100715d642a3b433c36209387",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "033",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_1016_j_biortech_2019_122089_Uncertainty_estimation_approach_in_catalytic_fast_pyrolysis_of_rice_husk.pdf",
+        "bytes": 1451038,
+        "sha256": "fc271b7567245e0822e86b6b573690e80efcf211f5910a44bb44eb6389a28b09",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "034",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_1038_s41598_018_38434_1_Thermal_Decomposition_and_Nonisothermal_Kinetics_of_Monoethanolamine_Mix.pdf",
+        "bytes": 3863723,
+        "sha256": "7e03a4cd5f78fc658d9335b1493f705ab303aa565cf8b470f1111edfd0434dcf",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "035",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_1039_c8ra08770a_Understanding_thermal_decomposition_kinetics_of_flame_retardant_thermose.pdf",
+        "bytes": 1224253,
+        "sha256": "8e65e98d3739eaff21fdf6472345219573d1e8dc5f5adbafc8ab96dba6934c55",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "036",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_1039_c8ra10037c_Non_isothermal_crystallization_yellowing_resistance_and_mechanical_prope.pdf",
+        "bytes": 1059869,
+        "sha256": "15c69af3367d2fdde3d9621c9a1f0ad16890b1cfdb2b877dd25e5e93213a664a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "037",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_1039_c9ra00305c_Thermal_debinding_behavior_of_a_low_toxic_DMAA_polymer_for_gelcast_ceram.pdf",
+        "bytes": 2541147,
+        "sha256": "7ceb422895a0d11598fae14f60c3f245566134ab2074ed75442962daf31ee049",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "038",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_1039_c9ra04489b_Multistage_kinetic_analysis_of_DMAA_MBAM_polymer_removal_from_gelcast_ce.pdf",
+        "bytes": 1930546,
+        "sha256": "8018728b5fa7d59c36699f5520870399660c0ffbf2f191308ec05ab374dfff6a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "039",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_1039_c9ra07289f_High_efficiency_adsorption_of_tetracycline_by_the_prepared_waste_collage.pdf",
+        "bytes": 1493690,
+        "sha256": "ced8c5d19032aede3f05dab25b6ffa4d2ad882e2ebb6431ff397f1bede0797ed",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "040",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3389_fbioe_2019_00188_Characteristics_of_Corn_Stover_Components_Pyrolysis_at_Low_Temperature_B.pdf",
+        "bytes": 564061,
+        "sha256": "e979127287b4c371c44059711dd3ed54816923fd4644f29b9e6d32582fdfa369",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "041",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_en12152981_Kinetics_of_Solid_Gas_Reactions_and_Their_Application_to_Carbonate_Loopi.pdf",
+        "bytes": 5424102,
+        "sha256": "c1fbbce0ad61f5af84ed64fb7b51adaadfd4344cf2baaa4b2397b2721945657f",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "042",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_ijerph16030384_Incineration_Kinetic_Analysis_of_Upstream_Oily_Sludge_and_Sectionalized.pdf",
+        "bytes": 10509689,
+        "sha256": "71262e708f29526bdeb4d8fee9231555b460b0b82bf7f09e6dac029ed6ed8686",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "043",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_ijerph16030395_On_the_Kinetics_of_Degradation_Reaction_Determined_Post_Accelerated_Weat.pdf",
+        "bytes": 3057070,
+        "sha256": "44cf14c00e72e5144c52068f6de2cc3bbeb79c7cce35174048d37afbf5d762f6",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "044",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_ma12050699_Thermal_Behavior_of_Sweet_Potato_Starch_by_Non_Isothermal_Thermogravimet.pdf",
+        "bytes": 1989174,
+        "sha256": "23ff44024ad631d4f35d768eff60e4986c86761e410452aa88864d4694d6fe99",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "045",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_molecules24061163_Non_Isothermal_Sublimation_Kinetics_of_2_4_6_Trinitrotoluene_TNT_Nanofil.pdf",
+        "bytes": 2138542,
+        "sha256": "d9d11b183cd8963981dabc03026934f6aba198edb4e920d69b24e52de33f66ba",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "046",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_molecules24101918_All_You_Need_to_Know_about_the_Kinetics_of_Thermally_Stimulated_Reaction.pdf",
+        "bytes": 2376714,
+        "sha256": "4fe6cf11d50ba1af394bfcd6d416ea24c81fcfd2a57f6bb338eb71f4ee97936b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "047",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_molecules24101984_Kinetics_of_Crystallization_and_Thermal_Degradation_of_an_Isotactic_Poly.pdf",
+        "bytes": 6012242,
+        "sha256": "4d3c319272dda66d23f4e4e69c3dc343d292ab0acb634aea656874aeb55a2ae5",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "048",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_molecules24152840_Non_Isothermal_Crystallization_Kinetics_of_Poly_4_Hydroxybutyrate_Biopol.pdf",
+        "bytes": 7666593,
+        "sha256": "175548f5e6e5748b745340a9ae03e2ee165ca239de8952ca1ad52932f6529162",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "049",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_polym11020281_Kinetic_Analysis_of_the_Thermal_Degradation_of_Recycled_Acrylonitrile_Bu.pdf",
+        "bytes": 1893504,
+        "sha256": "45bb69cffa39b4aafecfbaf8c0afd329ac9f66b15568024a1e537055691c8b03",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "050",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_polym11030391_Kinetic_Analysis_of_the_Curing_of_a_Partially_Biobased_Epoxy_Resin_Using.pdf",
+        "bytes": 3718284,
+        "sha256": "464f3d93f12618beca880e804037f79b6785c027251e0c2bc0da8cdda2820de6",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "051",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_polym11040680_Studies_on_Curing_Kinetics_and_Tensile_Properties_of_Silica_Filled_Pheno.pdf",
+        "bytes": 5729031,
+        "sha256": "7b54eaa646d2c88bee70fc789b3e4cff3c0155610c44401b857809c15a1866e8",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "052",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_polym11091479_Halogen_Free_Flame_Retardant_Compounds_Thermal_Decomposition_and_Flammab.pdf",
+        "bytes": 4996605,
+        "sha256": "3671bff127a688dc519a70ae006dddc694159ca008ecbea23a712875ecc60d36",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "053",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_polym11101719_Effect_of_Alkyl_Chain_Length_in_POSS_Nanocage_on_Non_Isothermal_Crystall.pdf",
+        "bytes": 2690243,
+        "sha256": "594e270fd1c26453ca0c0be43333257059a813bffa82ef5a2793d04a7b8c9397",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "054",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_polym11111804_Kinetics_and_Chemorheological_Analysis_of_Cross_Linking_Reactions_in_Hum.pdf",
+        "bytes": 775555,
+        "sha256": "e10a773121cae6dff440c1268a37e7fedb398aff7b55c601d46f426f5d9f1d68",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "055",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_polym11111855_Amino_Functionalized_Lead_Phthalocyanine_Modified_Benzoxazine_Resin_Curi.pdf",
+        "bytes": 4019550,
+        "sha256": "a33af281b6deba531845a75fe332c17a117981c8bb4e07629bd969e4c2aa0006",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "056",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2019_10_3390_polym11122080_Thermal_Decomposition_Mechanism_and_Kinetics_Study_of_Plastic_Waste_Chlo.pdf",
+        "bytes": 618469,
+        "sha256": "f4f996394b24c55b69553e0ceb02c19627859f3ab0c0f006b3ff76db0eac09be",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "057",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_1016_j_tca_2020_178597_ICTAC_Kinetics_Committee_recommendations_for_analysis_of_multi_step_kine.pdf",
+        "bytes": 1657357,
+        "sha256": "9dec22259e9402f82903ab001698bdb96448ef171d5d4a7550f1e208fc77bcd0",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "058",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_1039_d0ra00493f_Thermal_pyrolysis_and_kinetic_parameter_determination_of_mango_leaves_us.pdf",
+        "bytes": 2800158,
+        "sha256": "5e4c991e9d851fef64c7c9797dd2667940601ce8efff1d06656186ea4e08e342",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "059",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_1039_d0ra07635j_Efficiency_of_liquid_tin_ii_n_alkoxide_initiators_in_the_ring_opening_po.pdf",
+        "bytes": 2063661,
+        "sha256": "031680fad3aadc03b9b431ce7704e05a28bebe620372c562c29b00bbfd9b9c7b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "060",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_1039_d0ra09105g_Synthetic_and_thermal_studies_of_four_insensitive_energetic_materials_ba.pdf",
+        "bytes": 686405,
+        "sha256": "7dcf8687276bff4ec25fa149e8269e5f973b728aaa81917b560ca25414ac8fde",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "061",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_ma13071698_Effects_of_Boric_Acid_Ester_Modified_Magnesium_Borate_Whisker_on_the_Mec.pdf",
+        "bytes": 3334292,
+        "sha256": "ae016cba4552b28e90ff4263ae0facfa1e9d86ced1e78a6615b9069b78b177a0",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "062",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_ma13214912_Pyrolysis_of_Mixed_Plastic_Waste_I_Kinetic_Study.pdf",
+        "bytes": 3306618,
+        "sha256": "acac48b6c32c0f117cc46cfe6267d362047a94c50b420bb58339e28a0ad8ed0c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "063",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_ma13245595_Pyrolysis_Kinetic_Properties_of_Thermal_Insulation_Waste_Extruded_Polyst.pdf",
+        "bytes": 1213924,
+        "sha256": "53ede19afffd9194d7c0800227646dacdb8256af652b01bd2579c8199402c9f2",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "064",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_molecules25122813_Kissinger_Method_in_Kinetics_of_Materials_Things_to_Beware_and_Be_Aware.pdf",
+        "bytes": 2165981,
+        "sha256": "33d6dd5a807274f9ad0b91bb9b55a0e51a5364acb6c78f595ad40c65a466d09d",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "065",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_nano10071276_Analysis_of_Iron_Oxide_Reduction_Kinetics_in_the_Nanometric_Scale_Using.pdf",
+        "bytes": 4753582,
+        "sha256": "6d0fd6c9085768617cb2a96e4a689d544f249e5f9f4babb1d119052a580307b9",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "066",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_pharmaceutics12020086_Solid_State_Stability_and_Kinetics_of_Degradation_for_Candesartan_Pure_C.pdf",
+        "bytes": 6048148,
+        "sha256": "ae75a87da3c12e1b2d887183f7f91fdaa1c490af3480ac8bed791821dbd311a2",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "067",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12020364_Effect_of_Organic_Modifier_and_Clay_Content_on_Non_Isothermal_Cold_Cryst.pdf",
+        "bytes": 2922893,
+        "sha256": "4cef6b6e1bb6fb4b81653b04f9ab96ebbabf3de763bcc6fa5f6303789549ec39",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "068",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12020421_Pyrolytic_Kinetics_of_Polystyrene_Particle_in_Nitrogen_Atmosphere_Partic.pdf",
+        "bytes": 959674,
+        "sha256": "648fd796b999efabba025b68680324ebdd0b39a4b8ba62350428c25d90bcd5b1",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "069",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12030636_Utilization_of_Waste_Bamboo_Fibers_in_Thermoplastic_Composites_Influence.pdf",
+        "bytes": 1289653,
+        "sha256": "7da6371b7e4438a0fd01929952db902c7dfb81ff444b2e1585b1362118d42841",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "070",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12030644_Curing_Kinetics_and_Thermal_Stability_of_Epoxy_Composites_Containing_New.pdf",
+        "bytes": 2496221,
+        "sha256": "eed325ef2f40ea25489b3af9d50ce6e7d580af8b350e8b95508a455b3916a94b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "071",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12030704_Biodegradation_Pattern_of_Glycopolymer_Based_on_D_Mannose_Oligomer_and_H.pdf",
+        "bytes": 2211141,
+        "sha256": "983d146699ca339f58d61107a9b01aa3b112e4ab966e864369c917498020305e",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "072",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12040791_Melting_Kinetics_of_Nascent_Poly_tetrafluoroethylene_Powder.pdf",
+        "bytes": 945576,
+        "sha256": "648ff6066fb802087ab89abff7f70977326d35d998f7b2c571158618a82c257a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "073",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12040891_Pyrolysis_of_Low_Density_Polyethylene_Kinetic_Study_Using_TGA_Data_and_A.pdf",
+        "bytes": 2303419,
+        "sha256": "ee9c877116d5dbf06b4039601ba962d2a319680bc91dcc5bbcf1773752dbb2a4",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "074",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12040930_Effect_of_Surface_Treatment_of_Halloysite_Nanotubes_HNTs_on_the_Kinetics.pdf",
+        "bytes": 5661027,
+        "sha256": "220136a5862e774802ffdc549070caac0750c9b9e4490773f857ec571e591e8a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "075",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12051157_Kinetics_of_Cross_Linking_Reaction_of_Epoxy_Resin_with_Hydroxyapatite_Fu.pdf",
+        "bytes": 1100079,
+        "sha256": "e4c681936ab4695e9d0d192566cd468b0a9c988715e14b8e447e5654fdea6267",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "076",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12081627_Degradation_Behavior_of_Polypropylene_during_Reprocessing_and_Its_Biocom.pdf",
+        "bytes": 3092241,
+        "sha256": "1d9bc3438f46e4831227e31c6bd3de4bae9f7f877fcc428e176c220c4a4af5d3",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "077",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12081744_Energy_Utilization_of_Building_Insulation_Waste_Expanded_Polystyrene_Pyr.pdf",
+        "bytes": 1865122,
+        "sha256": "b58122fa1e613a08d7a3277ba6dd67d33be82671a6c09b54eda574f8ee8d4120",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "078",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12081813_Application_of_Artificial_Neural_Networks_to_Predict_the_Catalytic_Pyrol.pdf",
+        "bytes": 1521885,
+        "sha256": "9bd7031095fbcd1078cafad1dacb8994fb5babe663e234697b744908b4e248b5",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "079",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12081820_Bulk_Surface_Modification_of_Nanoparticles_for_Developing_Highly_Crossli.pdf",
+        "bytes": 4709957,
+        "sha256": "86bebdf79f264f710ac9730f6e611b1c5b67bbf712e17a9c7dc7bfbd5e4a1289",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "080",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12081830_A_Kinetic_Analysis_of_the_Thermal_Degradation_Behaviours_of_Some_Bio_Bas.pdf",
+        "bytes": 1988953,
+        "sha256": "84498f8238ff4a14a1e2a7fab8c49ef2466a4bc160550dd308a4599d4da95359",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "081",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12092123_Thermal_Kinetics_of_a_Lignin_Based_Flame_Retardant.pdf",
+        "bytes": 2189536,
+        "sha256": "c2f53b32a13d89a6421247bf422d0ef066411dfcbfdc56767ea336c2804518ff",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "082",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12102283_Thermal_Decomposition_Kinetics_of_Basalt_Fiber_Reinforced_Wood_Polymer_C.pdf",
+        "bytes": 2731720,
+        "sha256": "7f6a68480cc6e7273e96235ff0141ec9807e2efeb2129af0c53bc48223b28be1",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "083",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2020_10_3390_polym12112739_Pyrolysis_Kinetic_Study_and_Reaction_Mechanism_of_Epoxy_Glass_Fiber_Rein.pdf",
+        "bytes": 786756,
+        "sha256": "d2b415e2fe8b88303c70409131d1784b68fc96f4a7c8d8b26221ebcb58142f36",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "084",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_1007_s11814_021_0870_9_Catalytic_pyrolysis_of_linear_low_density_polyethylene_using_recycled_co.pdf",
+        "bytes": 1230079,
+        "sha256": "f181fd5245dccde967eedfe6e7f822a81d8385e9babf0084660879cb9b6031b5",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "085",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_1038_s41598_021_93407_1_Kinetics_modeling_thermodynamics_and_thermal_performance_assessments_of.pdf",
+        "bytes": 2648596,
+        "sha256": "395fdaa5352a990d3a80826103ae068b904fe411a4597616febdbcef64aba829",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "086",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_1039_d1ra01467f_Thermal_degradation_of_mango_Mangifera_indica_wood_sawdust_in_a_nitrogen.pdf",
+        "bytes": 1072384,
+        "sha256": "918a15373d2aa00971ea59c044f28382f28143bb605f4b42379bb22fe1f26b2d",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "087",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_1039_d1ra05234a_Effects_of_graphene_oxide_size_on_curing_kinetics_of_epoxy_resin.pdf",
+        "bytes": 1789932,
+        "sha256": "6f29ac6f09e4d99510a9fb276d14586059bf4854ae097e06e1a37a88bf841615",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "088",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_ijerph182412980_A_Comparison_of_Combustion_Properties_in_Biomass_Coal_Blends_Using_Chara.pdf",
+        "bytes": 4166554,
+        "sha256": "15dde1af316f513775fcebfc29ace5ec6b31d770ca39c77fcb0867efc5041eab",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "089",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_ma14092281_Modeling_of_the_Kinetics_of_Polyoxymethylene_Decomposition_under_Oxidati.pdf",
+        "bytes": 1697012,
+        "sha256": "666573c0cf9f52fd532fe5789087016ce59586fc08af409eae93d3969daf68c4",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "090",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_ma14102560_Thermal_Stability_and_Decomposition_Kinetics_of_1_Alkyl_2_3_Dimethylimid.pdf",
+        "bytes": 1866699,
+        "sha256": "0fa7f19340e0672c3ee89c154e05c84f88ce62017bb07208faceaa92c34b7e57",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "091",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_ma14164673_The_Curing_Kinetics_of_E_Glass_Fiber_Epoxy_Resin_Prepreg_and_the_Bending.pdf",
+        "bytes": 3551471,
+        "sha256": "ad2612dd2a97f2c3a1b231ebe1da21ecf5a82876d34429af92c43883b2f30ade",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "092",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_ma14227072_Lignosulfonate_Based_Polyurethane_Adhesives.pdf",
+        "bytes": 5762731,
+        "sha256": "223beb352a03c1835d943285efd7db67a9745df671ccf69b7d4e716ef2032ff0",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "093",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_ma14247564_Kinetic_Analysis_of_Pyrolysis_and_Thermo_Oxidative_Decomposition_of_Tenn.pdf",
+        "bytes": 3968564,
+        "sha256": "cd30f23168406fb4aaaca2f48c9e202605b14e911dff1271b93a8ff6e8030a1b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "094",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_molecules26030635_Kinetic_Modeling_and_Degradation_Study_of_Liquid_Polysulfide_Resin_Clay.pdf",
+        "bytes": 2500885,
+        "sha256": "f27baa400c279f92a0b4e82357a33c935391c19de6f6634e7006edd8821b6105",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "095",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_molecules26061597_Thermal_Degradation_Kinetics_and_Modeling_Study_of_Ultra_High_Molecular.pdf",
+        "bytes": 4554461,
+        "sha256": "12ea415ca15f5cf07d85cfaae23f1076b58498f2ab16e5102db635fe7b880bb4",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "096",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_molecules26082386_Pyrolysis_Kinetics_and_Flammability_Evaluation_of_Rigid_Polyurethane_wit.pdf",
+        "bytes": 1100227,
+        "sha256": "fe586aa0424eb203da7a4c39b4fc8c9904dbbc8b4ca1ed6bcad9284e11f4a9f5",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "097",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_molecules26113077_Determining_Preexponential_Factor_in_Model_Free_Kinetic_Methods_How_and.pdf",
+        "bytes": 13636471,
+        "sha256": "272e4e2d16992ff90d47c5358736b72154ddbd420e241ef6966e7182f9a8e216",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "098",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13040569_Mechanism_Identification_and_Kinetics_Analysis_of_Thermal_Degradation_fo.pdf",
+        "bytes": 784105,
+        "sha256": "fbeb0099e78335563c485b9f78c0f451289acb7254af85d646f467b2ad52810c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "099",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13040653_Thermal_Decomposition_Mechanism_of_GIS_Basin_Insulator_and_Kinetic_Param.pdf",
+        "bytes": 587569,
+        "sha256": "54c92df04f19694a647cba8648f5cf1caff056909f271a3c49b05118cf6d3dc0",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "100",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13050702_Catalytic_Pyrolysis_Kinetic_Behavior_and_TG_FTIR_GC_MS_Analysis_of_Metal.pdf",
+        "bytes": 3217017,
+        "sha256": "538178b2a3398473ce88b183101fd3ef774e3e39fc7ebc28f03767ea92bf4876",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "101",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13081279_Kinetic_Analysis_of_the_Curing_Process_of_Biobased_Epoxy_Resin_from_Epox.pdf",
+        "bytes": 2009905,
+        "sha256": "558b7e74192d3d238e2f521c5de8b83b6778e8d3ae3fa1c1a9761e1c11ae08ad",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "102",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13091365_Thermal_Degradation_Mechanism_and_Decomposition_Kinetic_Studies_of_Poly.pdf",
+        "bytes": 5182936,
+        "sha256": "97b3da1ef0dcce6351748f565b26ac4330f6ac8007a858ec9c63a4cecd78c49e",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "103",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13101543_Pyrolysis_Kinetic_Behaviour_of_Glass_Fibre_Reinforced_Epoxy_Resin_Compos.pdf",
+        "bytes": 2041629,
+        "sha256": "b01fb31604edaa71e7bb7a6fd4743e43a507ce335394cec7b4db4d64f9b4dee8",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "104",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13111734_Cure_Kinetics_Modeling_of_a_High_Glass_Transition_Temperature_Epoxy_Mold.pdf",
+        "bytes": 4529699,
+        "sha256": "917e4ec51b0cb628250f6123f959696025b7d5420bd8657cdf141cd53a2975dc",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "105",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13152504_A_Comparative_Study_on_Suitability_of_Model_Free_and_Model_Fitting_Kinet.pdf",
+        "bytes": 917674,
+        "sha256": "94b142ec3da1faace91b8755553c30245ea3710708dcf03fd35b48f14f00ee7e",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "106",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13193413_Thermal_Behavior_of_Mixed_Plastics_at_Different_Heating_Rates_I_Pyrolysi.pdf",
+        "bytes": 1678390,
+        "sha256": "908554c86292bb509f3b2192a20f5edd2d2cb99933c66bee3e2f604bff53a52a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "107",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13223996_Kinetics_of_the_Thermal_Degradation_of_Poly_lactic_acid_and_Polyamide_Bi.pdf",
+        "bytes": 2593206,
+        "sha256": "070d54a1e97500f4c3c7467766f01062d0aaf682033417f5e87ba5c2fd309795",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "108",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13244359_Pyrolytic_Behavior_of_Polyvinyl_Chloride_Kinetics_Mechanisms_Thermodynam.pdf",
+        "bytes": 2459721,
+        "sha256": "55f0c907f7fa0ecc35d71d15d81e17abd9d64302d54aeac10cf5da89bf7faf60",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "109",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym13244379_Determination_of_the_Thermodynamic_Parameters_of_the_Pyrolysis_Process_o.pdf",
+        "bytes": 1503978,
+        "sha256": "e308021a736fcc12cfcabdc479a557528368e8737a5492012a84ea7a388eb5ce",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "110",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2021_10_3390_polym14010150_The_Influence_of_Oxidant_on_Gelatin_Tannin_Hydrogel_Properties_and_Struc.pdf",
+        "bytes": 4675069,
+        "sha256": "1b1daf84887800a0d0eba462973403712f398adc972de18cdeac457e0015a558",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "111",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_1038_s41598_022_24638_z_Theoretical_study_on_thermal_decomposition_mechanism_of_1_nitroso_2_naph.pdf",
+        "bytes": 2782938,
+        "sha256": "b78c17e15142864c23e4737ad47c3b00cc2bdc6ff69ba69767c8dc7461b4f5f4",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "112",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_1039_d2ra01943d_Curing_behavior_of_sodium_carboxymethyl_cellulose_epoxy_MWCNT_nanocompos.pdf",
+        "bytes": 819084,
+        "sha256": "c751fc0b884f85294edaf559ef01944a36f21132bed892e23db5f1ebd8f13093",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "113",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_1039_d2ra02693g_Thiourea_modified_low_molecular_polyamide_as_a_novel_room_temperature_cu.pdf",
+        "bytes": 899915,
+        "sha256": "ea45e08f6ab9ed1245fbe65ae18af9a99a47f099fa0ec8e65a35d91611d4a3c9",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "114",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_1039_d2ra05160e_Renewable_green_reactive_diluent_for_bisphenol_a_epoxy_resin_system_curi.pdf",
+        "bytes": 1654518,
+        "sha256": "a5e06be312ed235930c0a63f1ffc44990180eb518f117026174ae49f78395538",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "115",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3389_fbioe_2022_925391_Assessment_of_CO2_biofixation_and_bioenergy_potential_of_microalga_Goniu.pdf",
+        "bytes": 2247205,
+        "sha256": "11c038eda788389c175286a93c068f49a70f4e9d37c2f26aaba3b0926eaf3d9d",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "116",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_foods11233840_Sustainable_Environmental_Assessment_of_Waste_to_Energy_Practices_Co_Pyr.pdf",
+        "bytes": 2756285,
+        "sha256": "009a459e625a2955d8bb3664c98130f88479fadc0259898eb6a0be19ce05a0af",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "117",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_ijms231911313_Pyrolysis_Kinetics_and_Combustion_Behaviors_of_a_High_Nitrogen_Compound.pdf",
+        "bytes": 2290469,
+        "sha256": "05215db1eecca1dbb72187a5a0664a9d7e189fdc1c0c760f82690f6f93aca3fc",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "118",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_ma15030987_Metallurgical_Coke_Combustion_with_Different_Reactivity_under_Nonisother.pdf",
+        "bytes": 992921,
+        "sha256": "9d5fa8c1a831171341fe1e34cede6d4a349cc427b4c305aee754f9d31ecac9cb",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "119",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_ma15031247_Thermal_Kinetics_of_Monocationic_and_Dicationic_Pyrrolidinium_Based_Ioni.pdf",
+        "bytes": 15709305,
+        "sha256": "a2dfecfce2b634e09f601eba6043b01b1aaf538e8aa88f5c4d9c267f90ff190a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "120",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_ma15134460_Pyrolysis_Characteristics_and_Non_Isothermal_Kinetics_of_Integrated_Circ.pdf",
+        "bytes": 2944469,
+        "sha256": "d6c97f873906f6c2df369beca3f6eff882b8a3ac1a463d5b5645bbef1ca3223d",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "121",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_ma15217436_Influence_of_rGO_on_the_Crystallization_Kinetics_Cytoxicity_and_Electric.pdf",
+        "bytes": 4233860,
+        "sha256": "525a46b4f023be0f67b4440571fcd325f1a5daec90fea6f917a19f6fc22c3a6e",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "122",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_ma16010222_Influence_of_Intrinsic_Physicochemical_Properties_of_Agroforestry_Waste.pdf",
+        "bytes": 758663,
+        "sha256": "51c898224af9154ff84de227fff4b1538f317089ca0f5d808b36155775b81bbd",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "123",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_molecules27206945_Elaboration_Characterization_and_Thermal_Decomposition_Kinetics_of_New_N.pdf",
+        "bytes": 6676385,
+        "sha256": "3a5355374c84fb059e2788b13f1df62e6a5ab5288fd96c6fa6328c931f4aed33",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "124",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_molecules27227662_Thermogravimetric_Analysis_and_Kinetic_Modeling_of_the_AAEM_Catalyzed_Py.pdf",
+        "bytes": 1912804,
+        "sha256": "2eb89acecb24e0a70fc39f37ca3288d330d764c9970bbb4f2626cc4f36551527",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "125",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14020245_A_Study_on_the_Synthesis_Curing_Behavior_and_Flame_Retardance_of_a_Novel.pdf",
+        "bytes": 2936610,
+        "sha256": "b8b6f5a8423af03db1d2bb7a6abb2045e19b800050459cc554149b897709b893",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "126",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14030634_Thermal_Degradation_Kinetics_Analysis_of_Ethylene_Propylene_Copolymer_an.pdf",
+        "bytes": 1147501,
+        "sha256": "7b6ffbdf9a32b4ed7f1b699e030ad396067175727c10c95c9d37d7f3639f0e63",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "127",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14061100_Influence_of_Epoxy_Resin_Curing_Kinetics_on_the_Mechanical_Properties_of.pdf",
+        "bytes": 5397062,
+        "sha256": "5c5c084df833b66a021edfbe613565c97c588526d39fe7abb80be6f4af4da4b2",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "128",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14061142_Study_on_Fire_Behavior_Thermal_Stability_and_Degradation_Kinetics_of_Thi.pdf",
+        "bytes": 4334117,
+        "sha256": "78321444248c365255d0814e9a0e36b306c5e96fc7628f74d42835e37ba462d8",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "129",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14081501_Pyrolysis_Evaluation_of_Tennis_String_Polyurethane_and_Water_Borne_Polyu.pdf",
+        "bytes": 5016921,
+        "sha256": "626ef1d792bf671d92106d1217c1ec301ee9810a16656b8695317943b18fc2de",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "130",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14132630_Isothermal_and_Non_Isothermal_Crystallization_Kinetics_of_Poly_ethylene.pdf",
+        "bytes": 1700001,
+        "sha256": "1e1a1d681cea267ddfa233ea74f417f2e96ee4da376f6534b077def8d14a2d0d",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "131",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14153044_High_Performance_Optical_PET_Analysis_via_Non_Isothermal_Crystallization.pdf",
+        "bytes": 5105061,
+        "sha256": "5dccd03d932fcc5cfed6ed7606ca894fc9ac3b2dfa36d4077fac6d3fc18496e9",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "132",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14173525_Curing_Kinetics_of_Methylene_Diphenyl_Diisocyanate_Based_Polyurethane_El.pdf",
+        "bytes": 3562362,
+        "sha256": "c23d572d11735543389b0e1ee7ceeb83d61cb98312480d6fcb1cd93b2c7b2c06",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "133",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14204335_Thermal_Degradation_Behavior_of_Thiol_ene_Composites_Loaded_with_a_Novel.pdf",
+        "bytes": 892373,
+        "sha256": "bb9ea39a877b2948827dafa7992c0a025a03326f2cb46553ce97620a39c7c408",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "134",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym14204431_A_Service_Life_Prediction_Method_of_Stranded_Carbon_Fiber_Composite_Core.pdf",
+        "bytes": 2117526,
+        "sha256": "3286110b7b29ea34a38527b77e54a725636a58701035b10059c92b97d5a2df53",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "135",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym15010012_Pyrolysis_Kinetic_Study_of_Polylactic_Acid.pdf",
+        "bytes": 1628040,
+        "sha256": "29813e5b653248d03f252dfce7fd386d9b4d3f873cdb9ff1c10a10e17a23c8aa",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "136",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2022_10_3390_polym15010070_Catalytic_Pyrolysis_of_PET_Polymer_Using_Nonisothermal_Thermogravimetric.pdf",
+        "bytes": 2209809,
+        "sha256": "a279578d25f26530b5fc3e38a0b79b61c4cef4dd68248a2af4db7cda4f87b3f4",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "137",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10570_023_05233_5_Dual_influence_of_nano_barium_oxide_on_thermal_decomposition_reaction_ki.pdf",
+        "bytes": 1794441,
+        "sha256": "a922bb62567e9d55e2402dd25f360bb3a735abbeb4592c49b6a0548748372f00",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "138",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10668_023_03981_9_Waste_catalyst_potential_for_co_pyrolysis_of_biomass_and_single_use_plas.pdf",
+        "bytes": 2584998,
+        "sha256": "562b344cb42be05e6927280bc4d5cc20f933d6b8bf4f576515c8d5a2f218ca44",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "139",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10904_023_02939_8_Ammonium_Perchlorate_Based_Energetic_Molecular_Perovskite_DAP_4_Deposite.pdf",
+        "bytes": 4472205,
+        "sha256": "8c2169c95570c060a2390e4d6fee348ee4ce4a26acc4d02034de00f01096ce47",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "140",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10973_022_11878_4_Pyrolysis_of_tea_and_coffee_wastes_effect_of_physicochemical_properties.pdf",
+        "bytes": 1763137,
+        "sha256": "2372f9b7035cc46401a4bb7f9706b0c5bf8ad41d69647980c2d177767baeb956",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "141",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10973_023_12389_6_Talc_concentration_effect_on_shelf_life_of_acetaminophen_tablets.pdf",
+        "bytes": 1152508,
+        "sha256": "26cbba88dd9c34b39c04b7b256ce6e03798300934476931d32394e669762ec90",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "142",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10973_023_12456_y_Ammonium_perchlorate_catalyzed_with_novel_porous_Mn_doped_Co3O4_microsph.pdf",
+        "bytes": 2891226,
+        "sha256": "9fe36bfd1115335770ab7797de4fc76932ee297fb79daedad9411e8177b2d02a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "143",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10973_023_12458_w_Combustion_kinetics_and_thermodynamic_characteristics_of_rice_husks_and.pdf",
+        "bytes": 4544887,
+        "sha256": "691223f64d5bfc2bc0ec290c5242e604be5cce37813ccffdbbfd6a08da56e360",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "144",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10973_023_12477_7_Nickel_hydrazine_nitrate_TNT_hybrid_toward_novel_castable_energetic_nano.pdf",
+        "bytes": 4290096,
+        "sha256": "0d83177d682516f32d1b2fa6b6400fcf4d8fb04a699d8984d4cea2970b5ea1c8",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "145",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10973_023_12559_6_Problems_with_the_determination_of_activation_energy_as_function_of_the.pdf",
+        "bytes": 1144438,
+        "sha256": "97157d460ff107a17445fb2ddf34db85d3056dc29bdf615b0c184ca736e8dd42",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "146",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s10973_023_12623_1_Silver_polydopamine_HMX_nanocomposite_novel_functionalized_catalyzed_ene.pdf",
+        "bytes": 2662010,
+        "sha256": "59b08e1e655f34e87354b87cb249dce6686bf9294ccf57a757718fa515fb82d1",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "147",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1007_s44246_023_00065_1_Assessment_of_biochar_developed_via_torrefaction_of_food_waste_as_feedst.pdf",
+        "bytes": 2849909,
+        "sha256": "f6b948b4bc5f4ec4b5a14ba6e4b0d553077b9148fa1fe5f4588262e88bb06e43",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "148",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1038_s41598_023_41337_5_Catalytic_effect_of_high_thermal_conductive_SiC_on_the_kinetics_and_ther.pdf",
+        "bytes": 2387992,
+        "sha256": "dccbcc76b23081f1411492bf28c28d7f6055836603c0d26ee61224860a2bcaad",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "149",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1039_d2ra08223c_Degradation_of_tetrabromobisphenol_A_TBBA_with_calcium_hydroxide_a_therm.pdf",
+        "bytes": 1634083,
+        "sha256": "d1583aaef08796e5a67dc5d96030c7b51611caa9ac180dee7d4b799ffbf87d42",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "150",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1039_d3ra07045j_Insights_into_a_co_precursor_driven_solid_state_thermal_reaction_of_ferr.pdf",
+        "bytes": 2401241,
+        "sha256": "a67890519c0aafc93c96a718d04a30cb25d384069555341089ce8c363dc1f1c0",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "151",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1088_2515_7620_ad16f2_Understanding_the_pyrolysis_kinetics_thermodynamic_and_environmental_sus.pdf",
+        "bytes": 1212475,
+        "sha256": "6f4b028d3d6f5927f481220c2e68b045736c7b92500aec0420b81bf3ee399a79",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "152",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_1186_s40643_023_00684_x_Mechanical_properties_and_curing_kinetics_of_bio_based_benzoxazine_epoxy.pdf",
+        "bytes": 3530710,
+        "sha256": "7887d069ba140c8e778106d12cbc3f93e6d65e486914a26e5522bd9d53b49f37",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "153",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_17509_ijost_v8i3_60175_Multi_Distributed_Activation_Energy_Model_for_Pyrolysis_of_Sugarcane_Bag.pdf",
+        "bytes": 1466296,
+        "sha256": "1d5cf59fe8385ee7c79f5c501b6283e55771f682fd6cb1893d6282c783412285",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "154",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_agriculture13040840_A_Comprehensive_Study_on_the_Combustion_of_Sunflower_Husk_Pellets_by_The.pdf",
+        "bytes": 3981035,
+        "sha256": "0b2bed49af10d8b9370764d79f19feb6e93c1d92eaab92782d901233655dbd1c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "155",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_biomass3030017_Thermokinetic_Study_of_Catalytic_Pyrolysis_of_Medium_Density_Fiberboards.pdf",
+        "bytes": 2730937,
+        "sha256": "40861168619b082a24053c0943cc2a5ae6adb466171bb85b298b0bbafaf77418",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "156",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_en16114500_Thermal_Decomposition_Processes_in_Relation_to_the_Type_of_Organic_Matte.pdf",
+        "bytes": 4170739,
+        "sha256": "1f18c6c2a504d1bdc9e4d4f321ddc90e510daa7ab75ec6e7765ea5963cd30ac7",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "157",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_en16176372_Thermogravimetric_Pyrolysis_Behavior_and_Kinetic_Study_of_Two_Different.pdf",
+        "bytes": 3149832,
+        "sha256": "357760176babd70ed172dbff07134abc35109c22dd0ea1948fb7a417d3b36195",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "158",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_en16196932_Pyrolysis_and_Combustion_Behavior_of_Flax_Straw_as_Biomass_Evaluation_of.pdf",
+        "bytes": 4825089,
+        "sha256": "eab4110e6b485c41cc1f6ac9b70ca9fadca35cdcebb806bd7d1e7e9f34625c40",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "159",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_fire6040172_Effects_of_Nano_Nickel_Oxide_on_Thermokinetics_Thermal_Safety_and_Gas_Ge.pdf",
+        "bytes": 6051670,
+        "sha256": "31e527db5040b73186ceb631110b64223c7e0de30cb74ee6d57dcd759b0445d7",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "160",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_fire6060231_Thermal_and_Pyrolysis_Kinetics_Analysis_of_Glass_Wool_and_XPS_Insulation.pdf",
+        "bytes": 4728294,
+        "sha256": "789f74e8f114042b0409dcfcbc392c9ef6b9a1486fb1966bad33e6e71863474c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "161",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_ma16020584_Kinetics_Study_of_Polypropylene_Pyrolysis_by_Non_Isothermal_Thermogravim.pdf",
+        "bytes": 1349472,
+        "sha256": "34ded6e065dba9a0b753f25a78409427db671bbe69e24cc52292c87d71f8b601",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "162",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_ma16062328_Pyrolysis_and_Oxidative_Thermal_Decomposition_Investigations_of_Tennis_B.pdf",
+        "bytes": 3133595,
+        "sha256": "f3e0229561852ee75504a800b0466c1acad70e86c948cc3b44ffb9c57cd00f7a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "163",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_ma16072727_Crystallization_Kinetics_Analysis_of_the_Binary_Amorphous_Mg72Zn28_Alloy.pdf",
+        "bytes": 2377060,
+        "sha256": "98c6a0dfb4396a6a08e049686a7d0947da73c9fd50965ab0ea42753e79605932",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "164",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_ma16093462_DSC_Analysis_of_the_Effect_of_Cold_Deformation_on_the_Precipitation_Kine.pdf",
+        "bytes": 2908437,
+        "sha256": "a4d1bf491b730a5135228ec74017ae89794ebe46d55bffb28037d73d1598a605",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "165",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_ma16103667_Co_Pyrolysis_for_Pine_Sawdust_with_Potassium_Chloride_Insight_into_Inter.pdf",
+        "bytes": 5368606,
+        "sha256": "e28976436ac3d3cdd0ad74a2150b5951c0f5194b879508df158ffedaab8b0941",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "166",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_ma16175738_Kinetic_and_Thermodynamic_Analyses_of_Co_Pyrolysis_of_Nylon_Polyethylene.pdf",
+        "bytes": 2236624,
+        "sha256": "ef99f6674f2d3fdab0634e03ad397450024beca407c89eaaea3ff5dc210f798c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "167",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_ma16217024_Investigating_the_Phase_Transition_Kinetics_of_1_Octadecanol_Sorbitol_De.pdf",
+        "bytes": 8619941,
+        "sha256": "b3955d23e4cc5e2137f5cff66645fb0adbd3da0b5bb393db6e8245d740452b4b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "168",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_molecules28010424_Advanced_Fitting_Method_for_the_Kinetic_Analysis_of_Thermogravimetric_Da.pdf",
+        "bytes": 1186606,
+        "sha256": "a9dc4ee9c4c15839ce1343eb8584fec7ff0a458a745af2d0e83faf151a21302f",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "169",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_molecules28020504_Effect_of_Mg_on_the_Structural_Optical_and_Thermoluminescence_Properties.pdf",
+        "bytes": 1265334,
+        "sha256": "f413034509cb0918c521e401f3392159c9fa1b347d9c54f13decc4d20f2d8b20",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "170",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_molecules28020544_Pyrolysis_Kinetics_of_Byrsonima_crassifolia_Stone_as_Agro_Industrial_Was.pdf",
+        "bytes": 1988645,
+        "sha256": "bcb02055c4b49673324d5d62e263bcb86a73d0f8fa441d8e21899092030d8199",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "171",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_molecules28093944_Low_Temperature_Terpolymerizable_Benzoxazine_Monomer_Bearing_Norbornene.pdf",
+        "bytes": 3740157,
+        "sha256": "0a6d08842f58533e40aae1786076183ba42f901ee784fd79edbb0f904ef16c68",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "172",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_nano13121814_Non_Isothermal_Crystallization_Kinetics_of_Montmorillonite_Polyamide_610.pdf",
+        "bytes": 1710299,
+        "sha256": "23951a1bc16c875605b9f4d4613cf0a69c1c8c4dbbe108b3114fb644af595d77",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "173",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15071603_Non_Isothermal_Crystallization_Kinetics_of_PBSu_Biochar_Composites_Studi.pdf",
+        "bytes": 6853615,
+        "sha256": "9f758b969fd0337f37b238f261f07075dc04898e02af1a27a4016e6bfe1051f7",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "174",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15071725_Research_the_Thermal_Decomposition_Processes_of_Copolymers_Based_on_Poly.pdf",
+        "bytes": 2093205,
+        "sha256": "c205a9f155370c515517b2223d45f4634b7609294c9a46ba30947ea376861d0e",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "175",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15081890_Thermal_Stability_and_Non_Isothermal_Kinetic_Analysis_of_Ethylene_Propyl.pdf",
+        "bytes": 3732566,
+        "sha256": "4d7a597894d43a282fc0b74e936d2b8ae888f82405e337b50b602c8a51f514aa",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "176",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15081970_Statistical_Copolymers_of_N_Vinylpyrrolidone_and_2_Chloroethyl_Vinyl_Eth.pdf",
+        "bytes": 4090271,
+        "sha256": "551f56cf2837d3268856404de2ff46fce1cc28deaaadb2b9c4ae83859666c4cf",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "177",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15092035_Kinetic_Analysis_of_Thermal_Degradation_of_Recycled_Polypropylene_and_Po.pdf",
+        "bytes": 2826300,
+        "sha256": "5b687a4f0bd86a065cf84a42795a47572571ee759b87768cde692fa9087217d2",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "178",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15102345_The_Investigation_of_Copolymer_Composition_Sequence_on_Non_Isothermal_Cr.pdf",
+        "bytes": 5836427,
+        "sha256": "c40f39198bc8efba3e69df6c82a69aadf150ef7e85c1d11979dc3cb2e3f24444",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "179",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15112427_Synthesis_Thermogravimetric_Analysis_and_Kinetic_Study_of_Poly_N_Isoprop.pdf",
+        "bytes": 1400593,
+        "sha256": "e108528ff500d726dbb5bf281505aad178622c7563b89ec0058820f22619ba4d",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "180",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15122698_Pyrolysis_of_Chilean_Southern_Lignocellulosic_Biomasses_Isoconversional.pdf",
+        "bytes": 11678135,
+        "sha256": "71c4d5566495aecc53007d40bcd69bc51fc70f82e3ff8b39f29f003669790bf9",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "181",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15143010_Comprehensive_Kinetic_Study_of_PET_Pyrolysis_Using_TGA.pdf",
+        "bytes": 1800270,
+        "sha256": "6f115d5c6a9d7ca1e8642abcb77610f339ba83708a99514bb1bbf000331cd95c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "182",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15143013_Non_Isothermal_Crystallization_Kinetics_of_Poly_Caprolactone_PCL_and_MgO.pdf",
+        "bytes": 4891262,
+        "sha256": "a8f047179b2f3f34cf072f87c1a4e26ee8baa61dc29112c3491b13fda6654b81",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "183",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15173650_Pyrolysis_of_Automotive_Shredder_Residue_ASR_Thermogravimetry_In_Situ_Sy.pdf",
+        "bytes": 5901233,
+        "sha256": "553a269a2fddcc4bf5773d56768b8393300e6d188c3ee25f4e7f3c7c8a3f8865",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "184",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15183753_Investigation_of_Curing_Process_and_Thermal_Behavior_of_Copolymers_Based.pdf",
+        "bytes": 4601517,
+        "sha256": "a2ae12378c1749d62f66870da625983e66cf0bfc6e4e838d5d166982206f3405",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "185",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15183767_Mechanical_Properties_and_Non_Isothermal_Crystallization_Kinetics_of_Pol.pdf",
+        "bytes": 5297549,
+        "sha256": "256f54aa088755b3aba6542d4fb87d875bfe819a2a14e886529c35464f298bbb",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "186",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym15183824_Thermal_Behavior_and_Pyrolysis_Kinetics_of_Mushroom_Residue_with_the_Int.pdf",
+        "bytes": 3229702,
+        "sha256": "b08fb30a75c0d435c6e8566cb0b982927ec128773f12318ce7cb8356c9d79b3e",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "187",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_polym16010007_Kinetics_and_Mechanism_of_Liquid_State_Polymerization_of_2_4_Hexadiyne_1.pdf",
+        "bytes": 3610076,
+        "sha256": "0c3e8b8b704be0492f61be6194cd9f921932c671945ca0c86aa94aa7278a3c7f",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "188",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_pr11051535_Research_on_the_Characteristics_and_Kinetics_of_the_Pyrolysis_Process_an.pdf",
+        "bytes": 6080953,
+        "sha256": "e754c577e025715dfaeb3bed37a91d58d8250c833db602633dffbee098b67e57",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "189",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_pr11061738_Thermal_Stability_and_Kinetics_of_Degradation_of_Moxonidine_as_Pure_Ingr.pdf",
+        "bytes": 2568201,
+        "sha256": "1a15ee32da4f014681ba219b4eb71e3f2a2749a447d4e19f06d5ad51920ce75c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "190",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_pr11092761_Pyrolysis_Behavior_and_Kinetics_of_Typical_Crop_Straw_in_Henan_Province.pdf",
+        "bytes": 3669282,
+        "sha256": "f849105609784118aeb6671333f2daba68940160284ab5a8df141ecba9cdc4ab",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "191",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_pr11092764_Exploration_of_Pyrolysis_Behaviors_of_Waste_Plastics_Polypropylene_Plast.pdf",
+        "bytes": 4907132,
+        "sha256": "64bb1cac9ac55ee06dd5b55d5665cc989089fc6f4e85119a7e359040718ab752",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "192",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_pr11113210_Kinetic_Investigation_of_the_Oxidative_Thermal_Decomposition_of_Levonorg.pdf",
+        "bytes": 5747027,
+        "sha256": "95044549cf84a49a12ad6e31dc8962018cd489e6dac788b9aa741752c5869a5b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "193",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_separations10040259_Study_on_Pyrolysis_Pretreatment_Characteristics_of_Spent_Lithium_Ion_Bat.pdf",
+        "bytes": 8269112,
+        "sha256": "9d5d8873956dfa08634c985e4eb3c05b7e64d92da04888caa0254f065b02b75a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "194",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2023_10_3390_su151612536_Insights_into_Pyrolysis_Kinetics_Thermodynamics_and_the_Reaction_Mechani.pdf",
+        "bytes": 3283937,
+        "sha256": "661b895881b0a76790d74265774ad13ac87b15d6e46218f76d7ccce96ce66406",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "195",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s00289_024_05481_w_Poly_caprolactone_polybutylene_adipate_terephthalate_hydroxyapatite_blen.pdf",
+        "bytes": 4476995,
+        "sha256": "3cdad956bb9b8d67935359f1e27f5db1303657cd09234ed40f5ac5b855aa5615",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "196",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s10904_024_03139_8_Customized_Green_Energetic_Tetra_Imidazole_Copper_II_Nitrate_Cu_Im_Compl.pdf",
+        "bytes": 9797297,
+        "sha256": "64220ac476c26351f89d1766753ea7374a26d42c64217e3afade2c2462bdb824",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "197",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s10904_024_03482_w_Facile_Synthesis_and_Decomposition_Kinetics_of_Energetic_Molecular_Perov.pdf",
+        "bytes": 3743081,
+        "sha256": "8ac387807d12ee48879ec96f3daa0904caf50690475a9b747494f7c0b0800c22",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "198",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s10910_024_01618_4_Evaluation_of_smooth_reaction_rate_of_noisy_experimental_data_using_Lege.pdf",
+        "bytes": 279890,
+        "sha256": "a2f3628f932a816cdfe8564d1d916895498062fcdf98913196831fcf965577a1",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "199",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s10973_023_12868_w_Thermogravimetric_analysis_and_kinetic_modeling_of_the_pyrolysis_of_diff.pdf",
+        "bytes": 5014536,
+        "sha256": "30d9576402b96fee8fc8538c96c9dc493a1aa5ce3bf4df416cb2093977cfd145",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "200",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s10973_024_12933_y_Pyrolysis_of_natural_rubber_cellulose_composites_isoconversional_kinetic.pdf",
+        "bytes": 2567715,
+        "sha256": "8e0b8457d53b1bb12a8db84dffcfb46b7475bd53bf4c4aa81687e4dfe2745a33",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "201",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s10973_024_12949_4_Isoconversional_analysis_of_thermally_stimulated_events_on_pillared_cyan.pdf",
+        "bytes": 2140302,
+        "sha256": "db2bd696a4597e5127dc28911b848b26c9634f9fc07ba4494ac18b23d8a1bb63",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "202",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s10973_024_13106_7_Multistep_kinetics_in_self_induced_sol_gel_process_of_amorphous_anhydrid.pdf",
+        "bytes": 2906769,
+        "sha256": "7616202172a36acc0768bbae0f4b7a307b7d6d245bd3b9b16ba365bba08032c7",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "203",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s10973_024_13520_x_Thermal_stability_preformulation_and_kinetic_degradation_studies_for_ges.pdf",
+        "bytes": 3759069,
+        "sha256": "366a1389cee11d947b7dc04b848e77c9a2426a8baaf41700894e73487ca83a4f",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "204",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1007_s42452_024_06123_6_Mechanical_and_thermal_properties_of_composite_carbonized_briquettes_dev.pdf",
+        "bytes": 2203254,
+        "sha256": "4dd00855300dff4407a9632705f98891972d394d626fbddeee0e54ec2c46de5f",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "205",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1038_s41598_024_52052_0_Kinetic_and_hydrogen_production_analysis_in_the_sequential_valorization.pdf",
+        "bytes": 2481237,
+        "sha256": "97f8bfe97b52b2206c96d80760f6f9ed09a647246bb53f7ae0491e04edb3badc",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "206",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1038_s41598_024_52500_x_Thermogravimetric_and_thermo_kinetic_analysis_of_sugarcane_bagasse_pith.pdf",
+        "bytes": 5831169,
+        "sha256": "d8623dc7ae7e0025ebd4899c10644cc5b7564a509b3f769fe5a8c246ad9149c0",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "207",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1038_s41598_024_67378_y_Structure_characteristics_and_combustion_kinetics_of_the_co_pyrolytic_ch.pdf",
+        "bytes": 2713901,
+        "sha256": "f88a96b991d751d65539bdeb96096e2f6c177face37108baf6f2a56a4a40f8b7",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "208",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1038_s41598_024_68023_4_Synergistic_effect_of_TiO2_nanoparticles_and_poly_ethylene_co_vinyl_acet.pdf",
+        "bytes": 5575454,
+        "sha256": "6daa486217133885db839fa2a52d38ca83f54bd9ccd49bec4e7a5c736cdde981",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "209",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_1039_d4ra01541j_Pyrolysis_mechanism_and_pyrolysis_kinetics_of_yellow_wine_lees.pdf",
+        "bytes": 952827,
+        "sha256": "3869ad0704f643f7adffa8995b0811bce58fbc3e02f9c3fe9ec2b9a9a43b24e8",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "210",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_batteries10020063_Modelling_Binder_Degradation_in_the_Thermal_Treatment_of_Spent_Lithium_I.pdf",
+        "bytes": 3203040,
+        "sha256": "e161f35d4c5693fa253a08d0bab6da248345a537776bb67766faf0cdfa1bef91",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "211",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_en17030582_Physicochemical_Characterization_Thermal_Behavior_and_Pyrolysis_Kinetics.pdf",
+        "bytes": 2233923,
+        "sha256": "b3129dd7ca504595f8e37c6adee4524ec10f4bc60f3b86b4df42664367a9665c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "212",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_en17071607_Combustion_Behaviors_Kinetics_and_Thermodynamics_of_Naturally_Decomposed.pdf",
+        "bytes": 4020955,
+        "sha256": "f9708ae6ce511e2a3ea289abbcf202709aec8bb2ab9c8e8ac55e0f68b933327c",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "213",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_en17071766_Determination_of_the_Kinetic_Parameters_of_Thermal_Degradation_and_Hydro.pdf",
+        "bytes": 3999638,
+        "sha256": "82c14c363e0bc4bc71f8a3efb30d9a508cfcf75d1879ef300e13314aa2407c15",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "214",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_en17081875_Determination_of_Kinetic_and_Thermodynamic_Parameters_of_Biomass_Gasific.pdf",
+        "bytes": 1944551,
+        "sha256": "80183d55adb5d55d603462fd7a3cb7243056e7cdc04f965a6b3a32eade1f2eee",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "215",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_fire7010025_Thermal_Decomposition_Process_of_Fireproof_Sealant_Measured_with_Thermog.pdf",
+        "bytes": 1316428,
+        "sha256": "c33ff035c06b9af7cba14d418851c53650a84a4c7a5e6e9cda87bbf834ae59f9",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "216",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_fire7050165_Application_of_Model_Free_and_Model_Based_Kinetic_Methods_in_Evaluation.pdf",
+        "bytes": 3387030,
+        "sha256": "a52f1eaa0370ac5e283887c383fea0b311cb756aa450f68f0b4871d69f730de5",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "217",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_foods13071050_Preparation_of_Edible_Colorant_Lake_Using_Calcium_Carbonate_and_Carotene.pdf",
+        "bytes": 5798929,
+        "sha256": "60ef287d578f570cd6f8030de7f2c768606251376b2c27be92ad323596be1c23",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "218",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_foods13081191_Synergistic_Effects_and_Kinetic_Analysis_in_Co_Pyrolysis_of_Peanut_Shell.pdf",
+        "bytes": 4820338,
+        "sha256": "c21c1feb5e00e1c1caf4ce85999e83651d7b2923911e227917a878d448fc653d",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "219",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_jox14040095_Thermoanalytical_and_Kinetic_Studies_for_the_Thermal_Stability_of_Emergi.pdf",
+        "bytes": 4253375,
+        "sha256": "59722ec5abb1f952237303a68ba3d329f58ca33ac85890ed37d39c00ed3327b4",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "220",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_molecules29112680_Thermal_Hazard_Analysis_of_Two_Non_Ideal_Explosives_Based_on_Ammonium_Pe.pdf",
+        "bytes": 1971382,
+        "sha256": "16e28b76a922bb6b602baddac1c84356c74cac77fc3c8ad44740edcc0266df21",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "221",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_molecules29184388_Pyrolysis_and_Physicochemical_Thermokinetic_and_Thermodynamic_Analyses_o.pdf",
+        "bytes": 9658940,
+        "sha256": "f6ed4da65711f22f67a8a6f1c497ba7df0e7cb634c2a7dfec397d3125d450eb4",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "222",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_polym16050629_Kinetics_Study_of_PVA_Polymer_by_Model_Free_and_Model_Fitting_Methods_Us.pdf",
+        "bytes": 2646256,
+        "sha256": "146fb8a7f68c34d27035f2334bb1392da1d7e3893fc26e00e2545bcf1cbed83a",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "223",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_polym16081056_In_Situ_Monitoring_of_the_Curing_of_Highly_Filled_Epoxy_Molding_Compound.pdf",
+        "bytes": 14058877,
+        "sha256": "aba8090a3932e4d655e3824e2f25a0ee867ae46c9f31089625b3489f74b897ef",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "224",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_polym16081149_Cure_Kinetics_and_Thermal_Decomposition_Behavior_of_Novel_Phenylacetylen.pdf",
+        "bytes": 38750170,
+        "sha256": "c2e989e1d5cb458c0534edc31b8fda13a5277dceac41ef1df673062a7e07540b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "225",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_polym16223204_Enhancing_the_Non_Isothermal_Crystallization_Kinetics_of_Polylactic_Acid.pdf",
+        "bytes": 2519588,
+        "sha256": "fa91a633630dc60df0e6ee9ecd99d1110af96106adf14c9933a902a06d75db8d",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "226",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2024_10_3390_pr12051022_Combustion_Characteristics_Kinetics_and_Thermodynamics_of_Peanut_Shell_f.pdf",
+        "bytes": 1024136,
+        "sha256": "f41aa438775d08f396b4df9f0e08276129feca373167f53fd590742702d0e65b",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "227",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2025_10_1038_s41598_025_22946_8_Analysis_of_TGA_data_for_polyvinyl_alcohol_at_slow_heating_rate_using_de.pdf",
+        "bytes": 3454400,
+        "sha256": "bd76e0e67cd99195b169fa8dbc3bbb617c4fbd001dc5e91a7d0b75a829493d59",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "228",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2025_10_3390_polym18010122_Backpropagation_DNN_and_Thermokinetic_Analysis_of_the_Thermal_Devolatili.pdf",
+        "bytes": 1490731,
+        "sha256": "20729fc89f9591e7a64359409584e8e1d7ca0fb72073a09049eab3cd191e1875",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "229",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2026_10_3390_molecules31040640_Modeling_of_Cure_Kinetics_and_Rheological_Behavior_of_an_Epoxy_Resin_Usi.pdf",
+        "bytes": 1604502,
+        "sha256": "47bb220d40a22b5460c4054938198a64e64b21b78a59a0622446a2c23eaa5e45",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "230",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2026_10_3390_polym18050666_Multistage_Thermal_Decomposition_Kinetics_of_Glycidyl_Azide_Polymer_Base.pdf",
+        "bytes": 7259462,
+        "sha256": "c8b58e97339fc5722f7c5d8dc257aa987b00f9f9cc6da865af011f4d9c730471",
+        "unitType": "primary_pdf"
+      },
+      {
+        "paperId": "231",
+        "path": "01_PDF_Evidence_Extraction/01_Source_PDFs/2026_10_3390_polym18091070_Comparative_Reaction_Modelling_and_k_Nearest_Neighbors_Analysis_of_Cocos.pdf",
+        "bytes": 1848231,
+        "sha256": "3f325bd2be52aa10ae67fd5535dd099fffe9dcb08435dd0c0b61727ae83d0a20",
+        "unitType": "primary_pdf"
+      }
+    ],
+    "accountingStatus": "PASS_231_PDF_FILES_ACCOUNTED",
+    "unitBoundary": "The source lock proves 231 PDF files: 230 rows marked primary and one supplementary PDF (paper_id 009) belonging to the paper_id 008 DOI family. It does not prove 231 distinct research articles."
+  },
+  "extractionCoverage": {
+    "extractionNotes": 231,
+    "renderedPageDirectories": 231,
+    "contactSheets": 231,
+    "readyFindings": 231,
+    "qualityWarnings": 231,
+    "status": "PASS_231_OF_231_PROCESSING_IDS"
+  },
+  "canonicalEvidenceCoverage": {
+    "rowCount": 3121,
+    "uniquePaperIdCount": 231,
+    "blankPaperIdRows": 0,
+    "missingPaperIds": [],
+    "status": "PASS_EXACT_001_231"
+  },
+  "methodMatrixCoverage": {
+    "sourceRowCount": 2066,
+    "sourceNonblankRowCount": 2036,
+    "sourceBlankPaperIdRows": 30,
+    "sourceUniquePaperIdCount": 228,
+    "sourceMissingPaperIds": [
+      "011",
+      "012",
+      "013"
+    ],
+    "sourceStatus": "SOURCE_HAS_KNOWN_BLANK_ID_DEFECT",
+    "sourceMutation": "none",
+    "derivedCorrection": {
+      "assignmentCount": 30,
+      "assignmentCountsByPaperId": {
+        "011": 10,
+        "012": 10,
+        "013": 10
+      },
+      "assignments": [
+        {
+          "csvDataRow": 278,
+          "methodName": "ASTM E698 method",
+          "samples": "PERas; PERpf",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "72228ecbc67112d371d5e36bc7e0c53e9e24741c89de43f6a3735f1af5bc9b2f",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 279,
+          "methodName": "ATR-FTIR spectroscopy",
+          "samples": "PERas; PERpf; excipients",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "bb53e299ef56901f4a16d72e68ac5a74208f7bec4a2354b14302430473e8cf1d",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 280,
+          "methodName": "Cellulose degradation pathway discussion",
+          "samples": "SCB; SW; SCB cellulose; SW cellulose",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "a960f86cd3836474097a5f6ecd03b8f6cd3be1db468fd9bbea1ce0a8777916d7",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 281,
+          "methodName": "Chemical composition and FTIR",
+          "samples": "SCB; SW; SCB cellulose; SW cellulose",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "f3d3384f8904ca76daa2787c3bfdc6c7772ffe246db444ac6acf63cc18afe4b5",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 282,
+          "methodName": "Conversion and Arrhenius kinetic framework",
+          "samples": "SCB; SW; SCB cellulose; SW cellulose",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "4a2e025c31ac0a1cbb7c8fd8182a565f0c08648ce27a1abd58e852f358f3a65b",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 283,
+          "methodName": "DSC thermal-property context",
+          "samples": "PEO macromonomers and polymacromonomers",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "793ba6560bd2739e38817a621909fdc85762f6c4501ae3ecb660c6f21978defb",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 284,
+          "methodName": "Figure 8 and Figure 9 activation-energy plots",
+          "samples": "SCB; SW; SCB cellulose; SW cellulose",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "a7e42a413138bc0d496bc89d5fce14376ca1e122bd2dc892b402e9368ecc5d8d",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 285,
+          "methodName": "Flynn-Wall-Ozawa / Ozawa-Flynn-Wall (OFW/FWO)",
+          "samples": "SCB; SW; SCB cellulose; SW cellulose",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "ee6ef6d71ff0f4fc9c0497fc349f7f35c41dd32e4e2ce96c7261b83a11479826",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 286,
+          "methodName": "Flynn-Wall-Ozawa FWO method",
+          "samples": "PERas; PERpf",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "a0efe29949afac4c64a0cf252e9b9b76383419b3b4785179a61bcf2571d2466b",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 287,
+          "methodName": "Friedman method",
+          "samples": "PERas; PERpf",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "b1b8e867fe2cbe1396868b8edd2aead1d3707fdb2f98239add33fc9db50a92ce",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 288,
+          "methodName": "Kissinger (KGR) method",
+          "samples": "SCB; SW; SCB cellulose; SW cellulose",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "9e97b522b41e990c86da48abab16615cbc0afdd19edf41a144a9432912d92da1",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 289,
+          "methodName": "Kissinger method",
+          "samples": "PERas; PERpf",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "3769c4bc8ef132513f96670e24c6021b344677e8d01961c4bd6ad290dd7cf030",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 290,
+          "methodName": "Kissinger method",
+          "samples": "PEO 1k, PEO 2k, PEO 3k; 1-205-3-THF; 2-45-3-THF; 3-50-3-THF",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "4aaec3507a483a224fec8d074ecd85ea99e84d54cb93bb64f3360146ccf1b4a1",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 291,
+          "methodName": "Kissinger-Akahira-Sunose (KAS)",
+          "samples": "SCB; SW; SCB cellulose; SW cellulose",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "0be462fc389196be2114413e698b877f4bf9ce255cc870830f3675ee7f74577a",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 292,
+          "methodName": "Kissinger-Akahira-Sunose KAS method",
+          "samples": "PERas; PERpf",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "be4c627e641243ce95ce2062281e068ec923df67822603f5637e3d7d88bf8257",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 293,
+          "methodName": "OFW and Kissinger literature references",
+          "samples": "method literature",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "607aa8c571ce3038ee73bdd778f0c0ab1730850afbacafff9cf9998702b07176",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 294,
+          "methodName": "Ozawa-Flynn-Wall (OFW)",
+          "samples": "PEO 1k, PEO 2k, PEO 3k; 1-205-3-THF; 2-45-3-THF; 3-50-3-THF",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "b532770e18596afdcde550bd24c5135ecef0873b8c85e10043740d97da1c7c48",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 295,
+          "methodName": "Perindopril, excipient, and kinetic-method literature",
+          "samples": "background literature",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "cd12e029a8aacf32bbbf9714f49fac5ca3511d894aa16ec570881128f5cb8438",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 296,
+          "methodName": "Supplementary TGA and kinetic files",
+          "samples": "PEO 1k, PEO 2k, PEO 3k; 1-205-3-THF; 2-45-3-THF; 3-50-3-THF",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "5ec287db176f76029719467201631712a2440fd20783d238b3cb3424ba0d1e74",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 297,
+          "methodName": "Synthesis, SEC, MALDI-TOF, and NMR characterization",
+          "samples": "PEO macromonomers and polymacromonomers",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "099891f441c1babb8b9e8587683bb44aae46ebf67b7c535a9459c7801cd6f600",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 298,
+          "methodName": "TG/DTG/HF under dynamic air",
+          "samples": "PERas; PERpf",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "1d956721a6e977195eeca18885e431b1005712512a379394f91e49bb3deb256d",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 299,
+          "methodName": "TGA/DTG under nitrogen",
+          "samples": "SCB; SW; SCB cellulose; SW cellulose",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "c165bc0f61598e434e0c7a70477ca44cc7e0d72d643cd5c7ce74acdd390ab70a",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 300,
+          "methodName": "TGA/DTG under nitrogen",
+          "samples": "PEO 1k, PEO 2k, PEO 3k; 1-205-3-THF; 2-45-3-THF; 3-50-3-THF",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "91509ed1e1e99cd7fb9ccaa80ec710a235be3bdfccdc48680d5f59ef388599fc",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 301,
+          "methodName": "Table 2 Ea(alpha) summaries",
+          "samples": "PERas; PERpf",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "371d4659fd6eadc3c6bece584dd31d191c76e1fcb34d1740d12025130c008a1e",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 302,
+          "methodName": "Table 3 TG-DTG/HF thermal-step analysis",
+          "samples": "PERas; PERpf",
+          "assignedPaperId": "011",
+          "rowFingerprintSha256": "853f5849ea435f1a11185e8391677371a59295cd1dc2463d3cb6f51881c1b3a1",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 303,
+          "methodName": "Table 6 OFW activation-energy outputs",
+          "samples": "PEO 1k, PEO 2k, PEO 3k; 1-205-3-THF; 2-45-3-THF; 3-50-3-THF",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "c6875d279f53479861c8fedbfdeb2232e48081e4e93205a0b6f0e9d0dc08e1c4",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 304,
+          "methodName": "Table 7 Kissinger activation-energy outputs",
+          "samples": "PEO 1k, PEO 2k, PEO 3k; 1-205-3-THF; 2-45-3-THF; 3-50-3-THF",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "6dbee9f9babcc957ab0af8b7bfbcd9b3ec53858fd30f1fef471a13ecc0dd2c1b",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 305,
+          "methodName": "Tables 4 and 5 TGA decomposition parameters",
+          "samples": "PEO 1k; 1-205-3-THF",
+          "assignedPaperId": "013",
+          "rowFingerprintSha256": "0a958fb8d57c06b38ae4fe68b0ae0385c1e25ffd609db846b772432169f79a29",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 306,
+          "methodName": "Vyazovkin, Coats-Redfern, and literature ranges",
+          "samples": "biomass and wood literature",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "c5d6a5c4b70d62eb2040aa6aa4ebb9b7501055101599929e55043863d233fc6d",
+          "correctionType": "derived_non_destructive_assignment"
+        },
+        {
+          "csvDataRow": 307,
+          "methodName": "XRD crystallinity by Segal and deconvolution",
+          "samples": "SCB; SW; SCB cellulose; SW cellulose",
+          "assignedPaperId": "012",
+          "rowFingerprintSha256": "d42d4fa59d2f6db71c431b70746e07447d8a90614d09d20b0a183f8d5ed7099d",
+          "correctionType": "derived_non_destructive_assignment"
+        }
+      ],
+      "correctedUniquePaperIdCount": 231,
+      "correctedMissingPaperIds": [],
+      "status": "PASS_DERIVED_EXACT_001_231",
+      "boundary": "The raw method matrix remains immutable. These deterministic row-fingerprint assignments repair corpus accounting only; they do not create new paper evidence or change method classifications."
+    }
+  },
+  "softwareMethodRoutes": {
+    "routes": [
+      {
+        "method": "FWO",
+        "paperId": "056",
+        "matrixMethod": "Flynn-Wall-Ozawa (FWO) method",
+        "implementationClass": "implemented"
+      },
+      {
+        "method": "KAS",
+        "paperId": "002",
+        "matrixMethod": "Kissinger-Akahira-Sunose (KAS)",
+        "implementationClass": "implemented"
+      },
+      {
+        "method": "STARINK",
+        "paperId": "063",
+        "matrixMethod": "Starink method",
+        "implementationClass": "implemented"
+      },
+      {
+        "method": "FRIEDMAN",
+        "paperId": "010",
+        "matrixMethod": "Friedman method",
+        "implementationClass": "implemented"
+      },
+      {
+        "method": "KISSINGER",
+        "paperId": "064",
+        "matrixMethod": "Kissinger method",
+        "implementationClass": "implemented_reanalysis"
+      }
+    ],
+    "status": "PASS_FIVE_IMPLEMENTED_NON_CITATION_ROUTES",
+    "boundary": "Five implemented routes support the current software methods. This is a traceability sample over the corpus, not a claim that every corpus row was implemented."
+  },
+  "journalQuartileEvidence": {
+    "candidateLedgerPaths": [],
+    "verifiedPaperCount": 0,
+    "status": "NOT_VERIFIED",
+    "boundary": "No authoritative per-paper journal-quartile ledger was found. Q1/Q2 status is user-supplied context and must not be presented as locally verified corpus metadata."
+  },
+  "overallBoundary": "Locally verified: 231 PDF files and complete 001-231 extraction accounting. Not locally verified: 231 distinct articles or Q1/Q2 status for every item."
+}

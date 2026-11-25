@@ -1,0 +1,6 @@
+sample,published_fwo_mean_kj_mol,independent_standard_fwo_mean_kj_mol,published_kas_mean_kj_mol,published_kas_times_1_052_kj_mol,independent_standard_kas_mean_kj_mol,absolute_delta_reconstructed_kas_kj_mol,published_friedman_mean_kj_mol,published_friedman_times_1_052_kj_mol,independent_standard_friedman_mean_kj_mol,absolute_delta_reconstructed_friedman_kj_mol,interpretation
+Oak,176.9000,176.449666,167.3000,175.999600,175.589204,0.410396,168.2000,176.946400,176.252569,0.693831,strong_common_factor_signal_not_proof
+Torr4,207.5000,207.473266,197.9000,208.190800,208.174637,0.016163,192.9000,202.930800,202.624726,0.306074,strong_common_factor_signal_not_proof
+Torr1,194.5000,192.684575,184.9000,194.514800,192.591135,1.923665,189.2000,199.038400,196.646231,2.392169,strong_common_factor_signal_not_proof
+Torr2,214.8000,212.897890,205.0000,215.660000,213.694579,1.965421,213.4000,224.496800,219.905979,4.590821,strong_common_factor_signal_not_proof
+Torr3,221.2000,220.354837,211.3000,222.287600,221.402391,0.885209,213.7000,224.812400,222.416486,2.395914,strong_common_factor_signal_not_proof

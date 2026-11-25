@@ -1,0 +1,165 @@
+{
+  "schema": "activation-energy-studio/release-package-manifest/v1",
+  "release": {
+    "name": "Activation Energy Studio",
+    "version": "0.3.2",
+    "releaseDate": "2026-08-01",
+    "classification": "RESEARCH_PREVIEW",
+    "artifact": "release/v0.3.2/Activation-Energy-Studio-v0.3.2.html",
+    "bytes": 2503952,
+    "sha256": "4cf5d37b8a97f1cdf11beb866b56e0c5550e8f890534f41c9a4c673d8859b4a8"
+  },
+  "integrityScope": {
+    "claim": "This manifest binds exact package bytes. It does not establish scientific validity, human usability, or platform approval.",
+    "hashAlgorithm": "sha256",
+    "hashInput": "raw_file_bytes",
+    "deterministic": true,
+    "generatedTimestampOmitted": true
+  },
+  "realExamples": [
+    {
+      "id": "chilean-oak-raw",
+      "resultType": "isoconversional",
+      "methods": [
+        "FWO",
+        "KAS",
+        "STARINK"
+      ],
+      "sourceDoi": "10.17632/gkhjh4v8tg.2",
+      "license": "CC-BY-4.0",
+      "alphaGrid": {
+        "start": 0.05,
+        "end": 0.85,
+        "step": 0.05
+      }
+    },
+    {
+      "id": "paper010-supplied-dalpha-dt",
+      "resultType": "isoconversional",
+      "methods": [
+        "FRIEDMAN"
+      ],
+      "sourceDoi": "10.1371/journal.pone.0173946.s002",
+      "license": "CC-BY-4.0",
+      "alphaGrid": {
+        "start": 0.05,
+        "end": 0.8,
+        "step": 0.05
+      },
+      "transformation": "Deterministically derived from official S2 TG and -DTG under the locked fixture recipe."
+    },
+    {
+      "id": "paper063-kissinger-beta-tp",
+      "resultType": "peak",
+      "methods": [
+        "KISSINGER"
+      ],
+      "sourceDoi": "10.3390/ma13245595",
+      "license": "CC-BY-4.0 article content",
+      "separateDatasetLicense": null,
+      "boundary": "Article-derived five-row beta-Tp transcription at printed 1 K resolution; not raw curve data."
+    }
+  ],
+  "claimBoundaries": [
+    "Outputs are apparent activation energies conditional on sample, atmosphere, stage, preprocessing, method, and selected conversion range.",
+    "Regression confidence intervals do not cover every source of experimental and model-form uncertainty.",
+    "A device-profile match is advisory and must be confirmed before ingestion options are applied.",
+    "Generic DTG is not automatically equivalent to direct d(alpha)/dt.",
+    "Paper063 has an article CC BY 4.0 license but no separate raw-dataset license."
+  ],
+  "files": [
+    {
+      "path": "release/v0.3.2/Activation-Energy-Studio-v0.3.2.html",
+      "role": "offline_single_html_application",
+      "bytes": 2503952,
+      "sha256": "4cf5d37b8a97f1cdf11beb866b56e0c5550e8f890534f41c9a4c673d8859b4a8"
+    },
+    {
+      "path": "release/v0.3.2/CHANGELOG.md",
+      "role": "project_changelog",
+      "bytes": 3653,
+      "sha256": "b5125bef7e5fe85a48902054e3902d14db22f3355997999cf9cac81b40c609da"
+    },
+    {
+      "path": "release/v0.3.2/CITATION.cff",
+      "role": "software_citation_metadata",
+      "bytes": 875,
+      "sha256": "be6abbbd3b5db697343c2a6903806b7ac06a5434572186283ae0722c8f80b542"
+    },
+    {
+      "path": "release/v0.3.2/LICENSE",
+      "role": "application_license",
+      "bytes": 1442,
+      "sha256": "f02684c6d6fdb126f67a24afb6840b37239f7652fdfc4e983c6fc42cb5800f4e"
+    },
+    {
+      "path": "release/v0.3.2/QUICK_START.md",
+      "role": "english_five_minute_quick_start",
+      "bytes": 3004,
+      "sha256": "b2b36923ed8938d7d2e26877a819ce283178c85fe19d527c3c5f4b0182d83250"
+    },
+    {
+      "path": "release/v0.3.2/README.md",
+      "role": "english_release_readme",
+      "bytes": 1901,
+      "sha256": "61ebc34a7368381be925047b5668e4f4c5b9a1b641537f9c6b001c150a05f2fa"
+    },
+    {
+      "path": "release/v0.3.2/RELEASE_NOTES_v0.3.2.md",
+      "role": "release_notes",
+      "bytes": 3363,
+      "sha256": "1ad33940d5aa8397abc6b5d1494311f422ac1d8405d9bd4a028f16c3c4e62775"
+    },
+    {
+      "path": "release/v0.3.2/SUPPORT.md",
+      "role": "bug_reporting_path",
+      "bytes": 1488,
+      "sha256": "a30c4925a70799e7d6144ba83f5c80fd709faa32dfb4e7923f7c693af68601fb"
+    },
+    {
+      "path": "release/v0.3.2/THIRD_PARTY_NOTICES.md",
+      "role": "dataset_and_dependency_attribution",
+      "bytes": 3486,
+      "sha256": "b9eae0558cd59b4486d42ac58ff173d4081ed4a5b8b55e4deb7c5e1c218725ef"
+    },
+    {
+      "path": "release/v0.3.2/index.html",
+      "role": "english_download_landing_page",
+      "bytes": 4401,
+      "sha256": "45b0fb071639de41d513565d8013ba833ecd3713a00039da1a6fe468f20c6a87"
+    },
+    {
+      "path": "release/v0.3.2/project-report.schema.json",
+      "role": "reproducible_project_report_schema",
+      "bytes": 48159,
+      "sha256": "ac385a67563e643481265880c5703f5b3caec0ba2199cf15539fa1b32ebf3d3a"
+    },
+    {
+      "path": "release/v0.3.2/templates/beta-tp.csv",
+      "role": "kissinger_peak_import_template",
+      "bytes": 260,
+      "sha256": "907994d00771222aeee083fdaf15631eb8202aa7cad8c213b853916d9ad021fc"
+    },
+    {
+      "path": "release/v0.3.2/templates/curve-long.csv",
+      "role": "long_curve_import_template",
+      "bytes": 627,
+      "sha256": "d832cb2c6b64e5ede0ea07092915675a30a49b773dd2ca06fddaa6a339b804c9"
+    },
+    {
+      "path": "release/v0.3.2/templates/supplied-dalpha-dt.txt",
+      "role": "supplied_derivative_import_template",
+      "bytes": 703,
+      "sha256": "9823c3cacdc25c4897e36cc382dd912963567fdaac5d0cc26be4789c9f165272"
+    }
+  ],
+  "generation": {
+    "generator": "scripts/package-v0.3.2-release.mjs",
+    "command": "npm run package:v0.3.2",
+    "sourceArtifact": "dist/index.html",
+    "manifestPath": "release/v0.3.2/MANIFEST.v0.3.2.json",
+    "checksumPath": "release/v0.3.2/SHA256SUMS.v0.3.2.txt",
+    "manifestSelfHashExcluded": true,
+    "checksumSelfHashExcluded": true
+  }
+}

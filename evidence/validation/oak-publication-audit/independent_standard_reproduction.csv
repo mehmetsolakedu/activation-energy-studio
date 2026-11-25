@@ -1,0 +1,16 @@
+sample,method,alpha_start,alpha_end,alpha_step,n_alpha,temperature_basis,interpolation,smoothing,rate_count,ea_mean_kj_mol,ea_sd_population_kj_mol,ea_sd_sample_kj_mol,mean_adjusted_r2,published_mean_kj_mol,mean_delta_vs_publication_kj_mol,oracle_scope
+Oak,FWO,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,176.449666,7.016673,7.058316,0.9991792,176.9,-0.450334,hard_only_if_preprocessing_contract_matches
+Oak,KAS,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,175.589204,6.862459,6.903186,0.9990999,167.3,8.289204,hard_only_if_preprocessing_contract_matches
+Oak,Friedman,0.01,0.85,0.01,85,K,first_upward_crossing_linear,provided_dalpha_dt_no_extra_smoothing,4,176.252569,7.925332,7.972367,0.9983267,168.2,8.052569,hard_only_if_preprocessing_contract_matches
+Torr4,FWO,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,207.473266,6.683424,6.723088,0.9766861,207.5,-0.026734,hard_only_if_preprocessing_contract_matches
+Torr4,KAS,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,208.174637,7.077864,7.119869,0.9747735,197.9,10.274637,hard_only_if_preprocessing_contract_matches
+Torr4,Friedman,0.01,0.85,0.01,85,K,first_upward_crossing_linear,provided_dalpha_dt_no_extra_smoothing,4,202.624726,12.985200,13.062264,0.9712786,192.9,9.724726,hard_only_if_preprocessing_contract_matches
+Torr1,FWO,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,192.684575,13.162699,13.240817,0.9804040,194.5,-1.815425,hard_only_if_preprocessing_contract_matches
+Torr1,KAS,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,192.591135,13.461534,13.541426,0.9784671,184.9,7.691135,hard_only_if_preprocessing_contract_matches
+Torr1,Friedman,0.01,0.85,0.01,85,K,first_upward_crossing_linear,provided_dalpha_dt_no_extra_smoothing,4,196.646231,21.183808,21.309529,0.9904797,189.2,7.446231,hard_only_if_preprocessing_contract_matches
+Torr2,FWO,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,212.897890,26.624700,26.782712,0.9757930,214.8,-1.902110,hard_only_if_preprocessing_contract_matches
+Torr2,KAS,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,213.694579,27.725605,27.890150,0.9735954,205.0,8.694579,hard_only_if_preprocessing_contract_matches
+Torr2,Friedman,0.01,0.85,0.01,85,K,first_upward_crossing_linear,provided_dalpha_dt_no_extra_smoothing,4,219.905979,55.578003,55.907845,0.9714438,213.4,6.505979,hard_only_if_preprocessing_contract_matches
+Torr3,FWO,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,220.354837,79.428460,79.899850,0.9418533,221.2,-0.845163,hard_only_if_preprocessing_contract_matches
+Torr3,KAS,0.01,0.85,0.01,85,K,first_upward_crossing_linear,none,4,221.402391,83.391705,83.886616,0.9387590,211.3,10.102391,hard_only_if_preprocessing_contract_matches
+Torr3,Friedman,0.01,0.85,0.01,85,K,first_upward_crossing_linear,provided_dalpha_dt_no_extra_smoothing,4,222.416486,93.458449,94.013103,0.9383436,213.7,8.716486,hard_only_if_preprocessing_contract_matches

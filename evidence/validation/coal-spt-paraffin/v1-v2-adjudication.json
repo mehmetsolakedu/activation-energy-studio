@@ -1,0 +1,129 @@
+{
+  "schema": "activation-energy-studio/coal-spt-paraffin-adjudication/v1",
+  "fixtureId": "coal-spt-paraffin-v1-paraffin10-alpha-01-08",
+  "auditDate": "2026-07-29",
+  "decision": {
+    "status": "APPROVED_FOR_BOUNDED_VALIDATION",
+    "selectedDatasetDoi": "10.17632/w22346frww.1",
+    "latestAssociatedDatasetDoi": "10.17632/w22346frww.2",
+    "reason": "Version 1 is the only deposit containing all 40 populated physical-run sheets. Version 2 is incomplete and contains filenames that conflict with physical content.",
+    "publicationValuesAreOracle": false
+  },
+  "version1": {
+    "published": "2021-04-13T13:26:19.833Z",
+    "file": "TGA raw data of coal, SPT and paraffin at different masses.xlsx",
+    "fileId": "a5b6ce7f-dfcd-42b1-8181-e711e650e734",
+    "bytes": 1535050,
+    "sha256": "0226a9f6eaa1fb1bdfc7e5713d2a5faed95d3ac2e8fd3154a66e981bbc4ead21",
+    "populatedSheets": 40,
+    "license": "CC BY 4.0"
+  },
+  "version2": {
+    "published": "2021-04-28T13:01:43.488Z",
+    "coreWorkbook": {
+      "file": "TGA raw data.xlsx",
+      "bytes": 1197620,
+      "sha256": "b43943ab1af5aed9ec731e176fc96e3b36407467a5a4b7dc279a2044766601f0",
+      "worksheets": 38,
+      "populatedSheets": 32,
+      "emptyPlaceholders": [
+        "c0",
+        "c",
+        "0",
+        "1",
+        "2",
+        "P10 5"
+      ]
+    },
+    "standaloneFiles": [
+      {
+        "file": "C 3 (1).xlsx",
+        "sha256": "0ea29e951a0025a6b76b3deae84e328aa30f94cbe3d69cb4470e0588c09c66aa",
+        "adjudicatedContent": "Coal 40 K/min replicate 1; filename heating rate is wrong."
+      },
+      {
+        "file": "carbon 10 (2).xlsx",
+        "sha256": "06af7c114d4c72734dc6f6d4bccac86bc5d91f4c45fb181e62f2b8113bbbeedf",
+        "adjudicatedContent": "Coal 10 K/min replicate 1; filename replicate is wrong."
+      },
+      {
+        "file": "carbon 20 (2).xlsx",
+        "sha256": "436c0ddb1892932da9b2d2c9d4c8db7b0caabcb2162f5b5998dc54e9649ab91d",
+        "adjudicatedContent": "Coal 10 K/min replicate 2; filename heating rate is wrong."
+      },
+      {
+        "file": "par 10 5mg (1).xlsx",
+        "sha256": "28ad2651086f84d2157cbec45fcc8d0cdc841420fc21a2aa685af2cdaa5b7776",
+        "adjudicatedContent": "Coal 20 K/min replicate 1; filename material is wrong."
+      },
+      {
+        "file": "par 20 5.xlsx",
+        "sha256": "33b3576bd45fd70123e8e6df30e4294b564f0789c9d4cdd98e773608f0cb0f2f",
+        "adjudicatedContent": "Paraffin nominal 5 mg, 20 K/min replicate 1."
+      },
+      {
+        "file": "par3(2).xlsx",
+        "sha256": "9a02f1715550cba4461ac03165390aad9e502c113e7bb8399383fe774ad8e2cc",
+        "adjudicatedContent": "Paraffin nominal 10 mg, 3 K/min replicate 2."
+      },
+      {
+        "file": "par 3 5.xlsx",
+        "sha256": "c65164aedd9830b7749ce26f0d519657b8ab98a344ff56f4b57b1710dfdc5a94",
+        "adjudicatedContent": "Paraffin nominal 5 mg, 3 K/min replicate 2."
+      },
+      {
+        "file": "serrin 10 (2).xlsx",
+        "sha256": "a021b50b906c73dc2d6c5dea125f2a90756766537f71b643a2268b3cef652230",
+        "adjudicatedContent": "SPT 10 K/min replicate 2."
+      },
+      {
+        "file": "serrin 20 (2).xlsx",
+        "sha256": "d598d01ad5552be47feeaa1f958e6a9e012cf3247f4075fbbcaa395b6e1a14ae",
+        "adjudicatedContent": "Duplicates a run already present in the version-2 core workbook under inconsistent replicate numbering."
+      },
+      {
+        "file": "serrin 3 (2).xlsx",
+        "sha256": "bb0d87b16b8b77f9fc630a20d14e708344b70c524ef4051a737c90c16c305906",
+        "adjudicatedContent": "SPT 3 K/min replicate 2."
+      },
+      {
+        "file": "serrin 40 (2).xlsx",
+        "sha256": "ed5f9ff89cdcec041698f24c211d99b0970ff306b3ca249ec9b92445a323918e",
+        "adjudicatedContent": "SPT 40 K/min replicate 2."
+      }
+    ],
+    "uniqueRunUnion": 37,
+    "missingRelativeToVersion1": [
+      "Coal 3 K/min replicate 1",
+      "Coal 20 K/min replicate 2",
+      "Paraffin nominal 5 mg, 10 K/min replicate 2"
+    ],
+    "identityRule": "Never assign a physical run from a version-2 filename alone. Require internal sample metadata, signal headings, and measured temperature-time slope."
+  },
+  "publicationQuarantine": [
+    {
+      "code": "DIB_PARAFFIN_1_8_COPIED_FROM_PARAFFIN_10",
+      "evidence": "Data Brief Table 2 gives the same eight per-alpha Ea rows for paraffin 1.8 mg and paraffin 10 mg, while the later detailed Friedman table and Fuel Table 4 give 116.96 kJ/mol for 1.8 mg."
+    },
+    {
+      "code": "DIB_PARAFFIN_5_COPIED_FROM_COAL",
+      "evidence": "Data Brief Table 2 repeats the coal per-alpha Ea rows under paraffin 5 mg; the detailed Friedman table instead averages 76.46 kJ/mol."
+    },
+    {
+      "code": "COAL_FWO_DUPLICATES_FRIEDMAN",
+      "evidence": "The printed coal FWO per-alpha energies and mean exactly duplicate Friedman."
+    },
+    {
+      "code": "PARAFFIN_10_TP_CONFLICT",
+      "evidence": "Data Brief gives 280.43 °C and Fuel Table 4 gives 271 °C."
+    },
+    {
+      "code": "TERNARY_GLOBAL_MEAN_CONFLICT",
+      "evidence": "Data Brief reports C/SPT/P global means 270.46/251.25/249.05 kJ/mol while Fuel reports 250.31/236.58/234.85."
+    },
+    {
+      "code": "BLEND_RAW_CURVES_ABSENT",
+      "evidence": "The Mendeley deposit contains individual-material runs but no raw C/SPT, C/P, SPT/P, or C/SPT/P curves."
+    }
+  ]
+}

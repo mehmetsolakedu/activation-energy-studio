@@ -1,0 +1,165 @@
+{
+  "schema": "activation-energy-studio/coal-spt-paraffin-fixture-manifest/v1",
+  "fixtureId": "coal-spt-paraffin-v1-paraffin10-alpha-01-08",
+  "classification": "gold-candidate",
+  "lockedAt": "2026-07-29",
+  "sourceMetadata": {
+    "datasetTitle": "TG data",
+    "selectedDatasetDoi": "10.17632/w22346frww.1",
+    "selectedDatasetVersion": 1,
+    "latestAssociatedDatasetDoi": "10.17632/w22346frww.2",
+    "datasetFileId": "a5b6ce7f-dfcd-42b1-8181-e711e650e734",
+    "datasetLicense": "CC BY 4.0",
+    "articleDoi": "10.1016/j.fuel.2021.120305",
+    "dataArticleDoi": "10.1016/j.dib.2021.107170",
+    "sample": "Commercial paraffin nominal 10 mg",
+    "atmosphere": "N2",
+    "heatingRatesKPerMin": [
+      3,
+      10,
+      20,
+      40
+    ],
+    "replicatesPerRate": 2,
+    "alphaValues": [
+      0.1,
+      0.2,
+      0.3,
+      0.4,
+      0.5,
+      0.6,
+      0.7,
+      0.8
+    ]
+  },
+  "manualApproval": {
+    "status": "approved_for_bounded_validation",
+    "decision": "Use Mendeley version 1 because it is the only deposit with all 40 populated physical-run sheets; preserve version 2 as negative provenance evidence.",
+    "publicationValuesAreOracle": false
+  },
+  "validationContract": {
+    "sourceSheets": "Workbook sheets 17-24, nominal-10 mg paraffin only",
+    "methods": [
+      "FWO",
+      "KAS",
+      "FRIEDMAN"
+    ],
+    "rowRule": "After StartOfData retain numeric rows with time>=0, temperature>=0, and mass>0 in source order.",
+    "conversionRule": "(W0-Wt)/(W0-Wf), with first retained mass as W0 and last retained positive mass as Wf.",
+    "derivativeRule": "(positive source Deriv. Weight [%/min]/100)/(1-Wf/W0).",
+    "replicateAggregation": "arithmetic-mean-physical-scale-by-heating-rate",
+    "temperatureRule": "source Celsius + 273.15",
+    "gasConstantJPerMolK": "8.31446261815324",
+    "publicationValuesAreOracle": false
+  },
+  "comparisonTolerances": {
+    "alphaAbs": "5e-13",
+    "temperatureAbsK": "1e-9",
+    "derivativeAbsPerMinute": "1e-12",
+    "transformedXYAbs": "1e-12",
+    "inputGroupPhysicalAbs": "1e-12",
+    "slopeAbsK": "1e-3",
+    "interceptAbs": "1e-6",
+    "rSquaredAbs": "1e-12",
+    "sseAbs": "1e-12",
+    "residualStandardErrorAbs": "1e-12",
+    "slopeStandardErrorAbsK": "1e-3",
+    "energyAbsKJPerMol": "5e-6",
+    "energyCiEndpointAbsKJPerMol": "5e-6",
+    "meanEnergyAbsKJPerMol": "5e-6",
+    "publicationMeanContextAbsKJPerMol": "0.75",
+    "publicationPerAlphaContextAbsKJPerMol": "2.0",
+    "justification": "Binary64 production results are compared with a Decimal(50) oracle generated from the same explicitly rounded, deterministic projection. Wider publication bands are secondary context only and never replace the oracle."
+  },
+  "knownIssues": [
+    {
+      "code": "MENDELEY_V2_INCOMPLETE_AND_MISLABELED",
+      "status": "quarantined",
+      "impact": "Version 2 cannot be used as a filename-driven or complete raw-source package."
+    },
+    {
+      "code": "PRE_RAMP_TEMPERATURE_MICROFLUCTUATION",
+      "status": "retained",
+      "impact": "Raw source order is preserved; only the selected alpha branch must increase."
+    },
+    {
+      "code": "POST_VOLATILIZATION_NEGATIVE_BALANCE_DRIFT",
+      "status": "retained_and_explicitly_bounded",
+      "impact": "The positive-mass row rule supplies the declared Wf anchor without rewriting the workbook."
+    },
+    {
+      "code": "RAW_XLSX_DERIVATIVE_NORMALIZATION_NOT_EXPRESSIBLE_BY_GENERIC_WIDE_MAPPING",
+      "status": "bounded_by_independent_projection",
+      "impact": "The production engine consumes a locked projected CSV because raw mass is mg while the derivative is initial-mass %/min and also requires division by 1-Wf/W0."
+    },
+    {
+      "code": "PUBLICATION_TABLE_COPY_AND_CONFLICT_ERRORS",
+      "status": "secondary_context_only",
+      "impact": "Printed values are not acceptance oracles."
+    },
+    {
+      "code": "BLEND_RAW_CURVES_ABSENT",
+      "status": "excluded",
+      "impact": "Published blend results cannot validate an end-to-end raw-curve path."
+    }
+  ],
+  "files": [
+    {
+      "path": "source/TGA raw data of coal, SPT and paraffin at different masses.xlsx",
+      "role": "immutable_official_raw_source_mendeley_v1",
+      "bytes": 1535050,
+      "sha256": "0226a9f6eaa1fb1bdfc7e5713d2a5faed95d3ac2e8fd3154a66e981bbc4ead21"
+    },
+    {
+      "path": "paraffin10_t_alpha_beta.csv",
+      "role": "deterministic_projected_fixture",
+      "bytes": 6812,
+      "sha256": "146dca7f870e8ab1c0d15449b19b0b1d0754c96c39aa7cbf65922e904a59e782"
+    },
+    {
+      "path": "expected-output.json",
+      "role": "independent_decimal_expected_output",
+      "bytes": 184716,
+      "sha256": "65731e5bc8b620bcac9b99d7b1944df9b4e00a5e31744a55c2a3de1b4fd28b3a"
+    },
+    {
+      "path": "oracle/coal_spt_paraffin_decimal_oracle.py",
+      "role": "independent_reference_implementation",
+      "bytes": 46586,
+      "sha256": "8072703fb4188e6dc7ee0c6a68bddb91f372dc7812dffb2dee3bbadeac2a5604"
+    }
+  ],
+  "supportingEvidence": [
+    {
+      "path": "scripts/run-coal-spt-paraffin-oracle.mjs",
+      "role": "portable_isolated_oracle_runner",
+      "bytes": 4797,
+      "sha256": "418fde84fb4d0d47e77e2df8e8f3f97adc1c0aa328dd498e293ee225581ede3f"
+    },
+    {
+      "path": "evidence/validation/coal-spt-paraffin/MANUAL_ADJUDICATION.md",
+      "role": "manual_scientific_adjudication",
+      "bytes": 5597,
+      "sha256": "dabf33e56dc90d4e93b430848235e2a60d7de60be489a263906475feaa9193bb"
+    },
+    {
+      "path": "evidence/validation/coal-spt-paraffin/v1-v2-adjudication.json",
+      "role": "machine_readable_version_and_publication_quarantine",
+      "bytes": 5332,
+      "sha256": "83d188fba13d53b126f6d5247662efa4685981497003a66f0fcd8f63958667ed"
+    },
+    {
+      "path": "evidence/validation/coal-spt-paraffin/VALIDATION_REPORT.md",
+      "role": "local_bounded_validation_report",
+      "bytes": 3770,
+      "sha256": "e5baacb6ab9ae7fd584e3f66b59a3eb6138501d988a55149adc81b2185232ec1"
+    }
+  ],
+  "platformStatus": {
+    "localMacOS": "passed",
+    "hostedLinux": "pending",
+    "hostedWindows": "pending",
+    "parallelsRequired": false
+  },
+  "rebaselinePolicy": "Any source, reduction, oracle, or expected-output hash change requires a written scientific reason, regenerated Decimal reference, source-row review, and new adjudication record."
+}

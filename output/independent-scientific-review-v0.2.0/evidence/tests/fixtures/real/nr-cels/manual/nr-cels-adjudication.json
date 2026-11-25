@@ -1,0 +1,109 @@
+{
+  "schema": "activation-energy-studio/nr-cels-manual-adjudication/v1",
+  "fixtureId": "nr-cels-zenodo-v1-friedman-alpha-005-095",
+  "reviewedAt": "2026-07-29",
+  "decision": "accept_pinned_sources_and_explicit_recipe_oracles_quarantine_exact_kinetics_neo_parity",
+  "sourceIdentity": {
+    "material": "natural rubber–silanised cellulose composites",
+    "sampleIds": [
+      "NR-CELS 30",
+      "NR-CELS 45",
+      "NR-CELS 55"
+    ],
+    "fillerUnit": "phr, parts per hundred rubber",
+    "datasetVersionDoi": "10.5281/zenodo.16939440",
+    "datasetVersionRecord": "https://zenodo.org/records/16939440",
+    "datasetConceptDoi": "10.5281/zenodo.16939439",
+    "articleDoi": "10.1016/j.ecmx.2025.101513",
+    "license": "CC-BY-4.0"
+  },
+  "conceptDoiAdjudication": {
+    "decision": "pin_version_record_16939440",
+    "reason": "The concept DOI currently resolves to record 18176373, a later FINAL_article version containing the article PDF but not the two raw-data ZIP archives.",
+    "currentLatestRecord": "https://zenodo.org/records/18176373",
+    "currentLatestContainsRawArchives": false,
+    "versionRecordContainsRawArchives": true
+  },
+  "rawDataAdjudication": {
+    "classification": "processed_instrument_exports",
+    "reason": "Every TG curve is blank-subtracted and several TG/dTG columns carry an explicit |s smoothing marker. The record's use of the word raw must not be interpreted as untouched detector output.",
+    "acceptedFacts": [
+      "The retained 18 composite curves are byte-identical to their members in the pinned official TG_DTG_DTA_data.zip.",
+      "The retained nine kinetic exports are byte-identical to their members in the pinned official Kinetic data.zip.",
+      "TG and dTG physical column positions change across files and must be resolved from exact headers.",
+      "CEL and CELS single-rate curves remain in the official archive but are intentionally outside this six-rate composite lane."
+    ],
+    "notAvailable": [
+      "blank runs",
+      "untouched detector output",
+      "replicate traces",
+      "Kinetics Neo project file"
+    ]
+  },
+  "oracleAdjudication": {
+    "explicitRecipeOutputsAreHardReproducibilityTargets": true,
+    "depositedKineticsNeoValuesAreHardRawPipelineOracle": false,
+    "reason": "The independent recipes reproduce the broad trend but not exact Kinetics Neo values, especially at low conversion. Exact author preprocessing is not deposited.",
+    "alphaGrid": "0.05 through 0.95 inclusive in 0.01 increments",
+    "reconstructionMethods": [
+      "DEPOSITED_DTG",
+      "TG_LOCAL_LINEAR_7"
+    ],
+    "missingAuthorSettings": [
+      "Kinetics Neo .kinx project",
+      "smoothing algorithm, order, and window",
+      "conversion baseline and final-mass selection",
+      "conversion interpolation settings",
+      "blank curves",
+      "definition and confidence level of exported ±Error"
+    ]
+  },
+  "publicationDiscrepancies": [
+    {
+      "code": "NR_CELS_45_MAXIMUM_TRANSPOSED",
+      "publicationLocation": "Article and Zenodo Table 1",
+      "publishedKJPerMol": 334.986,
+      "depositedSeriesMaximumKJPerMol": 334.968,
+      "depositedSeriesMaximumAlpha": 0.68,
+      "decision": "retain_both_and_flag_publication_typo"
+    },
+    {
+      "code": "NR_CELS_30_MODEL_N_ROUNDING_OR_VERSION",
+      "publicationLocation": "Article and Zenodo Table 2, step A→B",
+      "publishedReactionOrderN": 2.175,
+      "depositedModelExportReactionOrderN": 2.176,
+      "decision": "retain_both_and_require_tolerance_or_manual_review"
+    },
+    {
+      "code": "DATASET_TITLE_FILLER_RANGE",
+      "metadataValue": "30–50 phr",
+      "paperAndFilesValue": "30, 45, and 55 phr",
+      "decision": "treat_metadata_title_as_typographic_error"
+    }
+  ],
+  "methodBoundary": {
+    "implementedInArticle": [
+      "Friedman differential model-free isoconversional analysis",
+      "extended Prout–Tompkins / modified Šesták–Berggren multi-step fitting",
+      "generalised master plots",
+      "Eyring-derived activation thermodynamics"
+    ],
+    "notImplementedAsStudyResults": [
+      "KAS",
+      "FWO/OFW",
+      "Starink",
+      "standalone fitted Kissinger"
+    ],
+    "kissingerStatus": "background equation and critique only"
+  },
+  "productionHandoff": {
+    "productionRegressionComparisonAuthorized": true,
+    "rawPath": "wide-series ingestion of each retained instrument export with TG mapped to massPercent, explicit initialValue=100 and finalValue=min(observed TG) anchors, and signed deposited dTG mapped to the semantic massChangeRate field",
+    "requiredWarnings": [
+      "WIDE_MASS_REFERENCE_EXCURSION_OUTSIDE_BRANCH when raw pre-branch TG exceeds the explicit 100% anchor"
+    ],
+    "forbiddenShortcut": "Do not map signed dTG to the long-layout dAlphaDt role.",
+    "scopeBoundary": "The production comparison validates the public wide-series ingestion and Friedman engine against the independent DEPOSITED_DTG oracle at all 91 alpha targets. TG_LOCAL_LINEAR_7 remains application-independent diagnostic evidence because it intentionally uses a different derivative reconstruction."
+  },
+  "rebaselinePolicy": "Any source byte, archive member, header semantic, explicit recipe, oracle implementation, expected output, or adjudication change requires a written scientific reason and a fresh audit."
+}

@@ -1,0 +1,322 @@
+{
+  "schemaVersion": "activation-energy-studio/observed-usability-study-kit/v1",
+  "kit": {
+    "name": "Activation-Energy-Studio-Observed-Usability-Handoff-v0.3.2",
+    "releaseVersion": "0.3.2",
+    "archiveRoot": "Activation-Energy-Studio-Observed-Usability-Handoff-v0.3.2"
+  },
+  "gateIds": [
+    "AC-UX-01",
+    "AC-UX-02",
+    "AC-UX-03",
+    "AC-UX-04"
+  ],
+  "candidate": {
+    "path": "build/Activation-Energy-Studio-v0.3.2.html",
+    "bytes": 2503952,
+    "sha256": "4cf5d37b8a97f1cdf11beb866b56e0c5550e8f890534f41c9a4c673d8859b4a8"
+  },
+  "candidateFreeze": {
+    "path": "locks/CANDIDATE_FREEZE.json",
+    "bytes": 3962,
+    "sha256": "52aaaf58e3a0e9880ff72ca30aa8cef9566406860e5151ca0638e5c4a597b758"
+  },
+  "acceptanceCriteria": {
+    "path": "locks/EXTERNAL_GATE_ACCEPTANCE_CRITERIA.md",
+    "bytes": 7714,
+    "sha256": "7be35f2d7bba5135d7a530a8b7691ce59a9be0dcbe9c2762d3b40d9de6468f54"
+  },
+  "fixtureManifest": {
+    "path": "fixtures/UX_FIXTURE_MANIFEST.json",
+    "bytes": 4926,
+    "sha256": "14f2e715578886139c63637300e3daa5ef544ff4a83226783ef0877159cd8e99"
+  },
+  "historicalV031Preservation": [
+    {
+      "role": "v0.3.1-release-html",
+      "path": "release/v0.3.1/Activation-Energy-Studio-v0.3.1.html",
+      "bytes": 2490589,
+      "sha256": "e9750c6a7cae1aafe970094567736c042512daddcd35d67e4b17ffea3bc72587"
+    },
+    {
+      "role": "v0.3.1-release-manifest",
+      "path": "release/v0.3.1/MANIFEST.v0.3.1.json",
+      "sha256": "72056e404fc0de538c1979f847a42245ecd9046c705b5610812dad70ffd9f20c"
+    },
+    {
+      "role": "v0.3.1-release-checksums",
+      "path": "release/v0.3.1/SHA256SUMS.v0.3.1.txt",
+      "sha256": "a4c4ce64817aa35b21b27fdf960d40f81b11059e2835a12d930e4921af9c9de3"
+    },
+    {
+      "role": "v0.3.1-usability-fixture-manifest",
+      "path": "evidence/usability/v0.3.1/UX_FIXTURE_MANIFEST.json",
+      "sha256": "700e3af9001890c4b8635cf8f25ed4f1c17c1c43ad5980e25b0a461ef6a3dd8d"
+    }
+  ],
+  "technicalReadiness": "READY_FOR_OBSERVED_SESSIONS_NOT_RUN",
+  "participantCount": 0,
+  "observedSessionCount": 0,
+  "humanEvidenceAuditStatus": "NOT_PERFORMED",
+  "externalEvidenceComplete": false,
+  "gates": [
+    {
+      "id": "AC-UX-01",
+      "status": "EXTERNAL_OPEN"
+    },
+    {
+      "id": "AC-UX-02",
+      "status": "EXTERNAL_OPEN"
+    },
+    {
+      "id": "AC-UX-03",
+      "status": "EXTERNAL_OPEN"
+    },
+    {
+      "id": "AC-UX-04",
+      "status": "EXTERNAL_OPEN"
+    }
+  ],
+  "generation": {
+    "deterministic": true,
+    "generatedAtOmitted": true,
+    "fixedZipMtime": "1980-01-01T00:00:00.000Z"
+  },
+  "boundary": "Technical readiness is not observed-usability evidence. Five genuine sessions, retained media, independent content audit, and external adjudication remain required.",
+  "files": [
+    {
+      "path": ".usability-study-kit-owner.json",
+      "role": "ownership_marker",
+      "bytes": 117,
+      "sha256": "739e12ef2daf383603c00acdb223d5b537f62ad9767687493cf0c83f237fe1f7"
+    },
+    {
+      "path": "build/Activation-Energy-Studio-v0.3.2.html",
+      "role": "locked_candidate_html",
+      "bytes": 2503952,
+      "sha256": "4cf5d37b8a97f1cdf11beb866b56e0c5550e8f890534f41c9a4c673d8859b4a8"
+    },
+    {
+      "path": "build/MANIFEST.v0.3.2.json",
+      "role": "release_manifest",
+      "bytes": 5746,
+      "sha256": "418d1f6e4d8693e112d65861526ef54432d625a2f6e9022ef040ff4acb7f760c"
+    },
+    {
+      "path": "build/project-report.schema.json",
+      "role": "report_schema",
+      "bytes": 48159,
+      "sha256": "ac385a67563e643481265880c5703f5b3caec0ba2199cf15539fa1b32ebf3d3a"
+    },
+    {
+      "path": "build/SHA256SUMS.v0.3.2.txt",
+      "role": "release_checksum_index",
+      "bytes": 1283,
+      "sha256": "69d3b8dbf5e187959858611e95e786c2ae4a8155626abad756ba711a6cf9e4f0"
+    },
+    {
+      "path": "BUNDLE_PAYLOAD_SHA256SUMS.txt",
+      "role": "payload_checksum_index",
+      "bytes": 3724,
+      "sha256": "a249dd3abc69dad27020a7794516bff3b60efb3b0c30546b99717c1a6bf67de9"
+    },
+    {
+      "path": "fixtures/study_bundle/C1_peaks.tsv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 196,
+      "sha256": "7b1777bed6c71d2e93fd9725f36dea3ffbe46cbe166d8f11ddb27b803e1adfe6"
+    },
+    {
+      "path": "fixtures/study_bundle/R1_two_rates.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 972,
+      "sha256": "43043dd64dc58c28c41ccd689433408b2115bd603130b7b831119f10261d68f0"
+    },
+    {
+      "path": "fixtures/study_bundle/R2_no_common_alpha.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 672,
+      "sha256": "4c329319515a39cf81f5e75dcbcc9d8ee4a4294ca271b151797ede61feee51a0"
+    },
+    {
+      "path": "fixtures/study_bundle/R3_nonmonotonic_alpha.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 1871,
+      "sha256": "929521b102bf060e5f37af8d5fa9250db3e7a7d8262e0ccddd8810c447dbdf32"
+    },
+    {
+      "path": "fixtures/study_bundle/R4_context_conflict.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 1890,
+      "sha256": "ad7544e05b823cbad2f608f226fd995e2deff35866c77d6e64e9597cbd89dbde"
+    },
+    {
+      "path": "fixtures/study_bundle/R5_nonlinear_time.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 1955,
+      "sha256": "126b965a0c3de030a3b0d5ff14cd9d2039770d6c3bb607b68692b1944097446d"
+    },
+    {
+      "path": "fixtures/study_bundle/UX01_four_run_mass_ambiguous.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 2018,
+      "sha256": "da30cd9984b4f1a972bd6fa68726010f4b2a2ff0720b0c091bcf064bcdd0c251"
+    },
+    {
+      "path": "fixtures/study_bundle/W1_three_rates.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 1422,
+      "sha256": "125956a27dbba08657a35d3113cd7a79a02ebfdd6d601b47c6663e061d990185"
+    },
+    {
+      "path": "fixtures/study_bundle/W2_synthetic_kas_150.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 1872,
+      "sha256": "eeafd2d8a1dc11c385bc2906800b9b1d5647451a64cd400eafd50a83579f8b19"
+    },
+    {
+      "path": "fixtures/study_bundle/W3_low_r2.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 521,
+      "sha256": "2757e2d015acf62b9d75ff39058a01482ece2e1b3c464aaf09fcb377bd0a07ae"
+    },
+    {
+      "path": "fixtures/study_bundle/W4_multistep.csv",
+      "role": "synthetic_usability_fixture",
+      "bytes": 1872,
+      "sha256": "ec51efdf53db199f66582f0a075fc25460bad3fcc1d83f608562e9f1a0cb043f"
+    },
+    {
+      "path": "fixtures/UX_FIXTURE_MANIFEST.json",
+      "role": "fixture_manifest",
+      "bytes": 4926,
+      "sha256": "14f2e715578886139c63637300e3daa5ef544ff4a83226783ef0877159cd8e99"
+    },
+    {
+      "path": "HUMAN-EVIDENCE-AUDIT.md",
+      "role": "human_evidence_audit",
+      "bytes": 1552,
+      "sha256": "00efeb4cff96fb41f22e6cdf5b0104668f00eb4229b2f1d1e02fb6b7b09d40f3"
+    },
+    {
+      "path": "locks/CANDIDATE_FREEZE.json",
+      "role": "candidate_freeze",
+      "bytes": 3962,
+      "sha256": "52aaaf58e3a0e9880ff72ca30aa8cef9566406860e5151ca0638e5c4a597b758"
+    },
+    {
+      "path": "locks/CANDIDATE_FREEZE.sha256",
+      "role": "candidate_freeze_checksum",
+      "bytes": 88,
+      "sha256": "e718d22b3ca7865b7b0af4654536343d1a4325ac76b1c3769d4e64668874a7d3"
+    },
+    {
+      "path": "locks/EXTERNAL_GATE_ACCEPTANCE_CRITERIA.md",
+      "role": "external_gate_acceptance_criteria",
+      "bytes": 7714,
+      "sha256": "7be35f2d7bba5135d7a530a8b7691ce59a9be0dcbe9c2762d3b40d9de6468f54"
+    },
+    {
+      "path": "MODERATOR-SCRIPT.md",
+      "role": "moderator_script",
+      "bytes": 2332,
+      "sha256": "94458a46317dea99847b868f9057f5253f6c4ce48f107edd598a8d5e23cec524"
+    },
+    {
+      "path": "participants/P01.template.json",
+      "role": "non_evidence_participant_template",
+      "bytes": 5909,
+      "sha256": "9387af35e29c0c9823babefee63b7b53100f4a87cbe7532c4430271ed569d92a"
+    },
+    {
+      "path": "participants/P02.template.json",
+      "role": "non_evidence_participant_template",
+      "bytes": 5909,
+      "sha256": "edd68816034cfbbd77aed504443d8e21e4ccdd9e501bc41f93c1e3b2a0f6e1ad"
+    },
+    {
+      "path": "participants/P03.template.json",
+      "role": "non_evidence_participant_template",
+      "bytes": 5909,
+      "sha256": "5ebd507ec84e4937dde0e474f019be29ee266a61f0972a92c4151df8301fa8dc"
+    },
+    {
+      "path": "participants/P04.template.json",
+      "role": "non_evidence_participant_template",
+      "bytes": 5909,
+      "sha256": "17641e0edb231f43a5660c8dac0dc9a7fccb0f5c6697db85d8a6354d72948f0a"
+    },
+    {
+      "path": "participants/P05.template.json",
+      "role": "non_evidence_participant_template",
+      "bytes": 5909,
+      "sha256": "d402e2b3d436861f4e8a2ed4bdb0d7ecf5e7102e1d68a50fc575b66bd1c8a168"
+    },
+    {
+      "path": "PROTOCOL.md",
+      "role": "normative_protocol",
+      "bytes": 10199,
+      "sha256": "c6e4c491dc2808aa3114135d56b96ddbb5a016b733488b96494e2e9a659edc2d"
+    },
+    {
+      "path": "README-FIRST.md",
+      "role": "handoff_readme",
+      "bytes": 1856,
+      "sha256": "b85c31f2b57a07e00cf6604b494f99f201179fd58d51e1f5ae915bccef732bea"
+    },
+    {
+      "path": "RECRUITMENT-SCREENING.md",
+      "role": "recruitment_screening",
+      "bytes": 862,
+      "sha256": "996c38e0e045c5bc1a8c6814f598c132283bb395b5124d01a021cf6a8e749cef"
+    },
+    {
+      "path": "RETURN-CHECKLIST.md",
+      "role": "return_checklist",
+      "bytes": 1023,
+      "sha256": "0adb8a276d5ef90bf8bd1462d52f362d942612a95cd979eef5744801b9272b1c"
+    },
+    {
+      "path": "SECOND-RATER-GUIDE.md",
+      "role": "second_rater_guide",
+      "bytes": 880,
+      "sha256": "d1976ffe63d43173b9fc23fa5b53a95ba24447a03224ec9f977c6ebc0a66f09d"
+    },
+    {
+      "path": "STUDY_STATUS.json",
+      "role": "not_run_study_status",
+      "bytes": 1141,
+      "sha256": "f645d7ebac10158f081427ce7ea4839757f1ff42f9e8b701697772572de32652"
+    },
+    {
+      "path": "study-input.template.json",
+      "role": "non_evidence_study_input_template",
+      "bytes": 6383,
+      "sha256": "46c023bf563a270ea64a75797ff6aa496635de6c2e1dcd9da9407e35dd261ed4"
+    },
+    {
+      "path": "tools/record-usability-study-v0.3.2.mjs",
+      "role": "v032_usability_recorder",
+      "bytes": 23881,
+      "sha256": "50a65d62e022909afae6f1d576608c5a374c6ac94cba573402d63b1d04c905a4"
+    },
+    {
+      "path": "tools/record-usability-study.mjs",
+      "role": "usability_recorder_core",
+      "bytes": 37719,
+      "sha256": "c4f6443db9e53f56480d6ce90ec4a3748370f3a274229e406a6aca22cafbdad5"
+    },
+    {
+      "path": "UX-CONSENT-v1.md",
+      "role": "consent_requirements",
+      "bytes": 838,
+      "sha256": "09c096816b0ea5d48ac52291d6f389983294f8fedcca11a236d8e1b823c64873"
+    },
+    {
+      "path": "VERIFY-KIT.mjs",
+      "role": "standalone_kit_verifier",
+      "bytes": 12143,
+      "sha256": "578a0cdac020de7cb495cc72203894b48ea89f25782f9e3d5b84706ba13370b6"
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+ce716471586b098806007853992bed6601dfa359d53e59fe1b50c849d911dbb7  Activation-Energy-Studio-v0.2.0.html
+eeafd2d8a1dc11c385bc2906800b9b1d5647451a64cd400eafd50a83579f8b19  Platform-Golden-synthetic_kas_150.csv
+0bf4380cddf82ecc93b0abd16174f9ab8f385dec858a5ed1c226fec9a146faa8  Platform-Locale-English-dot.csv
+e40e3ba2d2bfed57e9e8165ed187ed032cab8b14e31dab512ef9f22f9efb77ea  Platform-Locale-Mixed-invalid.csv
+f43af94d5a805848faecb3a38c57df0252c66677d9bf403b94754ff68fda8c2d  Platform-Locale-Turkish-comma.csv

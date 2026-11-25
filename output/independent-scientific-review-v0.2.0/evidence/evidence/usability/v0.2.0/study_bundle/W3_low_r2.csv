@@ -1,0 +1,13 @@
+Temperature [K],Alpha [0-1],Heating rate [K/min],Run,Sample,Atmosphere
+595,.4,5,noisy-5,synthetic-noisy,N2
+600,.5,5,noisy-5,synthetic-noisy,N2
+605,.6,5,noisy-5,synthetic-noisy,N2
+695,.4,10,noisy-10,synthetic-noisy,N2
+700,.5,10,noisy-10,synthetic-noisy,N2
+705,.6,10,noisy-10,synthetic-noisy,N2
+615,.4,20,noisy-20,synthetic-noisy,N2
+620,.5,20,noisy-20,synthetic-noisy,N2
+625,.6,20,noisy-20,synthetic-noisy,N2
+755,.4,40,noisy-40,synthetic-noisy,N2
+760,.5,40,noisy-40,synthetic-noisy,N2
+765,.6,40,noisy-40,synthetic-noisy,N2

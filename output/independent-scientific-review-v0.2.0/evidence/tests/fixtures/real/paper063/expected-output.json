@@ -1,0 +1,31 @@
+{
+  "schema": "activation-energy-studio/publication-derived-kissinger-reference/v1",
+  "fixtureId": "paper063-xps-kissinger-publication-peak-v1",
+  "method": "KISSINGER",
+  "formulaId": "kissinger_peak_ln_v1",
+  "formula": {
+    "x": "1/Tp",
+    "y": "ln(beta/Tp^2)",
+    "activationEnergy": "-slope*R/1000",
+    "gasConstantJPerMolK": "8.31446261815324"
+  },
+  "independentOracle": {
+    "arithmetic": "Decimal(50)",
+    "nBeta": 5,
+    "residualDegreesOfFreedom": 3,
+    "slopeK": "-23387.480253373023362727957810042784749975893628564",
+    "intercept": "22.926683668889680600890304897599009939250658913327",
+    "rSquared": "0.99915226171289682462645139001870169368488158463261",
+    "sse": "0.0036854585224844287619621994433222960316144969833594",
+    "activationEnergyKJPerMol": "194.45433029946706863306914181518631103910600031093"
+  },
+  "comparisonTolerances": {
+    "activationEnergyAbsKJPerMol": 1e-10,
+    "slopeAbsK": 1e-8,
+    "interceptAbs": 1e-11,
+    "rSquaredAbs": 1e-14,
+    "sseAbs": 1e-14,
+    "transformedAbs": 1e-15
+  },
+  "expectedDiagnosticCodes": []
+}

@@ -1,0 +1,81 @@
+{
+  "schema": "activation-energy-studio/dryad-polyisoprene-manual-adjudication/v1",
+  "fixtureId": "dryad-polyisoprene-lpi01-v2-alpha-020-080",
+  "adjudicatedAt": "2026-07-29",
+  "adjudicationBasis": "Locked Dryad v2 archive traces compared with the rounded values printed in paper Table 3.",
+  "classification": "expected_publication_row_swap",
+  "decision": "accept_raw_traces_quarantine_paper_rows",
+  "scope": "HBPI-01 and HBPI-03 at 15 K/min",
+  "roundingComparisonTolerance": {
+    "temperatureC": "1",
+    "residuePercent": "0.1"
+  },
+  "finding": "The published HBPI-01 T20/T50/residue values match the HBPI-03 trace, and the published HBPI-03 T20/T50/residue values match the HBPI-01 trace, within the paper's precision.",
+  "peakTemperatureColumnParticipatesInSwapFinding": false,
+  "peakTemperatureDecision": "Both raw DTG peaks are near 444-445 C. The paper's 444 C and 446 C peak cells do not establish the cross-sample swap and are not used as corroboration.",
+  "publicationTable4ValuesAreHardOracle": false,
+  "rawTraceObservations": [
+    {
+      "sample": "HBPI-01",
+      "heatingRateKPerMin": 15,
+      "weightArchivePath": "Data/HBPI-01/31B 15'C weight (%).txt",
+      "weightSha256": "ac5ecf20ec1e49d997ae4b9d6751ec263f97ea3ca4172e6679915c65900c7863",
+      "derivativeArchivePath": "Data/HBPI-01/31B 15'C derivative weight (%).txt",
+      "derivativeSha256": "c34448e7f75742ad1f0aa13b1f95f91d448706c134b7952e26b8b90d06782a0d",
+      "observedFromArchive": {
+        "temperatureAt20PercentMassLossC": "352.86333333333333333333333333333333333333333333333",
+        "temperatureAt50PercentMassLossC": "416.26849162011173184357541899441340782122905027933",
+        "peakTemperatureC": "444.94",
+        "residueAt580CPercent": "1.135"
+      },
+      "paperTable3": {
+        "temperatureAt20PercentMassLossC": "388",
+        "temperatureAt50PercentMassLossC": "427",
+        "peakTemperatureC": "444",
+        "residueAt580CPercent": "1.3"
+      }
+    },
+    {
+      "sample": "HBPI-03",
+      "heatingRateKPerMin": 15,
+      "weightArchivePath": "Data/HBPI-03/30B 15'C weight (%).txt",
+      "weightSha256": "e46e568728ae600afa0d21a9a8f90f7f94a29c302f1a6081e1b2e295306e16b1",
+      "derivativeArchivePath": "Data/HBPI-03/30B 15'C derivative weight (%).txt",
+      "derivativeSha256": "a7e100136ad5f2226ef01f66ef0cc26a3f1975406f96f30207d88b8fa2d46814",
+      "observedFromArchive": {
+        "temperatureAt20PercentMassLossC": "388.02",
+        "temperatureAt50PercentMassLossC": "426.70322388059701492537313432835820895522388059701",
+        "peakTemperatureC": "444.48",
+        "residueAt580CPercent": "1.33428"
+      },
+      "paperTable3": {
+        "temperatureAt20PercentMassLossC": "353",
+        "temperatureAt50PercentMassLossC": "417",
+        "peakTemperatureC": "446",
+        "residueAt580CPercent": "1.1"
+      }
+    }
+  ],
+  "crossSampleChecks": [
+    {
+      "paperRow": "HBPI-01",
+      "matchingRawTrace": "HBPI-03",
+      "absoluteDifferences": {
+        "temperatureAt20PercentMassLossC": "0.02",
+        "temperatureAt50PercentMassLossC": "0.29677611940298507462686567164179104477611940299",
+        "residueAt580CPercent": "0.03428"
+      },
+      "withinRoundedPaperTolerance": true
+    },
+    {
+      "paperRow": "HBPI-03",
+      "matchingRawTrace": "HBPI-01",
+      "absoluteDifferences": {
+        "temperatureAt20PercentMassLossC": "0.13666666666666666666666666666666666666666666667",
+        "temperatureAt50PercentMassLossC": "0.73150837988826815642458100558659217877094972067",
+        "residueAt580CPercent": "0.035"
+      },
+      "withinRoundedPaperTolerance": true
+    }
+  ]
+}
