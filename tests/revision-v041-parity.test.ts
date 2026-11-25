@@ -1,9 +1,10 @@
 // @vitest-environment node
 
 import { createHash } from 'node:crypto';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { resolve } from 'node:path';
-import { describe, expect, it } from 'vitest';
+import { mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
+import { afterAll, describe, expect, it } from 'vitest';
 
 import {
   analyzeActivationEnergy,
@@ -23,13 +24,15 @@ import {
   serializeProjectReport,
 } from '../src/report';
 
-const REVISION_DIR =
-  '/Users/mehmetprom4/.gemini/antigravity/scratch/amesia-2017808-revision';
+const VERIFICATION_DIR = resolve(process.cwd(), 'docs/verification-v0.4.1');
 const MASTER = JSON.parse(
-  readFileSync(resolve(REVISION_DIR, 'revision_metrics_master.json'), 'utf8'),
+  readFileSync(resolve(VERIFICATION_DIR, 'decimal50-parity-reference.json'), 'utf8'),
 );
-const EXPORT_DIR = resolve(REVISION_DIR, 'v041_case_exports');
-mkdirSync(EXPORT_DIR, { recursive: true });
+const EXPORT_DIR = mkdtempSync(join(tmpdir(), 'aes-v041-parity-'));
+
+afterAll(() => {
+  rmSync(EXPORT_DIR, { recursive: true, force: true });
+});
 
 function sha256Buf(buf: Buffer | Uint8Array): string {
   return createHash('sha256').update(buf).digest('hex');
@@ -143,6 +146,7 @@ describe('v0.4.1 real-data app-to-Decimal(50) parity (Oak including Starink, and
         },
       },
     );
+    const oakCsv = createResultsCsv(report);
     writeFileSync(
       resolve(EXPORT_DIR, 'oak_v041_report.json'),
       serializeProjectReport(report),
@@ -150,15 +154,16 @@ describe('v0.4.1 real-data app-to-Decimal(50) parity (Oak including Starink, and
     );
     writeFileSync(
       resolve(EXPORT_DIR, 'oak_v041_results.csv'),
-      createResultsCsv(report),
+      oakCsv,
       'utf8',
     );
     const pdfBlob = createPdfReport(report);
-    writeFileSync(
-      resolve(EXPORT_DIR, 'oak_v041_report.pdf'),
-      Buffer.from(await pdfBlob.arrayBuffer()),
+    const pdfBytes = Buffer.from(await pdfBlob.arrayBuffer());
+    writeFileSync(resolve(EXPORT_DIR, 'oak_v041_report.pdf'), pdfBytes);
+    expect(oakCsv).toBe(
+      readFileSync(resolve(VERIFICATION_DIR, 'oak_v041_results.csv'), 'utf8'),
     );
-    console.log('OAK_V041_APP_VS_DECIMAL50:', JSON.stringify(maxDiffs));
+    expect(pdfBytes.byteLength).toBeGreaterThan(10_000);
   });
 
   it('matches Decimal(50) on Rhubarb direct XLSX, enforces v0.4.1 CI-excludes-zero (6/64 REPORTABLE_WITH_CAUTION, 58/64 CALCULATED_UNRELIABLE), and exports JSON/CSV/PDF', async () => {
@@ -348,6 +353,7 @@ describe('v0.4.1 real-data app-to-Decimal(50) parity (Oak including Starink, and
         },
       },
     );
+    const rhubarbCsv = createResultsCsv(report);
     writeFileSync(
       resolve(EXPORT_DIR, 'rhubarb_v041_report.json'),
       serializeProjectReport(report),
@@ -355,14 +361,15 @@ describe('v0.4.1 real-data app-to-Decimal(50) parity (Oak including Starink, and
     );
     writeFileSync(
       resolve(EXPORT_DIR, 'rhubarb_v041_results.csv'),
-      createResultsCsv(report),
+      rhubarbCsv,
       'utf8',
     );
     const pdfBlob = createPdfReport(report);
-    writeFileSync(
-      resolve(EXPORT_DIR, 'rhubarb_v041_report.pdf'),
-      Buffer.from(await pdfBlob.arrayBuffer()),
+    const pdfBytes = Buffer.from(await pdfBlob.arrayBuffer());
+    writeFileSync(resolve(EXPORT_DIR, 'rhubarb_v041_report.pdf'), pdfBytes);
+    expect(rhubarbCsv).toBe(
+      readFileSync(resolve(VERIFICATION_DIR, 'rhubarb_v041_results.csv'), 'utf8'),
     );
-    console.log('RHUBARB_V041_APP_SUMMARY:', JSON.stringify(methodSummary));
+    expect(pdfBytes.byteLength).toBeGreaterThan(10_000);
   });
 });

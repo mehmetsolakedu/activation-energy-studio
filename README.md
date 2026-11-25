@@ -31,6 +31,7 @@ Version `0.4.1` provides a self-contained single-file HTML workflow (`release/v0
   - [`oak_app_vs_decimal50_v041.csv`](docs/verification-v0.4.1/oak_app_vs_decimal50_v041.csv)
   - [`rhubarb_v041_results.csv`](docs/verification-v0.4.1/rhubarb_v041_results.csv)
   - [`source_data_identities_and_rights.csv`](docs/verification-v0.4.1/source_data_identities_and_rights.csv)
+  - [`decimal50-parity-reference.json`](docs/verification-v0.4.1/decimal50-parity-reference.json)
 - **Immutable historical packages:** Versioned packages in [`release/v0.4.0/`](release/v0.4.0/), [`release/v0.3.2/`](release/v0.3.2/) (archived on Zenodo at <https://doi.org/10.5281/zenodo.21921403>), and [`release/v0.3.1/`](release/v0.3.1/) remain hash-locked for historical reproducibility. English companion specifications for retained historical documents are indexed in [`docs/technical-english/README.md`](docs/technical-english/README.md).
 
 ## Local development and verification commands

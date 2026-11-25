@@ -9,6 +9,7 @@ This directory contains the cross-engine macOS browser verification log and comp
 - `oak_app_vs_decimal50_v041.csv`: pointwise comparison of all `51` Chilean Oak `v0.4.1` estimates against an independent 50-digit Python `Decimal` implementation (`max |Delta Ea| <= 7.67e-13 kJ mol^-1`).
 - `rhubarb_v041_results.csv`: complete `64`-row `v0.4.1` rhubarb direct-XLSX output table (`FWO`, `KAS`, `Starink`, and `Friedman` across `alpha = 0.05` to `0.80`, documenting `6/64` `REPORTABLE_WITH_CAUTION` and `58/64` `CALCULATED_UNRELIABLE` points under the `v0.4.1` strictly positive 95% confidence-interval gate).
 - `source_data_identities_and_rights.csv`: cryptographic SHA-256 digests, byte sizes, DOIs, `CC BY 4.0` license links, and adaptation notices for the third-party experimental datasets.
+- `decimal50-parity-reference.json`: self-contained 50-digit Python `Decimal` per-conversion reference table consumed by `../../tests/revision-v041-parity.test.ts` during clean-clone verification.
 
 ## Related verification scripts and suites
 

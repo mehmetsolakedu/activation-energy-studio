@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto';
-import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { chromium, firefox, webkit } from 'playwright';
@@ -234,11 +234,13 @@ async function runOnBrowser(label, launcher, launchOpts, captureFigure2 = false)
 
 async function main() {
   const results = [];
+  const macChromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
+  const chromeExecutable = process.env.CHROME_PATH || (existsSync(macChromePath) ? macChromePath : undefined);
   results.push(
     await runOnBrowser(
       'macos_chrome',
       chromium,
-      { executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true },
+      chromeExecutable ? { executablePath: chromeExecutable, headless: true } : { headless: true },
       true,
     ),
   );

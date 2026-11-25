@@ -4,13 +4,13 @@
 This script uses only the Python standard library and never imports the application.
 It generates:
 1. Independent 50-digit Decimal Kissinger benchmark with distinct (beta, Tp) coordinates
-   not shared with KAS (addresses Reviewer 2 #13).
+   not shared with KAS.
 2. Independent RK4 ODE non-isothermal kinetic trajectories for:
    - Scenario A: single-step constant kinetics (negative control, Ea = 120 kJ/mol)
    - Scenario B: two parallel first-order reactions with moderate Ea(alpha) variation (10-20%)
    - Scenario C: two parallel first-order reactions with strong Ea(alpha) variation (>20%)
    - Scenario D: two consecutive first-order reactions (A -> B -> C) with strong variation (>20%)
-   (addresses Reviewer 2 #14 and demonstrates Reviewer 2 #5 integral systematic bias).
+   (demonstrates cumulative integral bias when apparent activation energy varies across conversion).
 """
 
 from __future__ import annotations
