@@ -11,8 +11,8 @@
     "canonicalRepository": "https://github.com/mehmetsolakedu/activation-energy-studio",
     "canonicalWebApplication": "https://mehmetsolak.cc/activation-energy-studio/",
     "artifact": "release/v0.4.1/Activation-Energy-Studio-v0.4.1.html",
-    "bytes": 2562696,
-    "sha256": "575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e"
+    "bytes": 2562990,
+    "sha256": "1993e1cff6c015603e4267a25bf060823eba444c54560cd65bbb42208d0c9a2d"
   },
   "integrityScope": {
     "claim": "This manifest binds exact v0.4.1 release-package file bytes via SHA-256 checksums.",
@@ -24,7 +24,7 @@
   "sourceInputs": {
     "packageJsonSha256": "f702453b11a9d02944868fa106bc470bb67629df4a86239a98cc86cd4a9fbc56",
     "packageLockSha256": "544f06a24e2a779119524eb773f0a1e51d138dbd48b85b70dc1e0899b84f00aa",
-    "builtArtifactSha256": "575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e",
+    "builtArtifactSha256": "1993e1cff6c015603e4267a25bf060823eba444c54560cd65bbb42208d0c9a2d",
     "reportSchemaSha256": "05a0268af34ccb272906417077934214b7dbb4acea2e69088c8a108cf7c18e67"
   },
   "releaseSummary": {
@@ -103,8 +103,8 @@
     {
       "path": "release/v0.4.1/Activation-Energy-Studio-v0.4.1.html",
       "role": "offline_single_html_application",
-      "bytes": 2562696,
-      "sha256": "575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e"
+      "bytes": 2562990,
+      "sha256": "1993e1cff6c015603e4267a25bf060823eba444c54560cd65bbb42208d0c9a2d"
     },
     {
       "path": "release/v0.4.1/CHANGELOG.md",
@@ -134,13 +134,13 @@
       "path": "release/v0.4.1/README.md",
       "role": "english_release_readme",
       "bytes": 1541,
-      "sha256": "832ac53e7bbc56bdd5693634425205de1e4ae564868ea80490069d75781fd33b"
+      "sha256": "9dafcf895bb94ec026971bb23fa5a076cccdb21e1d33e8957b84e1cb84934b60"
     },
     {
       "path": "release/v0.4.1/RELEASE_NOTES_v0.4.1.md",
       "role": "release_notes",
       "bytes": 2669,
-      "sha256": "fad2783939f0d106cee2fc57e718df579dd798e7d35611ee292bafe6bef5fb9d"
+      "sha256": "27c9cfcaa14e02d281df11f057033bb31dfae3ec50aa91f20a962af7c7e54a29"
     },
     {
       "path": "release/v0.4.1/SBOM.production.cdx.json",

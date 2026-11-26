@@ -1662,6 +1662,19 @@ function deterministicPdfFileId(report: ReproducibleProjectReport): string {
     .toUpperCase();
 }
 
+function pdfUtcCreationDate(isoTimestamp: string): string | Date {
+  const parsed = new Date(isoTimestamp);
+  if (Number.isNaN(parsed.getTime())) {
+    return parsed;
+  }
+  const year = parsed.getUTCFullYear();
+  if (year < 1970 || year > 2037) {
+    return parsed;
+  }
+  const pad2 = (value: number): string => String(value).padStart(2, '0');
+  return `D:${year}${pad2(parsed.getUTCMonth() + 1)}${pad2(parsed.getUTCDate())}${pad2(parsed.getUTCHours())}${pad2(parsed.getUTCMinutes())}${pad2(parsed.getUTCSeconds())}+00'00'`;
+}
+
 export function createPdfReport(report: ReproducibleProjectReport): Blob {
   const doc = new jsPDF({ unit: 'mm', format: 'a4', compress: false });
   doc.setFileId(deterministicPdfFileId(report));
@@ -1671,7 +1684,7 @@ export function createPdfReport(report: ReproducibleProjectReport): Blob {
     author: 'Mehmet Solak',
     creator: `Activation Energy Studio ${report.application.version}`,
   });
-  doc.setCreationDate(new Date(report.generatedAt));
+  doc.setCreationDate(pdfUtcCreationDate(report.generatedAt));
   const rows = report.results;
 
   setFillColor(doc, PDF_COLORS.navy);

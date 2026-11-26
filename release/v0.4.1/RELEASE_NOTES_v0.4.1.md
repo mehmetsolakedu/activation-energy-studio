@@ -4,7 +4,7 @@ Release date: **2026-11-23** · Author: **Mehmet Solak**
 Repository: <https://github.com/mehmetsolakedu/activation-energy-studio>  
 Web application: <https://mehmetsolak.cc/activation-energy-studio/>  
 
-The compiled single-file offline application `Activation-Energy-Studio-v0.4.1.html` (2,562,696 bytes) has SHA-256 `575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e`. Historical `v0.4.0` and `v0.3.2` (Zenodo DOI `10.5281/zenodo.21921403`) packages remain preserved as immutable archives.
+The compiled single-file offline application `Activation-Energy-Studio-v0.4.1.html` (2,562,990 bytes) has SHA-256 `1993e1cff6c015603e4267a25bf060823eba444c54560cd65bbb42208d0c9a2d`. Historical `v0.4.0` and `v0.3.2` (Zenodo DOI `10.5281/zenodo.21921403`) packages remain preserved as immutable archives.
 
 ## Key additions in v0.4.1
 

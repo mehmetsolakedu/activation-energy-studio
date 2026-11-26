@@ -56,11 +56,11 @@ const HISTORICAL_V030_RELEASE = Object.freeze({
 });
 const CURRENT_LOCKS = Object.freeze({
   manifest:
-    'b743701a079e2d13b9eb9de70df7261872394a740a07c59d5322783f768f27fa',
+    'b8d45331068232c3e44c49005ff90d6bb59f01d596a718ee0d7816800730c6b3',
   checksum:
-    '5b81c3d37c9d64981dc9680b0a1edc108214d1b316e9dd506f88676dd4de96b0',
+    '3c8dc06db46da749cc87ffa352ec48bfd611dcc00bb9377464145633c9fe9493',
   artifact:
-    '575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e',
+    '1993e1cff6c015603e4267a25bf060823eba444c54560cd65bbb42208d0c9a2d',
 });
 const HISTORICAL_LOCKS = Object.freeze({
   v040Manifest:

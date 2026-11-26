@@ -2,7 +2,7 @@
 
 Activation Energy Studio is a self-contained, offline browser application for transparent apparent activation-energy analysis of multi-heating-rate thermoanalytical data.
 
-Version `0.4.1` distributes a single-file offline HTML application (`release/v0.4.1/Activation-Energy-Studio-v0.4.1.html`, `2,562,696` bytes, SHA-256 `575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e`) that runs locally in a desktop browser without installation or external network calls:
+Version `0.4.1` distributes a single-file offline HTML application (`release/v0.4.1/Activation-Energy-Studio-v0.4.1.html`, `2,562,990` bytes, SHA-256 `1993e1cff6c015603e4267a25bf060823eba444c54560cd65bbb42208d0c9a2d`) that runs locally in a desktop browser without installation or external network calls:
 
 1. Import `.csv`, `.tsv`, `.txt`, or `.xlsx` multi-rate thermal-analysis files locally (`papaparse` `5.5.4`, `read-excel-file` `9.3.10`, and `fflate` `0.8.3`).
 2. Inspect and confirm worksheet selection, header row, table layout (long table or side-by-side wide series), column roles, physical units, heating rates, stage anchors (`m0`, `mf`), experimental context, and excluded columns.

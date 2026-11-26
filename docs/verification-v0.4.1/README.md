@@ -1,6 +1,6 @@
 # Activation Energy Studio v0.4.1 Verification Summary and Companion Tables
 
-This directory contains the cross-engine macOS browser verification log and companion CSV result tables for `Activation-Energy-Studio-v0.4.1.html` (`2,562,696` bytes; SHA-256 `575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e`).
+This directory contains the cross-engine macOS browser verification log and companion CSV result tables for `Activation-Energy-Studio-v0.4.1.html` (`2,562,990` bytes; SHA-256 `1993e1cff6c015603e4267a25bf060823eba444c54560cd65bbb42208d0c9a2d`).
 
 ## Included v0.4.1 files
 

@@ -2,7 +2,7 @@
 
 This directory contains the hash-bound **v0.4.1 release package** of Activation Energy Studio by Mehmet Solak. The source repository is <https://github.com/mehmetsolakedu/activation-energy-studio> and the web entry point is <https://mehmetsolak.cc/activation-energy-studio/>. Historical `v0.4.0` and `v0.3.2` packages remain preserved as immutable archives.
 
-Open `Activation-Energy-Studio-v0.4.1.html` (2,562,696 bytes; SHA-256 `575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e`) in a desktop browser to run the single-file application locally without installation or network access. Read `QUICK_START.md` before importing experimental tables.
+Open `Activation-Energy-Studio-v0.4.1.html` (2,562,990 bytes; SHA-256 `1993e1cff6c015603e4267a25bf060823eba444c54560cd65bbb42208d0c9a2d`) in a desktop browser to run the single-file application locally without installation or network access. Read `QUICK_START.md` before importing experimental tables.
 
 Package contents include:
 

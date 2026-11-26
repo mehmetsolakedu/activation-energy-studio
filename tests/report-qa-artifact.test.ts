@@ -34,6 +34,9 @@ describe('report PDF QA artifacts', () => {
     );
     expect(report.results.some((result) => result.resultType === 'peak')).toBe(true);
     expect(bytes.byteLength).toBeGreaterThan(100_000);
+    expect(Buffer.from(bytes).toString('latin1')).toContain(
+      "/CreationDate (D:20260718000000+00'00')",
+    );
     if (process.env.WRITE_REPORT_QA_PDF === '1') {
       await mkdir(dirname(currentV7Path), { recursive: true });
       await writeFile(currentV7Path, bytes);
