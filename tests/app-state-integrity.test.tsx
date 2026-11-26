@@ -173,7 +173,7 @@ describe('App dataset state integrity', () => {
   });
 
   it('STATE-001 does not let an older example load overwrite a newer upload', async () => {
-    await click(host, 'button[data-example-id="paper063-kissinger-beta-tp"]');
+    await click(host, 'button[data-example-id="xps-kissinger-beta-tp"]');
     const userCsv = [
       'Temperature [K],Alpha [0-1],beta [K/min],Run,Reaction stage',
       '500,0.10,10,user-run,user stage',
@@ -194,9 +194,9 @@ describe('App dataset state integrity', () => {
   });
 
   it('STATE-003 resets example-derived context, grid, and method choices for a custom upload', async () => {
-    await click(host, 'button[data-example-id="paper063-kissinger-beta-tp"]');
+    await click(host, 'button[data-example-id="xps-kissinger-beta-tp"]');
     expect(host.querySelector<HTMLInputElement>('[data-testid="project-name"]')?.value)
-      .toBe('Paper063 publication-derived Kissinger example');
+      .toBe('XPS pyrolysis Kissinger peak example');
 
     const userCsv = [
       'Temperature [K],Alpha [0-1],beta [K/min],Run,Reaction stage',
@@ -232,9 +232,9 @@ describe('App dataset state integrity', () => {
   });
 
   it('STATE-004 resets all dataset-specific inputs when files are cleared', async () => {
-    await click(host, 'button[data-example-id="paper010-supplied-dalpha-dt"]');
+    await click(host, 'button[data-example-id="rhubarb-supplied-dalpha-dt"]');
     expect(host.querySelector<HTMLInputElement>('[data-testid="project-name"]')?.value)
-      .toBe('Paper010 official supplement Friedman example');
+      .toBe('Rhubarb combustion supplement Friedman example');
     await click(host, '[data-testid="clear-files"]');
 
     expect(host.querySelector<HTMLInputElement>('[data-testid="project-name"]')?.value)

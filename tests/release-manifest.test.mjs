@@ -56,11 +56,11 @@ const HISTORICAL_V030_RELEASE = Object.freeze({
 });
 const CURRENT_LOCKS = Object.freeze({
   manifest:
-    '3ed9b523b4b98a3bcb82689965eed1f08667bc6f787cbf2aeb7b014ede7e854d',
+    'b743701a079e2d13b9eb9de70df7261872394a740a07c59d5322783f768f27fa',
   checksum:
-    '403fc31091bdf884e770a1148871565861b0e6dd996b11656828156f4c499191',
+    '5b81c3d37c9d64981dc9680b0a1edc108214d1b316e9dd506f88676dd4de96b0',
   artifact:
-    '553457455a666d288025ca2c3a44e091d11847d9a894fbc32eb2aa14c2bd98e2',
+    '575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e',
 });
 const HISTORICAL_LOCKS = Object.freeze({
   v040Manifest:
@@ -148,18 +148,14 @@ test('checked-in v0.4.1 Research Preview manifest and checksum bind the complete
     readFileSync(path.resolve(PROJECT_ROOT, CURRENT_RELEASE.manifestPath), 'utf8'),
   );
   assert.equal(manifest.schema, RELEASE_PACKAGE_SCHEMA);
-  assert.equal(manifest.release.status, 'RELEASED_RESEARCH_PREVIEW');
-  assert.equal(manifest.release.classification, 'RESEARCH_PREVIEW');
+  assert.equal(manifest.release.status, 'RELEASED');
+  assert.equal(manifest.release.classification, 'OPEN_SOURCE_RELEASE');
   assert.equal(manifest.release.releaseDate, '2026-11-23');
   assert.equal(manifest.release.externalPublicationApproved, true);
   assert.equal(manifest.release.releaseAuthority, 'Mehmet Solak');
   assert.equal(manifest.release.bytes, result.artifactBytes);
   assert.equal(manifest.release.sha256, result.artifactSha256);
-  assert.equal(
-    manifest.auditProvenance.frozenCandidateHtmlSha256,
-    '5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e',
-  );
-  assert.match(manifest.auditProvenance.promotionScope, /ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE/u);
+  assert.match(manifest.releaseSummary.scope, /ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE/u);
 
   const cli = runVerifier(PROJECT_ROOT, CURRENT_RELEASE);
   assert.equal(cli.status, 0, cli.stdout + cli.stderr);
@@ -335,29 +331,29 @@ test('current-release manifest, schema, runtime, and normative equations share c
   );
   assert.equal(manifest.scientificMethods.scientificCore, canonicalCore);
 
-  const rootAddendum = readFileSync(
-    path.resolve(PROJECT_ROOT, '01_SCIENTIFIC_SPEC_V1_1_ADDENDUM.md'),
+  const rootSpec = readFileSync(
+    path.resolve(PROJECT_ROOT, 'docs/SCIENTIFIC_SPECIFICATION.md'),
     'utf8',
   );
-  const packagedAddendum = readFileSync(
+  const packagedSpec = readFileSync(
     path.resolve(
       PROJECT_ROOT,
-      'release/v0.4.1/SCIENTIFIC_SPEC_V1_1_ADDENDUM.md',
+      'release/v0.4.1/SCIENTIFIC_SPECIFICATION.md',
     ),
     'utf8',
   );
-  assert.equal(packagedAddendum, rootAddendum);
-  assert.match(rootAddendum, /`activation-energy-core\/v3`/u);
+  assert.equal(packagedSpec, rootSpec);
+  assert.match(rootSpec, /`activation-energy-core\/v3`/u);
   assert.match(
-    rootAddendum,
+    rootSpec,
     /FWO:[\s\S]*-R\*slope\/\(1\.052\*1000\)/u,
   );
   assert.match(
-    rootAddendum,
+    rootSpec,
     /Starink:[\s\S]*-R\*slope\/\(1\.0008\*1000\)/u,
   );
-  assert.match(rootAddendum, /R = 8\.31446261815324 J mol\^-1 K\^-1/u);
-  assert.doesNotMatch(rootAddendum, /1\.0518/u);
+  assert.match(rootSpec, /R = 8\.31446261815324 J mol\^-1 K\^-1/u);
+  assert.doesNotMatch(rootSpec, /1\.0518/u);
 });
 
 test('immutable v0.4.0 package still passes and remains hash-locked', () => {

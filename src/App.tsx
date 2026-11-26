@@ -235,7 +235,7 @@ export default function App() {
 
   useEffect(() => {
     document.documentElement.lang = 'en';
-    document.title = 'Activation Energy Studio · Research Preview';
+    document.title = 'Activation Energy Studio v0.4.1';
   }, []);
 
   const stageWindowInput = useMemo(
@@ -865,7 +865,7 @@ export default function App() {
           <div className="brand-copy">
             <strong>Activation Energy Studio</strong>
             <span>
-              {'v0.4.1 · research preview'}
+              {'v0.4.1 · offline workflow'}
             </span>
           </div>
         </div>
@@ -912,7 +912,7 @@ export default function App() {
             </p>
           </div>
           <aside className="hero-note">
-            <strong>{'Research preview boundary'}</strong>
+            <strong>{'Scientific scope'}</strong>
             <p>
               {'Ea is apparent and conditional, not a universal material constant or proof of mechanism. Kissinger peak Ea cannot replace Ea(α).'}
             </p>

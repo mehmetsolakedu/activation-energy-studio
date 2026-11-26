@@ -3,7 +3,7 @@ import { createRoot, type Root } from 'react-dom/client';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 
 import App from '../src/App';
-import ux01Csv from '../evidence/usability/v0.2.0/study_bundle/UX01_four_run_mass_ambiguous.csv?raw';
+import ux01Csv from './study-inputs/UX01_four_run_mass_ambiguous.csv?raw';
 import syntheticKasCsv from '../examples/synthetic_kas_150.csv?raw';
 import ambiguousCsv from './fixtures/bare_ambiguous.csv?raw';
 import realCsv from './fixtures/real/paper010_rh_t_alpha_beta.csv?raw';

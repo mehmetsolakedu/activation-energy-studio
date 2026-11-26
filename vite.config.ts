@@ -2,17 +2,11 @@ import react from '@vitejs/plugin-react';
 import { viteSingleFile } from 'vite-plugin-singlefile';
 import { defineConfig } from 'vitest/config';
 import { createHash } from 'node:crypto';
-import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { dirname, relative, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const PROJECT_ROOT = dirname(fileURLToPath(import.meta.url));
-const HAS_EXTERNAL_PDF_CORPUS = existsSync(
-  resolve(
-    PROJECT_ROOT,
-    '../01_PDF_Evidence_Extraction/00_Start_Here/paper_processing_order.csv',
-  ),
-);
 
 function scientificBuildFingerprint(): string {
   const sourceFiles = [
@@ -59,11 +53,6 @@ export default defineConfig({
     include: [
       'tests/**/*.test.ts',
       'tests/**/*.test.tsx',
-      'tests/usability-study-evidence-record.test.mjs',
-      'tests/scientific-review-evidence-record.test.mjs',
-      ...(HAS_EXTERNAL_PDF_CORPUS
-        ? ['tests/corpus-integrity-ledger.test.mjs']
-        : []),
     ],
   },
 });

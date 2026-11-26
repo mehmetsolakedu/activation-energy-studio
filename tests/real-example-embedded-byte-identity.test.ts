@@ -68,13 +68,13 @@ const EXPECTED_SESSIONS = [
     ],
   },
   {
-    id: 'paper010-supplied-dalpha-dt',
+    id: 'rhubarb-supplied-dalpha-dt',
     files: [
       {
-        name: 'paper010_rh_t_alpha_beta.csv',
-        sourcePath: 'tests/fixtures/real/paper010_rh_t_alpha_beta.csv',
-        bytes: 4_732,
-        sha256: 'a913d8111af91a4fa8a2fc3d1c8dd02ec0e216795dad9bfd77cff4912e76b27d',
+        name: 'rhubarb_supplied_dalpha_dt.csv',
+        sourcePath: 'examples/rhubarb_supplied_dalpha_dt.csv',
+        bytes: 4_684,
+        sha256: '7311116c1f26322ab98feaf49be21508759e8528a505da04763769a96fa6a4d4',
         bom: false,
         newline: 'LF',
         lineBreaks: 49,
@@ -82,13 +82,13 @@ const EXPECTED_SESSIONS = [
     ],
   },
   {
-    id: 'paper063-kissinger-beta-tp',
+    id: 'xps-kissinger-beta-tp',
     files: [
       {
-        name: 'paper063_kissinger_peaks.csv',
-        sourcePath: 'tests/fixtures/real/paper063/paper063_kissinger_peaks.csv',
-        bytes: 617,
-        sha256: 'ab52fa64e40a18a522f96d711d75d6c3994624b4beea033f505bda1e1edcccee',
+        name: 'xps_kissinger_peaks.csv',
+        sourcePath: 'examples/xps_kissinger_peaks.csv',
+        bytes: 572,
+        sha256: 'bf773e792ce21ccad46e1440476f1a3836b2358063971ec11de4ed2fef487f35',
         bom: false,
         newline: 'LF',
         lineBreaks: 6,

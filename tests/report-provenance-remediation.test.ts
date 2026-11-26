@@ -160,7 +160,7 @@ describe('v0.3.2 export provenance remediation', () => {
   );
 
   it('exports the complete licensed-example source boundary to JSON, CSV, and PDF', async () => {
-    const definition = REAL_EXAMPLES.find(({ id }) => id === 'paper063-kissinger-beta-tp');
+    const definition = REAL_EXAMPLES.find(({ id }) => id === 'xps-kissinger-beta-tp');
     expect(definition).toBeDefined();
     const licensedSourceProvenance = buildLicensedExampleProvenance(definition!);
     const { report: base } = await duplicateNamedReport();

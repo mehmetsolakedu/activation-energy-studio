@@ -77,7 +77,7 @@ describe('platform self-test application surface', () => {
     );
 
     expect(panel?.textContent).toContain('11/11 checks passed');
-    expect(panel?.textContent).toContain('c3084a1762e4b3c6d7587df0068351edf755e0234b8fd24ab768439e1e24ef96');
+    expect(panel?.textContent).toContain('f62bb4dbf65f8236d5864b1e7fb6c1f3ad77bb3d32bc47ce81ed44c77175b668');
     expect(networkAttempts).toEqual([]);
 
     await act(async () => buttonContaining(host, 'Platform evidence JSON').click());

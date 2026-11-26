@@ -1,66 +1,34 @@
 # Third-party notices and real-example attribution
 
-Activation Energy Studio source code and locally authored documentation are
-MIT-licensed as described in `LICENSE`. The materials below retain their own
-licenses. Their inclusion does not transfer those licenses to the application,
-and the application license does not transfer to them.
+Activation Energy Studio source code and documentation are distributed under the MIT License (`LICENSE`). The datasets and third-party packages listed below retain their own licenses; inclusion in this package does not relicense third-party works or imply endorsement by their authors or rightsholders.
 
 ## Chilean Oak raw TGA example
 
-- Work: *Experimental data of a kinetic and thermodynamic study of Chilean Oak
-  pyrolysis*, Mendeley Data, version 2.
+- Work: *Dataset of Chilean oak micropyrolysis over Zn and Ga supported on natural zeolite catalyst in oxygen-depleted (He) and reductive (H₂) atmospheres*, Mendeley Data, version 2 (accompanying Fernández-Andrade et al., 2025, DOI `10.1016/j.indcrop.2025.121296`).
 - Source: <https://doi.org/10.17632/gkhjh4v8tg.2>
 - License: [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
-- Included material: the four deposited CSV exports at 5, 10, 20, and
-  40 K/min, embedded byte-for-byte for the one-click example.
-- Application-side treatment: the Celsius column is converted with +273.15;
-  a unique upward conversion branch is projected at alpha 0.05 through 0.85.
-  Source files are not repaired or overwritten.
-- Scientific boundary: publication values are comparison evidence, not a
-  hard-coded oracle. Source/publication irregularities remain disclosed in the
-  bundled example and report.
+- Included material: the four untreated Chilean Oak CSV files under N₂ at 5, 10, 20, and 40 K min⁻¹.
+- Application treatment: the Celsius temperature column is converted via `+273.15 K`, and the supplied conversion branch is evaluated across `alpha = 0.05–0.85` without modifying the source files.
 
-## Paper010 rhubarb supplied-derivative example
+## Rhubarb combustion supplied-derivative example
 
-- Work: official supporting-information S2 workbook associated with the PLOS
-  ONE article, rhubarb TG and -DTG data.
+- Work: official S2 supporting-information workbook (`pone.0173946.s002.xlsx`) accompanying Ma et al. (2017, *PLOS ONE* 12(3): e0173946).
 - Source: <https://doi.org/10.1371/journal.pone.0173946.s002>
 - License: [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
-- Included material: a deterministic CSV derived from the official workbook.
-  Alpha is initial-mass-normalized; T-alpha is found by first upward
-  piecewise-linear crossing; supplied d(alpha)/dt is interpolated from the
-  official positive mass-loss-rate ordinate and divided by 100.
-- Changes: temperatures are quantized to 1e-9 degrees Celsius and d(alpha)/dt
-  to 1e-12 per minute under the locked fixture recipe.
-- Scientific boundary: the equation-correct Friedman result does not exactly
-  reproduce the publication's S5/Table 4 result. The discrepancy is retained;
-  the publication table is not used as ground truth.
+- Included material: a deterministic CSV derived from the official rhubarb TG and `-DTG` curves across 5, 10, and 20 K min⁻¹ (`alpha = 0.05–0.80`), using initial-mass normalization, piecewise-linear conversion crossings, and positive mass-loss rates divided by 100 (`min⁻¹`).
+- Scope note: recomputed Friedman values reflect the documented natural-logarithm equation applied to S2 rather than the published S5 summary table.
 
-## Paper063 XPS beta-Tp example
+## XPS pyrolysis Kissinger peak example
 
-- Work: *Pyrolysis Kinetic Properties of Thermal Insulation Waste Extruded
-  Polystyrene by Multiple Thermal Analysis Methods*.
+- Work: Jiang et al. (2020), *Pyrolysis Kinetic Properties of Thermal Insulation Waste Extruded Polystyrene by Multiple Thermal Analysis Methods*, *Materials* 13(24): 5595.
 - Source: <https://doi.org/10.3390/ma13245595>
 - Article license: [Creative Commons Attribution 4.0 International](https://creativecommons.org/licenses/by/4.0/)
-- Included material: five heating-rate/peak-temperature pairs transcribed from
-  Figure 1 for the primary XPS pyrolysis peak.
-- Changes: the printed values were placed in a machine-readable CSV without
-  changing their reported 1 K resolution.
-- Required disclosure: **there is no separately deposited raw dataset or
-  separate dataset license for this example.** It is article-derived content
-  under the article's CC BY 4.0 license, not an instrument export.
-- Scientific boundary: it validates only the separate beta-Tp Kissinger path.
-  It cannot validate alpha-dependent methods or establish a universal
-  one-step mechanism.
+- Included material: five heating-rate / peak-temperature pairs transcribed at printed 1 K resolution from Figure 1 for the primary XPS pyrolysis peak.
+- Attribution note: **no separate raw-dataset deposit accompanies this article**; the five-row table represents article-derived content under the article's CC BY 4.0 license and exercises only the separate `beta–Tp` Kissinger pathway.
 
 ## Production JavaScript dependencies
 
-The following table is generated from the production closure in
-`package-lock.json`. It covers 33 locked production package
-installations (6 direct and
-27 transitive). Development-only
-packages are intentionally excluded. The accompanying CycloneDX record is
-[SBOM.production.cdx.json](SBOM.production.cdx.json).
+The following table is generated from the production dependency closure in `package-lock.json` (33 locked packages: 6 direct and 27 transitive; development-only packages excluded). The accompanying CycloneDX record is [SBOM.production.cdx.json](SBOM.production.cdx.json).
 
 | Package | Version | Relationship | Declared license | Repository | Bundled license text |
 | --- | --- | --- | --- | --- | --- |
@@ -98,14 +66,4 @@ packages are intentionally excluded. The accompanying CycloneDX record is
 | utrie | 1.0.2 | transitive, optional | MIT | <https://github.com/niklasvh/utrie> | [LICENSE](licenses/utrie@1.0.2/LICENSE) |
 | worker-f | 0.1.20 | transitive | MIT | <https://gitlab.com/catamphetamine/worker-f> | [LICENSE](licenses/worker-f@0.1.20/LICENSE) |
 
-### Unresolved dependency metadata
-
-None in the locked production dependency set.
-
-The bundled license texts are copied byte-for-byte from the installed packages
-that correspond to the lockfile snapshot. Their hashes and source paths are
-recorded in the audit inventory. Package copyright and license terms remain
-with their respective authors and rightsholders.
-
-No dataset, article, dependency author, or rightsholder endorses Activation
-Energy Studio.
+The bundled license texts are copied verbatim from the installed production packages corresponding to `package-lock.json`.

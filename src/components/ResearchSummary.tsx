@@ -206,6 +206,12 @@ function acceptedReportStatements(
 ): string[] {
   const statements: string[] = [];
   for (const method of assessment.methods) {
+    if (
+      method.disposition !== 'REPORTABLE'
+      && method.disposition !== 'REPORTABLE_WITH_CAUTION'
+    ) {
+      continue;
+    }
     for (const segment of method.reportableAlphaSegments) {
       const results = resultsInSegment(method, segment);
       if (results.length === 0) continue;

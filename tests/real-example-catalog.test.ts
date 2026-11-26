@@ -10,8 +10,8 @@ import { ingestThermalFiles } from '../src/io';
 
 const EXPECTED_IDS = [
   'chilean-oak-raw',
-  'paper010-supplied-dalpha-dt',
-  'paper063-kissinger-beta-tp',
+  'rhubarb-supplied-dalpha-dt',
+  'xps-kissinger-beta-tp',
 ] as const satisfies readonly RealExampleId[];
 
 describe('licensed real-example catalog', () => {
@@ -31,7 +31,7 @@ describe('licensed real-example catalog', () => {
     }
 
     const peak = REAL_EXAMPLES.find(
-      ({ id }) => id === 'paper063-kissinger-beta-tp',
+      ({ id }) => id === 'xps-kissinger-beta-tp',
     );
     expect(peak).toMatchObject({
       resultType: 'peak',
@@ -47,13 +47,13 @@ describe('licensed real-example catalog', () => {
   });
 
   it('creates fresh browser Files and independently cloned options per session', () => {
-    const first = createRealExampleSession('paper010-supplied-dalpha-dt');
-    const second = createRealExampleSession('paper010-supplied-dalpha-dt');
+    const first = createRealExampleSession('rhubarb-supplied-dalpha-dt');
+    const second = createRealExampleSession('rhubarb-supplied-dalpha-dt');
 
     expect(first.definition).toBe(second.definition);
     expect(first.files).not.toBe(second.files);
     expect(first.files[0]).not.toBe(second.files[0]);
-    expect(first.files[0]?.name).toBe('paper010_rh_t_alpha_beta.csv');
+    expect(first.files[0]?.name).toBe('rhubarb_supplied_dalpha_dt.csv');
     expect(first.options).not.toBe(second.options);
     expect(first.options[0]).not.toBe(second.options[0]);
     expect(first.options[0]?.columnMapping).not.toBe(
@@ -86,11 +86,11 @@ describe('licensed real-example catalog', () => {
     expect(ingestion.wideSeriesAudit).toHaveLength(4);
   });
 
-  it('ingests the Paper010 supplied dAlpha/dt fixture with explicit long-table mappings', async () => {
-    const session = createRealExampleSession('paper010-supplied-dalpha-dt');
+  it('ingests the rhubarb supplied dAlpha/dt example with explicit long-table mappings', async () => {
+    const session = createRealExampleSession('rhubarb-supplied-dalpha-dt');
     const ingestion = await ingestThermalFiles(session.files, session.options);
 
-    expect(REAL_EXAMPLE_ALPHA_GRIDS['paper010-supplied-dalpha-dt'])
+    expect(REAL_EXAMPLE_ALPHA_GRIDS['rhubarb-supplied-dalpha-dt'])
       .toEqual(Array.from(
         { length: 16 },
         (_, index) => Number(((index + 1) * 0.05).toFixed(2)),
@@ -106,8 +106,8 @@ describe('licensed real-example catalog', () => {
       heatingRateKPerMin))).toEqual(new Set([5, 10, 20]));
   });
 
-  it('ingests Paper063 only as a separate beta–Tp peak table', async () => {
-    const session = createRealExampleSession('paper063-kissinger-beta-tp');
+  it('ingests the XPS example only as a separate beta–Tp peak table', async () => {
+    const session = createRealExampleSession('xps-kissinger-beta-tp');
     const ingestion = await ingestThermalFiles(session.files, session.options);
 
     expect(ingestion.status, JSON.stringify(ingestion.diagnostics, null, 2))

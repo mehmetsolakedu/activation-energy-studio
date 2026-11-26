@@ -12,14 +12,14 @@ function renderPanel(): Document {
 }
 
 describe('PublishingPanel', () => {
-  it('renders the released English v0.4 Research Preview and only local relative links', () => {
+  it('renders the released English v0.4.1 package and only local relative links', () => {
     const document = renderPanel();
     const panel = document.querySelector('[data-testid="publishing-panel"]');
     const links = [...(panel?.querySelectorAll<HTMLAnchorElement>('a') ?? [])];
 
     expect(panel?.textContent).toContain('Five-minute quick start');
-    expect(panel?.textContent).toContain('v0.4.1 · Research preview');
-    expect(panel?.textContent).toContain('v0.4.1 is a research preview');
+    expect(panel?.textContent).toContain('v0.4.1 · Open-source release');
+    expect(panel?.textContent).toContain('Activation Energy Studio v0.4.1 is open-source research software');
     expect(panel?.textContent).not.toContain('audit candidate');
     expect(panel?.textContent).toContain('Single-HTML offline edition');
     expect(panel?.textContent).toContain('Exact software citation');

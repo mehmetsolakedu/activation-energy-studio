@@ -44,7 +44,7 @@ export function PlatformSelfTestPanel() {
             {'Platform scientific self-test'}
           </h3>
           <p>
-            {'Reproduces the locked example through the real calculation path without network calls.'}
+            {'Verifies local calculation integrity against embedded synthetic reference curves without network calls.'}
           </p>
         </div>
         <span
@@ -131,7 +131,7 @@ export function PlatformSelfTestPanel() {
         </div>
 
         <small className="self-test-boundary">
-          {'This record demonstrates the local scientific path in one browser; it does not replace HAR, screenshot, and three-operating-system comparison evidence.'}
+          {'Confirms deterministic execution of the embedded synthetic reference curves in the current browser runtime without external network calls.'}
         </small>
       </div>
     </article>

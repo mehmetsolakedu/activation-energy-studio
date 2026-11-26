@@ -9,11 +9,11 @@ import { makeSchemaV7QaReport } from './helpers/report-fixture';
 
 const historicalV5Path = resolve(
   process.cwd(),
-  'output/pdf/activation-energy-report-schema-v5-qa.pdf',
+  'tests/pdf-baselines/activation-energy-report-schema-v5-qa.pdf',
 );
 const currentV7Path = resolve(
   process.cwd(),
-  'output/pdf/activation-energy-report-schema-v7-qa.pdf',
+  'tests/pdf-baselines/activation-energy-report-schema-v7-qa.pdf',
 );
 
 describe('report PDF QA artifacts', () => {

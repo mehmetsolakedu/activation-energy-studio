@@ -85,8 +85,8 @@ describe('licensed real-example App flow', () => {
     expect(host.textContent).toContain('10.17632/gkhjh4v8tg.2');
   });
 
-  it('runs the supplied dAlpha/dt Paper010 example through Friedman only', async () => {
-    await runExample(host, 'paper010-supplied-dalpha-dt');
+  it('runs the supplied dAlpha/dt rhubarb example through Friedman only', async () => {
+    await runExample(host, 'rhubarb-supplied-dalpha-dt');
 
     const rows = host.querySelectorAll(
       '[data-testid="numeric-results"] tbody tr[data-result-type="isoconversional"]',
@@ -110,7 +110,7 @@ describe('licensed real-example App flow', () => {
     HTMLAnchorElement.prototype.click = () => undefined;
 
     try {
-      await runExample(host, 'paper063-kissinger-beta-tp');
+      await runExample(host, 'xps-kissinger-beta-tp');
 
       const rows = host.querySelectorAll(
         '[data-testid="numeric-results"] tbody tr',
@@ -126,7 +126,7 @@ describe('licensed real-example App flow', () => {
       );
       expect(exportJson?.disabled).toBe(false);
       await act(async () => exportJson?.click());
-      await waitUntil(() => exportedBlob !== undefined, 'Paper063 JSON export');
+      await waitUntil(() => exportedBlob !== undefined, 'XPS JSON export');
 
       const exportedText = await new Promise<string>((resolve, reject) => {
         const reader = new FileReader();
@@ -148,7 +148,7 @@ describe('licensed real-example App flow', () => {
         };
       };
       expect(report.context.licensedSourceProvenance).toMatchObject({
-        exampleId: 'paper063-kissinger-beta-tp',
+        exampleId: 'xps-kissinger-beta-tp',
         citation: { doi: '10.3390/ma13245595' },
         sourceType: 'article-figure-transcription',
         separateDatasetLicense: { exists: false, identifier: null },

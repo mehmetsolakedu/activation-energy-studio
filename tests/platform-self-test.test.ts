@@ -23,16 +23,16 @@ const lockedRuntime: PlatformSelfTestRuntime = {
 };
 
 describe('browser platform scientific self-test', () => {
-  it('reproduces the locked ingestion-to-core payload and leaves the platform gate open', async () => {
+  it('reproduces the locked ingestion-to-core payload within browser runtime scope', async () => {
     const record = await runPlatformSelfTest({
       recordedAt: '2026-07-18T12:00:00.000Z',
       runtime: lockedRuntime,
     });
 
     expect(record.recordStatus).toBe('PASS');
-    expect(record.platformGateStatus).toBe('NOT_CLOSED_BY_SELF_TEST');
+    expect(record.verificationScope).toBe('BROWSER_RUNTIME_SELF_TEST');
     expect(record.application.scientificBuildSha256).toMatch(/^[a-f0-9]{64}$/);
-    expect(record.fixture.observedSha256).toBe(GOLDEN_INPUT_SHA256);
+    expect(record.referenceInput.observedSha256).toBe(GOLDEN_INPUT_SHA256);
     expect(record.scientificPayloadSha256).toBe(EXPECTED_SCIENTIFIC_PAYLOAD_SHA256);
     expect(record.checks).toHaveLength(11);
     expect(record.checks.every((check) => check.status === 'PASS')).toBe(true);
@@ -56,7 +56,7 @@ describe('browser platform scientific self-test', () => {
     expect(record.expectations.methods).toEqual(PLATFORM_SELF_TEST_EXPECTATIONS);
     expect(record.expectations.scientificPayloadCanonicalization)
       .toEqual(PLATFORM_SELF_TEST_PAYLOAD_CANONICALIZATION);
-    expect(record.claimBoundary).toContain('does not prove a complete Windows/macOS/Linux platform gate');
+    expect(record.claimBoundary).toContain('verify numerical execution rather than experimental kinetics');
   });
 
   it('canonicalizes sub-resolution cross-runtime differences without changing raw results', async () => {
@@ -102,9 +102,9 @@ describe('browser platform scientific self-test', () => {
     expect(second.runtime.platform).not.toBe(first.runtime.platform);
   });
 
-  it('fails closed before ingestion when the embedded fixture bytes are changed', async () => {
+  it('fails closed before ingestion when the embedded reference bytes are changed', async () => {
     const record = await runPlatformSelfTest({
-      fixtureCsv: 'temperature,alpha,heating_rate\n500,0.5,10\n',
+      referenceInputCsv: 'temperature,alpha,heating_rate\n500,0.5,10\n',
       recordedAt: '2026-07-18T12:00:00.000Z',
       runtime: lockedRuntime,
     });
@@ -116,7 +116,7 @@ describe('browser platform scientific self-test', () => {
     expect(record.scientificPayloadSha256).toBeNull();
   });
 
-  it('serializes a newline-terminated machine-readable evidence record', async () => {
+  it('serializes a newline-terminated machine-readable self-test record', async () => {
     const record = await runPlatformSelfTest({
       recordedAt: '2026-07-18T12:00:00.000Z',
       runtime: lockedRuntime,
@@ -125,6 +125,6 @@ describe('browser platform scientific self-test', () => {
 
     expect(serialized.endsWith('\n')).toBe(true);
     expect(JSON.parse(serialized)).toEqual(record);
-    expect(serialized).toContain('NOT_CLOSED_BY_SELF_TEST');
+    expect(serialized).toContain('BROWSER_RUNTIME_SELF_TEST');
   });
 });

@@ -5,9 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Run or download Activation Energy Studio v0.4.1 Research Preview."
+      content="Run or download Activation Energy Studio v0.4.1."
     />
-    <title>Activation Energy Studio v0.4.1 Research Preview</title>
+    <title>Activation Energy Studio v0.4.1</title>
     <style>
       :root {
         color-scheme: light;
@@ -21,7 +21,7 @@
       .eyebrow { margin: 0 0 10px; color: #376858; font-weight: 750; letter-spacing: .08em; text-transform: uppercase; }
       h1 { max-width: 820px; margin: 0; font-size: clamp(2.35rem, 7vw, 5.5rem); line-height: .96; letter-spacing: -.055em; }
       .lead { max-width: 740px; margin: 28px 0; color: #40514b; font-size: 1.16rem; line-height: 1.65; }
-      .status { max-width: 760px; padding: 14px 16px; border-left: 4px solid #8a5a17; background: #fff7e8; color: #5d421b; line-height: 1.55; }
+      .status { max-width: 760px; padding: 14px 16px; border-left: 4px solid #1e5c4a; background: #e8f3ee; color: #173a30; line-height: 1.55; }
       .actions { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 54px; }
       a { color: #135d49; }
       .button { display: inline-block; padding: 14px 18px; border: 1px solid #1e5c4a; border-radius: 9px; text-decoration: none; font-weight: 760; }
@@ -41,44 +41,43 @@
   </head>
   <body>
     <main>
-      <p class="eyebrow">v0.4.1 · offline single HTML · Research Preview</p>
+      <p class="eyebrow">v0.4.1 · offline single-file HTML · MIT open source</p>
       <h1>Activation Energy Studio</h1>
       <p class="lead">
-        Evidence-grounded apparent activation-energy analysis for multi-rate
-        thermal data, with fail-closed interpretation and hash-bound report
+        Transparent apparent activation-energy analysis for multi-rate
+        thermoanalytical data, pairing interactive table mapping and analyst
+        confirmation with interval-aware scientific dispositions and row-level
         provenance.
       </p>
       <p class="status">
-        v0.4.1 is the current bounded Research Preview. Analysis stays in the
-        browser; publication does not turn it into certified instrument or
-        regulatory software.
+        Version 0.4.1 executes locally inside the browser with zero external
+        network calls and exports synchronized JSON, CSV, and PDF records.
       </p>
       <div class="actions">
-        <a class="button primary" href="Activation-Energy-Studio-v0.4.1.html">Open Research Preview</a>
+        <a class="button primary" href="Activation-Energy-Studio-v0.4.1.html">Open Activation Energy Studio v0.4.1</a>
         <a class="button" href="QUICK_START.md">Five-minute quick start</a>
       </div>
-      <section class="grid" aria-label="Research Preview highlights">
+      <section class="grid" aria-label="Application highlights">
         <article class="card">
-          <h2>Corrected scientific core</h2>
-          <p>Conditioned regression, strict refusal rules, irregular-grid derivatives, and explicit peak evidence are version-bound.</p>
+          <h2>Conditioned kinetic core</h2>
+          <p>Supports FWO, KAS, Starink, Friedman, and a separate Kissinger peak-temperature pathway with exact Student-t confidence limits.</p>
         </article>
         <article class="card">
           <h2>Traceable records</h2>
-          <p>Source identities, options, dispositions, and schema/core versions travel with JSON, CSV, and PDF reports.</p>
+          <p>Input SHA-256 hashes, column mappings, dispositions, and schema/core identifiers travel with JSON, CSV, and PDF reports.</p>
         </article>
         <article class="card">
           <h2>Local by design</h2>
-          <p>The application is one self-contained HTML file. No upload, server, account, or installer is required.</p>
+          <p>Distributed as one self-contained HTML file requiring no upload, server, account, or installation.</p>
         </article>
       </section>
       <section class="meta">
-        <strong>Integrity:</strong> verify every package file against
+        <strong>Package verification:</strong> verify package files against
         <a href="SHA256SUMS.v0.4.1.txt"><code>SHA256SUMS.v0.4.1.txt</code></a>
-        and inspect <a href="MANIFEST.v0.4.1.json">the manifest</a>.
-        Byte integrity is not universal scientific validation or certification.
+        and <a href="MANIFEST.v0.4.1.json"><code>MANIFEST.v0.4.1.json</code></a>.
         <div class="links">
           <a href="RELEASE_NOTES_v0.4.1.md">Release notes</a>
-          <a href="SCIENTIFIC_SPEC_V1_1_ADDENDUM.md">Scientific contract</a>
+          <a href="SCIENTIFIC_SPECIFICATION.md">Scientific specification</a>
           <a href="project-report.schema.json">Report schema</a>
           <a href="SBOM.production.cdx.json">Production SBOM</a>
           <a href="LICENSE">MIT license</a>

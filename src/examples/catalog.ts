@@ -2,16 +2,16 @@ import oak5Csv from '../../tests/fixtures/real/oak/source/TGA-Oak-5Kmin-1.csv?ra
 import oak10Csv from '../../tests/fixtures/real/oak/source/TGA-Oak-10Kmin-1.csv?raw';
 import oak20Csv from '../../tests/fixtures/real/oak/source/TGA-Oak-20Kmin-1.csv?raw';
 import oak40Csv from '../../tests/fixtures/real/oak/source/TGA-Oak-40Kmin-1.csv?raw';
-import paper010Csv from '../../tests/fixtures/real/paper010_rh_t_alpha_beta.csv?raw';
-import paper063Csv from '../../tests/fixtures/real/paper063/paper063_kissinger_peaks.csv?raw';
+import rhubarbCsv from '../../examples/rhubarb_supplied_dalpha_dt.csv?raw';
+import xpsCsv from '../../examples/xps_kissinger_peaks.csv?raw';
 
 import type { IngestionOptions, WideSeriesDefinition } from '../io';
 import type { LicensedSourceProvenance, LicensedSourceType } from '../report';
 
 export type RealExampleId =
   | 'chilean-oak-raw'
-  | 'paper010-supplied-dalpha-dt'
-  | 'paper063-kissinger-beta-tp';
+  | 'rhubarb-supplied-dalpha-dt'
+  | 'xps-kissinger-beta-tp';
 
 export type RealExampleMethod =
   | 'FWO'
@@ -26,8 +26,8 @@ export interface RealExampleLicense {
   readonly url: string;
   readonly scope: string;
   /**
-   * `null` is deliberate for Paper063: its five-row table is transcribed from
-   * CC BY article content and is not a separately deposited dataset.
+   * `null` is deliberate for the XPS example: its five-row table is transcribed
+   * from CC BY article content and is not a separately deposited dataset.
    */
   readonly separateDatasetLicense: string | null;
 }
@@ -89,7 +89,7 @@ const OAK_ALPHA_GRID = Array.from(
   (_, index) => Number(((index + 1) * 0.05).toFixed(2)),
 );
 
-const PAPER010_ALPHA_GRID = Array.from(
+const RHUBARB_ALPHA_GRID = Array.from(
   { length: 16 },
   (_, index) => Number(((index + 1) * 0.05).toFixed(2)),
 );
@@ -198,10 +198,10 @@ const EXAMPLE_SOURCES = [
   },
   {
     definition: {
-      id: 'paper010-supplied-dalpha-dt',
+      id: 'rhubarb-supplied-dalpha-dt',
       title: 'Rhubarb — supplied dAlpha/dt derived from official DTG',
-      project: 'Paper010 official supplement Friedman example',
-      process: 'Rhubarb pyrolysis in simulated air',
+      project: 'Rhubarb combustion supplement Friedman example',
+      process: 'Rhubarb combustion in simulated air',
       stage: 'Initial-mass-normalized alpha=0.05–0.80 range',
       alphaStart: 0.05,
       alphaEnd: 0.8,
@@ -209,7 +209,7 @@ const EXAMPLE_SOURCES = [
       license: {
         ...CC_BY_4_0,
         scope:
-          'Rows deterministically derived from the official PLOS ONE S2 workbook; source, transformation rule, and hash are locked in the fixture manifest.',
+          'Rows deterministically derived from the official PLOS ONE S2 workbook with documented source attribution, transformation rules, and SHA-256 checksum.',
         separateDatasetLicense: 'CC-BY-4.0',
       },
       citation: {
@@ -221,34 +221,34 @@ const EXAMPLE_SOURCES = [
         sourceType: 'official-supplement-derived-table',
         extractionSteps: [
           'Read the official PLOS ONE S2 rhubarb TG/DTG workbook from the licensed supporting information.',
-          'Selected the four documented heating-rate sheets and retained physical source-row provenance.',
+          'Selected the three rhubarb heating-rate series on worksheet Fig.2. and retained physical source-row provenance.',
         ],
         transformationSteps: [
-          'Normalized alpha from the official TG signal over the locked initial-mass basis.',
+          'Normalized alpha from the official TG signal over the nominal 100-to-0 mass-percentage basis.',
           'Located the first alpha 0.05-0.80 crossings by piecewise-linear interpolation.',
           'Interpolated the official positive -DTG signal at each T_alpha and converted percent per minute to fraction per minute.',
         ],
         printedPrecision:
-          'Derived rows retain deterministic decimal output from the source workbook and locked derivation script.',
+          'Derived rows retain deterministic decimal output from the source workbook and documented derivation script.',
         rounding:
           'No publication-table rounding is substituted for the equation-correct source-workbook derivation.',
         separateDatasetLicenseScope:
           'The CC-BY-4.0 supporting-information license covers the official S2 workbook used for derivation.',
         claimLimits: [
-          'The equation-correct Friedman calculation does not reproduce the publication S5/Table 4 values exactly.',
-          'Published values are not treated as an independent numerical oracle for this derived fixture.',
+          'The equation-correct Friedman calculation does not reproduce the publication S5/Table 4 values.',
+          'Published summary values are treated as diagnostic comparison context rather than a numerical reference for this derived table.',
         ],
       },
       boundary:
-        'dAlpha/dt is obtained by linearly interpolating the official S2 -DTG signal at T_alpha. The equation-correct Friedman path does not exactly reproduce the published S5/Table 4 values; that discrepancy is retained and publication values are not treated as an oracle.',
+        'dAlpha/dt is obtained by linearly interpolating the official S2 -DTG signal at T_alpha. The equation-correct Friedman path differs from the published S5/Table 4 summary values; those published values are retained only for diagnostic comparison.',
       methods: ['FRIEDMAN'],
       resultType: 'isoconversional',
-      fileNames: ['paper010_rh_t_alpha_beta.csv'],
+      fileNames: ['rhubarb_supplied_dalpha_dt.csv'],
     },
     files: [{
-      name: 'paper010_rh_t_alpha_beta.csv',
+      name: 'rhubarb_supplied_dalpha_dt.csv',
       type: 'text/csv',
-      content: paper010Csv,
+      content: rhubarbCsv,
     }],
     options: [{
       headerRow: 0,
@@ -273,9 +273,9 @@ const EXAMPLE_SOURCES = [
   },
   {
     definition: {
-      id: 'paper063-kissinger-beta-tp',
+      id: 'xps-kissinger-beta-tp',
       title: 'XPS — separate beta–Tp Kissinger table',
-      project: 'Paper063 publication-derived Kissinger example',
+      project: 'XPS pyrolysis Kissinger peak example',
       process: 'Extruded-polystyrene pyrolysis',
       stage: 'XPS primary-pyrolysis DTG peak',
       alphaStart: null,
@@ -309,7 +309,7 @@ const EXAMPLE_SOURCES = [
         separateDatasetLicenseScope:
           'No separately deposited dataset or raw-curve license exists; only the CC-BY-4.0 article content covers this transcription.',
         claimLimits: [
-          'The fixture validates only the separate Kissinger beta-Tp route.',
+          'This example validates only the separate Kissinger beta-Tp pathway.',
           'It cannot validate alpha-dependent FWO, KAS, Starink, or Friedman calculations.',
           'The calculated result is conditional on the article values rounded to whole kelvin.',
         ],
@@ -318,12 +318,12 @@ const EXAMPLE_SOURCES = [
         'This is not an instrument export or raw curve. Peak temperatures were printed at 1 K resolution; the result demonstrates only the separate Kissinger implementation and is conditional on those rounded values. It does not validate alpha-dependent methods.',
       methods: ['KISSINGER'],
       resultType: 'peak',
-      fileNames: ['paper063_kissinger_peaks.csv'],
+      fileNames: ['xps_kissinger_peaks.csv'],
     },
     files: [{
-      name: 'paper063_kissinger_peaks.csv',
+      name: 'xps_kissinger_peaks.csv',
       type: 'text/csv',
-      content: paper063Csv,
+      content: xpsCsv,
     }],
     options: [{
       headerRow: 0,
@@ -405,6 +405,6 @@ export const REAL_EXAMPLE_ALPHA_GRIDS: Readonly<
   Record<RealExampleId, readonly number[]>
 > = Object.freeze({
   'chilean-oak-raw': OAK_ALPHA_GRID,
-  'paper010-supplied-dalpha-dt': PAPER010_ALPHA_GRID,
-  'paper063-kissinger-beta-tp': [],
+  'rhubarb-supplied-dalpha-dt': RHUBARB_ALPHA_GRID,
+  'xps-kissinger-beta-tp': [],
 });

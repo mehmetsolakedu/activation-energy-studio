@@ -1,26 +1,14 @@
-# Activation Energy Studio v0.4.1 Research Preview
+# Activation Energy Studio v0.4.1
 
-This directory is the complete, hash-bound **v0.4.1 Research Preview release
-package**, approved for public distribution by Mehmet Solak on 2026-11-23. The
-canonical repository is
-<https://github.com/mehmetsolakedu/activation-energy-studio>; the canonical web
-entry point is <https://mehmetsolak.cc/activation-energy-studio/>. The
-historical v0.4.0 and v0.3.2 artifacts remain immutable and separately
-identifiable.
+This directory contains the hash-bound **v0.4.1 release package** of Activation Energy Studio by Mehmet Solak. The source repository is <https://github.com/mehmetsolakedu/activation-energy-studio> and the web entry point is <https://mehmetsolak.cc/activation-energy-studio/>. Historical `v0.4.0` and `v0.3.2` packages remain preserved as immutable archives.
 
-Open `Activation-Energy-Studio-v0.4.1.html` (2,562,747 bytes; SHA-256
-`553457455a666d288025ca2c3a44e091d11847d9a894fbc32eb2aa14c2bd98e2`) in a
-current browser to run the single-file application locally without installation
-or network access. Read `QUICK_START.md` before importing research data.
+Open `Activation-Energy-Studio-v0.4.1.html` (2,562,696 bytes; SHA-256 `575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e`) in a desktop browser to run the single-file application locally without installation or network access. Read `QUICK_START.md` before importing experimental tables.
 
 Package contents include:
 
-- the self-contained application HTML (`Activation-Energy-Studio-v0.4.1.html`) and English landing page;
-- the v1.1 scientific correction contract, report JSON Schema, and import templates;
-- sole-author citation metadata, the MIT project license, dataset notices, production dependency notices, a CycloneDX production SBOM, and bundled third-party license texts;
-- release notes (`RELEASE_NOTES_v0.4.1.md`), support instructions, a deterministic manifest (`MANIFEST.v0.4.1.json`), and SHA-256 checksums (`SHA256SUMS.v0.4.1.txt`).
+- the self-contained application HTML (`Activation-Energy-Studio-v0.4.1.html`) and landing page (`index.html`);
+- the scientific specification (`SCIENTIFIC_SPECIFICATION.md`), report JSON Schema (`project-report.schema.json`), and import templates (`templates/`);
+- citation metadata (`CITATION.cff`), the MIT license (`LICENSE`), dataset and dependency attributions (`THIRD_PARTY_NOTICES.md`), a CycloneDX production SBOM (`SBOM.production.cdx.json`), and bundled third-party license texts (`licenses/`);
+- release notes (`RELEASE_NOTES_v0.4.1.md`), support instructions (`SUPPORT.md`), a deterministic manifest (`MANIFEST.v0.4.1.json`), and SHA-256 checksums (`SHA256SUMS.v0.4.1.txt`).
 
-Verify every file against `SHA256SUMS.v0.4.1.txt`, then verify the manifest with
-`npm run verify:release-manifest:v0.4.1` from the source tree. Package integrity
-proves byte identity only; it does not establish universal physical validity,
-instrument certification, or regulatory fitness.
+Verify package files against `SHA256SUMS.v0.4.1.txt`, or run `npm run verify:release-manifest:v0.4.1` from the repository root.

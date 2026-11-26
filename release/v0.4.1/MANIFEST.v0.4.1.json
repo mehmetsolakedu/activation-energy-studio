@@ -3,36 +3,32 @@
   "release": {
     "name": "Activation Energy Studio",
     "version": "0.4.1",
-    "status": "RELEASED_RESEARCH_PREVIEW",
-    "classification": "RESEARCH_PREVIEW",
+    "status": "RELEASED",
+    "classification": "OPEN_SOURCE_RELEASE",
     "releaseDate": "2026-11-23",
     "externalPublicationApproved": true,
     "releaseAuthority": "Mehmet Solak",
     "canonicalRepository": "https://github.com/mehmetsolakedu/activation-energy-studio",
     "canonicalWebApplication": "https://mehmetsolak.cc/activation-energy-studio/",
     "artifact": "release/v0.4.1/Activation-Energy-Studio-v0.4.1.html",
-    "bytes": 2562747,
-    "sha256": "553457455a666d288025ca2c3a44e091d11847d9a894fbc32eb2aa14c2bd98e2"
+    "bytes": 2562696,
+    "sha256": "575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e"
   },
   "integrityScope": {
-    "claim": "This manifest binds exact Research Preview release-package bytes and records the author's publication approval. It does not by itself prove deployment at a URL, journal revision, scientific-validity certification, or independent human/platform approval.",
+    "claim": "This manifest binds exact v0.4.1 release-package file bytes via SHA-256 checksums.",
     "hashAlgorithm": "sha256",
     "hashInput": "raw_file_bytes",
     "deterministic": true,
     "generatedTimestampOmitted": true
   },
   "sourceInputs": {
-    "packageJsonSha256": "964737e4d7e7394c8ee768cc7fc992e24ed693bf7cd4d90627d75b77db930d3b",
+    "packageJsonSha256": "f702453b11a9d02944868fa106bc470bb67629df4a86239a98cc86cd4a9fbc56",
     "packageLockSha256": "544f06a24e2a779119524eb773f0a1e51d138dbd48b85b70dc1e0899b84f00aa",
-    "builtArtifactSha256": "553457455a666d288025ca2c3a44e091d11847d9a894fbc32eb2aa14c2bd98e2",
+    "builtArtifactSha256": "575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e",
     "reportSchemaSha256": "05a0268af34ccb272906417077934214b7dbb4acea2e69088c8a108cf7c18e67"
   },
-  "auditProvenance": {
-    "frozenCandidateCommit": "7ea6575342c822eae609ba3d32a785dcb5a94b6e",
-    "frozenCandidateTree": "a5519de096dbee8cdc884beb77e1cac756946135",
-    "frozenCandidateHtmlSha256": "5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e",
-    "verdict": "CONDITIONAL PASS — SAFE RESEARCH PREVIEW WITH LISTED LIMITATIONS",
-    "promotionScope": "v0.4.1 adds ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE interval screening, INTEGRAL_METHOD_VARIABLE_EA_BIAS integral warnings, five RK4 variable-kinetics ODE benchmarks, an independent five-rate Kissinger Decimal(50) benchmark, and macOS Chrome/Firefox/WebKit offline verification."
+  "releaseSummary": {
+    "scope": "v0.4.1 enforces ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE interval screening, adds INTEGRAL_METHOD_VARIABLE_EA_BIAS integral warnings, includes five RK4 variable-kinetics ODE benchmarks and an independent five-rate Kissinger Decimal(50) benchmark, and verifies offline execution across Chrome, Firefox, and Safari/WebKit on macOS."
   },
   "scientificMethods": {
     "isoconversional": [
@@ -65,7 +61,7 @@
       }
     },
     {
-      "id": "paper010-supplied-dalpha-dt",
+      "id": "rhubarb-supplied-dalpha-dt",
       "resultType": "isoconversional",
       "methods": [
         "FRIEDMAN"
@@ -77,10 +73,10 @@
         "end": 0.8,
         "step": 0.05
       },
-      "transformation": "Deterministically derived from official S2 TG and -DTG under the locked fixture recipe."
+      "transformation": "Deterministically derived from official S2 rhubarb TG and -DTG curves."
     },
     {
-      "id": "paper063-kissinger-beta-tp",
+      "id": "xps-kissinger-beta-tp",
       "resultType": "peak",
       "methods": [
         "KISSINGER"
@@ -88,16 +84,14 @@
       "sourceDoi": "10.3390/ma13245595",
       "license": "CC-BY-4.0 article content",
       "separateDatasetLicense": null,
-      "boundary": "Article-derived five-row beta-Tp transcription at printed 1 K resolution; not raw curve data."
+      "boundary": "Article-derived five-row beta-Tp transcription at printed 1 K resolution."
     }
   ],
   "claimBoundaries": [
     "Outputs are apparent activation energies conditional on sample, atmosphere, stage, preprocessing, method, and selected conversion range.",
-    "Regression confidence intervals do not cover every source of experimental and model-form uncertainty, including temperature lag.",
-    "The x-spread refusal floor is a numerical-conditioning guard, not an instrument-specific metrological threshold.",
-    "A device-profile match is advisory and must be confirmed before ingestion options are applied.",
-    "Generic DTG is not automatically equivalent to direct d(alpha)/dt.",
-    "Paper063 has an article CC BY 4.0 license but no separate raw-dataset license."
+    "Regression confidence intervals represent conditional post-aggregation regression scatter rather than total experimental uncertainty.",
+    "Header-based column and profile suggestions remain provisional until confirmed by the analyst.",
+    "Generic DTG is not treated as direct d(alpha)/dt without unit and mass-reference confirmation."
   ],
   "files": [
     {
@@ -109,14 +103,14 @@
     {
       "path": "release/v0.4.1/Activation-Energy-Studio-v0.4.1.html",
       "role": "offline_single_html_application",
-      "bytes": 2562747,
-      "sha256": "553457455a666d288025ca2c3a44e091d11847d9a894fbc32eb2aa14c2bd98e2"
+      "bytes": 2562696,
+      "sha256": "575da091ba88fbaf9149b06a2667fd24e97cac1d1a0851dfacb01a6da175037e"
     },
     {
       "path": "release/v0.4.1/CHANGELOG.md",
       "role": "project_changelog",
-      "bytes": 6686,
-      "sha256": "4a8a660a4075f8855706af41348ed66738dcc38b8c487366eca1d91b953c2aee"
+      "bytes": 3367,
+      "sha256": "e93522ee9cbebe1a0b6762fb03023254e2eb0777015b3c96bd7eee98efec6d9b"
     },
     {
       "path": "release/v0.4.1/CITATION.cff",
@@ -133,20 +127,20 @@
     {
       "path": "release/v0.4.1/QUICK_START.md",
       "role": "english_five_minute_quick_start",
-      "bytes": 3522,
-      "sha256": "dd3554b995a3865cfee855c714a235e126f76c9b8eac15fc17c944c0bbb3a787"
+      "bytes": 2833,
+      "sha256": "c4e994e167548e61a9e13981cc6eb38209abe532d438f84669673e9d0f943089"
     },
     {
       "path": "release/v0.4.1/README.md",
       "role": "english_release_readme",
-      "bytes": 1614,
-      "sha256": "744408ef52af4e5bd56a2c73b924dc5fcc0ccc46bf96e01b65f97dc194ddc856"
+      "bytes": 1541,
+      "sha256": "832ac53e7bbc56bdd5693634425205de1e4ae564868ea80490069d75781fd33b"
     },
     {
       "path": "release/v0.4.1/RELEASE_NOTES_v0.4.1.md",
-      "role": "research_preview_release_notes",
-      "bytes": 2832,
-      "sha256": "c29d0f116d347f55b79eb9dc573f8b787caa59eba94eadaf9659f1257a2154c0"
+      "role": "release_notes",
+      "bytes": 2669,
+      "sha256": "fad2783939f0d106cee2fc57e718df579dd798e7d35611ee292bafe6bef5fb9d"
     },
     {
       "path": "release/v0.4.1/SBOM.production.cdx.json",
@@ -155,28 +149,28 @@
       "sha256": "4a5a287797a484ab559f4f24d579623bd6ada8ed38d3424192425c7bb03b8e10"
     },
     {
-      "path": "release/v0.4.1/SCIENTIFIC_SPEC_V1_1_ADDENDUM.md",
-      "role": "normative_v0.4.0_scientific_correction_contract",
-      "bytes": 5262,
-      "sha256": "3b81eed681e4c463e7785de3f967ee017fc7dbd7e9afe4cc41c58c48ae3f2e9c"
+      "path": "release/v0.4.1/SCIENTIFIC_SPECIFICATION.md",
+      "role": "scientific_computation_specification",
+      "bytes": 5082,
+      "sha256": "5142a0a259b1a46f8f313c011f6d4a320cbcd2eb8fa180c43fd89d4fee736ccb"
     },
     {
       "path": "release/v0.4.1/SUPPORT.md",
       "role": "bug_reporting_path",
-      "bytes": 1488,
-      "sha256": "7158c448c98c3e3f435223d5f94050ada21f85025632f56d21074ed220bf7a0c"
+      "bytes": 1028,
+      "sha256": "4771218f901d832af34dfd4e9cc6d8bd9692b093c7ed1501ee931ca0b7339bc3"
     },
     {
       "path": "release/v0.4.1/THIRD_PARTY_NOTICES.md",
       "role": "dataset_and_dependency_attribution",
-      "bytes": 8800,
-      "sha256": "66ed32bf6656152352b1273afd18f1da514e22faaf5f199d7e9c6a7eabf05684"
+      "bytes": 8023,
+      "sha256": "87c2b0b1e3c71335b6fb71af16e1bb7bf45dead4193954581842278b17b03c2a"
     },
     {
       "path": "release/v0.4.1/index.html",
       "role": "english_release_landing_page",
-      "bytes": 4958,
-      "sha256": "7494f99cbad2e2a9e9e92cf64af69a22088c76638ef2f488288d7127d04c6201"
+      "bytes": 4938,
+      "sha256": "c16276ebf749f6613a5cb514843ccb2fc2007c75e9d351976009a53d84f574a5"
     },
     {
       "path": "release/v0.4.1/licenses/babel__runtime@7.29.7/LICENSE",

@@ -79,7 +79,7 @@ export const PLATFORM_SELF_TEST_PAYLOAD_CANONICALIZATION = {
 // A mismatch is a FAIL even when all broad numeric ranges still pass. The full-precision
 // raw payload remains in the retained record for diagnosis.
 export const EXPECTED_SCIENTIFIC_PAYLOAD_SHA256 =
-  'c3084a1762e4b3c6d7587df0068351edf755e0234b8fd24ab768439e1e24ef96' as const;
+  'f62bb4dbf65f8236d5864b1e7fb6c1f3ad77bb3d32bc47ce81ed44c77175b668' as const;
 
 export interface PlatformSelfTestRuntime {
   readonly userAgent: string;
@@ -115,7 +115,7 @@ export interface PlatformSelfTestMethodResult {
 }
 
 export interface PlatformSelfTestScientificPayload {
-  readonly fixtureSha256: string;
+  readonly referenceInputSha256: string;
   readonly alphaGrid: readonly number[];
   readonly methods: readonly IsoConversionalMethod[];
   readonly includeKissinger: false;
@@ -128,7 +128,7 @@ export interface PlatformSelfTestRecord {
   readonly schema: typeof PLATFORM_SELF_TEST_SCHEMA;
   readonly contract: typeof PLATFORM_SELF_TEST_CONTRACT;
   readonly recordStatus: 'PASS' | 'FAIL';
-  readonly platformGateStatus: 'NOT_CLOSED_BY_SELF_TEST';
+  readonly verificationScope: 'BROWSER_RUNTIME_SELF_TEST';
   readonly recordedAt: string;
   readonly application: {
     readonly name: 'Activation Energy Studio';
@@ -140,7 +140,7 @@ export interface PlatformSelfTestRecord {
   };
   readonly claimBoundary: string;
   readonly runtime: PlatformSelfTestRuntime;
-  readonly fixture: {
+  readonly referenceInput: {
     readonly name: 'synthetic_kas_150.csv';
     readonly expectedSha256: string;
     readonly observedSha256: string | null;
@@ -161,7 +161,7 @@ export interface PlatformSelfTestRecord {
 }
 
 export interface PlatformSelfTestOptions {
-  readonly fixtureCsv?: string;
+  readonly referenceInputCsv?: string;
   readonly recordedAt?: string;
   readonly runtime?: PlatformSelfTestRuntime;
 }
@@ -210,7 +210,7 @@ export function canonicalPlatformSelfTestScientificPayload(
   const policy = PLATFORM_SELF_TEST_PAYLOAD_CANONICALIZATION;
   return {
     canonicalization: policy.id,
-    fixtureSha256: payload.fixtureSha256,
+    referenceInputSha256: payload.referenceInputSha256,
     alphaGrid: payload.alphaGrid.map((value) =>
       fixedScientificDecimal(value, policy.alphaDecimalPlaces, 'alphaGrid')),
     methods: [...payload.methods],
@@ -271,13 +271,13 @@ function addCheck(
 
 function baseRecord(
   options: PlatformSelfTestOptions,
-  fixtureSizeBytes: number,
+  referenceInputSizeBytes: number,
   checks: PlatformSelfTestCheck[],
 ): Omit<PlatformSelfTestRecord, 'recordStatus' | 'scientificPayload' | 'scientificPayloadSha256'> {
   return {
     schema: PLATFORM_SELF_TEST_SCHEMA,
     contract: PLATFORM_SELF_TEST_CONTRACT,
-    platformGateStatus: 'NOT_CLOSED_BY_SELF_TEST',
+    verificationScope: 'BROWSER_RUNTIME_SELF_TEST',
     recordedAt: options.recordedAt ?? new Date().toISOString(),
     application: {
       name: 'Activation Energy Studio',
@@ -288,13 +288,13 @@ function baseRecord(
       reportSchemaVersion: REPORT_SCHEMA_VERSION,
     },
     claimBoundary:
-      'PASS proves only that this browser runtime reproduced the locked embedded scientific fixture without a network call in the self-test implementation. It does not prove a complete Windows/macOS/Linux platform gate, zero-request HAR evidence, user-data correctness, experimental truth, or mechanism identification.',
+      'PASS confirms that this browser runtime reproduced the embedded synthetic reference curves without network calls. Synthetic self-tests verify numerical execution rather than experimental kinetics or reaction mechanisms.',
     runtime: options.runtime ?? capturePlatformSelfTestRuntime(),
-    fixture: {
+    referenceInput: {
       name: 'synthetic_kas_150.csv',
       expectedSha256: GOLDEN_INPUT_SHA256,
       observedSha256: null,
-      sizeBytes: fixtureSizeBytes,
+      sizeBytes: referenceInputSizeBytes,
       experimentalData: false,
     },
     expectations: {
@@ -319,7 +319,7 @@ function finishRecord(
   return {
     ...base,
     recordStatus,
-    fixture: { ...base.fixture, observedSha256 },
+    referenceInput: { ...base.referenceInput, observedSha256 },
     scientificPayload,
     scientificPayloadSha256,
   };
@@ -328,10 +328,10 @@ function finishRecord(
 export async function runPlatformSelfTest(
   options: PlatformSelfTestOptions = {},
 ): Promise<PlatformSelfTestRecord> {
-  const fixtureCsv = options.fixtureCsv ?? syntheticKasExample;
-  const fixture = new File([fixtureCsv], 'synthetic_kas_150.csv', { type: 'text/csv' });
+  const referenceCsv = options.referenceInputCsv ?? syntheticKasExample;
+  const referenceFile = new File([referenceCsv], 'synthetic_kas_150.csv', { type: 'text/csv' });
   const checks: PlatformSelfTestCheck[] = [];
-  const base = baseRecord(options, fixture.size, checks);
+  const base = baseRecord(options, referenceFile.size, checks);
   let observedInputSha256: string | null = null;
 
   try {
@@ -345,7 +345,7 @@ export async function runPlatformSelfTest(
       /^[a-f0-9]{64}$/.test(buildSha),
     );
 
-    const sourceTrace = await hashFile(fixture);
+    const sourceTrace = await hashFile(referenceFile);
     observedInputSha256 = sourceTrace.sha256;
     addCheck(
       checks,
@@ -359,7 +359,7 @@ export async function runPlatformSelfTest(
       return finishRecord(base, observedInputSha256, null, null);
     }
 
-    const ingestion = await ingestThermalFiles([fixture]);
+    const ingestion = await ingestThermalFiles([referenceFile]);
     addCheck(checks, 'INGESTION', 'CSV ingestion status', 'ready', ingestion.status, ingestion.status === 'ready');
     if (ingestion.status !== 'ready') return finishRecord(base, observedInputSha256, null, null);
 
@@ -456,7 +456,7 @@ export async function runPlatformSelfTest(
     }
 
     const scientificPayload: PlatformSelfTestScientificPayload = {
-      fixtureSha256: sourceTrace.sha256,
+      referenceInputSha256: sourceTrace.sha256,
       alphaGrid: ALPHA_GRID,
       methods,
       includeKissinger: false,

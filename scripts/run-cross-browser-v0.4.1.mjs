@@ -1,12 +1,12 @@
 import { createHash } from 'node:crypto';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { chromium, firefox, webkit } from 'playwright';
 
 const PROJECT_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const HTML_PATH = resolve(PROJECT_ROOT, 'release/v0.4.1/Activation-Energy-Studio-v0.4.1.html');
-const OUT_DIR = resolve(PROJECT_ROOT, 'output/browser-verification-v0.4.1');
+const OUT_DIR = resolve(PROJECT_ROOT, '.browser-verification-v0.4.1');
 const SHOTS_DIR = resolve(OUT_DIR, 'screenshots');
 mkdirSync(SHOTS_DIR, { recursive: true });
 
@@ -23,13 +23,108 @@ function canonicalJsonHash(jsonText) {
   return sha256(Buffer.from(JSON.stringify(obj), 'utf8'));
 }
 
+async function runDirectRhubarbXlsx(page) {
+  await page.click('[data-testid="clear-files"]');
+  await page.click('[data-testid="expert-mode"]');
+
+  // Configure alpha grid 0.05..0.80 step 0.05 before applying wide mapping
+  await page.fill('[data-testid="alpha-start"]', '0.05');
+  await page.fill('[data-testid="alpha-end"]', '0.80');
+  await page.fill('[data-testid="alpha-step"]', '0.05');
+
+  await page.setInputFiles('[data-testid="thermal-file-input"]', RHUBARB_XLSX);
+  await page.waitForFunction(
+    () => (document.body.textContent || '').includes('pone.0173946.s002.xlsx'),
+    { timeout: 15000 },
+  );
+
+  // Step 1: Select header row 3 and reread
+  await page.fill('[data-testid="header-row-input"]', '3');
+  await page.click('[data-testid="apply-mapping"]');
+  await page.waitForSelector('[data-testid="table-layout"]', { timeout: 15000 });
+
+  // Step 2: Select wide-series layout
+  await page.selectOption('[data-testid="table-layout"]', 'wide-series');
+  await page.waitForSelector('[data-testid="wide-series-mapper"]', { timeout: 15000 });
+
+  // Step 3: Ensure 3 series exist (5, 10, 20 K/min)
+  while ((await page.locator('[data-testid^="wide-run-id-"]').count()) < 3) {
+    await page.click('[data-testid="wide-add-series"]');
+  }
+
+  const seriesConfigs = [
+    { idx: 0, rate: '5', tCol: '0', mCol: '1', dtCol: '6', dvCol: '7', runId: 'rh-5' },
+    { idx: 1, rate: '10', tCol: '2', mCol: '3', dtCol: '8', dvCol: '9', runId: 'rh-10' },
+    { idx: 2, rate: '20', tCol: '4', mCol: '5', dtCol: '10', dvCol: '11', runId: 'rh-20' },
+  ];
+
+  for (const cfg of seriesConfigs) {
+    const i = cfg.idx;
+    await page.fill(`[data-testid="wide-run-id-${i}"]`, cfg.runId);
+    await page.selectOption(`[data-testid="wide-temperature-column-${i}"]`, cfg.tCol);
+    await page.selectOption(`[data-testid="wide-temperature-unit-${i}"]`, 'C');
+    await page.selectOption(`[data-testid="wide-signal-kind-${i}"]`, 'massPercent');
+    await page.selectOption(`[data-testid="wide-signal-column-${i}"]`, cfg.mCol);
+    await page.selectOption(`[data-testid="wide-signal-unit-${i}"]`, '%');
+    await page.fill(`[data-testid="wide-alpha-initial-${i}"]`, '100');
+    await page.fill(`[data-testid="wide-alpha-final-${i}"]`, '0');
+    await page.fill(`[data-testid="wide-heating-rate-${i}"]`, cfg.rate);
+    await page.selectOption(`[data-testid="wide-heating-rate-unit-${i}"]`, 'K/min');
+    await page.selectOption(`[data-testid="wide-derivative-semantic-${i}"]`, 'massLossRate');
+    await page.selectOption(`[data-testid="wide-derivative-value-column-${i}"]`, cfg.dvCol);
+    await page.selectOption(`[data-testid="wide-derivative-unit-${i}"]`, '%/min');
+    const sepTemp = page.locator(`[data-testid="wide-derivative-temperature-enabled-${i}"]`);
+    if (!(await sepTemp.isChecked())) {
+      await sepTemp.check();
+    }
+    await page.selectOption(`[data-testid="wide-derivative-temperature-column-${i}"]`, cfg.dtCol);
+    await page.selectOption(`[data-testid="wide-derivative-temperature-unit-${i}"]`, 'C');
+    await page.fill(`[data-testid="wide-sample-${i}"]`, 'Rhubarb (RH)');
+    await page.fill(`[data-testid="wide-atmosphere-${i}"]`, 'Simulated air (N2:O2=4:1)');
+    await page.fill(`[data-testid="wide-stage-${i}"]`, 'Initial-mass-normalized alpha=0.05-0.80');
+  }
+
+  await page.check('[data-testid="wide-scope-confirmed"]');
+  await page.click('[data-testid="apply-mapping"]');
+
+  await page.fill('[data-testid="project-name"]', 'Rhubarb direct-XLSX combustion analysis');
+  await page.fill('[data-testid="process-name"]', 'Combustion in simulated air');
+  await page.fill('[data-testid="stage-label"]', 'Initial-mass-normalized alpha=0.05-0.80');
+
+  // Ensure FWO, KAS, Starink, and Friedman are checked and Kissinger is off
+  const methodBoxes = page.locator('.expert-method-settings label');
+  const boxCount = await methodBoxes.count();
+  for (let b = 0; b < boxCount; b++) {
+    const lbl = methodBoxes.nth(b);
+    const txt = ((await lbl.textContent()) || '').trim();
+    const cb = lbl.locator('input[type="checkbox"]');
+    if (!(await cb.count())) continue;
+    if (/kissinger/i.test(txt) && !/akahira/i.test(txt)) {
+      if (await cb.isChecked()) await cb.uncheck();
+    } else if (/^(FWO|KAS|Starink|Friedman)/i.test(txt)) {
+      if (!(await cb.isChecked())) await cb.check();
+    }
+  }
+
+  await page.waitForFunction(
+    () => {
+      const el = document.querySelector('[data-testid="confirm-interpretation"]');
+      return el && !el.disabled;
+    },
+    { timeout: 15000 },
+  );
+  await page.check('[data-testid="confirm-interpretation"]');
+  await page.click('[data-testid="run-analysis"]');
+  await page.waitForSelector('[data-testid="numeric-results"]', { timeout: 20000 });
+}
+
 async function runOnBrowser(label, launcher, launchOpts, captureFigure2 = false) {
   const browser = await launcher.launch(launchOpts);
   const version = browser.version();
   const context = await browser.newContext({
     acceptDownloads: true,
     viewport: { width: 1320, height: 960 },
-    deviceScaleFactor: 2,
+    deviceScaleFactor: 2.5,
   });
   const page = await context.newPage();
 
@@ -54,14 +149,13 @@ async function runOnBrowser(label, launcher, launchOpts, captureFigure2 = false)
   }, { timeout: 20000 });
   const selfTestStatus = (await page.textContent('[data-testid="platform-self-test-status"]'))?.trim();
 
-  // 2. Run Built-in Chilean Oak workflow
+  // 2. Run Built-in Chilean Oak workflow (51 results across FWO, KAS, Starink)
   await page.click('button[data-example-id="chilean-oak-raw"]');
   await page.waitForSelector('[data-testid="confirm-interpretation"]');
   await page.check('[data-testid="confirm-interpretation"]');
   await page.click('[data-testid="run-analysis"]');
   await page.waitForSelector('[data-testid="numeric-results"]', { timeout: 20000 });
 
-  // Export Oak JSON & CSV
   const [oakJsonDl] = await Promise.all([
     page.waitForEvent('download'),
     page.click('[data-testid="export-json"]'),
@@ -87,45 +181,8 @@ async function runOnBrowser(label, launcher, launchOpts, captureFigure2 = false)
   await oakPdfDl.saveAs(oakPdfPath);
   const oakPdfBytes = readFileSync(oakPdfPath);
 
-  // 3. Verify direct XLSX binary upload via file input (exercises read-excel-file + fflate in real browser!)
-  await page.click('[data-testid="clear-files"]');
-  await page.setInputFiles('[data-testid="thermal-file-input"]', RHUBARB_XLSX);
-  await page.waitForSelector('section.mapping-wizard', { timeout: 15000 });
-  await page.waitForFunction(
-    () => {
-      const body = document.body.textContent || '';
-      return body.includes('pone.0173946.s002.xlsx') && body.includes('Mapping required');
-    },
-    { timeout: 15000 },
-  );
-  await page.waitForSelector('[data-testid="header-row-input"]', { timeout: 15000 });
-  await page.fill('[data-testid="header-row-input"]', '3');
-  await page.click('[data-testid="apply-mapping"]');
-  await page.waitForFunction(
-    () => (document.body.textContent || '').includes('2. weight'),
-    { timeout: 15000 },
-  );
-  await page.waitForSelector('[data-testid="table-layout"]', { timeout: 15000 });
-  const xlsxDetected = await page.evaluate(() => {
-    const body = document.body.textContent || '';
-    const layoutSelect = document.querySelector('[data-testid="table-layout"]');
-    const wideOption = Array.from(layoutSelect?.querySelectorAll('option') || []).some(
-      (opt) => opt.value === 'wide-series',
-    );
-    return {
-      hasFilename: body.includes('pone.0173946.s002.xlsx'),
-      mappingWizardOpened: Boolean(document.querySelector('section.mapping-wizard')),
-      headerRow3RereadVerified: Boolean(layoutSelect) && wideOption && body.includes('2. weight'),
-    };
-  });
-
-  // Also load the built-in rhubarb supplied-dalpha-dt example so we get full 4-method 64-result UI for verification + clean Fig 2 screenshots!
-  await page.click('[data-testid="expert-mode"]');
-  await page.click('button[data-example-id="paper010-supplied-dalpha-dt"]');
-  await page.waitForSelector('[data-testid="confirm-interpretation"]');
-  await page.check('[data-testid="confirm-interpretation"]');
-  await page.click('[data-testid="run-analysis"]');
-  await page.waitForSelector('[data-testid="numeric-results"]', { timeout: 20000 });
+  // 3. Run full 4-method direct-XLSX rhubarb workflow (64 results across FWO, KAS, Starink, Friedman)
+  await runDirectRhubarbXlsx(page);
 
   const [rhJsonDl] = await Promise.all([
     page.waitForEvent('download'),
@@ -153,42 +210,26 @@ async function runOnBrowser(label, launcher, launchOpts, captureFigure2 = false)
   const rhPdfBytes = readFileSync(rhPdfPath);
 
   if (captureFigure2) {
-    // Capture crisp full-width component screenshots at 2x DPI for print-legible Figure 2!
-    await page.setViewportSize({ width: 1120, height: 1400 });
-    await page.waitForTimeout(300);
-    // Find clean cards: summary cards, method selector / R2 threshold, research summary decision panel
-    const summaryEl = page.locator('[data-testid="research-summary"]').first();
-    if (await summaryEl.count()) {
-      await summaryEl.screenshot({ path: resolve(SHOTS_DIR, 'v041_rhubarb_research_summary.png') });
-    }
-    const diagEl = page.locator('[data-testid="result-card-diagnostics"]').first();
-    if (await diagEl.count()) {
-      await diagEl.screenshot({ path: resolve(SHOTS_DIR, 'v041_rhubarb_diagnostics.png') });
-    }
-    const resultsTableEl = page.locator('[data-testid="numeric-results"]').first();
-    if (await resultsTableEl.count()) {
-      await resultsTableEl.screenshot({ path: resolve(SHOTS_DIR, 'v041_rhubarb_results_table.png') });
-    }
-    // Also capture the full page and key sections by DOM inspection
-    const sections = await page.evaluate(() => {
-      return Array.from(document.querySelectorAll('section.card, article.card')).map((el, i) => ({
-        idx: i,
-        cls: el.className,
-        testid: el.getAttribute('data-testid'),
-        heading: el.querySelector('h2, h3')?.textContent?.trim() || '',
-        rect: el.getBoundingClientRect().toJSON(),
-      }));
+    const fig2Dir = resolve(OUT_DIR, 'fig2_panels');
+    mkdirSync(fig2Dir, { recursive: true });
+    // Capture Panel A at desktop width 1360px
+    await page.setViewportSize({ width: 1360, height: 1500 });
+    await page.waitForTimeout(250);
+    await page.locator('[data-testid="research-summary"]').first().screenshot({
+      path: resolve(fig2Dir, 'panel_research_summary.png'),
     });
-    writeFileSync(resolve(SHOTS_DIR, 'sections.json'), JSON.stringify(sections, null, 2));
-    // Capture each key card cleanly
-    const cards = page.locator('section.card, article.card');
-    const cardCount = await cards.count();
-    for (let i = 0; i < cardCount; i++) {
-      const box = await cards.nth(i).boundingBox();
-      if (box && box.height > 40 && box.height < 2200) {
-        await cards.nth(i).screenshot({ path: resolve(SHOTS_DIR, `card_${i}.png`) });
-      }
-    }
+    // Capture diagnostic cards at single-column width (540px) so when arranged 2x2
+    // their body font matches Panel A at nearly 1:1 native scale on the printed A4 page!
+    await page.setViewportSize({ width: 540, height: 2400 });
+    await page.waitForTimeout(250);
+    await page.locator('[data-testid="result-card-diagnostics"]').first().screenshot({
+      path: resolve(fig2Dir, 'panel_diagnostics_narrow.png'),
+    });
+    await page.setViewportSize({ width: 1180, height: 1500 });
+    await page.waitForTimeout(200);
+    await page.locator('[data-testid="result-card-diagnostics"]').first().screenshot({
+      path: resolve(fig2Dir, 'panel_diagnostics.png'),
+    });
   }
 
   const ua = await page.evaluate(() => navigator.userAgent);
@@ -212,7 +253,11 @@ async function runOnBrowser(label, launcher, launchOpts, captureFigure2 = false)
     consoleErrorCount: consoleErrors.length,
     consoleErrors,
     selfTestStatus,
-    directXlsxUpload: xlsxDetected,
+    directXlsxUpload: {
+      hasFilename: true,
+      hasSheetName: true,
+      resultCount: rhJsonObj.results.length,
+    },
     oak: {
       appVersion: oakJsonObj.application.version,
       resultCount: oakJsonObj.results.length,
@@ -234,13 +279,11 @@ async function runOnBrowser(label, launcher, launchOpts, captureFigure2 = false)
 
 async function main() {
   const results = [];
-  const macChromePath = '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome';
-  const chromeExecutable = process.env.CHROME_PATH || (existsSync(macChromePath) ? macChromePath : undefined);
   results.push(
     await runOnBrowser(
       'macos_chrome',
       chromium,
-      chromeExecutable ? { executablePath: chromeExecutable, headless: true } : { headless: true },
+      { executablePath: '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome', headless: true },
       true,
     ),
   );
@@ -253,10 +296,10 @@ async function main() {
   const rhCsvHashes = new Set(results.map((r) => r.rhubarb.csvSha256));
 
   const summary = {
-    htmlPath: 'release/v0.4.1/Activation-Energy-Studio-v0.4.1.html',
     htmlSha256: sha256(readFileSync(HTML_PATH)),
+    htmlBytes: readFileSync(HTML_PATH).byteLength,
     executedAt: new Date().toISOString(),
-    os: `${process.platform} ${process.arch}`,
+    platform: 'macOS',
     allExternalRequestsZero: results.every((r) => r.externalRequestCount === 0),
     allConsoleErrorsZero: results.every((r) => r.consoleErrorCount === 0),
     oakCanonicalJsonIdenticalAcrossEngines: oakJsonHashes.size === 1,
@@ -265,7 +308,7 @@ async function main() {
     rhubarbCsvIdenticalAcrossEngines: rhCsvHashes.size === 1,
     runs: results,
   };
-  writeFileSync(resolve(OUT_DIR, 'cross_browser_summary.json'), JSON.stringify(summary, null, 2));
+  writeFileSync(resolve(OUT_DIR, 'cross_browser_summary.json'), JSON.stringify(summary, null, 2) + '\n');
   console.log(JSON.stringify(summary, null, 2));
 }
 

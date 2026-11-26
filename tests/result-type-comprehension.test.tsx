@@ -15,7 +15,7 @@ import { confirmInterpretation, interpretationCheckbox } from './app-test-helper
 const TEST_DIRECTORY = path.dirname(fileURLToPath(import.meta.url));
 const FIXTURE_DIRECTORY = path.resolve(
   TEST_DIRECTORY,
-  '../evidence/usability/v0.2.0/study_bundle',
+  './study-inputs',
 );
 const actEnvironment = globalThis as typeof globalThis & { IS_REACT_ACT_ENVIRONMENT: boolean };
 

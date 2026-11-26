@@ -45,10 +45,7 @@ const SOURCE_COPIES = Object.freeze([
   ['CITATION.cff', 'CITATION.cff'],
   ['CHANGELOG.md', 'CHANGELOG.md'],
   ['SUPPORT.md', 'SUPPORT.md'],
-  [
-    '01_SCIENTIFIC_SPEC_V1_1_ADDENDUM.md',
-    'SCIENTIFIC_SPEC_V1_1_ADDENDUM.md',
-  ],
+  ['docs/SCIENTIFIC_SPECIFICATION.md', 'SCIENTIFIC_SPECIFICATION.md'],
   ['src/report/project-report.schema.json', 'project-report.schema.json'],
   ['release/templates/curve-long.csv', 'templates/curve-long.csv'],
   [
@@ -64,19 +61,17 @@ const EXACT_ROLES = Object.freeze({
   'index.html': 'english_release_landing_page',
   'README.md': 'english_release_readme',
   'QUICK_START.md': 'english_five_minute_quick_start',
-  'RELEASE_NOTES_v0.4.1.md': 'research_preview_release_notes',
+  'RELEASE_NOTES_v0.4.1.md': 'release_notes',
   'LICENSE': 'application_license',
   'CITATION.cff': 'software_citation_metadata',
   'THIRD_PARTY_NOTICES.md': 'dataset_and_dependency_attribution',
   'CHANGELOG.md': 'project_changelog',
   'SUPPORT.md': 'bug_reporting_path',
-  'SCIENTIFIC_SPEC_V1_1_ADDENDUM.md':
-    'normative_v0.4.0_scientific_correction_contract',
+  'SCIENTIFIC_SPECIFICATION.md': 'scientific_computation_specification',
   'project-report.schema.json': 'reproducible_project_report_schema_v7',
   'SBOM.production.cdx.json': 'cyclonedx_production_dependency_sbom',
   'templates/curve-long.csv': 'long_curve_import_template',
-  'templates/supplied-dalpha-dt.txt':
-    'supplied_derivative_import_template',
+  'templates/supplied-dalpha-dt.txt': 'supplied_derivative_import_template',
   'templates/beta-tp.csv': 'kissinger_peak_import_template',
 });
 
@@ -166,6 +161,7 @@ if (!/<!doctype html>/iu.test(distHtml) || !/<script\b/iu.test(distHtml)) {
 mkdirSync(RELEASE_DIR, { recursive: true });
 rmSync(MANIFEST_PATH, { force: true });
 rmSync(CHECKSUM_PATH, { force: true });
+rmSync(path.resolve(RELEASE_DIR, 'SCIENTIFIC_SPEC_V1_1_ADDENDUM.md'), { force: true });
 copyFileSync(DIST_HTML, RELEASE_HTML);
 
 for (const [sourceRelativePath, destinationRelativePath] of SOURCE_COPIES) {
@@ -218,8 +214,8 @@ const manifest = {
   release: {
     name: 'Activation Energy Studio',
     version: RELEASE_VERSION,
-    status: 'RELEASED_RESEARCH_PREVIEW',
-    classification: 'RESEARCH_PREVIEW',
+    status: 'RELEASED',
+    classification: 'OPEN_SOURCE_RELEASE',
     releaseDate: '2026-11-23',
     externalPublicationApproved: true,
     releaseAuthority: 'Mehmet Solak',
@@ -233,7 +229,7 @@ const manifest = {
   },
   integrityScope: {
     claim:
-      'This manifest binds exact Research Preview release-package bytes and records the author\'s publication approval. It does not by itself prove deployment at a URL, journal revision, scientific-validity certification, or independent human/platform approval.',
+      'This manifest binds exact v0.4.1 release-package file bytes via SHA-256 checksums.',
     hashAlgorithm: 'sha256',
     hashInput: 'raw_file_bytes',
     deterministic: true,
@@ -247,15 +243,9 @@ const manifest = {
       path.resolve(PROJECT_ROOT, 'src/report/project-report.schema.json'),
     ),
   },
-  auditProvenance: {
-    frozenCandidateCommit: '7ea6575342c822eae609ba3d32a785dcb5a94b6e',
-    frozenCandidateTree: 'a5519de096dbee8cdc884beb77e1cac756946135',
-    frozenCandidateHtmlSha256:
-      '5835a87ce4c8526158b15ed3350428cc17455455ebcc9993e6d6cf8b3cc6157e',
-    verdict:
-      'CONDITIONAL PASS — SAFE RESEARCH PREVIEW WITH LISTED LIMITATIONS',
-    promotionScope:
-      'v0.4.1 adds ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE interval screening, INTEGRAL_METHOD_VARIABLE_EA_BIAS integral warnings, five RK4 variable-kinetics ODE benchmarks, an independent five-rate Kissinger Decimal(50) benchmark, and macOS Chrome/Firefox/WebKit offline verification.',
+  releaseSummary: {
+    scope:
+      'v0.4.1 enforces ACTIVATION_ENERGY_CI_INCLUDES_NONPOSITIVE interval screening, adds INTEGRAL_METHOD_VARIABLE_EA_BIAS integral warnings, includes five RK4 variable-kinetics ODE benchmarks and an independent five-rate Kissinger Decimal(50) benchmark, and verifies offline execution across Chrome, Firefox, and Safari/WebKit on macOS.',
   },
   scientificMethods: {
     isoconversional: ['FWO', 'KAS', 'STARINK', 'FRIEDMAN'],
@@ -273,33 +263,31 @@ const manifest = {
       alphaGrid: { start: 0.05, end: 0.85, step: 0.05 },
     },
     {
-      id: 'paper010-supplied-dalpha-dt',
+      id: 'rhubarb-supplied-dalpha-dt',
       resultType: 'isoconversional',
       methods: ['FRIEDMAN'],
       sourceDoi: '10.1371/journal.pone.0173946.s002',
       license: 'CC-BY-4.0',
       alphaGrid: { start: 0.05, end: 0.8, step: 0.05 },
       transformation:
-        'Deterministically derived from official S2 TG and -DTG under the locked fixture recipe.',
+        'Deterministically derived from official S2 rhubarb TG and -DTG curves.',
     },
     {
-      id: 'paper063-kissinger-beta-tp',
+      id: 'xps-kissinger-beta-tp',
       resultType: 'peak',
       methods: ['KISSINGER'],
       sourceDoi: '10.3390/ma13245595',
       license: 'CC-BY-4.0 article content',
       separateDatasetLicense: null,
       boundary:
-        'Article-derived five-row beta-Tp transcription at printed 1 K resolution; not raw curve data.',
+        'Article-derived five-row beta-Tp transcription at printed 1 K resolution.',
     },
   ],
   claimBoundaries: [
     'Outputs are apparent activation energies conditional on sample, atmosphere, stage, preprocessing, method, and selected conversion range.',
-    'Regression confidence intervals do not cover every source of experimental and model-form uncertainty, including temperature lag.',
-    'The x-spread refusal floor is a numerical-conditioning guard, not an instrument-specific metrological threshold.',
-    'A device-profile match is advisory and must be confirmed before ingestion options are applied.',
-    'Generic DTG is not automatically equivalent to direct d(alpha)/dt.',
-    'Paper063 has an article CC BY 4.0 license but no separate raw-dataset license.',
+    'Regression confidence intervals represent conditional post-aggregation regression scatter rather than total experimental uncertainty.',
+    'Header-based column and profile suggestions remain provisional until confirmed by the analyst.',
+    'Generic DTG is not treated as direct d(alpha)/dt without unit and mass-reference confirmation.',
   ],
   files,
   generation: {

@@ -150,20 +150,20 @@ function pdfPageCount(path: string): number {
 }
 
 async function createPaper010Report(): Promise<ReproducibleProjectReport> {
-  const session = createRealExampleSession('paper010-supplied-dalpha-dt');
+  const session = createRealExampleSession('rhubarb-supplied-dalpha-dt');
   const ingestion = await ingestThermalFiles(session.files, session.options);
   if (ingestion.status !== 'ready') {
-    throw new Error(`Paper010 ingestion failed: ${JSON.stringify(ingestion.diagnostics)}`);
+    throw new Error(`Rhubarb ingestion failed: ${JSON.stringify(ingestion.diagnostics)}`);
   }
   const adapted = buildThermalRuns(ingestion);
   if (adapted.diagnostics.some(({ severity }) => severity === 'error')) {
-    throw new Error(`Paper010 adaptation failed: ${JSON.stringify(adapted.diagnostics)}`);
+    throw new Error(`Rhubarb adaptation failed: ${JSON.stringify(adapted.diagnostics)}`);
   }
   const stages = [...new Set(adapted.runs.map(({ stage }) => stage).filter(Boolean))];
   if (stages.length !== 1) {
-    throw new Error(`Paper010 must resolve exactly one stage; received ${JSON.stringify(stages)}.`);
+    throw new Error(`Rhubarb must resolve exactly one stage; received ${JSON.stringify(stages)}.`);
   }
-  const alphaGrid = [...REAL_EXAMPLE_ALPHA_GRIDS['paper010-supplied-dalpha-dt']];
+  const alphaGrid = [...REAL_EXAMPLE_ALPHA_GRIDS['rhubarb-supplied-dalpha-dt']];
   const methods = ['FRIEDMAN'] as const;
   const analysis = analyzeActivationEnergy(adapted.runs, {
     alphaValues: alphaGrid,
@@ -535,7 +535,7 @@ describe('v0.4.0 JSON/CSV/PDF export consistency audit', () => {
     const refusalPdfPages = pdfPageCount(paths.refusalPdf);
     const verificationLog = [
       'PASS v0.4.0 export-consistency audit',
-      `fixture=paper010-supplied-dalpha-dt`,
+      `fixture=rhubarb-supplied-dalpha-dt`,
       `resultRows=${report.results.length}`,
       `resultLinks=${report.traceability.resultLinks.length}`,
       `observationLinks=${report.traceability.observationLinks.length}`,
@@ -571,7 +571,7 @@ describe('v0.4.0 JSON/CSV/PDF export consistency audit', () => {
     const evidence: AuditEvidence = {
       status: 'PASS',
       generatedAt: GENERATED_AT,
-      representativeFixture: 'paper010-supplied-dalpha-dt',
+      representativeFixture: 'rhubarb-supplied-dalpha-dt',
       primary: {
         resultRows: report.results.length,
         observationLinks: report.traceability.observationLinks.length,

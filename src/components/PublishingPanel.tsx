@@ -38,13 +38,13 @@ export function PublishingPanel() {
             {'Publication and download'}
           </p>
           <h2 id="publishing-panel-title">
-            {'Activation Energy Studio v0.4.1 research preview'}
+            {'Activation Energy Studio v0.4.1'}
           </h2>
           <p>
             {'Move from an example to a scientifically bounded report in five minutes, or retain the offline package locally.'}
           </p>
         </div>
-        <span className="status-pill ok">v0.4.1 · Research preview</span>
+        <span className="status-pill ok">v0.4.1 · Open-source release</span>
       </div>
 
       <div className="publishing-panel-body">
@@ -186,7 +186,7 @@ export function PublishingPanel() {
         </div>
 
         <p className="publishing-boundary">
-          {'v0.4.1 is a research preview; it is not certified instrument software, does not determine mechanism, and does not present apparent Ea as an immutable material constant.'}
+          {'Activation Energy Studio v0.4.1 is open-source research software; reported apparent activation energies are conditional on sample, atmosphere, stage, method, and experimental context.'}
         </p>
       </div>
     </section>

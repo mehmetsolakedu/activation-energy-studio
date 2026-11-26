@@ -34,7 +34,7 @@ describe('English-only application contract', () => {
 
   it('uses English document metadata and has no language switch', () => {
     expect(document.documentElement.lang).toBe('en');
-    expect(document.title).toBe('Activation Energy Studio · Research Preview');
+    expect(document.title).toBe('Activation Energy Studio v0.4.1');
     expect(host.querySelector('[data-testid="language-en"]')).toBeNull();
     expect(host.querySelector('[aria-label="Language"]')).toBeNull();
   });
