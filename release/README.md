@@ -1,49 +1,23 @@
-# Activation Energy Studio v0.3.0 Research Preview
+# Activation Energy Studio — Release Packages and Historical Archives
 
-Open `index.html` for the bilingual download page or open
-`Activation-Energy-Studio-v0.3.0.html` directly in a current desktop browser.
-The application is a self-contained offline HTML file: it needs no installer,
-server, account, telemetry connection, or Parallels.
+This directory contains versioned offline release packages, integrity manifests, and shared import templates for **Activation Energy Studio**.
 
-## First five minutes
+## Current release
 
-1. Choose one of the three licensed real examples or upload CSV, TSV, TXT, or
-   XLSX files from one sample and physical reaction stage.
-2. Inspect the detected encoding, delimiter, header, worksheet, mapping, units,
-   TG/DTG preview, stage bounds, m0/mf anchors, and alpha definition.
-3. Explicitly confirm the interpretation. Instrument profiles and stage
-   suggestions are advisory and are never silently accepted.
-4. Run the eligible methods, read the four-state scientific disposition and
-   reportable alpha range, then retain PDF, CSV, and reproducible JSON together.
+- **[`v0.4.1/`](v0.4.1/)** — Current release package (`2026-11-23`).
+  - Single-file offline application: [`v0.4.1/Activation-Energy-Studio-v0.4.1.html`](v0.4.1/Activation-Energy-Studio-v0.4.1.html) (`2,562,990` bytes; SHA-256 `1993e1cff6c015603e4267a25bf060823eba444c54560cd65bbb42208d0c9a2d`)
+  - Package manifest and checksums: [`v0.4.1/MANIFEST.v0.4.1.json`](v0.4.1/MANIFEST.v0.4.1.json) and [`v0.4.1/SHA256SUMS.v0.4.1.txt`](v0.4.1/SHA256SUMS.v0.4.1.txt)
+  - Production SBOM: [`v0.4.1/SBOM.production.cdx.json`](v0.4.1/SBOM.production.cdx.json)
+  - Release notes and quick-start guide: [`v0.4.1/RELEASE_NOTES_v0.4.1.md`](v0.4.1/RELEASE_NOTES_v0.4.1.md) and [`v0.4.1/QUICK_START.md`](v0.4.1/QUICK_START.md)
 
-Detailed quick starts are in `QUICK_START_TR.md` and `QUICK_START_EN.md`.
+## Immutable historical release packages
 
-## Integrity and support
+- **[`v0.4.0/`](v0.4.0/)** — Immutable `v0.4.0` release package (`MANIFEST.v0.4.0.json`, `SHA256SUMS.v0.4.0.txt`).
+- **[`v0.3.2/`](v0.3.2/)** — Immutable `v0.3.2` release package (`MANIFEST.v0.3.2.json`, `SHA256SUMS.v0.3.2.txt`; archived on Zenodo at <https://doi.org/10.5281/zenodo.21921403>).
+- **[`v0.3.1/`](v0.3.1/)** — Immutable `v0.3.1` release package (`MANIFEST.v0.3.1.json`, `SHA256SUMS.v0.3.1.txt`).
+- **Legacy single-file archives (`v0.3.0` and `v0.2.0`):** `Activation-Energy-Studio-v0.3.0.html` (`MANIFEST.v0.3.0.json`, `SHA256SUMS.v0.3.0.txt`) and `Activation-Energy-Studio-v0.2.0.html` (`MANIFEST.v0.2.0.json`) are retained byte-unchanged for historical hash verification.
 
-- Verify package bytes with `SHA256SUMS.v0.3.0.txt`.
-- Inspect the exact package inventory in `MANIFEST.v0.3.0.json`.
-- Cite the software through `CITATION.cff` and every example through
-  `THIRD_PARTY_NOTICES.md`.
-- Report a reproducible issue by following `SUPPORT.md`.
+## Shared templates and verification
 
-This is a Research Preview, not certified instrument software. Outputs are
-apparent activation energies conditional on sample, atmosphere, physical
-stage, preprocessing, method, and selected conversion range.
-
----
-
-# Türkçe kısa açıklama
-
-`index.html` indirme sayfasını veya
-`Activation-Energy-Studio-v0.3.0.html` çevrimdışı uygulamasını güncel bir
-masaüstü tarayıcıda açın. Kurulum, sunucu, hesap, telemetri bağlantısı veya
-Parallels gerekmez.
-
-Dosyayı ya da lisanslı gerçek örneği seçin; kodlama, ayırıcı, başlık, sayfa,
-sütun anlamı, birim, TG/DTG eğrisi, aşama sınırı, m0/mf çapaları ve alpha
-tanımını inceleyin; yorumu açıkça onaylayın; ardından bilimsel kararı okuyup
-PDF, CSV ve tekrar üretilebilir JSON'u birlikte saklayın.
-
-Bu bir Araştırma Ön Sürümüdür. Çıktılar numune, atmosfer, fiziksel aşama, ön
-işleme, yöntem ve seçilen dönüşüm aralığına bağlı görünür aktivasyon
-enerjileridir.
+- **[`templates/`](templates/)** — Canonical CSV/TXT import templates (`curve-long.csv`, `supplied-dalpha-dt.txt`, and `beta-tp.csv`) bundled into current release packages.
+- Run `npm run verify:release-manifest:v0.4.1` (or `npm run check`) from the repository root to verify current and historical package manifests and SHA-256 digests.

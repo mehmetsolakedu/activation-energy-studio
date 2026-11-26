@@ -458,13 +458,13 @@ test('immutable v0.3.1 package still passes and remains hash-locked', () => {
   assert.match(cli.stdout, /PASS RELEASE_PACKAGE_CURRENT v0\.3\.1/u);
 });
 
-test('immutable v0.3.0 verifier exposes historical shared-template drift', () => {
+test('immutable v0.3.0 verifier exposes retired unversioned top-level release files', () => {
   assert.throws(
     () => verifyReleasePackage({
       projectRoot: PROJECT_ROOT,
       ...HISTORICAL_V030_RELEASE,
     }),
-    /Byte-count mismatch for release\/templates\/beta-tp\.csv/u,
+    /Missing packaged file release\/CHANGELOG\.md/u,
   );
   const cli = runVerifier(PROJECT_ROOT, HISTORICAL_V030_RELEASE);
   assert.equal(cli.status, 1, cli.stdout + cli.stderr);

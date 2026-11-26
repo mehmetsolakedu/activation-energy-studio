@@ -1,6 +1,6 @@
-# Real-data and publication-derived validation lanes
+# Real-data and publication-derived validation benchmarks
 
-## Paper 010 raw-curve validation lane
+## Rhubarb raw-curve benchmark (`paper010` directory)
 
 ## Source and licence
 
@@ -27,7 +27,7 @@ Raw workbooks are immutable validation sources. They are not rewritten by the de
 
 ## Deterministic reduction
 
-Run `npm run derive:paper010` to regenerate `paper010_rh_t_alpha_beta.csv`. The script:
+Run `node scripts/derive_paper010_fixture.mjs` to regenerate `paper010_rh_t_alpha_beta.csv`. The script:
 
 1. refuses to proceed unless the S2 workbook hash matches;
 2. selects RH temperature/weight pairs A:B, C:D and E:F and matching
@@ -40,7 +40,7 @@ Run `npm run derive:paper010` to regenerate `paper010_rh_t_alpha_beta.csv`. The 
 6. linearly interpolates the first crossing of alpha 0.05 to 0.80 in 0.05 steps;
 7. linearly interpolates the official positive `-DTG [%/min]` ordinate at each
    `T_alpha`, then converts it to `dAlpha/dt [1/min]` by dividing by 100;
-8. refuses any non-positive target derivative instead of taking an absolute
+8. rejects any non-positive target derivative instead of taking an absolute
    value or clipping it; and
 9. writes 48 provenance-bounded T-alpha-dAlpha/dt-beta rows without smoothing
    or outlier removal.
@@ -49,9 +49,9 @@ All 48 target derivatives are positive. Derived fixture SHA-256:
 `a913d8111af91a4fa8a2fc3d1c8dd02ec0e216795dad9bfd77cff4912e76b27d`.
 
 `manifest.json` schema v2 locks the official source, derived fixture,
-independent expected output, independent oracle implementation, and every
-predeclared comparison tolerance. Rebaselining requires a scientific release
-note and an independently recalculated reference.
+independent expected output, independent reference implementation, and every
+predeclared comparison tolerance. Rebaselining requires a documented scientific
+rationale and an independently recalculated reference.
 
 ## Independent numerical reference
 
@@ -61,12 +61,12 @@ using only the Python standard library and computes the canonical
 the application implementation. Run:
 
 ```bash
-npm run verify:paper010-oracle
-npm run test:paper010-oracle
+node scripts/run-paper010-oracle.mjs --check
+node --test tests/paper010-oracle-reproducibility.test.mjs
 ```
 
 The Node launcher probes `python3`, `python`, and Windows `py -3`, then invokes
-the oracle with isolated `-I -S` flags. The oracle regenerates the derived CSV
+the script with isolated `-I -S` flags. The reference script regenerates the derived CSV
 byte-for-byte and independently calculates direct ordinary least squares:
 
 - KAS: `x=1/T`, `y=ln(beta/T^2)`, `Ea=-slope*R`;
@@ -79,7 +79,7 @@ byte-for-byte and independently calculates direct ordinary least squares:
 
 Locked hashes:
 
-- oracle implementation: `d9ae629d26d183bda53c11875dfe3e8a5bd1e59150a2fb149864f8df31f8eeb2`;
+- reference implementation: `d9ae629d26d183bda53c11875dfe3e8a5bd1e59150a2fb149864f8df31f8eeb2`;
 - canonical Decimal reference: `956617949a4f2b1ddf29d672c946fda6fea48dd33a0536d69fbf24f5aa863e68`.
 
 The independent raw-data means over alpha 0.05-0.80 are 131.0216 kJ/mol
@@ -89,25 +89,25 @@ The independent raw-data means over alpha 0.05-0.80 are 131.0216 kJ/mol
 The raw-data reconstruction therefore does **not** reproduce the publication
 averages under the explicit reduction above.
 
-The Friedman discrepancy is especially important. S4 cells labelled
+The Friedman discrepancy is especially informative. S4 cells labelled
 `lnda/dt` closely track unlogged -DTG values: their RMSE against exact S2 raw
 `-DTG` is 0.0432, versus 2.3622 against `ln(-DTG)` and 6.7151 against
 `ln(dAlpha/dt)`. Using exact S2 raw -DTG as if it were already the logarithmic
 ordinate gives a nonstandard mean of 357.7084 kJ/mol and correlation 0.99569
 with the S5 series; S5's arithmetic mean is 358.4650 kJ/mol. The stored,
 rounded S4 coordinates give 348.7796 kJ/mol and do not exactly reproduce S5.
-These paths are retained only as negative publication-reproduction
-diagnostics; neither is accepted as the equation-correct Friedman oracle. The
+These paths are retained only as diagnostic comparisons against the published
+table; neither represents the equation-correct Friedman calculation. The
 KAS/FWO S4 plotting-table reconstruction is likewise closer to Table 4,
-pointing to undocumented, rounded, or inconsistent preprocessing.
+indicating undocumented, rounded, or inconsistent preprocessing.
 
-The software validation claim is consequently bounded: the browser ingestion
-and scientific core must match all four independent Decimal references for the
-explicit, hashed reduction. This validates the tested software pathway, not a
-universal material constant, the publication's preprocessing, or total
-experimental uncertainty.
+The software verification scope is consequently explicit: the browser ingestion
+and scientific core match all four independent Decimal(50) references for the
+explicit, hashed reduction. This verifies the software calculation pathway for
+the documented inputs rather than asserting a universal material constant or
+reproducing undocumented publication preprocessing.
 
-## Chilean Oak Mendeley v2 raw-curve lane
+## Chilean Oak Mendeley v2 raw-curve benchmark
 
 - Dataset: <https://doi.org/10.17632/gkhjh4v8tg.2>
 - Article: <https://doi.org/10.1016/j.indcrop.2025.121296>
@@ -133,14 +133,14 @@ contain small nonmonotonic fluctuations. Every locked target nevertheless has
 one unambiguous upward crossing. The importer performs no sorting, smoothing,
 extrapolation or source-file rewrite and retains both contributing source rows.
 
-The source audit found several human-produced inconsistencies which are tested
-rather than silently accepted:
+Source inspection identified several irregularities in the deposited files that
+are explicitly tested rather than silently accepted:
 
 - the redundant Kelvin column is `T_C+273.00`, not `T_C+273.15`;
 - the column labelled `1/T (K-1)` stores approximately `1000/T`;
 - the 10 K/min export contains delimiter-only tail rows and one isolated
   post-data cell at physical source row 4802;
-- article and dataset metadata disagree on N2 flow (20 versus 40).
+- article and dataset metadata disagree on N2 flow (20 versus 40 mL/min).
 
 The post-data cell is retained in the immutable CSV and excluded only with the
 visible `WIDE_TRAILING_INCOMPLETE_ROW_EXCLUDED` warning. Blank export rows are
@@ -160,31 +160,28 @@ Ea. The equation-correct means for the declared 17-point validation grid are:
 
 An independent GNU `bc` scale-50 calculation at alpha 0.50 checks all four
 interpolations and three regressions without importing either the application
-or Decimal oracle. Run:
+or Decimal reference script. Run:
 
 ```bash
-npm run verify:oak-oracle
-npm run test:oak-oracle
-npm test -- tests/oak-source-integrity.test.ts \
+node scripts/run-oak-oracle.mjs --check
+node --test tests/oak-oracle-reproducibility.test.mjs
+npx vitest run tests/oak-source-integrity.test.ts \
   tests/oak-manual-adjudication.test.ts \
   tests/oak-raw-wide-series.test.ts
 ```
 
-Publication values remain a separate comparison, not the oracle. The reported
-Oak FWO value is reproduced closely by the author-Kelvin path. The reported
-KAS value is consistent to the printed tenth with also applying FWO's
-method-specific `1.052` coefficient to KAS, where the article's own KAS
-equation contains no such coefficient. Friedman shows a related signal but
-has unresolved derivative/smoothing ambiguity. KAS, Friedman, every `±` value,
-and exact average adjusted R² are therefore quarantined as hard acceptance
-targets. Full adjudication is in
+Published summary values serve as external context rather than exact numerical
+acceptance targets. The reported Oak FWO mean is reproduced closely by the
+author-Kelvin path. The reported KAS mean is consistent to the printed tenth
+with applying FWO's method-specific `1.052` coefficient to KAS, even though the
+article's KAS equation contains no such coefficient. Friedman shows a related
+offset alongside undocumented derivative or smoothing choices, and the `±`
+spread statistic is not defined in the article. Software verification therefore
+compares against the equation-correct 50-digit Decimal reference (`expected-output.json`),
+with supporting source notes in
 `evidence/validation/oak-publication-audit/OAK_PUBLICATION_AUDIT.md`.
 
-The lane remains `gold-candidate`: local macOS tests pass, while actual
-GitHub-hosted Linux and Windows executions are still pending. Parallels is not
-part of the validation design.
-
-## NR–CELS Zenodo v1 raw TXT lane
+## NR–CELS Zenodo v1 raw TXT benchmark
 
 - Version DOI: <https://doi.org/10.5281/zenodo.16939440>
 - Article: <https://doi.org/10.1016/j.ecmx.2025.101513>
@@ -193,8 +190,8 @@ part of the validation design.
 - Rates: 2, 4, 6, 8, 10 and 20 K/min under Ar
 
 `nr-cels/source/` retains both official ZIP archives, 18 UTF-16LE composite
-TG/dTG curves and nine Kinetics Neo exports. The version DOI is mandatory:
-the concept DOI currently resolves to a later article-only record without the
+TG/dTG curves and nine Kinetics Neo exports. The version DOI is required because
+the concept DOI resolves to a later article-only record without the
 raw archives. TG and dTG physical column positions vary across the files, so
 the dedicated manifest locks each header mapping instead of assuming a fixed
 position.
@@ -202,20 +199,20 @@ position.
 The accepted production path uses explicit wide-series `massPercent` anchors
 of 100 and the minimum observed TG, plus signed deposited dTG mapped as
 `massChangeRate`. All 273 Friedman estimates, their n, slope, intercept and R²
-match the independent Decimal oracle. No isotonic repair or numerical
-derivative fallback participates. The article/Kinetics values remain
-diagnostic because the proprietary baseline and smoothing pipeline was not
-deposited; low-α differences reach about 16–28 kJ/mol. Two printed/deposited
-last-digit conflicts and the dataset's “30–50 phr” versus actual 30/45/55 phr
-metadata are quarantined as human-produced source issues.
+match the independent Decimal(50) reference. No isotonic repair or numerical
+derivative fallback participates. The article and Kinetics Neo export values remain
+contextual comparisons because the proprietary baseline and smoothing parameters were not
+deposited; low-α differences reach about 16–28 kJ/mol. Two printed versus deposited
+last-digit differences and the dataset description's “30–50 phr” label versus actual 30/45/55 phr
+sample files are documented as source-metadata discrepancies.
 
 ```bash
-npm run verify:nr-cels-oracle
-npm run test:nr-cels-oracle
+node scripts/run-nr-cels-friedman-oracle.mjs --check
+node --test tests/nr-cels-oracle-reproducibility.test.mjs
 npx vitest run tests/nr-cels-wide-production-oracle.test.ts
 ```
 
-## Dryad Polyisoprene LPI-01 lane
+## Dryad Polyisoprene LPI-01 benchmark
 
 - Dataset: <https://doi.org/10.5061/dryad.0cfxpnvx2>, version 2
 - Article: <https://doi.org/10.1098/rsos.190869>
@@ -226,54 +223,50 @@ npx vitest run tests/nr-cels-wide-production-oracle.test.ts
 Weight traces are byte-locked. The declared first downward crossing recipe at
 α=0.2–0.8 gives independent means of FWO 316.0424, KAS 321.1499 and Friedman
 301.0240 kJ/mol. The production scientific core reproduces all 21 slopes and
-R² values; Ea comparison explicitly adjusts only for the oracle's historical
+R² values; Ea comparison explicitly adjusts only for the reference script's historical
 `R=8.3142` versus the product's exact SI gas constant.
 
-Paper Table 4 values 319/324/330 kJ/mol are diagnostic, not oracle values.
-Manual reconstruction also shows that the HBPI-01 and HBPI-03 Table 3
-T20/T50/residue cells follow the opposite sample's raw trace. Those cells are
-classified as a publication/data problem rather than forcing the software to
-match them.
+Published Table 4 means (319, 324, and 330 kJ/mol) are contextual comparisons rather than exact reference targets.
+Independent trace inspection also shows that the HBPI-01 and HBPI-03 Table 3
+T20/T50/residue entries correspond to the opposite sample's raw curve; those entries are
+documented in `dryad-polyisoprene/manual/hbpi-table3-swap-adjudication.json`.
 
 ```bash
-npm run verify:dryad-oracle
-npm run test:dryad-oracle
+node scripts/run-dryad-polyisoprene-oracle.mjs --check
 npx vitest run tests/dryad-polyisoprene-production-core.test.ts
 ```
 
-## Coal–SPT–Paraffin Mendeley v1 lane
+## Coal–SPT–Paraffin Mendeley v1 benchmark
 
 - Selected dataset: <https://doi.org/10.17632/w22346frww.1>
 - Article: <https://doi.org/10.1016/j.fuel.2021.120305>
 - Data article: <https://doi.org/10.1016/j.dib.2021.107170>
 - Licence: CC BY 4.0
 
-Version 1 is deliberately pinned because version 2 is fragmented, missing
-three v1 runs and contains mislabeled standalone filenames. The bounded lane
-uses only nominal-10 mg paraffin sheets 17–24: two replicates at 3, 10, 20 and
-40 K/min. A standard-library OOXML/Decimal oracle projects 64 observations and
+Version 1 is pinned because version 2 is fragmented, omits
+three v1 runs and contains mislabeled standalone filenames. The bounded benchmark
+uses nominal-10 mg paraffin sheets 17–24: two replicates at 3, 10, 20 and
+40 K/min. A standard-library OOXML/Decimal(50) script projects 64 observations and
 the production CSV→ingestion→adapter→core path matches every physical-scale
 replicate group, transformed vector, OLS intermediate, confidence interval and
 Ea.
 
-Oracle means are Friedman 80.3049, KAS 80.2546 and FWO 85.3446 kJ/mol; the
-publication's 80.22/80.67/85.67 values remain secondary context. Copied
-publication sections, peak-temperature conflicts and absent blend raw curves
-are retained as negative evidence.
+Independent Decimal(50) reference means are Friedman 80.3049, KAS 80.2546 and FWO 85.3446 kJ/mol; the
+publication's 80.22, 80.67 and 85.67 kJ/mol values are retained as secondary context, alongside documented
+table-duplication and peak-temperature discrepancies in the source publications.
 
 ```bash
-npm run verify:coal-spt-paraffin-oracle
-npm run test:coal-spt-paraffin-oracle
+node scripts/run-coal-spt-paraffin-oracle.mjs --check
+node --test tests/coal-spt-paraffin-oracle-reproducibility.test.mjs
 npx vitest run tests/coal-spt-paraffin-validation.test.ts
 ```
 
-## Paper 063 publication-derived peak lane
+## Extruded polystyrene (XPS) publication-derived peak benchmark (`paper063` directory)
 
-`paper063/` is deliberately separate from the raw-curve lane above. It contains
-the five beta–Tp pairs printed for XPS at 5, 20, 40, 60 and 80 K/min:
-681, 707, 721, 731 and 737 K. The source is paper 063,
-<https://doi.org/10.3390/ma13245595>; the corpus PDF SHA-256 is
-`53ede19afffd9194d7c0800227646dacdb8256af652b01bd2579c8199402c9f2`.
+`paper063/` is separate from the raw-curve benchmarks above. It contains
+the five beta–Tp pairs reported for extruded polystyrene (XPS) at 5, 20, 40, 60 and 80 K/min:
+681, 707, 721, 731 and 737 K, from <https://doi.org/10.3390/ma13245595> (CC BY 4.0;
+source article PDF SHA-256 `53ede19afffd9194d7c0800227646dacdb8256af652b01bd2579c8199402c9f2`).
 
 The fixture, provenance record and independent reference are:
 
@@ -287,7 +280,6 @@ and the retained 50-digit Decimal reference. The expected result is
 194.4543302994671 kJ/mol with R² 0.9991522617128968, five distinct rates and
 three residual degrees of freedom.
 
-This is a transcription of rounded values printed in a CC BY 4.0 article. It is
-not an instrument-exported TGA/DTG curve set, has no separate dataset licence,
-cannot validate alpha-dependent FWO/KAS/Starink/Friedman calculations and does
-not close the open requirement for a second genuinely raw dataset.
+Because these values are transcribed at 1 K resolution from a CC BY 4.0 article rather than an
+instrument-exported TGA/DTG curve deposit, this fixture is scoped exclusively to the standalone
+beta–Tp Kissinger pathway and is not used for conversion-resolved isoconversional methods.

@@ -13,8 +13,8 @@
   },
   "summary": {
     "fixtureCount": 82,
-    "totalBytes": 10859044,
-    "fixtureSetSha256": "5c064b09e61b138dbbea06f6345a6c7497a1baa767f0c46930b36b7ba1ffd698"
+    "totalBytes": 10859496,
+    "fixtureSetSha256": "01c86c80637bab25018369b2e3f2b6111647804b216e39b804cb482c3b8bedfa"
   },
   "fixtures": [
     {
@@ -64,8 +64,8 @@
     },
     {
       "path": "tests/fixtures/real/README.md",
-      "bytes": 13986,
-      "sha256": "40f99359da4713049628634a3d457bdee3027812af988af4aad24512421bee6f"
+      "bytes": 14438,
+      "sha256": "1f422c149972170a2ff0f20da2a236100179f435c75c24a795836f27fdd3ddbe"
     },
     {
       "path": "tests/fixtures/real/coal-spt-paraffin/expected-output.json",
