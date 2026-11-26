@@ -2,8 +2,7 @@ import { createHash } from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
-import { homedir } from 'node:os';
-import { resolve } from 'node:path';
+import { delimiter, resolve } from 'node:path';
 
 import Papa from 'papaparse';
 import { describe, expect, it } from 'vitest';
@@ -101,42 +100,31 @@ function sha256(data: string | Uint8Array): string {
   return createHash('sha256').update(data).digest('hex');
 }
 
-function pdfToTextPath(): string {
-  const configured = process.env.AES_PDFTOTEXT_PATH;
+function resolveBinary(binaryName: string, configured: string | undefined, envVar: string): string {
+  const pathCandidates = (process.env.PATH ?? '')
+    .split(delimiter)
+    .filter(Boolean)
+    .map((directory) => resolve(directory, binaryName));
   const candidates = [
     configured,
-    '/opt/homebrew/bin/pdftotext',
-    '/usr/local/bin/pdftotext',
-    resolve(
-      homedir(),
-      '.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/poppler/bin/pdftotext',
-    ),
+    ...pathCandidates,
+    `/opt/homebrew/bin/${binaryName}`,
+    `/usr/local/bin/${binaryName}`,
+    `/usr/bin/${binaryName}`,
   ].filter((candidate): candidate is string => Boolean(candidate));
   const resolved = candidates.find((candidate) => existsSync(candidate));
   if (!resolved) {
-    throw new Error(
-      'pdftotext is required for the export-consistency audit; set AES_PDFTOTEXT_PATH.',
-    );
+    throw new Error(`${binaryName} is required for the export-consistency audit; set ${envVar}.`);
   }
   return resolved;
 }
 
+function pdfToTextPath(): string {
+  return resolveBinary('pdftotext', process.env.AES_PDFTOTEXT_PATH, 'AES_PDFTOTEXT_PATH');
+}
+
 function pdfInfoPath(): string {
-  const configured = process.env.AES_PDFINFO_PATH;
-  const candidates = [
-    configured,
-    '/opt/homebrew/bin/pdfinfo',
-    '/usr/local/bin/pdfinfo',
-    resolve(
-      homedir(),
-      '.cache/codex-runtimes/codex-primary-runtime/dependencies/native/poppler/poppler/bin/pdfinfo',
-    ),
-  ].filter((candidate): candidate is string => Boolean(candidate));
-  const resolved = candidates.find((candidate) => existsSync(candidate));
-  if (!resolved) {
-    throw new Error('pdfinfo is required for the export-consistency audit; set AES_PDFINFO_PATH.');
-  }
-  return resolved;
+  return resolveBinary('pdfinfo', process.env.AES_PDFINFO_PATH, 'AES_PDFINFO_PATH');
 }
 
 function pdfPageCount(path: string): number {
